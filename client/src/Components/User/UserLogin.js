@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../Asserts/Styles/user.css"
+import "../../Asserts/images/landingsection1.png"
 function UserLogin() {
   return (
     <div>

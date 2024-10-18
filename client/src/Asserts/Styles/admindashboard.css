@@ -1,0 +1,46 @@
+.sidebardesign{
+    background-color: black;
+    min-height: 100vh;
+    height: max-content;
+    color: aliceblue;
+    position: fixed;
+    width: 23%;
+}
+.dashboardheadcolor{
+    color: #9747ff;
+}
+#common{
+    background-color: #FFF5FDCC;
+    min-height: 100vh;
+    padding-bottom: 5%;
+}
+
+
+.img {
+    border-radius: 35px;
+    padding: 10px;
+}
+
+#card1 {
+
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+#card2 {
+
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+hr {
+    color: blueviolet;
+}
+
+#details {
+    color: blueviolet;
+}
+
+.sc {
+    color: blueviolet;
+}
