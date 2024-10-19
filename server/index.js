@@ -1,13 +1,23 @@
 const express = require("express");
 const app = express();
 const port = 4000;
-const bodyparser = require("body-parser");
 
-app.use(bodyparser.json());
+const bodyParser=require("body-parser")
+const cors=require("cors")
+const db=require("./DBConnection")
+const jwt=require("jsonwebtoken")
 
-const cors = require("cors");
-app.use(cors());
+app.use(cors())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(port, () => {
-  console.log("port created");
-});
+app.use( express.static(`${__dirname}/upload`));
+
+const route=require('./routes')
+app.use('/bank_app',route)
+
+app.listen(port,()=>{
+    console.log(
+    `${port} port is created`
+    );
+})
