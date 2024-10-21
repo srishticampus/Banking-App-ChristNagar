@@ -20,7 +20,7 @@ function AdminViewAManager() {
 
   useEffect(() => {
     getAData();
-  });
+  },[]);
 
   return (
     <div className="row">
