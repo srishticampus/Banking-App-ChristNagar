@@ -18,9 +18,6 @@ const upload = multer({ storage: storage }).array("files");
 
 // Function to add a new manager
 const adminAddManager = async (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-
   try {
     const {
       name,
@@ -170,9 +167,13 @@ const editManagerById = async (req, res) => {
   }
 
   try {
-    const data = await Manager.findByIdAndUpdate(req.params.id, updateData, {
-      new: true,
-    });
+    const data = await Manager.findByIdAndUpdate(
+      req.params.managerid,
+      updateData,
+      {
+        new: true,
+      }
+    );
     res.json({
       status: 200,
       msg: "Updated successfully",
@@ -265,10 +266,49 @@ const forgotPassword = (req, res) => {
     });
 };
 
+const activateManagerById = (req, res) => {
+  Manager.findByIdAndUpdate({ _id: req.params.id }, { ActiveStatus: true })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        msg: "Activated successfully",
+        data: data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        msg: "No Data obtained",
+        Error: err,
+      });
+    });
+};
+
+// approve investorReq by  Admin
+const deActivateManagerById = (req, res) => {
+  Manager.findByIdAndUpdate({ _id: req.params.id }, { ActiveStatus: false })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        msg: "DeActivated successfully",
+        data: data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        msg: "No Data obtained",
+        Error: err,
+      });
+    });
+};
+
 module.exports = {
   upload,
   adminAddManager,
   viewManagers,
   viewManagerById,
   editManagerById,
+  activateManagerById,
+  deActivateManagerById,
 };

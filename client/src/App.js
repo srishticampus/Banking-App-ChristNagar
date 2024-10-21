@@ -10,6 +10,7 @@ import AdminDashboard from "./Components/Admin/AdminDashboard";
 import AdminviewManagers from "./Components/Admin/AdminviewManagers";
 import AdminAddManagers from "./Components/Admin/AdminAddManagers";
 import AdminViewAManager from "./Components/Admin/AdminViewAManager";
+import AdminEditAmanagerData from "./Components/Admin/AdminEditAmanagerData";
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +24,7 @@ function App() {
         <Route path="/admin/viewmanages" element={<AdminviewManagers />} />
         <Route path="/admin/addmanagers" element={<AdminAddManagers />} />
         <Route path="/admin/view_a_managers/:managerid" element={<AdminViewAManager />} />
-
+        <Route path="/admin/edit_a_managers/:managerid" element={<AdminEditAmanagerData />} />
       </Routes>
     </BrowserRouter>
   );

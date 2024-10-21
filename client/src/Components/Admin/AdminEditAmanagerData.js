@@ -1,10 +1,11 @@
 import AdminSidebar from "./AdminSidebar";
 import addbtn from "../../Asserts/Images/login button.png";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../../apis/axiosinstance";
 
-function AdminAddManagers() {
+function AdminEditAmanagerData() {
   const navigate = useNavigate();
 
   const [managerdata, setManagerdata] = useState({
@@ -40,6 +41,22 @@ function AdminAddManagers() {
 
   const [error, setError] = useState(null);
   const [errorVideo, setErrorVideo] = useState(null);
+
+  const [manager, setManager] = useState({});
+  const { managerid } = useParams();
+
+  const getAData = () => {
+    axiosInstance
+      .get(`/view_a_manger/${managerid}`)
+      .then((res) => {
+        setManager(res.data.data);
+      })
+      .catch(() => {});
+  };
+
+  useEffect(() => {
+    getAData();
+  }, [managerid]); // Ensure this is called only when managerid changes.
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -106,7 +123,7 @@ function AdminAddManagers() {
     }
     if (!managerdata.qualification.trim()) {
       formValid = false;
-      errors.qualification = "qualification is required";
+      errors.qualification = "Qualification is required";
     }
 
     if (!managerdata.dob.trim()) {
@@ -148,7 +165,7 @@ function AdminAddManagers() {
 
       try {
         const response = await axiosMultipartInstance.post(
-          "/addmanger",
+          "/editManagerById"+managerid,
           formData
         );
         if (response.status === 200) {
@@ -173,7 +190,7 @@ function AdminAddManagers() {
         </div>
         <div className="col-9" id="common">
           <h3 className="mt-4 mb-4">
-            <span className="dashboardheadcolor">Add </span> MANAGERS
+            <span className="dashboardheadcolor">Edit </span> MANAGER
           </h3>
           <form onSubmit={handleSubmit}>
             <div className="row">
@@ -184,6 +201,7 @@ function AdminAddManagers() {
                     type="text"
                     className="form-control"
                     name="name"
+                    value={managerdata.name}
                     onChange={handleInputChange}
                   />
                   {errors.name && (
@@ -193,9 +211,10 @@ function AdminAddManagers() {
                 <div className="mb-3">
                   <label>Contact</label>
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
                     name="contact"
+                    value={managerdata.contact}
                     onChange={handleInputChange}
                   />
                   {errors.contact && (
@@ -208,6 +227,7 @@ function AdminAddManagers() {
                     type="text"
                     className="form-control"
                     name="qualification"
+                    value={managerdata.qualification}
                     onChange={handleInputChange}
                   />
                   {errors.qualification && (
@@ -222,6 +242,7 @@ function AdminAddManagers() {
                     type="email"
                     className="form-control"
                     name="email"
+                    value={managerdata.email}
                     onChange={handleInputChange}
                   />
                   {errors.email && (
@@ -234,6 +255,7 @@ function AdminAddManagers() {
                     type="date"
                     className="form-control"
                     name="dob"
+                    value={managerdata.dob}
                     onChange={handleInputChange}
                   />
                   {errors.dob && (
@@ -246,39 +268,67 @@ function AdminAddManagers() {
                     type="text"
                     className="form-control"
                     name="destination"
+                    value={managerdata.destination}
                     onChange={handleInputChange}
                   />
                   {errors.destination && (
                     <div className="text-danger">{errors.destination}</div>
                   )}
                 </div>
+                <div className="mb-3">
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    value={managerdata.password}
+                    onChange={handleInputChange}
+                  />
+                  {errors.password && (
+                    <div className="text-danger">{errors.password}</div>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="mb-3">
-              <label>Address</label>
-              <div className="row">
-                <div className="col-10">
-                  {" "}
-                  <textarea
+
+            <div className="row">
+              <div className="col-5">
+                <div className="mb-3">
+                  <label>Address</label>
+                  <input
+                    type="text"
                     className="form-control"
                     name="address"
+                    value={managerdata.address}
                     onChange={handleInputChange}
                   />
                   {errors.address && (
                     <div className="text-danger">{errors.address}</div>
                   )}
                 </div>
+                <div className="mb-3">
+                  <label>Date of Joining</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="dateofjoining"
+                    value={managerdata.dateofjoining}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="row">
+
               <div className="col-5">
                 <div className="mb-3">
                   <label>ID Proof</label>
                   <input
-                    type="file"
                     className="form-control"
+                    type="file"
+                    accept="application/pdf, image/*"
+                    name="idproof"
                     onChange={handleidproofChange}
                   />
+                  {idproofFileName && <p>{idproofFileName}</p>}
                   {errors.idproof && (
                     <div className="text-danger">{errors.idproof}</div>
                   )}
@@ -289,48 +339,24 @@ function AdminAddManagers() {
                 <div className="mb-3">
                   <label>Profile Picture</label>
                   <input
-                    type="file"
                     className="form-control"
+                    type="file"
+                    accept="image/*"
+                    name="profile"
                     onChange={handleFileChange}
                   />
+                  {profileFileName && <p>{profileFileName}</p>}
                   {errors.profile && (
                     <div className="text-danger">{errors.profile}</div>
                   )}
                   {error && <div className="text-danger">{error}</div>}
                 </div>
               </div>
-              <div className="col-5">
-                <div className="mb-3">
-                  <label>Date of Joining</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="dateofjoining"
-                    onChange={handleInputChange}
-                  />
-                  {errors.dateofjoining && (
-                    <div className="text-danger">{errors.dateofjoining}</div>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    onChange={handleInputChange}
-                  />
-                  {errors.password && (
-                    <div className="text-danger">{errors.password}</div>
-                  )}
-                </div>
-              </div>
             </div>
-            <div className="text-center mt-4 me-5 ">
-              <button type="submit" className="btn me-5 ">
-                <img src={addbtn}></img>
-              </button>
-            </div>
+
+            <button type="submit" className="btn btn-primary w-100">
+              <img className="img-fluid" src={addbtn} alt="Submit" />
+            </button>
           </form>
         </div>
       </div>
@@ -338,4 +364,4 @@ function AdminAddManagers() {
   );
 }
 
-export default AdminAddManagers;
+export default AdminEditAmanagerData;
