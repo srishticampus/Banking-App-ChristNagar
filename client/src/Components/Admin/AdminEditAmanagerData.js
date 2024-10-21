@@ -4,59 +4,47 @@ import React, { useEffect, useState } from "react";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
+import imgurl from "../../apis/imgURL";
 
 function AdminEditAmanagerData() {
   const navigate = useNavigate();
+  const { managerid } = useParams();
 
   const [managerdata, setManagerdata] = useState({
     name: "",
     email: "",
     contact: "",
-    password: "",
     qualification: "",
     dob: "",
     address: "",
     destination: "",
-    idproof: null, // For file inputs, we set the initial state as null
-    profile: null, // For file inputs, we set the initial state as null
+    profile: null,
     dateofjoining: "",
   });
 
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    contact: "",
-    password: "",
-    qualification: "",
-    dob: "",
-    address: "",
-    destination: "",
-    idproof: "",
-    profile: "",
-    dateofjoining: "",
-  });
-
-  const [profileFileName, setProfileFileName] = useState("");
-  const [idproofFileName, setIdproofFileName] = useState("");
-
-  const [error, setError] = useState(null);
-  const [errorVideo, setErrorVideo] = useState(null);
-
-  const [manager, setManager] = useState({});
-  const { managerid } = useParams();
+  const [errors, setErrors] = useState({});
+  const [profilePreview, setProfilePreview] = useState(""); // To show the image preview
 
   const getAData = () => {
     axiosInstance
       .get(`/view_a_manger/${managerid}`)
       .then((res) => {
-        setManager(res.data.data);
+        const data = res.data.data;
+        setManagerdata({
+          ...data,
+          dob: data.dob ? new Date(data.dob).toISOString().split("T")[0] : "",
+          dateofjoining: data.dateofjoining
+            ? new Date(data.dateofjoining).toISOString().split("T")[0]
+            : "",
+        });
+        setProfilePreview(`${imgurl}/${data.profile?.filename}`);
       })
       .catch(() => {});
   };
 
   useEffect(() => {
     getAData();
-  }, [managerid]); // Ensure this is called only when managerid changes.
+  }, [managerid]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,120 +53,87 @@ function AdminEditAmanagerData() {
 
   const handleFileChange = (e) => {
     const profile = e.target.files[0];
-    if (!profile.name.match(/\.(jpg|jpeg|png|gif)$/)) {
-      setError("Only JPG, JPEG, PNG, and GIF files are allowed");
+    if (profile && !profile.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+      setErrors({ ...errors, profile: "Only JPG, JPEG, PNG, and GIF files are allowed" });
       return;
     }
-    setError(null);
+    setErrors({ ...errors, profile: "" });
     setManagerdata({ ...managerdata, profile });
-    setProfileFileName(profile.name);
+    setProfilePreview(URL.createObjectURL(profile)); // Show preview of selected image
   };
 
-  const handleidproofChange = (e) => {
-    const idproof = e.target.files[0];
-    if (!idproof.name.match(/\.(pdf|jpg|jpeg|png)$/i)) {
-      setErrorVideo("Only PDF, JPG, JPEG, and PNG files are allowed");
-      return;
+  const validateForm = () => {
+    const newErrors = {};
+    let formValid = true;
+
+    if (!managerdata.name.trim()) {
+      newErrors.name = "Name is required";
+      formValid = false;
     }
-    setErrorVideo(null); // Clear any previous errors if the file is valid
-    setManagerdata({ ...managerdata, idproof });
-    setIdproofFileName(idproof.name);
+    if (!managerdata.email.trim() || !/\S+@\S+\.\S+/.test(managerdata.email)) {
+      newErrors.email = "Valid email is required";
+      formValid = false;
+    }
+    if (!managerdata.contact || !/^\d{10}$/.test(managerdata.contact)) {
+      newErrors.contact = "Valid 10-digit contact number is required";
+      formValid = false;
+    }
+    if (!managerdata.qualification.trim()) {
+      newErrors.qualification = "Qualification is required";
+      formValid = false;
+    }
+    if (!managerdata.dob) {
+      newErrors.dob = "Date of birth is required";
+      formValid = false;
+    }
+    if (!managerdata.dateofjoining) {
+      newErrors.dateofjoining = "Date of joining is required";
+      formValid = false;
+    }
+    if (!managerdata.destination.trim()) {
+      newErrors.destination = "Destination is required";
+      formValid = false;
+    }
+    if (!managerdata.address.trim()) {
+      newErrors.address = "Address is required";
+      formValid = false;
+    }
+
+    setErrors(newErrors);
+    return formValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let formValid = true;
-    let errors = {};
-
-    if (!managerdata.name.trim()) {
-      formValid = false;
-      errors.name = "Name is required";
-    }
-    if (!managerdata.email.trim()) {
-      formValid = false;
-      errors.email = "Email is required";
-    } else if (!managerdata.email.endsWith("@gmail.com")) {
-      formValid = false;
-      errors.email = "Email must be a valid Gmail address";
-    }
-    if (!managerdata.contact.trim()) {
-      formValid = false;
-      errors.contact = "Contact number is required";
-    } else if (!/^\d{10}$/.test(managerdata.contact)) {
-      formValid = false;
-      errors.contact = "Enter a valid 10-digit contact number";
-    }
-    if (!managerdata.password.trim()) {
-      formValid = false;
-      errors.password = "Password is required";
-    } else if (
-      !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}/.test(
-        managerdata.password
-      )
-    ) {
-      formValid = false;
-      errors.password =
-        "Password should be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character";
-    }
-    if (!managerdata.qualification.trim()) {
-      formValid = false;
-      errors.qualification = "Qualification is required";
-    }
-
-    if (!managerdata.dob.trim()) {
-      formValid = false;
-      errors.dob = "Date of birth is required";
-    }
-    if (!managerdata.destination.trim()) {
-      formValid = false;
-      errors.destination = "Destination is required";
-    }
-    if (!managerdata.address.trim()) {
-      formValid = false;
-      errors.address = "Address is required";
-    }
-    if (!managerdata.profile) {
-      formValid = false;
-      errors.profile = "Profile picture is required";
-    }
-    if (!managerdata.idproof) {
-      formValid = false;
-      errors.idproof = "ID proof is required";
-    }
-
-    setErrors(errors);
-
-    if (formValid) {
+    if (validateForm()) {
       const formData = new FormData();
       formData.append("name", managerdata.name);
       formData.append("email", managerdata.email);
       formData.append("contact", managerdata.contact);
-      formData.append("password", managerdata.password);
       formData.append("qualification", managerdata.qualification);
       formData.append("dob", managerdata.dob);
       formData.append("destination", managerdata.destination);
       formData.append("address", managerdata.address);
       formData.append("dateofjoining", managerdata.dateofjoining);
-      formData.append("files", managerdata.idproof);
-      formData.append("files", managerdata.profile);
+      if (managerdata.profile) {
+        formData.append("files", managerdata.profile);
+      }
 
       try {
         const response = await axiosMultipartInstance.post(
-          "/editManagerById"+managerid,
+          `/editManagerById/${managerid}`,
           formData
         );
         if (response.status === 200) {
           alert(response.data.msg);
-          navigate("/admin/viewmanages"); // Navigate to the managers list page after adding
+          navigate("/admin/viewmanages");
         }
       } catch (error) {
         console.error("Error:", error);
         let msg = error?.response?.data?.msg || "Error occurred";
         alert(msg);
       }
-    } else {
-      console.log("Form is not valid", formValid);
     }
   };
 
@@ -194,6 +149,28 @@ function AdminEditAmanagerData() {
           </h3>
           <form onSubmit={handleSubmit}>
             <div className="row">
+              <div className="col-4"></div>
+              <div className="col-3 w-25">
+                <img
+                  className="editprofileimhg rounded-circle"
+                  src={profilePreview}
+                  alt="Profile Preview"
+                />
+                 <div className="mb-3 ">
+                  <label>Profile Image</label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  />
+                  {errors.profile && <span className="text-danger">{errors.profile}</span>}
+                </div>
+              </div>
+              <div className="col-3"></div>
+            </div>
+
+            <div className="row">
               <div className="col-5">
                 <div className="mb-3">
                   <label>Name</label>
@@ -204,9 +181,7 @@ function AdminEditAmanagerData() {
                     value={managerdata.name}
                     onChange={handleInputChange}
                   />
-                  {errors.name && (
-                    <div className="text-danger">{errors.name}</div>
-                  )}
+                  {errors.name && <span className="text-danger">{errors.name}</span>}
                 </div>
                 <div className="mb-3">
                   <label>Contact</label>
@@ -217,9 +192,7 @@ function AdminEditAmanagerData() {
                     value={managerdata.contact}
                     onChange={handleInputChange}
                   />
-                  {errors.contact && (
-                    <div className="text-danger">{errors.contact}</div>
-                  )}
+                  {errors.contact && <span className="text-danger">{errors.contact}</span>}
                 </div>
                 <div className="mb-3">
                   <label>Qualification</label>
@@ -230,9 +203,7 @@ function AdminEditAmanagerData() {
                     value={managerdata.qualification}
                     onChange={handleInputChange}
                   />
-                  {errors.qualification && (
-                    <div className="text-danger">{errors.qualification}</div>
-                  )}
+                  {errors.qualification && <span className="text-danger">{errors.qualification}</span>}
                 </div>
               </div>
               <div className="col-5">
@@ -245,9 +216,7 @@ function AdminEditAmanagerData() {
                     value={managerdata.email}
                     onChange={handleInputChange}
                   />
-                  {errors.email && (
-                    <div className="text-danger">{errors.email}</div>
-                  )}
+                  {errors.email && <span className="text-danger">{errors.email}</span>}
                 </div>
                 <div className="mb-3">
                   <label>Date of Birth</label>
@@ -258,9 +227,7 @@ function AdminEditAmanagerData() {
                     value={managerdata.dob}
                     onChange={handleInputChange}
                   />
-                  {errors.dob && (
-                    <div className="text-danger">{errors.dob}</div>
-                  )}
+                  {errors.dob && <span className="text-danger">{errors.dob}</span>}
                 </div>
                 <div className="mb-3">
                   <label>Destination</label>
@@ -271,22 +238,7 @@ function AdminEditAmanagerData() {
                     value={managerdata.destination}
                     onChange={handleInputChange}
                   />
-                  {errors.destination && (
-                    <div className="text-danger">{errors.destination}</div>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    value={managerdata.password}
-                    onChange={handleInputChange}
-                  />
-                  {errors.password && (
-                    <div className="text-danger">{errors.password}</div>
-                  )}
+                  {errors.destination && <span className="text-danger">{errors.destination}</span>}
                 </div>
               </div>
             </div>
@@ -302,10 +254,11 @@ function AdminEditAmanagerData() {
                     value={managerdata.address}
                     onChange={handleInputChange}
                   />
-                  {errors.address && (
-                    <div className="text-danger">{errors.address}</div>
-                  )}
+                  {errors.address && <span className="text-danger">{errors.address}</span>}
                 </div>
+              </div>
+
+              <div className="col-5">
                 <div className="mb-3">
                   <label>Date of Joining</label>
                   <input
@@ -315,48 +268,21 @@ function AdminEditAmanagerData() {
                     value={managerdata.dateofjoining}
                     onChange={handleInputChange}
                   />
+                  {errors.dateofjoining && <span className="text-danger">{errors.dateofjoining}</span>}
                 </div>
-              </div>
-
-              <div className="col-5">
-                <div className="mb-3">
-                  <label>ID Proof</label>
-                  <input
-                    className="form-control"
-                    type="file"
-                    accept="application/pdf, image/*"
-                    name="idproof"
-                    onChange={handleidproofChange}
-                  />
-                  {idproofFileName && <p>{idproofFileName}</p>}
-                  {errors.idproof && (
-                    <div className="text-danger">{errors.idproof}</div>
-                  )}
-                  {errorVideo && (
-                    <div className="text-danger">{errorVideo}</div>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label>Profile Picture</label>
-                  <input
-                    className="form-control"
-                    type="file"
-                    accept="image/*"
-                    name="profile"
-                    onChange={handleFileChange}
-                  />
-                  {profileFileName && <p>{profileFileName}</p>}
-                  {errors.profile && (
-                    <div className="text-danger">{errors.profile}</div>
-                  )}
-                  {error && <div className="text-danger">{error}</div>}
-                </div>
+               
               </div>
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">
-              <img className="img-fluid" src={addbtn} alt="Submit" />
-            </button>
+            <div className="row">
+              <div className="col-4"></div>
+              <div className="col-3">
+                <button type="submit" className="btn btn-info ">
+                Edit
+                </button>
+              </div>
+              <div className="col-3"></div>
+            </div>
           </form>
         </div>
       </div>

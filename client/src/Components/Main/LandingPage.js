@@ -175,7 +175,7 @@ function LandingPage() {
                   </small>
                   <img src={star}></img> <small>2 months ago</small>
                 </div>
-                <p>
+                <p className="">
                   "I've been banking with UniCredit for years now, and their
                   online platform has consistently exceeded my expectations! The
                   user interface is intuitive, navigation is seamless, and
