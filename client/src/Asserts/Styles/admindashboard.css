@@ -42,5 +42,26 @@ hr {
 }
 
 .sc {
+ 
+ 
     color: blueviolet;
+}
+#positioningbtn{
+    position: absolute;
+    bottom: 5%;
+    left:26%
+}
+.horisontal{
+    color:#A112FF;
+    width: 90%;
+}
+.profiletop{
+    width: 100%;
+}
+.profileimhg{
+    width: 250px;
+    height: 250px;
+    position: relative;
+    left: 40%;
+    margin-top: -130px;
 }

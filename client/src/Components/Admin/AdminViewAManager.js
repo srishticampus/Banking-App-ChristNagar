@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams,Link } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import AdminSidebar from "./AdminSidebar";
-
+import profiletop from "../../Asserts/Images/Rectangle 158.png";
+import "../../Asserts/Styles/admindashboard.css";
+import imgurl from "../../apis/imgURL";
 function AdminViewAManager() {
+  const [manager, setManager] = useState({});
   const { managerid } = useParams();
 
   const getAData = () => {
     axiosInstance
       .get(`/view_a_manger/${managerid}`)
       .then((res) => {
-        console.log(res.data.data);
+        setManager(res.data.data);
       })
       .catch(() => {});
   };
@@ -24,9 +27,57 @@ function AdminViewAManager() {
       <div className="col-2">
         <AdminSidebar />
       </div>
-      <div className="col-6">
+      <div className="col-10">
+        <img src={profiletop} className="profiletop"></img>
         <div>
-          <img></img>
+          {" "}
+          <img
+            src={`${imgurl}/${manager?.profile?.filename}`}
+            className="profileimhg rounded-circle"
+          ></img>
+          <div className="row ms-5">
+            <div className="col-2 "></div>
+            <div className="col-2 "></div>
+            <div className="col-2 ms-5 mt-3 text-center">
+              <h4>{manager?.name}</h4>
+              <h5 className="text-secondary">{manager.destination}</h5>
+                    <Link to={`/admin/edit_a_managers/${manager._id}`}>Edit</Link>
+
+            </div>
+          </div>
+          <div className="row ms-5">
+            <div className="col-3 "></div>
+            <div className="col-3 ms-5">
+              <p>
+                <div className="text-secondary">Email</div>
+                <b className="text-dark">{manager.email}</b>
+              </p>
+              <p>
+                <div className="text-secondary">Date of birth</div>
+                <b>{manager.dob}</b>
+              </p>{" "}
+              <p>
+                <div className="text-secondary">Qualification</div>
+                <b>{manager.qualification}</b>
+              </p>
+            </div>
+            <div className="col-3 ms-5">
+              <p>
+                <div className="text-secondary">Contact</div>
+                <b className="text-dark">{manager.contact}</b>
+              </p>
+              <p>
+                <div className="text-secondary">Date Of Joining</div>
+                <b className="text-dark">{manager.dateofjoining}</b>
+              </p>
+              <p>
+                <div className="text-secondary">Address</div>
+                <b className="text-dark">{manager.address}</b>
+              </p>
+            </div>
+            
+          </div>
+          
         </div>
       </div>
     </div>
