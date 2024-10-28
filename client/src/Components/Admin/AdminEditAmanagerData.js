@@ -5,6 +5,7 @@ import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import imgurl from "../../apis/imgURL";
+import { FaCamera } from "react-icons/fa"; // Import a camera icon from react-icons
 
 function AdminEditAmanagerData() {
   const navigate = useNavigate();
@@ -54,7 +55,10 @@ function AdminEditAmanagerData() {
   const handleFileChange = (e) => {
     const profile = e.target.files[0];
     if (profile && !profile.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
-      setErrors({ ...errors, profile: "Only JPG, JPEG, PNG, and GIF files are allowed" });
+      setErrors({
+        ...errors,
+        profile: "Only JPG, JPEG, PNG, and GIF files are allowed",
+      });
       return;
     }
     setErrors({ ...errors, profile: "" });
@@ -155,21 +159,34 @@ function AdminEditAmanagerData() {
                   className="editprofileimhg rounded-circle"
                   src={profilePreview}
                   alt="Profile Preview"
+                  style={{ width: "150px", height: "150px" }}
                 />
-                 <div className="mb-3 ">
-                  <label>Profile Image</label>
+                <div className="camera-icon">
+                  <FaCamera
+                    onClick={() => document.getElementById("fileInput").click()} // Trigger click on hidden file input
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "24px",
+                      marginTop: "10px",
+                    }}
+                  />
+                </div>
+                <div className="mb-3">
                   <input
                     type="file"
+                    id="fileInput"
                     className="form-control"
                     accept="image/*"
                     onChange={handleFileChange}
+                    style={{ display: "none" }} // Hide the input
                   />
-                  {errors.profile && <span className="text-danger">{errors.profile}</span>}
+                  {errors.profile && (
+                    <span className="text-danger">{errors.profile}</span>
+                  )}
                 </div>
               </div>
               <div className="col-3"></div>
             </div>
-
             <div className="row">
               <div className="col-5">
                 <div className="mb-3">
@@ -181,7 +198,9 @@ function AdminEditAmanagerData() {
                     value={managerdata.name}
                     onChange={handleInputChange}
                   />
-                  {errors.name && <span className="text-danger">{errors.name}</span>}
+                  {errors.name && (
+                    <span className="text-danger">{errors.name}</span>
+                  )}
                 </div>
                 <div className="mb-3">
                   <label>Contact</label>
@@ -192,7 +211,9 @@ function AdminEditAmanagerData() {
                     value={managerdata.contact}
                     onChange={handleInputChange}
                   />
-                  {errors.contact && <span className="text-danger">{errors.contact}</span>}
+                  {errors.contact && (
+                    <span className="text-danger">{errors.contact}</span>
+                  )}
                 </div>
                 <div className="mb-3">
                   <label>Qualification</label>
@@ -203,7 +224,9 @@ function AdminEditAmanagerData() {
                     value={managerdata.qualification}
                     onChange={handleInputChange}
                   />
-                  {errors.qualification && <span className="text-danger">{errors.qualification}</span>}
+                  {errors.qualification && (
+                    <span className="text-danger">{errors.qualification}</span>
+                  )}
                 </div>
               </div>
               <div className="col-5">
@@ -216,7 +239,9 @@ function AdminEditAmanagerData() {
                     value={managerdata.email}
                     onChange={handleInputChange}
                   />
-                  {errors.email && <span className="text-danger">{errors.email}</span>}
+                  {errors.email && (
+                    <span className="text-danger">{errors.email}</span>
+                  )}
                 </div>
                 <div className="mb-3">
                   <label>Date of Birth</label>
@@ -227,7 +252,9 @@ function AdminEditAmanagerData() {
                     value={managerdata.dob}
                     onChange={handleInputChange}
                   />
-                  {errors.dob && <span className="text-danger">{errors.dob}</span>}
+                  {errors.dob && (
+                    <span className="text-danger">{errors.dob}</span>
+                  )}
                 </div>
                 <div className="mb-3">
                   <label>Destination</label>
@@ -238,11 +265,12 @@ function AdminEditAmanagerData() {
                     value={managerdata.destination}
                     onChange={handleInputChange}
                   />
-                  {errors.destination && <span className="text-danger">{errors.destination}</span>}
+                  {errors.destination && (
+                    <span className="text-danger">{errors.destination}</span>
+                  )}
                 </div>
               </div>
             </div>
-
             <div className="row">
               <div className="col-5">
                 <div className="mb-3">
@@ -254,7 +282,9 @@ function AdminEditAmanagerData() {
                     value={managerdata.address}
                     onChange={handleInputChange}
                   />
-                  {errors.address && <span className="text-danger">{errors.address}</span>}
+                  {errors.address && (
+                    <span className="text-danger">{errors.address}</span>
+                  )}
                 </div>
               </div>
 
@@ -268,20 +298,18 @@ function AdminEditAmanagerData() {
                     value={managerdata.dateofjoining}
                     onChange={handleInputChange}
                   />
-                  {errors.dateofjoining && <span className="text-danger">{errors.dateofjoining}</span>}
+                  {errors.dateofjoining && (
+                    <span className="text-danger">{errors.dateofjoining}</span>
+                  )}
                 </div>
-               
               </div>
-            </div>
-
+            </div>{" "}
             <div className="row">
-              <div className="col-4"></div>
-              <div className="col-3">
-                <button type="submit" className="btn btn-info ">
-                Edit
+              <div className="col-5">
+                <button type="submit" className="btn btn-info">
+                  Edit
                 </button>
               </div>
-              <div className="col-3"></div>
             </div>
           </form>
         </div>
