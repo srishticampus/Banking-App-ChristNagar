@@ -14,25 +14,26 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).array("files");
+const upload = multer({ storage: storage }).array("userPicture");
 
 // Function to add a new user
 const UserRegister = async (req, res) => {
+  console.log(req.body)
   try {
     const {
-      name,
-      email,
-      contact,
-      password,
-      dob,
-      qualification,
-      destination,
-      address,
-      dateofjoining,
+      username,
+      userContact,
+      userAddress,
+      userCode,
+      userPassword,
+      userMail,
+      userDate,
+      userNumber,
+      userPicture,
     } = req.body;
 
     // Check for existing user by email
-    let existingUserEmail = await User.findOne({ email });
+    let existingUserEmail = await User.findOne({ userMail });
     if (existingUserEmail) {
       return res.status(409).json({
         msg: "Email Already Registered With Us !!",
@@ -41,7 +42,7 @@ const UserRegister = async (req, res) => {
     }
 
     // Check for existing user by contact
-    let existingUserContact = await User.findOne({ contact });
+    let existingUserContact = await User.findOne({ userContact });
     if (existingUserContact) {
       return res.status(409).json({
         msg: "Contact Already Exists !!",
@@ -51,17 +52,15 @@ const UserRegister = async (req, res) => {
 
     // Creating a new User instance
     const newUser = new User({
-      name,
-      email,
-      contact,
-      password,
-      dob,
-      qualification,
-      destination,
-      address,
-      idproof: req.files[0], // assuming first file is ID proof
-      dateofjoining,
-      profile: req.files[1], // assuming second file is profile image
+      username,
+      userContact,
+      userAddress,
+      userCode,
+      userPassword,
+      userMail,
+      userDate,
+      userNumber,
+      userPicture:req.files[0]
     });
 
     // Save the new user to the database
@@ -195,15 +194,16 @@ const createToken = (user) => {
   return jwt.sign({ userId: user.id }, secret, { expiresIn: "1hr" });
 };
 
-const loginMentor = (req, res) => {
-  const { email, password } = req.body;
-  Mentor.mentors
-    .findOne({ email })
+const LoginUser = (req, res) => {
+  console.log(req.body);
+  const { userMail, userPassword } = req.body;
+  
+  User.findOne({ userMail })
     .exec()
     .then((user) => {
       if (!user) {
         return res.json({ status: 409, msg: "user not found" });
-      } else if (user.password !== password) {
+      } else if (user.userPassword !== userPassword) {
         return res.json({ status: 409, msg: "Password Missmatch !!" });
       }
 
@@ -213,6 +213,7 @@ const loginMentor = (req, res) => {
         data: user,
         status: 200,
         token: token,
+        msg:"User login successfully"
       });
     })
     .catch((err) => {
@@ -311,4 +312,5 @@ module.exports = {
   editUserById,
   activateUserById,
   deActivateUserById,
+  LoginUser
 };

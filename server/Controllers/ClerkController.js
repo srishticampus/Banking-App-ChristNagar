@@ -1,8 +1,8 @@
-const Manager = require("../Models/ManagerSchema");
+const Clerk = require("../Models/ClerkSchema");
 
 const multer = require("multer");
 const jwt = require("jsonwebtoken");
-const secret = "Manager";
+const secret = "Clerk";
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -16,8 +16,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).array("files");
 
-// Function to add a new manager
-const adminAddManager = async (req, res) => {
+// Function to add a new Clerk
+const adminAddClerk = async (req, res) => {
   try {
     const {
       name,
@@ -31,26 +31,26 @@ const adminAddManager = async (req, res) => {
       dateofjoining,
     } = req.body;
 
-    // Check for existing manager by email
-    let existingManagerEmail = await Manager.findOne({ email });
-    if (existingManagerEmail) {
+    // Check for existing Clerk by email
+    let existingClerkEmail = await Clerk.findOne({ email });
+    if (existingClerkEmail) {
       return res.status(409).json({
         msg: "Email Already Registered With Us !!",
         data: null,
       });
     }
 
-    // Check for existing manager by contact
-    let existingManagerContact = await Manager.findOne({ contact });
-    if (existingManagerContact) {
+    // Check for existing Clerk by contact
+    let existingClerkContact = await Clerk.findOne({ contact });
+    if (existingClerkContact) {
       return res.status(409).json({
         msg: "Contact Already Exists !!",
         data: null,
       });
     }
 
-    // Creating a new Manager instance
-    const newManager = new Manager({
+    // Creating a new Clerk instance
+    const newClerk = new Clerk({
       name,
       email,
       contact,
@@ -64,8 +64,8 @@ const adminAddManager = async (req, res) => {
       profile: req.files[1], // assuming second file is profile image
     });
 
-    // Save the new manager to the database
-    await newManager
+    // Save the new Clerk to the database
+    await newClerk
       .save()
       .then((data) => {
         res.status(200).json({
@@ -86,8 +86,8 @@ const adminAddManager = async (req, res) => {
   }
 };
 
-const viewManagers = (req, res) => {
-  Manager.find()
+const viewClerks = (req, res) => {
+  Clerk.find()
     .exec()
     .then((data) => {
       if (data.length > 0) {
@@ -110,8 +110,8 @@ const viewManagers = (req, res) => {
     });
 };
 
-const viewManagerById = (req, res) => {
-  Manager.findById(req.params.managerid)
+const viewClerkById = (req, res) => {
+  Clerk.findById(req.params.Clerkid)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -128,7 +128,7 @@ const viewManagerById = (req, res) => {
     });
 };
 
-const editManagerById = async (req, res) => {
+const editClerkById = async (req, res) => {
   console.log(req.files);
   const {
     name,
@@ -167,8 +167,8 @@ const editManagerById = async (req, res) => {
   }
 
   try {
-    const data = await Manager.findByIdAndUpdate(
-      req.params.managerid,
+    const data = await Clerk.findByIdAndUpdate(
+      req.params.Clerkid,
       updateData,
       {
         new: true,
@@ -266,8 +266,8 @@ const forgotPassword = (req, res) => {
     });
 };
 
-const activateManagerById = (req, res) => {
-  Manager.findByIdAndUpdate({ _id: req.params.id }, { ActiveStatus: true })
+const activateClerkById = (req, res) => {
+  Clerk.findByIdAndUpdate({ _id: req.params.id }, { ActiveStatus: true })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -285,8 +285,8 @@ const activateManagerById = (req, res) => {
 };
 
 // approve investorReq by  Admin
-const deActivateManagerById = (req, res) => {
-  Manager.findByIdAndUpdate({ _id: req.params.id }, { ActiveStatus: false })
+const deActivateClerkById = (req, res) => {
+  Clerk.findByIdAndUpdate({ _id: req.params.id }, { ActiveStatus: false })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -305,10 +305,10 @@ const deActivateManagerById = (req, res) => {
 
 module.exports = {
   upload,
-  adminAddManager,
-  viewManagers,
-  viewManagerById,
-  editManagerById,
-  activateManagerById,
-  deActivateManagerById,
+  adminAddClerk,
+  viewClerks,
+  viewClerkById,
+  editClerkById,
+  activateClerkById,
+  deActivateClerkById,
 };
