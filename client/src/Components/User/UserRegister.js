@@ -7,8 +7,10 @@ import Col from "react-bootstrap/Col";
 import LandingNav from "../Main/LandingNav";
 import LandingFooter from "../Main/LandingFooter";
 import axiosinstance from "../../apis/axiosinstance";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
+import { FiEyeOff } from 'react-icons/fi';
+import { FaEye } from 'react-icons/fa6';
 
 function UserRegister() {
   const [form, setForm] = useState({
@@ -47,6 +49,15 @@ function UserRegister() {
     setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
   };
 
+  const [showCPassword, setShowCPassword] = useState(false);
+  const toggleCPasswordVisibility = () => {
+    setShowCPassword(!showCPassword);
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const validateForm = () => {
     let formValid = true;
     let newErrors = {};
@@ -198,12 +209,15 @@ function UserRegister() {
 
                     <label>Password</label>
                     <input
-                      type="password"
+                    type={showPassword ? "text" : "password"}
                       name="userPassword"
                       value={form.userPassword}
                       onChange={handleChange}
                       className="form-control"
                     />
+                    <div className=" Customerpswrd" onClick={togglePasswordVisibility}>
+                    {showPassword ? <FiEyeOff /> : <FaEye/>}
+              </div>
                     {errors.userPassword && <div className="error">{errors.userPassword}</div>}
                   </Col>
 
@@ -249,12 +263,15 @@ function UserRegister() {
 
                     <label>Confirm Password</label>
                     <input
-                      type="password"
-                      name="userConfirmpass"
+                    type={showCPassword ? "text" : "password"}
+                    name="userConfirmpass"
                       value={form.userConfirmpass}
                       onChange={handleChange}
                       className="form-control"
                     />
+                    <div className="Customerpswrd" onClick={toggleCPasswordVisibility}>
+                      {showCPassword ? <FiEyeOff /> : <FaEye/>}
+                </div>
                     {errors.userConfirmpass && <div className="error">{errors.userConfirmpass}</div>}
                   </Col>
                 </Row>
@@ -265,11 +282,11 @@ function UserRegister() {
                 </button>
                 <p id="foot">
                   Already have an account?{" "}
-                  <div className="text-center">
-                    <a href="/login" id="linkstyle">
+                  
+                    <Link to="/user/login" id="linkstyle">
                       <b>Sign In</b>
-                    </a>
-                  </div>
+                    </Link>
+                 
                 </p>
               </center>
             </div>

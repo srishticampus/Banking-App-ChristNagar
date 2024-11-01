@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../../Asserts/Styles/manager.css";
 import fmang from "../../Asserts/Images/managerlogin.png";
-
+import { FiEyeOff } from 'react-icons/fi';
+import { FaEye } from 'react-icons/fa6';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LandingNav from "../Main/LandingNav";
@@ -60,6 +61,11 @@ function ManagerLogin() {
     }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div>
       <LandingNav />
@@ -93,12 +99,15 @@ function ManagerLogin() {
                   </label>
                   <br />
                   <input
-                    type="password"
+                  type={showPassword ? "text" : "password"}
                     name="password"
                     className="form-control loginput"
                     value={log.password}
                     onChange={onchg}
                   />
+                  <div className=" Customerforget-pswd-eyeicon" onClick={togglePasswordVisibility}>
+                      {showPassword ? <FiEyeOff /> : <FaEye/>}
+                </div>
                   {errors.password && <div className="error">{errors.password}</div>}
                   <br />
                   <br />
