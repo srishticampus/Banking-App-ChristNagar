@@ -195,10 +195,12 @@ const createToken = (user) => {
   return jwt.sign({ userId: user.id }, secret, { expiresIn: "1hr" });
 };
 
-const loginMentor = (req, res) => {
+const ManagerLogin = (req, res) => {
+  console.log(req.body);
+  
   const { email, password } = req.body;
-  Mentor.mentors
-    .findOne({ email })
+ 
+    Manager.findOne({ email })
     .exec()
     .then((user) => {
       if (!user) {
@@ -213,6 +215,7 @@ const loginMentor = (req, res) => {
         data: user,
         status: 200,
         token: token,
+        msg:"Login successfully"
       });
     })
     .catch((err) => {
@@ -311,4 +314,5 @@ module.exports = {
   editManagerById,
   activateManagerById,
   deActivateManagerById,
+  ManagerLogin
 };

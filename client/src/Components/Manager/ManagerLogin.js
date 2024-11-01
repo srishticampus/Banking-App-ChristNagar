@@ -4,25 +4,65 @@ import fmang from "../../Asserts/Images/managerlogin.png";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Nav from "react-bootstrap/Nav";
 import LandingNav from "../Main/LandingNav";
 import LandingFooter from "../Main/LandingFooter";
+import axiosinstance from "../../apis/axiosinstance";
 
 function ManagerLogin() {
   const [log, setLog] = useState({
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
 
   const onchg = (e) => {
     setLog({ ...log, [e.target.name]: e.target.value });
+    setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
   };
-  const onclk = (e) => {
-    console.log(log);
+
+  const validateForm = () => {
+    let formValid = true;
+    let newErrors = {};
+
+    if (!log.email.trim()) {
+      formValid = false;
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(log.email)) {
+      formValid = false;
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!log.password.trim()) {
+      formValid = false;
+      newErrors.password = "Password is required";
+    } else if (log.password.length < 6) {
+      formValid = false;
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    setErrors(newErrors);
+    return formValid;
   };
+
+  const onclk = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await axiosinstance.post("/managerlogin", log);
+        if (response.status === 200) {
+          alert(response.data.msg);
+          // Redirect or perform other actions on successful login
+        }
+      } catch (error) {
+        console.error("Login Error:", error);
+        alert(error.response?.data?.msg || "Login failed. Please try again.");
+      }
+    }
+  };
+
   return (
     <div>
-    <LandingNav/>
+      <LandingNav />
       <div id="bd">
         <div className="row1">
           <Row>
@@ -43,8 +83,10 @@ function ManagerLogin() {
                     type="email"
                     name="email"
                     className="form-control loginput"
+                    value={log.email}
                     onChange={onchg}
                   />
+                  {errors.email && <div className="error">{errors.email}</div>}
                   <br />
                   <label>
                     <b>Password</b>
@@ -54,8 +96,10 @@ function ManagerLogin() {
                     type="password"
                     name="password"
                     className="form-control loginput"
+                    value={log.password}
                     onChange={onchg}
-                  ></input>
+                  />
+                  {errors.password && <div className="error">{errors.password}</div>}
                   <br />
                   <br />
                   <div className="text-center">
@@ -68,13 +112,13 @@ function ManagerLogin() {
             </div>
             <div className="col-6">
               <div id="imgstyle">
-                <img src={fmang}></img>
+                <img src={fmang} alt="Manager Login" />
               </div>
             </div>
           </Row>
         </div>
       </div>
-      <LandingFooter/>
+      <LandingFooter />
     </div>
   );
 }

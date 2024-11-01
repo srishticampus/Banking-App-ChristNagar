@@ -14,10 +14,11 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).array("files");
+const upload = multer({ storage: storage }).array("userPicture");
 
 // Function to add a new user
 const UserRegister = async (req, res) => {
+  console.log(req.body)
   try {
     const {
       username,
@@ -59,7 +60,7 @@ const UserRegister = async (req, res) => {
       userMail,
       userDate,
       userNumber,
-      userPicture:req.file,
+      userPicture:req.files[0]
     });
 
     // Save the new user to the database
@@ -193,15 +194,16 @@ const createToken = (user) => {
   return jwt.sign({ userId: user.id }, secret, { expiresIn: "1hr" });
 };
 
-const loginMentor = (req, res) => {
-  const { email, password } = req.body;
-  Mentor.mentors
-    .findOne({ email })
+const LoginUser = (req, res) => {
+  console.log(req.body);
+  const { userMail, userPassword } = req.body;
+  
+  User.findOne({ userMail })
     .exec()
     .then((user) => {
       if (!user) {
         return res.json({ status: 409, msg: "user not found" });
-      } else if (user.password !== password) {
+      } else if (user.userPassword !== userPassword) {
         return res.json({ status: 409, msg: "Password Missmatch !!" });
       }
 
@@ -211,6 +213,7 @@ const loginMentor = (req, res) => {
         data: user,
         status: 200,
         token: token,
+        msg:"User login successfully"
       });
     })
     .catch((err) => {
@@ -309,4 +312,5 @@ module.exports = {
   editUserById,
   activateUserById,
   deActivateUserById,
+  LoginUser
 };

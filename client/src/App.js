@@ -13,6 +13,8 @@ import AdminViewAManager from "./Components/Admin/AdminViewAManager";
 import AdminEditAmanagerData from "./Components/Admin/AdminEditAmanagerData";
 import UserRegister from "./Components/User/UserRegister";
 import ManagerLogin from "./Components/Manager/ManagerLogin";
+import UserHomePage from "./Components/User/UserHomePage";
+
 function App() {
   return (
     <BrowserRouter>
@@ -27,12 +29,11 @@ function App() {
         <Route path="/admin/addmanagers" element={<AdminAddManagers />} />
         <Route path="/admin/view_a_managers/:managerid" element={<AdminViewAManager />} />
         <Route path="/admin/edit_a_managers/:managerid" element={<AdminEditAmanagerData />} />
-
+        <Route path="/manager/login" element={<ManagerLogin/>} />
 
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/login" element={<UserLogin />} />
-        <Route path="/manager/login" element={<ManagerLogin/>} />
-
+        <Route path="/user/homepage" element={<UserHomePage/>} />
       </Routes>
     </BrowserRouter>
   );
