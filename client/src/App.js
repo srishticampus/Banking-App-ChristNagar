@@ -17,7 +17,7 @@ import UserHomePage from "./Components/User/UserHomePage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/bank_app">
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route
