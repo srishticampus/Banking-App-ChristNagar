@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "../../Asserts/Styles/manager.css";
 import fmang from "../../Asserts/Images/userlogin.png";
-
+import { FiEyeOff } from 'react-icons/fi';
+import { FaEye } from 'react-icons/fa6';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LandingFooter from "../Main/LandingFooter";
 import LandingNav from "../Main/LandingNav";
 import axiosinstance from "../../apis/axiosinstance";
-
+import { Link } from "react-router-dom";
 function UserLogin() {
   const [log, setLog] = useState({
     userMail: "",
@@ -60,6 +61,16 @@ function UserLogin() {
     }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  // const [showConfirmPassword, setshowConfirmPassword] = useState(false);
+  // const toggleConfirmPasswordVisibility = () => {
+  //   setshowConfirmPassword(!showConfirmPassword);
+  // };
+
   return (
     <div>
       <LandingNav />
@@ -93,15 +104,17 @@ function UserLogin() {
                   </label>
                   <br />
                   <input
-                    type="userPassword"
+                  type={showPassword ? "text" : "password"}
                     name="userPassword"
                     className="form-control loginput"
                     value={log.userPassword}
                     onChange={onchg}
                   />
+                  <div className=" Customerforget-pswd-eyeicon" onClick={togglePasswordVisibility}>
+                      {showPassword ? <FiEyeOff /> : <FaEye/>}
+                </div>
                   {errors.userPassword && <div className="error">{errors.userPassword}</div>}
-                  <br />
-                  <br />
+                  <Link to="/" className="d-flex justify-content-end" id="linkstyle">forgot password</Link>
                   <div className="text-center">
                     <button name="submit" id="submit" onClick={onclk}>
                       Sign In

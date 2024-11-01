@@ -13,7 +13,7 @@ import profile from "../../Asserts/Images/profile.png";
 import star from "../../Asserts/Images/Star (1).png";
 import LandingFooter from "../Main/LandingFooter";
 import UserNavbar from "./UserNavbar";
-
+import arrowimg from "../../Asserts/Images/basil_arrow-up-outline.png";
 function UserHomePage() {
   return (
     <div>
@@ -41,7 +41,7 @@ function UserHomePage() {
               approvals, and convenient repayment options.
             </p>
             <h6 className="userhomeclr mt-3">
-              Apply Now <span></span>
+              Apply Now <span><img src={arrowimg}></img></span>
             </h6>
           </div>
         </div>
@@ -62,7 +62,7 @@ function UserHomePage() {
               keep you and your family protected.
             </p>
             <h6 className="userhomeclr mt-3">
-              View Plan<span></span>
+              View Plan<span><img src={arrowimg}></img></span>
             </h6>
           </div>
           <div className="col-5 ms-5">
@@ -89,7 +89,7 @@ function UserHomePage() {
               on top of your bills effortlessly.
             </p>
             <h6 className="userhomeclr mt-3">
-              Pay Now <span></span>
+              Pay Now <span><img src={arrowimg}></img></span>
             </h6>
           </div>
         </div>
@@ -110,7 +110,7 @@ function UserHomePage() {
               manage your credit conveniently through our user-friendly portal.
             </p>
             <h6 className="userhomeclr mt-3">
-              Apply Now <span></span>
+              Apply Now<span><img src={arrowimg}></img></span>
             </h6>
           </div>
           <div className="col-5 ms-5">
