@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../Asserts/Styles/user.css";
-import Registr from "../../Asserts/Images/userregister.png";
+import Registr from "../../Asserts/images/userregister.png";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

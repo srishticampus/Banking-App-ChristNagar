@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../Asserts/Images/Logo.png";
+import logo from "../../Asserts/images/Logo.png";
 import "../../Asserts/Styles/LandingPage.css";
 function LandingFooter() {
   return (

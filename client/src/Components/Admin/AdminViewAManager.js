@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams,Link } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import AdminSidebar from "./AdminSidebar";
-import profiletop from "../../Asserts/Images/Rectangle 158.png";
+import profiletop from "../../Asserts/images/Rectangle 158.png";
 import "../../Asserts/Styles/admindashboard.css";
 import imgurl from "../../apis/imgURL";
 function AdminViewAManager() {
