@@ -1,22 +1,22 @@
 import React from "react";
 import LandingNav from "./LandingNav";
 import LandingFooter from "./LandingFooter";
-import section1 from "../../Asserts/Images/landingsection1.png";
-import section2img1 from "../../Asserts/Images/Send icon.png";
-import section2img2 from "../../Asserts/Images/Bank icon.png";
-import section2img3 from "../../Asserts/Images/Spend icon.png";
-import section3img3 from "../../Asserts/Images/image (2).png";
-import checkimg from "../../Asserts/Images/Check Mark.png";
-import bank from "../../Asserts/Images/Mortgage.png";
-import insurance from "../../Asserts/Images/insurance image.png";
-import mobile from "../../Asserts/Images/Mobile Payment.png";
-import card from "../../Asserts/Images/Card Payment.png";
-import carousal1 from "../../Asserts/Images/Component 1 (1).png";
-import carousal2 from "../../Asserts/Images/frame 2.png";
-import carousal3 from "../../Asserts/Images/frame 3 (1).png";
-import flowchart from "../../Asserts/Images/Flow diagram.png";
-import profile from "../../Asserts/Images/profile.png";
-import star from "../../Asserts/Images/Star (1).png";
+import section1 from "../../Asserts/images/landingsection1.png";
+import section2img1 from "../../Asserts/images/Send icon.png";
+import section2img2 from "../../Asserts/images/Bank icon.png";
+import section2img3 from "../../Asserts/images/Spend icon.png";
+import section3img3 from "../../Asserts/images/image (2).png";
+import checkimg from "../../Asserts/images/Check Mark.png";
+import bank from "../../Asserts/images/Mortgage.png";
+import insurance from "../../Asserts/images/insurance image.png";
+import mobile from "../../Asserts/images/Mobile Payment.png";
+import card from "../../Asserts/images/Card Payment.png";
+import carousal1 from "../../Asserts/images/Component 1 (1).png";
+import carousal2 from "../../Asserts/images/frame 2.png";
+import carousal3 from "../../Asserts/images/frame 3 (1).png";
+import flowchart from "../../Asserts/images/Flow diagram.png";
+import profile from "../../Asserts/images/profile.png";
+import star from "../../Asserts/images/Star (1).png";
 function LandingPage() {
   return (
     <div>

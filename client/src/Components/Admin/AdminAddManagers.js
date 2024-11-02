@@ -1,5 +1,5 @@
 import AdminSidebar from "./AdminSidebar";
-import addbtn from "../../Asserts/Images/login button.png";
+import addbtn from "../../Asserts/images/login button.png";
 import React, { useState } from "react";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import { useNavigate, Link } from "react-router-dom";

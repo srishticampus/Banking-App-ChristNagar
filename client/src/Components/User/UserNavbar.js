@@ -2,8 +2,8 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
-import logo from "../../Asserts/Images/Logo.png";
-import login from "../../Asserts/Images/Customer Service.png";
+import logo from "../../Asserts/images/Logo.png";
+import login from "../../Asserts/images/Customer Service.png";
 
 function UserNavbar() {
   return (

@@ -1,9 +1,9 @@
 import React from "react";
-import logo from "../../Asserts/Images/Logo.png";
-import home from "../../Asserts/Images/Home.png";
-import manage from "../../Asserts/Images/Management.png";
-import customer from "../../Asserts/Images/Customer Insight.png";
-import manager from "../../Asserts/Images/Project Manager.png";
+import logo from "../../Asserts/images/Logo.png";
+import home from "../../Asserts/images/Home.png";
+import manage from "../../Asserts/images/Management.png";
+import customer from "../../Asserts/images/Customer Insight.png";
+import manager from "../../Asserts/images/Project Manager.png";
 import "../../Asserts/Styles/admindashboard.css";
 import { Link, useNavigate } from "react-router-dom";
 function AdminSidebar() {

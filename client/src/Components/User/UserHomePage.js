@@ -1,19 +1,19 @@
 import React from "react";
 import "../../Asserts/Styles/user.css";
-import userhome from "../../Asserts/Images/userhome.png";
-import img1 from "../../Asserts/Images/image 10 (1).png";
-import img2 from "../../Asserts/Images/image 8.png";
-import img3 from "../../Asserts/Images/image 11 (1).png";
-import img4 from "../../Asserts/Images/image 9.png";
-import carousal1 from "../../Asserts/Images/Component 1 (1).png";
-import carousal2 from "../../Asserts/Images/frame 2.png";
-import carousal3 from "../../Asserts/Images/frame 3 (1).png";
-import flowchart from "../../Asserts/Images/Flow diagram.png";
-import profile from "../../Asserts/Images/profile.png";
-import star from "../../Asserts/Images/Star (1).png";
+import userhome from "../../Asserts/images/userhome.png";
+import img1 from "../../Asserts/images/image 10 (1).png";
+import img2 from "../../Asserts/images/image 8.png";
+import img3 from "../../Asserts/images/image 11 (1).png";
+import img4 from "../../Asserts/images/image 9.png";
+import carousal1 from "../../Asserts/images/Component 1 (1).png";
+import carousal2 from "../../Asserts/images/frame 2.png";
+import carousal3 from "../../Asserts/images/frame 3 (1).png";
+import flowchart from "../../Asserts/images/Flow diagram.png";
+import profile from "../../Asserts/images/profile.png";
+import star from "../../Asserts/images/Star (1).png";
 import LandingFooter from "../Main/LandingFooter";
 import UserNavbar from "./UserNavbar";
-import arrowimg from "../../Asserts/Images/basil_arrow-up-outline.png";
+import arrowimg from "../../Asserts/images/basil_arrow-up-outline.png";
 function UserHomePage() {
   return (
     <div>

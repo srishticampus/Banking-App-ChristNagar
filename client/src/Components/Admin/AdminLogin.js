@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import logo from "../../Asserts/Images/Adminprofile.png";
-import loginbtn from "../../Asserts/Images/login.png";
+import logo from "../../Asserts/images/Adminprofile.png";
+import loginbtn from "../../Asserts/images/login.png";
 import "../../Asserts/Styles/AdminLogn.css";
 import { Link, useNavigate } from "react-router-dom";
 

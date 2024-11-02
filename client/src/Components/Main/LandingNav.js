@@ -1,9 +1,9 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import logo from "../../Asserts/Images/Logo.png";
+import logo from "../../Asserts/images/Logo.png";
 import Dropdown from "react-bootstrap/Dropdown";
-import login from "../../Asserts/Images/login.png"
+import login from "../../Asserts/images/login.png"
 
 function LandingNav() {
   return (
