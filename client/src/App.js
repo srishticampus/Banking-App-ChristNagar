@@ -14,6 +14,7 @@ import AdminEditAmanagerData from "./Components/Admin/AdminEditAmanagerData";
 import UserRegister from "./Components/User/UserRegister";
 import ManagerLogin from "./Components/Manager/ManagerLogin";
 import UserHomePage from "./Components/User/UserHomePage";
+import UserSentForgotpswd from "./Components/User/UserSentForgotpswd";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/homepage" element={<UserHomePage/>} />
+        <Route path="/user/forgot" element={<UserSentForgotpswd/>} />
+
       </Routes>
     </BrowserRouter>
   );

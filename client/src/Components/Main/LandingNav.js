@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import logo from "../../Asserts/images/Logo.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import login from "../../Asserts/images/login.png"
+import { Link } from "react-router-dom";
 
 function LandingNav() {
   return (
@@ -32,9 +33,22 @@ function LandingNav() {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <a className="text-light text-decoration-none">
-               <img src={login}></img>
-              </a>
+             
+              <Dropdown className="d-inline bg-dark me-5 btn-outline-dark">
+                <Dropdown.Toggle variant="bg-dark text-dark"> <a className="text-light text-decoration-none">
+                <img src={login}></img>
+               </a></Dropdown.Toggle>
+                <Dropdown.Menu className="mt-2">
+                  <Dropdown.Item ><Link to="/user/login"  className="text-decoration-none text-dark">User</Link></Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">
+                  <Link to="/manager/login"  className="text-decoration-none text-dark " >Manager</Link>
+                   
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">
+                   Clerk
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
