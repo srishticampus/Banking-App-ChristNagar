@@ -15,7 +15,7 @@ function AdminSidebar() {
         <div className="col-1">
           <img src={home}></img>
         </div>
-        <div className="col-3">Dashbaord</div>
+        <Link to="/admin/dashboard"  className="col-3 text-decoration-none text-light">Dashbaord</Link>
       </div>
       <div className="row mt-3">
         <div className="col-1"></div>

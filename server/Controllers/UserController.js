@@ -4,6 +4,38 @@ const multer = require("multer");
 const jwt = require("jsonwebtoken");
 const secret = "User";
 
+const nodemailer = require("nodemailer");
+const config = require("../configuration");
+
+// Create a transporter object using Gmail SMTP
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "supprot.web.application@gmail.com",
+    pass: "ukyw olqq kuql jnty",
+  },
+});
+
+const testMail = (data) => {
+  let email = data.email;
+  const mailOptions = {
+    from: "supprot.web.application@gmail.com",
+    to: email,
+    subject: "Reset Password From Unicredit bank Application",
+    text: `Dear ${data.name},${"\n"}please check this link : ${
+      config.localUrl
+    }${data._id} to reset your password`,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log("Error:", error);
+    } else {
+      console.log("Email sent:", info.response);
+    }
+  });
+};
+
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: function (req, res, cb) {
@@ -18,7 +50,7 @@ const upload = multer({ storage: storage }).array("userPicture");
 
 // Function to add a new user
 const UserRegister = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     const {
       username,
@@ -60,7 +92,7 @@ const UserRegister = async (req, res) => {
       userMail,
       userDate,
       userNumber,
-      userPicture:req.files[0]
+      userPicture: req.files[0],
     });
 
     // Save the new user to the database
@@ -166,13 +198,9 @@ const editUserById = async (req, res) => {
   }
 
   try {
-    const data = await User.findByIdAndUpdate(
-      req.params.userid,
-      updateData,
-      {
-        new: true,
-      }
-    );
+    const data = await User.findByIdAndUpdate(req.params.userid, updateData, {
+      new: true,
+    });
     res.json({
       status: 200,
       msg: "Updated successfully",
@@ -197,7 +225,7 @@ const createToken = (user) => {
 const LoginUser = (req, res) => {
   console.log(req.body);
   const { userMail, userPassword } = req.body;
-  
+
   User.findOne({ userMail })
     .exec()
     .then((user) => {
@@ -213,7 +241,7 @@ const LoginUser = (req, res) => {
         data: user,
         status: 200,
         token: token,
-        msg:"User login successfully"
+        msg: "User login successfully",
       });
     })
     .catch((err) => {
@@ -304,6 +332,61 @@ const deActivateUserById = (req, res) => {
     });
 };
 
+const forgotPWDsentMail = async (req, res) => {
+  let data = null;
+  try {
+    data = await User.findOne({ email: req.body.email });
+
+    if (data != null) {
+      let id = data._id.toString();
+      testMail(data);
+      res.json({
+        status: 200,
+        msg: "Data Obtained successfully",
+      });
+    } else
+      res.json({
+        status: 500,
+        msg: "Enter your Registered MailId",
+      });
+  } catch (err) {
+    res.json({
+      status: 500,
+      msg: "Data not Updated",
+      Error: err,
+    });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  await User.findByIdAndUpdate(
+    { _id: req.params.id },
+    {
+      password: req.body.newpassword,
+    }
+  )
+    .exec()
+    .then((data) => {
+      if (data != null)
+        res.json({
+          status: 200,
+          msg: "Updated successfully",
+        });
+      else
+        res.json({
+          status: 500,
+          msg: "User Not Found",
+        });
+    })
+    .catch((err) => {
+      res.json({
+        status: 500,
+        msg: "Data not Updated",
+        Error: err,
+      });
+    });
+};
+
 module.exports = {
   upload,
   UserRegister,
@@ -312,5 +395,7 @@ module.exports = {
   editUserById,
   activateUserById,
   deActivateUserById,
-  LoginUser
+  LoginUser,
+  forgotPWDsentMail,
+  resetPassword
 };

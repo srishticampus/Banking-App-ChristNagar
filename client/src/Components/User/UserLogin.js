@@ -119,6 +119,17 @@ function UserLogin() {
                     <button name="submit" id="submit" onClick={onclk}>
                       Sign In
                     </button>
+                    <center className="mt-3">
+
+                <p id="foot">
+                Don’t have an Account?  {" "}
+                  
+                    <Link to="/user/register" id="linkstyle">
+                      <b>Sign Up</b>
+                    </Link>
+                 
+                </p>
+              </center>
                   </div>
                 </div>
               </div>
