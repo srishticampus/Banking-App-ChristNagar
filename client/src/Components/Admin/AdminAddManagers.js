@@ -3,6 +3,8 @@ import addbtn from "../../Asserts/images/login button.png";
 import React, { useState } from "react";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import { useNavigate, Link } from "react-router-dom";
+import { FiEyeOff } from 'react-icons/fi';
+import { FaEye } from 'react-icons/fa6';
 
 function AdminAddManagers() {
   const navigate = useNavigate();
@@ -66,6 +68,11 @@ function AdminAddManagers() {
     setErrorVideo(null); // Clear any previous errors if the file is valid
     setManagerdata({ ...managerdata, idproof });
     setIdproofFileName(idproof.name);
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e) => {
@@ -235,6 +242,7 @@ function AdminAddManagers() {
                     className="form-control"
                     name="dob"
                     onChange={handleInputChange}
+                    max={new Date().toISOString().split("T")[0]}
                   />
                   {errors.dob && (
                     <div className="text-danger">{errors.dob}</div>
@@ -307,6 +315,7 @@ function AdminAddManagers() {
                     className="form-control"
                     name="dateofjoining"
                     onChange={handleInputChange}
+                    max={new Date().toISOString().split("T")[0]}
                   />
                   {errors.dateofjoining && (
                     <div className="text-danger">{errors.dateofjoining}</div>
@@ -315,11 +324,13 @@ function AdminAddManagers() {
                 <div className="mb-3">
                   <label>Password</label>
                   <input
-                    type="password"
-                    className="form-control"
+                  type={showPassword ? "text" : "password"}                    className="form-control"
                     name="password"
                     onChange={handleInputChange}
                   />
+                  <label className=" Customerpswrd" onClick={togglePasswordVisibility}>
+                    {showPassword ? <FiEyeOff /> : <FaEye/>}
+              </label>
                   {errors.password && (
                     <div className="text-danger">{errors.password}</div>
                   )}
