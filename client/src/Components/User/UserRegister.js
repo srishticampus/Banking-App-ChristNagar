@@ -179,7 +179,7 @@ function UserRegister() {
 
                     <label>Contact</label>
                     <input
-                      type="text"
+                      type="number"
                       name="userContact"
                       value={form.userContact}
                       onChange={handleChange}
@@ -199,7 +199,7 @@ function UserRegister() {
 
                     <label>IFSC Code</label>
                     <input
-                      type="text"
+                      type="number"
                       name="userCode"
                       value={form.userCode}
                       onChange={handleChange}
@@ -215,9 +215,9 @@ function UserRegister() {
                       onChange={handleChange}
                       className="form-control"
                     />
-                    <div className=" Customerpswrd" onClick={togglePasswordVisibility}>
+                    <label className=" Customerpswrd" onClick={togglePasswordVisibility}>
                     {showPassword ? <FiEyeOff /> : <FaEye/>}
-              </div>
+              </label>
                     {errors.userPassword && <div className="error">{errors.userPassword}</div>}
                   </Col>
 
@@ -239,6 +239,7 @@ function UserRegister() {
                       value={form.userDate}
                       onChange={handleChange}
                       className="form-control"
+                      max={new Date().toISOString().split("T")[0]}
                     />
                     {errors.userDate && <div className="error">{errors.userDate}</div>}
 
@@ -269,9 +270,9 @@ function UserRegister() {
                       onChange={handleChange}
                       className="form-control"
                     />
-                    <div className="Customerpswrd" onClick={toggleCPasswordVisibility}>
+                    <label className="Customerpswrd" onClick={toggleCPasswordVisibility}>
                       {showCPassword ? <FiEyeOff /> : <FaEye/>}
-                </div>
+                </label>
                     {errors.userConfirmpass && <div className="error">{errors.userConfirmpass}</div>}
                   </Col>
                 </Row>
