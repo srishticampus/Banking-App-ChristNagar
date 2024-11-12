@@ -15,6 +15,7 @@ import UserRegister from "./Components/User/UserRegister";
 import ManagerLogin from "./Components/Manager/ManagerLogin";
 import UserHomePage from "./Components/User/UserHomePage";
 import UserSentForgotpswd from "./Components/User/UserSentForgotpswd";
+import UserForgotmailAccept from "./Components/User/UserForgotmailAccept";
 
 function App() {
   return (
@@ -36,7 +37,9 @@ function App() {
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/homepage" element={<UserHomePage/>} />
         <Route path="/user/forgot" element={<UserSentForgotpswd/>} />
+        <Route path="/reset-password/:id" element={<UserForgotmailAccept/>} />
 
+        
       </Routes>
     </BrowserRouter>
   );
