@@ -16,4 +16,5 @@ router.post('/managerlogin',manager.ManagerLogin)
 router.post('/userRegister',user.upload,user.UserRegister)
 router.post('/userlogin',user.LoginUser)
 router.post('/forgotPWDsentMail', user.forgotPWDsentMail);
+router.post('/resetPassword/:id', user.resetPassword);
 module.exports=router

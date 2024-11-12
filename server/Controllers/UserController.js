@@ -17,12 +17,14 @@ const transporter = nodemailer.createTransport({
 });
 
 const testMail = (data) => {
-  let email = data.email;
+  console.log(data.userMail,"pp");
+  
+  let email = data.userMail;
   const mailOptions = {
     from: "supprot.web.application@gmail.com",
     to: email,
     subject: "Reset Password From Unicredit bank Application",
-    text: `Dear ${data.name},${"\n"}please check this link : ${
+    text: `Dear ${data.username},${"\n"}please check this link : ${
       config.localUrl
     }${data._id} to reset your password`,
   };
@@ -333,22 +335,23 @@ const deActivateUserById = (req, res) => {
 };
 
 const forgotPWDsentMail = async (req, res) => {
-  let data = null;
+ 
   try {
-    data = await User.findOne({ email: req.body.email });
+    const data = await User.findOne({ userMail: req.body.userMail });
 
-    if (data != null) {
-      let id = data._id.toString();
+    if (data) {
+      const id = data._id.toString();
       testMail(data);
       res.json({
         status: 200,
-        msg: "Data Obtained successfully",
+        msg: "Please Check your Mail ",
       });
-    } else
+    } else {
       res.json({
         status: 500,
         msg: "Enter your Registered MailId",
       });
+    }
   } catch (err) {
     res.json({
       status: 500,
@@ -362,7 +365,7 @@ const resetPassword = async (req, res) => {
   await User.findByIdAndUpdate(
     { _id: req.params.id },
     {
-      password: req.body.newpassword,
+      userPassword: req.body.password,
     }
   )
     .exec()
