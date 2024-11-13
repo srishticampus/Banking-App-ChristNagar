@@ -3,6 +3,8 @@ import logo from "../../Asserts/images/Adminprofile.png";
 import loginbtn from "../../Asserts/images/login.png";
 import "../../Asserts/Styles/AdminLogn.css";
 import { Link, useNavigate } from "react-router-dom";
+import { FiEyeOff } from 'react-icons/fi';
+import { FaEye } from 'react-icons/fa6';
 
 function AdminLogin() {
   const [data, setData] = useState({
@@ -63,9 +65,13 @@ function AdminLogin() {
         localStorage.setItem("admin", 1);
         Navigate("/admin/dashboard");
       } else {
-        alert("Username or Password is incorrect");
+        alert("Email or Password is incorrect");
       }
     }
+  };
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -96,8 +102,8 @@ function AdminLogin() {
 
             <div className="mb-4">
               <input
-                type="password"
-                className="form-control form-input"
+              type={showPassword ? "text" : "password"}
+              className="form-control form-input"
                 id="textbox"
                 placeholder="Password"
                 required=""
@@ -105,6 +111,9 @@ function AdminLogin() {
                 onChange={handleInputChange}
                 value={data.password}
               />
+              <div className="adminlogineye" onClick={togglePasswordVisibility}>
+              {showPassword ? <FiEyeOff /> : <FaEye/>}
+        </div>
               {errors.password && (
                 <div className="text-danger">{errors.password}</div>
               )}

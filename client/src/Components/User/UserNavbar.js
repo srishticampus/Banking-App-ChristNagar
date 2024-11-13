@@ -18,7 +18,7 @@ function UserNavbar() {
         <div className="col-10 d-flex justify-content-center">
           <Navbar.Collapse className="justify-content-center">
             <Navbar.Text>
-              <a href="#home" className="me-5 text-light text-decoration-none">
+              <a href="/user/homepage" className="me-5 text-light text-decoration-none">
                 Home
               </a>
               <a href="#about" className="me-5 text-light text-decoration-none">

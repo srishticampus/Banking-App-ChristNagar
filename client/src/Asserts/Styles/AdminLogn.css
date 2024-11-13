@@ -33,3 +33,9 @@
 #inputusername::placeholder {
   color: gray;
 }
+
+.adminlogineye{
+  position: relative;
+  bottom:35px;
+  left:90%
+}
