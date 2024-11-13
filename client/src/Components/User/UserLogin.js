@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import LandingFooter from "../Main/LandingFooter";
 import LandingNav from "../Main/LandingNav";
 import axiosinstance from "../../apis/axiosinstance";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 function UserLogin() {
   const [log, setLog] = useState({
     userMail: "",
@@ -45,6 +45,8 @@ function UserLogin() {
     return formValid;
   };
 
+  const navigate=useNavigate()
+  
   const onclk = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -52,7 +54,7 @@ function UserLogin() {
         const response = await axiosinstance.post("/userlogin", log);
         if (response.status === 200) {
           alert(response.data.msg);
-          // Navigate to a different page if needed
+          navigate("/user/homepage")
         }
       } catch (error) {
         console.error("Login Error:", error);
@@ -114,7 +116,7 @@ function UserLogin() {
                       {showPassword ? <FiEyeOff /> : <FaEye/>}
                 </div>
                   {errors.userPassword && <div className="error">{errors.userPassword}</div>}
-                  <Link to="/" className="d-flex justify-content-end" id="linkstyle">forgot password</Link>
+                  <Link to="/user/forgot" className="d-flex justify-content-end" id="linkstyle">forgot password</Link>
                   <div className="text-center">
                     <button name="submit" id="submit" onClick={onclk}>
                       Sign In
