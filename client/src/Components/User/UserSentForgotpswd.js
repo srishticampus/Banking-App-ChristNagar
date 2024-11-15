@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../Asserts/Styles/user.css";
-import Registr from "../../Asserts/images/userregister.png";
+import Registr from "../../Asserts/images/frgtpswdsent.png";
 import Row from "react-bootstrap/Row";
 import LandingNav from "../Main/LandingNav";
 import LandingFooter from "../Main/LandingFooter";

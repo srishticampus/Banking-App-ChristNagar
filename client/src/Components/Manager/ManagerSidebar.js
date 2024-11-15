@@ -7,6 +7,7 @@ import clerk from "../../Asserts/images/clerkmanager.png";
 import transaction from "../../Asserts/images/managertransaction.png";
 import logout from "../../Asserts/images/managerlogout.png";
 import user from "../../Asserts/images/managerviewuser.png";
+import { Link } from "react-router-dom";
 
 function ManagerSidebar() {
   return (
@@ -16,7 +17,7 @@ function ManagerSidebar() {
           <div className="profile"></div>
           <Nav defaultActiveKey="/home" className="flex-column mt-5">
             <Nav.Item>
-              <Nav.Link href="/manager/home"><img src={home}></img> Dashboard</Nav.Link>
+              <Link to="/manager/home"><img src={home}></img> Dashboard</Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="#manage-loan"><img src={loan}></img> Manage Loan</Nav.Link>

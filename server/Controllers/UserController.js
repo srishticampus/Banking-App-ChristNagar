@@ -24,7 +24,7 @@ const testMail = (data) => {
     to: email,
     subject: "Reset Password From Unicredit bank Application",
     text: `Dear ${data.username},${"\n"}please check this link : ${
-      config.localUrl
+      config.serverUrl ||  config.localUrl
     }${data._id} to reset your password`,
   };
 
