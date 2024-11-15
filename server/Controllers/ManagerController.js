@@ -18,6 +18,7 @@ const upload = multer({ storage: storage }).array("files");
 
 // Function to add a new manager
 const adminAddManager = async (req, res) => {
+  const date=new Date()
   try {
     const {
       name,

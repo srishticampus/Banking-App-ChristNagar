@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "../../Asserts/Styles/manager.css";
 import fmang from "../../Asserts/images/managerlogin.png";
-import { FiEyeOff } from 'react-icons/fi';
-import { FaEye } from 'react-icons/fa6';
+import { FiEyeOff } from "react-icons/fi";
+import { FaEye } from "react-icons/fa6";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LandingNav from "../Main/LandingNav";
 import LandingFooter from "../Main/LandingFooter";
 import axiosinstance from "../../apis/axiosinstance";
+import { useNavigate } from "react-router-dom";
 
 function ManagerLogin() {
   const [log, setLog] = useState({
@@ -45,6 +46,8 @@ function ManagerLogin() {
     return formValid;
   };
 
+  const navigate = useNavigate();
+
   const onclk = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -52,7 +55,11 @@ function ManagerLogin() {
         const response = await axiosinstance.post("/managerlogin", log);
         if (response.status === 200) {
           alert(response.data.msg);
-          // Redirect or perform other actions on successful login
+          if (response.data.msg == "Login successfully") {
+            navigate("/manager/home");
+          } else {
+            navigate("/manager/login");
+          }
         }
       } catch (error) {
         console.error("Login Error:", error);
@@ -99,16 +106,21 @@ function ManagerLogin() {
                   </label>
                   <br />
                   <input
-                  type={showPassword ? "text" : "password"}
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     className="form-control loginput"
                     value={log.password}
                     onChange={onchg}
                   />
-                  <div className=" Customerforget-pswd-eyeicon" onClick={togglePasswordVisibility}>
-                      {showPassword ? <FiEyeOff /> : <FaEye/>}
-                </div>
-                  {errors.password && <div className="error">{errors.password}</div>}
+                  <div
+                    className=" Customerforget-pswd-eyeicon"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <FiEyeOff /> : <FaEye />}
+                  </div>
+                  {errors.password && (
+                    <div className="error">{errors.password}</div>
+                  )}
                   <br />
                   <br />
                   <div className="text-center">

@@ -16,7 +16,7 @@ function AdminSidebar() {
   return (
     <div className="sidebardesign">
       <img src={logo}></img>
-      <div className="row mt-5 ">
+      <div className="row mt-5 hover ">
         <div className="col-1"></div>
         <div className="col-1">
           <img src={home}></img>
@@ -28,7 +28,7 @@ function AdminSidebar() {
           Dashbaord
         </Link>
       </div>
-      <div className="row mt-3">
+      <div className="row mt-3 hover">
         <div className="col-1"></div>
         <div className="col-1">
           <img src={customer}></img>
@@ -39,7 +39,7 @@ function AdminSidebar() {
         to="/admin/viewmanages"
         className="text-decoration-none text-light"
       ></Link>
-      <div className="row mt-3">
+      <div className="row mt-3 hover">
         <div className="col-1"></div>
         <div className="col-1">
           <img src={manage}></img>
@@ -48,7 +48,7 @@ function AdminSidebar() {
         <div
           className="text-decoration-none text-light"
         >
-          <div className="row mt-3">
+          <div className="row mt-3 hover">
             <div className="col-1"></div>
             <div className="col-1">
               <img src={manager}></img>

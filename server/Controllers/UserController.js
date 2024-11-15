@@ -17,7 +17,6 @@ const transporter = nodemailer.createTransport({
 });
 
 const testMail = (data) => {
-  console.log(data.userMail,"pp");
   
   let email = data.userMail;
   const mailOptions = {
@@ -52,7 +51,6 @@ const upload = multer({ storage: storage }).array("userPicture");
 
 // Function to add a new user
 const UserRegister = async (req, res) => {
-  console.log(req.body);
   try {
     const {
       username,
@@ -74,6 +72,15 @@ const UserRegister = async (req, res) => {
         data: null,
       });
     }
+
+     // Check for existing user by email
+     let existingUserAccount = await User.findOne({ userNumber });
+     if (existingUserAccount) {
+       return res.status(409).json({
+         msg: "Account Number is Already Exists !!",
+         data: null,
+       });
+     }
 
     // Check for existing user by contact
     let existingUserContact = await User.findOne({ userContact });
@@ -162,7 +169,6 @@ const viewUserById = (req, res) => {
 };
 
 const editUserById = async (req, res) => {
-  console.log(req.files);
   const {
     name,
     email,
@@ -225,7 +231,6 @@ const createToken = (user) => {
 };
 
 const LoginUser = (req, res) => {
-  console.log(req.body);
   const { userMail, userPassword } = req.body;
 
   User.findOne({ userMail })
@@ -344,7 +349,7 @@ const forgotPWDsentMail = async (req, res) => {
       testMail(data);
       res.json({
         status: 200,
-        msg: "Please Check your Mail ",
+        msg: "A password reset link has been sent to your Email.Please check",
       });
     } else {
       res.json({
@@ -373,7 +378,7 @@ const resetPassword = async (req, res) => {
       if (data != null)
         res.json({
           status: 200,
-          msg: "Updated successfully",
+          msg: "Password Updated successfully",
         });
       else
         res.json({
