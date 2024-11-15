@@ -16,6 +16,7 @@ import ManagerLogin from "./Components/Manager/ManagerLogin";
 import UserHomePage from "./Components/User/UserHomePage";
 import UserSentForgotpswd from "./Components/User/UserSentForgotpswd";
 import UserForgotmailAccept from "./Components/User/UserForgotmailAccept";
+import ManagerHome from "./Components/Manager/ManagerHome";
 
 function App() {
   return (
@@ -31,7 +32,10 @@ function App() {
         <Route path="/admin/addmanagers" element={<AdminAddManagers />} />
         <Route path="/admin/view_a_managers/:managerid" element={<AdminViewAManager />} />
         <Route path="/admin/edit_a_managers/:managerid" element={<AdminEditAmanagerData />} />
+
         <Route path="/manager/login" element={<ManagerLogin/>} />
+        <Route path="/manager/home" element={<ManagerHome/>} />
+
 
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/login" element={<UserLogin />} />

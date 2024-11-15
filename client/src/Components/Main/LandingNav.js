@@ -18,7 +18,7 @@ function LandingNav() {
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               <a className="me-5 text-light text-decoration-none">Home</a>
-              <a className="me-5 text-light text-decoration-none">Conatct Us</a>
+              <a className="me-5 text-light text-decoration-none">Contact Us</a>
               <a className="me-5 text-light text-decoration-none">About Us</a>
               <a className="text-light text-decoration-none"></a>
               <Dropdown className="d-inline bg-dark me-5 btn-outline-dark">

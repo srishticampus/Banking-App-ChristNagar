@@ -54,7 +54,12 @@ function UserLogin() {
         const response = await axiosinstance.post("/userlogin", log);
         if (response.status === 200) {
           alert(response.data.msg);
-          navigate("/user/homepage")
+          if(response.data.msg=="User login successfully"){
+            navigate("/user/homepage")
+          }
+          else{
+            navigate("/user/login") 
+          }
         }
       } catch (error) {
         console.error("Login Error:", error);

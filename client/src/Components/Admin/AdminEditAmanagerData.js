@@ -305,9 +305,10 @@ function AdminEditAmanagerData() {
               </div>
             </div>{" "}
             <div className="row">
+            <div className="col-4"></div>
               <div className="col-5">
-                <button type="submit" className="btn btn-info">
-                  Edit
+                <button type="submit" className="managersavebtn ms-2 mt-3">
+                  Save
                 </button>
               </div>
             </div>

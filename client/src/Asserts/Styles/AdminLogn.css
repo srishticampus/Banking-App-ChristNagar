@@ -39,3 +39,10 @@
   bottom:35px;
   left:90%
 }
+.managersavebtn{
+    background-color: #BF5DFF;
+border: none;
+padding: 2% 15%;
+border-radius: 15px;
+
+}
