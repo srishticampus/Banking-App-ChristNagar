@@ -1,8 +1,9 @@
 
 const config = {
     development: {
-        localUrl: 'http://localhost:3000/bank_app/reset-password/',
         serverUrl: 'http://hybrid.srishticampus.in/bank_app/reset-password/',
+        // localUrl: 'http://localhost:3000/bank_app/reset-password/',
+
     },
   
 };

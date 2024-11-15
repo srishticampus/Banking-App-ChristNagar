@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../Asserts/Styles/manager.css";
-import fmang from "../../Asserts/images/userlogin.png";
+import fmang from "../../Asserts/images/changfrgtpswd.png";
 import { FiEyeOff } from "react-icons/fi";
 import { FaEye } from "react-icons/fa6";
 import Row from "react-bootstrap/Row";
