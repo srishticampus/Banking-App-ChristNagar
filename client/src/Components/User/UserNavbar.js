@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
+import Button from "react-bootstrap/Button";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import { Link } from "react-router-dom";
 import logo from "../../Asserts/images/Logo.png";
 import login from "../../Asserts/images/Customer Service.png";
 import logo2 from "../../Asserts/images/Menu (1).png";
 import logo3 from "../../Asserts/images/Menu (2).png";
-import { Link } from "react-router-dom";
+
 function UserNavbar() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <Navbar className="usernavbar">
       <Container>
@@ -20,11 +28,16 @@ function UserNavbar() {
         <div className="col-9 d-flex justify-content-center">
           <Navbar.Collapse className="justify-content-center">
             <Navbar.Text>
-              <Link to="/user/homepage" className="me-5 text-light text-decoration-none">
+              <Link
+                to="/user/homepage"
+                className="me-5 text-light text-decoration-none"
+              >
                 Home
               </Link>
-              <Link to="#about" className="me-5 text-light text-decoration-none">
-                {" "}
+              <Link
+                to="#about"
+                className="me-5 text-light text-decoration-none"
+              >
                 Loan
               </Link>
               <Link
@@ -33,9 +46,11 @@ function UserNavbar() {
               >
                 Credit Card
               </Link>
-              <Link to="#about" className="me-5 text-light text-decoration-none">
-                {" "}
-                Life Insiurance
+              <Link
+                to="#about"
+                className="me-5 text-light text-decoration-none"
+              >
+                Life Insurance
               </Link>
 
               <Dropdown className="d-inline me-5 btn-outline-dark">
@@ -48,8 +63,10 @@ function UserNavbar() {
                   <Dropdown.Item to="#/complaints">Complaints</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <Link to="#about" className="me-5 text-light text-decoration-none">
-                {" "}
+              <Link
+                to="#about"
+                className="me-5 text-light text-decoration-none"
+              >
                 Bill Payment
               </Link>
             </Navbar.Text>
@@ -58,19 +75,32 @@ function UserNavbar() {
 
         <div className="col d-flex justify-content-end align-items-center">
           <Link to="#login" className="text-light text-decoration-none">
-
             <Dropdown className="d-inline me-5 btn-outline-dark">
-            <Dropdown.Toggle variant="outline-dark text-dark">
-            <img src={login} alt="Login Icon" />
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item to="#/faqs" className="text-dark"> <img className="text-dark" src={logo2} alt="Login Icon" /> </Dropdown.Item>
-              <Dropdown.Item to="#/feedbacks"><img className="text-dark" src={logo3} alt="Login Icon" /></Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+              <Dropdown.Toggle variant="outline-dark text-dark">
+                <img src={login} alt="Login Icon" />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={handleShow} className="text-dark">
+                  <img className="text-dark" src={logo2} alt="Login Icon" />
+                </Dropdown.Item>
+                <Dropdown.Item to="#/feedbacks">
+                  <img className="text-dark" src={logo3} alt="Login Icon" />
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Link>
         </div>
       </Container>
+
+      <Offcanvas show={show} onHide={handleClose} placement="end">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          Some text as placeholder. In real life you can have the elements you
+          have chosen. Like, text, images, lists, etc.
+        </Offcanvas.Body>
+      </Offcanvas>
     </Navbar>
   );
 }
