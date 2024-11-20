@@ -54,11 +54,15 @@ function AdminViewAManager() {
               </p>
               <p>
                 <div className="text-secondary">Date of birth</div>
-                <b>{manager.dob}</b>
+                <b>{new Date(manager.dob).toDateString()}</b>
               </p>{" "}
               <p>
                 <div className="text-secondary">Qualification</div>
                 <b>{manager.qualification}</b>
+              </p>
+              <p>
+                <div className="text-secondary">Password</div>
+                <b className="text-dark">{manager.password}</b>
               </p>
             </div>
             <div className="col-3 ms-5">
@@ -68,7 +72,7 @@ function AdminViewAManager() {
               </p>
               <p>
                 <div className="text-secondary">Date Of Joining</div>
-                <b className="text-dark">{manager.dateofjoining}</b>
+                <b className="text-dark" >{new Date(manager.dateofjoining).toDateString()}</b>
               </p>
               <p>
                 <div className="text-secondary">Address</div>

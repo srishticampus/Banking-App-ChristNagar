@@ -1,20 +1,161 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Asserts/images/Logo.png";
 import login from "../../Asserts/images/Customer Service.png";
 import logo2 from "../../Asserts/images/Menu (1).png";
 import logo3 from "../../Asserts/images/Menu (2).png";
+import axiosInstance from "../../apis/axiosinstance";
+import profiletop from "../../Asserts/images/Rectangle 158.png";
+import imgurl from "../../apis/imgURL";
+import Modal from "react-bootstrap/Modal";
+import { FaCamera } from "react-icons/fa"; 
+import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 
 function UserNavbar() {
   const [show, setShow] = useState(false);
+  const [user, setUser] = useState({});
+  const [modalShow, setModalShow] = useState(false);
+  const [userdata, setUserdata] = useState({
+    username: "",
+    userContact: "",
+    userAddress: "",
+    userCode: "",
+    userPassword: "",
+    userMail: "",
+    userDate: "",
+    userNumber: "",
+    userPicture: null,
+  });
+  const [errors, setErrors] = useState({});
+  const [profilePreview, setProfilePreview] = useState("");
+  console.log(profilePreview,"changable image");
+  console.log(user,"view user");
+  console.log(userdata,"send data");
+
+  const navigate = useNavigate();
+  const userid = localStorage.getItem("userid");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleModalClose = () => setModalShow(false);
+  const handleModalShow = () => setModalShow(true);
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const fetchUserDetails = async () => {
+    try {
+      const res = await axiosInstance.get(`/view_a_user/${userid}`);
+      const data = res.data.data;
+      setUser(data);
+      setUserdata({
+        ...data,
+        userDate: data.userDate ? new Date(data.userDate).toISOString().split("T")[0] : "",
+      });
+      setProfilePreview(`${imgurl}/${data.userPicture?.filename}`);
+    } catch (error) {
+      console.error("Error fetching user details", error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserdata((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+      console.log(file,"after changing");
+
+    if (file) {
+      if (!file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        setErrors((prev) => ({
+          ...prev,
+          userPicture: "Only JPG, JPEG, PNG, and GIF files are allowed",
+        }));
+        return;
+      }
+      setErrors((prev) => ({ ...prev, userPicture: "" }));
+      setUserdata((prev) => ({ ...prev, userPicture: file }));
+      setProfilePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const validateForm = () => {
+    let formValid = true;
+    let validationErrors = {};
+
+    if (!userdata.username.trim()) {
+      formValid = false;
+      validationErrors.username = "Name is required";
+    }
+    if (!userdata.userMail.trim()) {
+      formValid = false;
+      validationErrors.userMail = "Email is required";
+    } else if (!userdata.userMail.endsWith("@gmail.com")) {
+      formValid = false;
+      validationErrors.userMail = "Email must be a valid Gmail address";
+    }
+
+    setErrors(validationErrors);
+    return formValid;
+  };
+
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!validateForm()) return;
+
+  const formData = new FormData();
+
+  // Append only non-null fields to FormData
+  Object.entries(userdata).forEach(([key, value]) => {
+    if (value !== null && value !== undefined) {
+      // Append the file directly for userPicture
+      if (key === "profilePreview" && value instanceof File) {
+        formData.append(key, value);
+      } else {
+        formData.append(key, String(value));
+      }
+    }
+  });
+
+  console.log("FormData content:", formData);
+  console.log("FormData Content:");
+for (let pair of formData.entries()) {
+  console.log(pair[0] + ":", pair[1]);
+}
+
+  try {
+    const response = await axiosMultipartInstance.post(
+      `/edit_a_user/${userid}`,
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } }
+    );
+
+    if (response.status === 200) {
+      alert(response.data.msg);
+      fetchUserDetails(); // Reload user details after successful update
+      handleModalClose(); // Close the modal
+    }
+  } catch (error) {
+    console.error("Error updating user", error);
+    alert(error?.response?.data?.msg || "Error updating user details");
+  }
+};
+
+  const handleLogout = () => {
+    localStorage.removeItem("userid");
+    alert("Logged out successfully");
+    navigate("/user/login");
+  };
+  
 
   return (
     <Navbar className="usernavbar">
@@ -83,7 +224,7 @@ function UserNavbar() {
                 <Dropdown.Item onClick={handleShow} className="text-dark">
                   <img className="text-dark" src={logo2} alt="Login Icon" />
                 </Dropdown.Item>
-                <Dropdown.Item to="#/feedbacks">
+                <Dropdown.Item onClick={handleLogout}>
                   <img className="text-dark" src={logo3} alt="Login Icon" />
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -93,14 +234,170 @@ function UserNavbar() {
       </Container>
 
       <Offcanvas show={show} onHide={handleClose} placement="end">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
-        </Offcanvas.Body>
+        <Offcanvas.Header
+          className="profileheader"
+          closeButton
+        ></Offcanvas.Header>
+        <div>
+          <div>
+            {" "}
+            <img
+              src={`${imgurl}/${user?.userPicture?.filename}`}
+              className="userprofileimhg rounded-circle"
+            ></img>
+            <div className="row">
+              <div className="col-2 "></div>
+              <div className="col-2 "></div>
+              <div className="col-2 my-3 text-center">
+                <h4 className="profileusername">{user?.username}</h4>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-4 ms-5">
+                <p>
+                  <div className="text-secondary">Email</div>
+                  <b className="text-dark">{user.userMail}</b>
+                </p>
+                <p>
+                  <div className="text-secondary">Date of birth</div>
+                  <b>
+                  {new Date(user.userDate).toDateString()}
+                   
+                  </b>
+                </p>{" "}
+                <p>
+                  <div className="text-secondary">IFSC Code</div>
+                  <b>{user.userCode}</b>
+                </p>
+              </div>
+              <div className="col-5 ms-5">
+                <p>
+                  <div className="text-secondary">Contact</div>
+                  <b className="text-dark">{user.userContact}</b>
+                </p>
+                <p>
+                  <div className="text-secondary">Account Number</div>
+                  <b
+                    className="text-dark"
+                    max={new Date().toISOString().split("T")[0]}
+                  >
+                    {user.userNumber}
+                  </b>
+                </p>
+                <p>
+                  <div className="text-secondary">Address</div>
+                  <b className="text-dark">{user.userAddress}</b>
+                </p>
+              </div>
+              <div className="text-center text-light">
+                <button onClick={handleModalShow} className="profileedit ">
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </Offcanvas>
+
+      <Modal show={modalShow} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-4"></div>
+              <div className="col-3 w-25">
+                <img
+                  className="editprofileimhg rounded-circle"
+                  src={profilePreview}
+                  alt="Profile Preview"
+                  style={{ width: "150px", height: "150px" }}
+                />
+                <div className="camera-icon">
+                  <FaCamera
+                    onClick={() => document.getElementById("fileInput").click()} // Trigger click on hidden file input
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "24px",
+                      marginTop: "10px",
+                    }}
+                  />
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="file"
+                    id="fileInput"
+                    className="form-control"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }} // Hide the input
+                  />
+                  {errors.userPicture && (
+                    <span className="text-danger">{errors.userPicture}</span>
+                  )}
+                </div>
+              </div>
+              <div className="col-3"></div>
+            </div>
+            <div className="row">
+              
+              <div className="">
+                <div className="mb-3">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    name="userMail"
+                    value={userdata.userMail}
+                    onChange={handleInputChange}
+                  />
+                  {errors.userMail && (
+                    <span className="text-danger">{errors.userMail}</span>
+                  )}
+                </div>
+                <div className="mb-3">
+                  <label>Address</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="userAddress"
+                    value={userdata.userAddress}
+                    onChange={handleInputChange}
+                  />
+                  {errors.userAddress && (
+                    <span className="text-danger">{errors.userAddress}</span>
+                  )}
+                </div>
+                <div className="mb-3">
+                <label>Contact</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="userContact"
+                  value={userdata.userContact}
+                  onChange={handleInputChange}
+                />
+                {errors.userContact && (
+                  <span className="text-danger">{errors.userContact}</span>
+                )}
+              </div>
+                
+              </div>
+            </div>
+            
+            <div className="row">
+              <div className="col-4"></div>
+              <div className="col-5">
+                <button type="submit"  className="managersavebtn ms-2 mt-3">
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+        </Modal.Body>
+        
+      </Modal>
     </Navbar>
   );
 }

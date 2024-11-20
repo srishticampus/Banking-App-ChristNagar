@@ -169,60 +169,55 @@ const viewUserById = (req, res) => {
 };
 
 const editUserById = async (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
+  console.log(req.userPicture);
+
   const {
-    name,
-    email,
-    contact,
-    password,
-    dob,
-    qualification,
-    destination,
-    address,
-    dateofjoining,
+    username,
+    userContact,
+    userAddress,
+    userCode,
+    userPassword,
+    userMail,
+    userDate,
+    userNumber,
+    userPicture
   } = req.body;
 
   const updateData = {
-    name,
-    email,
-    contact,
-    password,
-    dob,
-    qualification,
-    destination,
-    address,
-    // idproof: req.files[0], // assuming first file is ID proof
-    dateofjoining,
-    // profile: req.files[1],
+    username,
+    userContact,
+    userAddress,
+    userCode,
+    userPassword,
+    userMail,
+    userDate,
+    userNumber,
+    userPicture
   };
 
-  if (req.files && req.files.length > 0) {
-    for (var i in req.files) {
-      if (req.files[i].mimetype.indexOf("video") > 0) {
-        updateData.idproof = req.files[i];
-      } else {
-        updateData.profile = req.files[i];
-      }
-    }
+  if (req.files) {
+    updateData.userPicture = req.files[0]
   }
 
   try {
-    const data = await User.findByIdAndUpdate(req.params.userid, updateData, {
+    const updatedUser = await User.findByIdAndUpdate(req.params.userid, updateData, {
       new: true,
+      runValidators: true,
     });
-    res.json({
-      status: 200,
-      msg: "Updated successfully",
-      data: data,
-    });
-  } catch (err) {
-    console.error(err);
-    res.json({
-      status: 502,
-      msg: "Data not updated",
-      Error: err,
-    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ status: 404, msg: "User not found" });
+    }
+
+    res.status(200).json({ status: 200, msg: "Updated successfully", data: updatedUser });
+  } catch (error) {
+    console.error("Error updating user", error);
+    res.status(500).json({ status: 500, msg: "An error occurred", error: error.message });
   }
 };
+
 
 //  login
 
@@ -248,6 +243,7 @@ const LoginUser = (req, res) => {
         data: user,
         status: 200,
         token: token,
+        ActiveStatus:user.ActiveStatus,
         msg: "User login successfully",
       });
     })

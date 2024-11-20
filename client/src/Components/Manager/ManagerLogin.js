@@ -47,26 +47,39 @@ function ManagerLogin() {
   };
 
   const navigate = useNavigate();
-
   const onclk = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       try {
         const response = await axiosinstance.post("/managerlogin", log);
         if (response.status === 200) {
-          alert(response.data.msg);
-          if (response.data.msg == "Login successfully") {
-            navigate("/manager/home");
+          console.log(response.data);
+  
+          const { msg, ActiveStatus, data } = response.data;
+          
+          if (msg === "Login successfully") {
+            if (!ActiveStatus) {
+              alert("Your account has been deactivated. Please contact the admin.");
+            } else {
+              localStorage.setItem("managerid", data._id);
+              setInterval(()=>{
+                navigate("/manager/home");
+              },1000)
+             
+            }
           } else {
+            alert("Login failed. Please check your credentials.");
             navigate("/manager/login");
           }
         }
       } catch (error) {
         console.error("Login Error:", error);
-        alert(error.response?.data?.msg || "Login failed. Please try again.");
+        alert("Login failed. Please try again.");
       }
     }
   };
+  
+  
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {

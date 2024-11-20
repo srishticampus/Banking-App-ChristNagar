@@ -286,6 +286,8 @@ function AdminEditAmanagerData() {
                     <span className="text-danger">{errors.address}</span>
                   )}
                 </div>
+
+                
               </div>
 
               <div className="col-5">
@@ -302,7 +304,22 @@ function AdminEditAmanagerData() {
                     <span className="text-danger">{errors.dateofjoining}</span>
                   )}
                 </div>
+                
+                <div className="mb-3">
+                  <label>Password</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="address"
+                    value={managerdata.password}
+                    onChange={handleInputChange}
+                  />
+                  {errors.address && (
+                    <span className="text-danger">{errors.address}</span>
+                  )}
+                </div>
               </div>
+              
             </div>{" "}
             <div className="row">
             <div className="col-4"></div>

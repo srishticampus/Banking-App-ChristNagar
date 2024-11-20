@@ -17,6 +17,9 @@ import UserHomePage from "./Components/User/UserHomePage";
 import UserSentForgotpswd from "./Components/User/UserSentForgotpswd";
 import UserForgotmailAccept from "./Components/User/UserForgotmailAccept";
 import ManagerHome from "./Components/Manager/ManagerHome";
+import ManagerProfile from "./Components/Manager/ManagerProfile";
+import ManagerEditProfile from "./Components/Manager/ManagerEditProfile";
+import ManagerViewUsers from "./Components/Manager/ManagerViewUsers";
 
 function App() {
   return (
@@ -30,12 +33,14 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/viewmanages" element={<AdminviewManagers />} />
         <Route path="/admin/addmanagers" element={<AdminAddManagers />} />
-        <Route path="/admin/view_a_managers/:managerid" element={<AdminViewAManager />} />
-        <Route path="/admin/edit_a_managers/:managerid" element={<AdminEditAmanagerData />} />
+        <Route path="/admin/view_a_managers/:managerid" pswrd="true" element={<AdminViewAManager />} />
+        <Route path="/admin/edit_a_managers/:managerid" pswrd="true" element={<AdminEditAmanagerData />} />
 
         <Route path="/manager/login" element={<ManagerLogin/>} />
         <Route path="/manager/home" element={<ManagerHome/>} />
-
+        <Route path="/manager/profile" element={<ManagerProfile/>} />
+        <Route path="/manager/editprofile" element={<ManagerEditProfile/>} />
+        <Route path="/manager/viewusers" element={<ManagerViewUsers/>} />
 
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/login" element={<UserLogin />} />

@@ -7,10 +7,10 @@ import Col from "react-bootstrap/Col";
 import LandingNav from "../Main/LandingNav";
 import LandingFooter from "../Main/LandingFooter";
 import axiosinstance from "../../apis/axiosinstance";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
-import { FiEyeOff } from 'react-icons/fi';
-import { FaEye } from 'react-icons/fa6';
+import { FiEyeOff } from "react-icons/fi";
+import { FaEye } from "react-icons/fa6";
 
 function UserRegister() {
   const [form, setForm] = useState({
@@ -142,7 +142,10 @@ function UserRegister() {
       formData.append("userPicture", form.userPicture);
 
       try {
-        const response = await axiosMultipartInstance.post("/userRegister", formData);
+        const response = await axiosMultipartInstance.post(
+          "/userRegister",
+          formData
+        );
         if (response.status === 200) {
           alert(response.data.msg);
           navigate("/user/login");
@@ -175,7 +178,9 @@ function UserRegister() {
                       value={form.username}
                       onChange={handleChange}
                     />
-                    {errors.username && <div className="error">{errors.username}</div>}
+                    {errors.username && (
+                      <div className="error">{errors.username}</div>
+                    )}
 
                     <label>Contact</label>
                     <input
@@ -185,7 +190,9 @@ function UserRegister() {
                       onChange={handleChange}
                       className="form-control"
                     />
-                    {errors.userContact && <div className="error">{errors.userContact}</div>}
+                    {errors.userContact && (
+                      <div className="error">{errors.userContact}</div>
+                    )}
 
                     <label>Address</label>
                     <input
@@ -195,7 +202,9 @@ function UserRegister() {
                       onChange={handleChange}
                       className="form-control"
                     />
-                    {errors.userAddress && <div className="error">{errors.userAddress}</div>}
+                    {errors.userAddress && (
+                      <div className="error">{errors.userAddress}</div>
+                    )}
 
                     <label>IFSC Code</label>
                     <input
@@ -205,20 +214,27 @@ function UserRegister() {
                       onChange={handleChange}
                       className="form-control"
                     />
-                    {errors.userCode && <div className="error">{errors.userCode}</div>}
+                    {errors.userCode && (
+                      <div className="error">{errors.userCode}</div>
+                    )}
 
                     <label>Password</label>
                     <input
-                    type={showPassword ? "text" : "password"}
+                      type={showPassword ? "text" : "password"}
                       name="userPassword"
                       value={form.userPassword}
                       onChange={handleChange}
                       className="form-control"
                     />
-                    <label className=" Customerpswrd" onClick={togglePasswordVisibility}>
-                    {showPassword ? <FiEyeOff /> : <FaEye/>}
-              </label>
-                    {errors.userPassword && <div className="error">{errors.userPassword}</div>}
+                    <label
+                      className=" Customerpswrd"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {showPassword ? <FiEyeOff /> : <FaEye />}
+                    </label>
+                    {errors.userPassword && (
+                      <div className="error">{errors.userPassword}</div>
+                    )}
                   </Col>
 
                   <Col>
@@ -230,7 +246,9 @@ function UserRegister() {
                       onChange={handleChange}
                       className="form-control"
                     />
-                    {errors.userMail && <div className="error">{errors.userMail}</div>}
+                    {errors.userMail && (
+                      <div className="error">{errors.userMail}</div>
+                    )}
 
                     <label>Date Of Birth</label>
                     <input
@@ -241,7 +259,9 @@ function UserRegister() {
                       className="form-control"
                       max={new Date().toISOString().split("T")[0]}
                     />
-                    {errors.userDate && <div className="error">{errors.userDate}</div>}
+                    {errors.userDate && (
+                      <div className="error">{errors.userDate}</div>
+                    )}
 
                     <label>Account Number</label>
                     <input
@@ -251,7 +271,9 @@ function UserRegister() {
                       onChange={handleChange}
                       className="form-control"
                     />
-                    {errors.userNumber && <div className="error">{errors.userNumber}</div>}
+                    {errors.userNumber && (
+                      <div className="error">{errors.userNumber}</div>
+                    )}
 
                     <label>Profile Picture</label>
                     <input
@@ -260,20 +282,27 @@ function UserRegister() {
                       onChange={handleFileChange}
                       className="form-control"
                     />
-                    {errors.userPicture && <div className="error">{errors.userPicture}</div>}
+                    {errors.userPicture && (
+                      <div className="error">{errors.userPicture}</div>
+                    )}
 
                     <label>Confirm Password</label>
                     <input
-                    type={showCPassword ? "text" : "password"}
-                    name="userConfirmpass"
+                      type={showCPassword ? "text" : "password"}
+                      name="userConfirmpass"
                       value={form.userConfirmpass}
                       onChange={handleChange}
                       className="form-control"
                     />
-                    <label className="Customerpswrd" onClick={toggleCPasswordVisibility}>
-                      {showCPassword ? <FiEyeOff /> : <FaEye/>}
-                </label>
-                    {errors.userConfirmpass && <div className="error">{errors.userConfirmpass}</div>}
+                    <label
+                      className="Customerpswrd"
+                      onClick={toggleCPasswordVisibility}
+                    >
+                      {showCPassword ? <FiEyeOff /> : <FaEye />}
+                    </label>
+                    {errors.userConfirmpass && (
+                      <div className="error">{errors.userConfirmpass}</div>
+                    )}
                   </Col>
                 </Row>
               </Container>
@@ -283,11 +312,9 @@ function UserRegister() {
                 </button>
                 <p id="foot">
                   Already have an account?{" "}
-                  
-                    <Link to="/user/login" id="linkstyle">
-                      <b>Sign In</b>
-                    </Link>
-                 
+                  <Link to="/user/login" id="linkstyle">
+                    <b>Sign In</b>
+                  </Link>
                 </p>
               </center>
             </div>

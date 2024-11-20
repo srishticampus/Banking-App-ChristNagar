@@ -7,35 +7,86 @@ import clerk from "../../Asserts/images/clerkmanager.png";
 import transaction from "../../Asserts/images/managertransaction.png";
 import logout from "../../Asserts/images/managerlogout.png";
 import user from "../../Asserts/images/managerviewuser.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../Asserts/images/Logo.png";
+import Navbar from "react-bootstrap/Navbar";
+import profile from "../../Asserts/images/Customer Service.png";
 
 function ManagerSidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("managerid");
+    alert("Please Login Again");
+    navigate("/manager/login");
+  };
   return (
     <div>
       <div className="main-container">
         <div className="side-nav">
           <div className="profile"></div>
-          <Nav defaultActiveKey="/home" className="flex-column mt-5">
-            <Nav.Item>
-              <Link to="/manager/home"><img src={home}></img> Dashboard</Link>
+          <Nav defaultActiveKey="/home" className="flex-column ">
+            <div className="col-2 d-flex align-items-center">
+              <Navbar.Brand to="#home">
+                <img src={logo} alt="Logo" />
+              </Navbar.Brand>
+              <Link to={"/manager/profile"} className="d-flex">
+                {" "}
+                <img src={profile} alt="Logo" />
+              </Link>
+            </div>
+            <Nav.Item className="nav-link mt-3">
+              <Link
+                to="/manager/home"
+                className="text-decoration-none text-light ms-3"
+              >
+                <img src={home}></img> Dashboard
+              </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#manage-loan"><img src={loan}></img> Manage Loan</Nav.Link>
+            <Nav.Item className="nav-link ">
+              <Link
+                to="/manager/home"
+                className="text-decoration-none text-light ms-3"
+              >
+                <img src={loan}></img> Manage Loan
+              </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#credit-card"><img src={credit}></img> Credit Card</Nav.Link>
+            <Nav.Item className="nav-link ">
+              <Link
+                to="/manager/home"
+                className="text-decoration-none text-light ms-3 "
+              >
+                <img src={credit}></img> Credit Card
+              </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="#clerk-management"><img src={clerk}></img> Clerk Management</Nav.Link>
-              </Nav.Item>
-              <Nav.Link href="#transaction"><img src={transaction}></img> Transaction</Nav.Link>
+            <Nav.Item className="nav-link">
+              <Link
+                to="/manager/home"
+                className="text-decoration-none text-light ms-3 "
+              >
+                <img src={clerk}></img> Clerk Management
+              </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#view-users"><img src={user}></img> View Users</Nav.Link>
+            <Nav.Item className="nav-link ">
+              <Link
+                to="/manager/home"
+                className="text-decoration-none text-light ms-3 "
+              >
+                <img src={transaction}></img> Transaction
+              </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="#logout"><img src={logout}></img> Logout</Nav.Link>
+            <Nav.Item className="nav-link ">
+              <Link
+                to="/manager/viewusers"
+                className="text-decoration-none text-light ms-3"
+              >
+                <img src={user}></img> View Users
+              </Link>
+            </Nav.Item>
+            <Nav.Item className="mt-3">
+              <Nav.Link onClick={handleLogout}>
+                <img src={logout}></img> Logout
+              </Nav.Link>
             </Nav.Item>
           </Nav>
         </div>
