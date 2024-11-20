@@ -55,6 +55,7 @@ function UserLogin() {
         if (response.status === 200) {
           alert(response.data.msg);
           if(response.data.msg=="User login successfully"){
+            localStorage.setItem("userid",response.data.data._id)
             navigate("/user/homepage")
           }
           else{

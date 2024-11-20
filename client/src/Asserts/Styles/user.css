@@ -70,25 +70,44 @@
   margin-left: 20px;
 }
 
-.userHomeimg{
+.userHomeimg {
   width: 100%;
   height: 100vh;
 }
-.userhomeclr{
-  color:#9747FF;
-  ;
+.userhomeclr {
+  color: #9747ff;
 }
-.usernavbar
-{
-background-color: black;
+.usernavbar {
+  background-color: black;
 }
-.Customerforget-pswd-eyeicon{
+.Customerforget-pswd-eyeicon {
   position: relative;
   bottom: 30px;
   left: 330px;
 }
-.Customerpswrd{
+.Customerpswrd {
   position: relative;
   bottom: 30px;
   left: 270px;
+}
+/* user profile */
+.profileheader {
+  background-color: #bf5dff;
+  height: 120px;
+}
+.userprofileimhg {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  left: 30%;
+  margin-top: -100px;
+}
+.profileusername{
+  color: #bf5dff;
+}
+.profileedit{
+  background-color: #bf5dff;
+  border: none;
+  padding: 2% 12%;
+  border-radius: 12px;
 }

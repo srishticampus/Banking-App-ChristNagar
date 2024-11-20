@@ -103,7 +103,7 @@ function AdminAddManagers() {
       formValid = false;
       errors.password = "Password is required";
     } else if (
-      !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}/.test(
+      !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*#?&]{6,}/.test(
         managerdata.password
       )
     ) {
@@ -119,6 +119,10 @@ function AdminAddManagers() {
     if (!managerdata.dob.trim()) {
       formValid = false;
       errors.dob = "Date of birth is required";
+    }
+    if (!managerdata.dateofjoining.trim()) {
+      formValid = false;
+      errors.dateofjoining = "Date of joining is required";
     }
     if (!managerdata.destination.trim()) {
       formValid = false;
@@ -172,6 +176,7 @@ function AdminAddManagers() {
     }
   };
 
+  
   return (
     <div>
       <div className="row">

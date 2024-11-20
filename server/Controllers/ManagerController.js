@@ -216,6 +216,7 @@ const ManagerLogin = (req, res) => {
         data: user,
         status: 200,
         token: token,
+        ActiveStatus:user.ActiveStatus,
         msg:"Login successfully"
       });
     })
