@@ -19,5 +19,6 @@ router.post('/forgotPWDsentMail', user.forgotPWDsentMail);
 router.post('/resetPassword/:id', user.resetPassword);
 router.get('/view_a_user/:userid', user.viewUserById);
 router.post('/edit_a_user/:userid',user.upload, user.editUserById);
+router.get('/viewusers', user.viewUsers);
 
 module.exports=router

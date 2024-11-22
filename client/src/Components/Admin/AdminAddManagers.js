@@ -18,8 +18,8 @@ function AdminAddManagers() {
     dob: "",
     address: "",
     destination: "",
-    idproof: null, // For file inputs, we set the initial state as null
-    profile: null, // For file inputs, we set the initial state as null
+    idproof: null, 
+    profile: null, 
     dateofjoining: "",
   });
 
