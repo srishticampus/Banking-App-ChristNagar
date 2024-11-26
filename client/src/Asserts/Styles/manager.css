@@ -93,20 +93,57 @@
     color: rgba(191, 93, 255, 1);
 }
 
-/* #content {
-    margin-top: 50px;
-} */
-
-.searchbar1 {
-    /* margin-right: 35px;
-    margin-left: 200px; */
-}
-
 #pageno{
     color: black;
 }
 
-/* .fulltable{
+  
+  /* Sidebar */
+  .sidebar {
+    /* background-color: #f8f9fa; */
+    min-height: 100vh;
+  }
+  
+  /* Main Content */
+  .main-content {
+    padding-right: 20px;
+    background-color: #ffffff;
+  }
+  
+
+  /* Table */
+  .user-table {
     width: 100%;
-    margin-right:2% ;
-} */
+    table-layout: fixed;
+    word-wrap: break-word;
+  }
+  #th{
+    background-color: #BF5DFF;
+    color: #f1f1f1;
+  }
+  .user-table th,
+  .user-table td {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+  }
+  
+  .user-table th {
+    background-color: #f1f1f1;
+  }
+  
+  /* Responsive Breakpoints */
+  @media (max-width: 768px) {
+    .d-flex {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      min-height: auto;
+    }
+  
+    .searchbar1 {
+      margin-top: 10px;
+    }
+  }
+  

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams,Link } from "react-router-dom";
+import { useParams,Link ,useNavigate} from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import ManagerSidebar from "./ManagerSidebar";
 import profiletop from "../../Asserts/images/Rectangle 158.png";
@@ -24,6 +24,14 @@ function ManagerProfile() {
     getAData();
   },[]);
 
+  const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem("managerid")==null){
+      navigate("/manager/login")
+    }
+
+  },[])
   return (
     <div className="row">
       <div className="col-2">
@@ -56,7 +64,8 @@ function ManagerProfile() {
               </p>
               <p>
                 <div className="text-secondary">Date of birth</div>
-                <b  >{new Date(manager.dob).toDateString()}</b>
+                <b  >                  {new Date(manager.dob).toLocaleDateString('en-GB')}                   
+</b>
               </p>{" "}
               <p>
                 <div className="text-secondary">Qualification</div>
@@ -71,7 +80,8 @@ function ManagerProfile() {
               </p>
               <p>
                 <div className="text-secondary">Date Of Joining</div>
-                <b className="text-dark">{new Date(manager.dateofjoining).toDateString()}</b>
+                <b className="text-dark">                  {new Date(manager.dateofjoining).toLocaleDateString('en-GB')}                   
+</b>
               </p>
               <p>
                 <div className="text-secondary">Address</div>

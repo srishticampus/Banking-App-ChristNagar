@@ -1,104 +1,216 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import { IoEye } from "react-icons/io5";
-import { TiTick } from "react-icons/ti";
-import Button from "react-bootstrap/Button";
-import Pagination from "react-bootstrap/Pagination";
-import "../../Asserts/Styles/manager.css";
-import { FaArrowLeft } from "react-icons/fa6";
-import { FaArrowRight } from "react-icons/fa6";
+import Table from "react-bootstrap/Table";
 import ManagerSidebar from "./ManagerSidebar";
 import axiosInstance from "../../apis/axiosinstance";
-import Table from "react-bootstrap/Table";
+import "../../Asserts/Styles/manager.css";
+import eye from "../../Asserts/images/eyebutton.png";
+import active from "../../Asserts/images/Choose Mode.png";
+import deactive from "../../Asserts/images/Choose Mode (1).png";
+import { Link,useNavigate } from "react-router-dom";
 
 function ManagerViewUsers() {
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
 
   useEffect(() => {
     getData();
   }, []);
 
-  const getData = () => {
-    axiosInstance
-      .get("/viewusers")
-      .then((res) => {
-        setUsers(res.data.data);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
+  // Fetch users from the backend
+  const getData = async () => {
+    try {
+      const res = await axiosInstance.get("/viewusers");
+      setUsers(res.data.data);
+      setFilteredUsers(res.data.data); // Initialize filteredUsers with the full user list
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+    }
   };
 
-  let active = 2;
-  let items = [];
-  for (let number = 1; number <= 5; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>
-    );
-  }
+  // Toggle user status between active and inactive
+  const toggleUserStatus = async (id, currentStatus) => {
+    const endpoint = currentStatus
+      ? "/deactivate_a_user/"
+      : "/activate_a_user/";
+    try {
+      const res = await axiosInstance.post(`${endpoint}${id}`);
+      if (res.status === 200) {
+        alert(
+          res?.data?.message ||
+            `User is now ${currentStatus ? "Inactive" : "Active"}`
+        );
+        // Update local state
+        setUsers((prevState) =>
+          prevState.map((user) =>
+            user._id === id ? { ...user, ActiveStatus: !currentStatus } : user
+          )
+        );
+        setFilteredUsers((prevState) =>
+          prevState.map((user) =>
+            user._id === id ? { ...user, ActiveStatus: !currentStatus } : user
+          )
+        );
+      } else {
+        console.error("Unexpected response:", res);
+      }
+    } catch (err) {
+      console.error("Error updating user status:", err);
+    }
+  };
 
+  // Handle search functionality
+  const handleSearch = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    if (!searchTerm) {
+      setFilteredUsers(users); // Reset to full list if search is cleared
+      return;
+    }
+    const filtered = users.filter((user) =>
+      user.username.toLowerCase().includes(searchTerm)
+    );
+    setFilteredUsers(filtered);
+    setCurrentPage(1); // Reset to the first page on search
+  };
+
+  // Pagination logic
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = filteredUsers.slice(indexOfFirstRow, indexOfLastRow);
+  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem("managerid")==null){
+      navigate("/manager/login")
+    }
+  },[])
+  
   return (
-    <div className="row">
-      <div className="col-3">
+    <div className="d-flex w-100">
+      {/* Sidebar */}
+      <div className="sidebar col-lg-3 col-md-4 col-sm-12">
         <ManagerSidebar />
       </div>
-      <div className="container col-8">
+
+      {/* Main Content */}
+      <div className="main-content col-lg-9 col-md-8 col-sm-12">
         <h3 className="mt-4">
           <span id="view">VIEW</span> USERS
         </h3>
-        <div className="row">
-          <div className="col-3"></div>
-          <div className="col-3"></div>
-          <div className="col-3"></div>
-          <div className="col-3">
-            {" "}
-            <Form className="searchbar1">
-              <Form.Control
-                type="search"
-                placeholder="Search Here... "
-                className="me-2 searchbar"
-                aria-label="Search"
-              />{" "}
-            </Form>
-          </div>
+
+        {/* Search Bar */}
+        <div className="d-flex justify-content-end mt-3">
+          <Form className="searchbar1 w-25">
+            <Form.Control
+              type="search"
+              placeholder="Search Here..."
+              className="me-2 searchbar"
+              aria-label="Search"
+              onChange={handleSearch}
+            />
+          </Form>
         </div>
-        <div className="row mt-4">
-        <div className="col-6">
-        <Table striped bordered hover>
-            <thead >
-              <tr >
-                <th id="tableth">S/No</th>
-                <th id="tableth">Name</th>
-                <th id="tableth">Phone Number</th>
-                <th id="tableth">Address</th>
-                <th id="tableth">Account No</th>
-                <th id="tableth">IFSC Code</th>
-                <th id="tableth">Balance</th>
-                <th id="tableth">Action</th>
+
+        {/* Table */}
+        <div className="mt-4">
+          <Table striped bordered hover className="user-table">
+            <thead>
+              <tr>
+                <th id="th">S/No</th>
+                <th id="th">Name</th>
+                <th id="th">Phone Number</th>
+                <th id="th">Address</th>
+                <th id="th">Account No</th>
+                <th id="th">IFSC Code</th>
+                <th id="th">Balance</th>
+                <th id="th">Action</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((data, index) => (
-                <tr key={index}>
-                  <td className="">{index + 1}</td>
-                  <td className="">{data.username}</td>
-                  <td className="">{data.userContact}</td>
-                  <td className="">{data.userAddress}</td>
-                  <td className="">{data.username} </td>
-                  <td className="">{data.username}</td>
-                  <td className="">{data.username}</td>
-                  <td className="">Action</td>
+              {currentRows.map((data, index) => (
+                <tr key={data._id}>
+                  <td>{indexOfFirstRow + index + 1}</td>
+                  <td>{data.username}</td>
+                  <td>{data.userContact}</td>
+                  <td>{data.userAddress}</td>
+                  <td>{data.userNumber}</td>
+                  <td>{data.userCode}</td>
+                  <td>{data.balance}</td>
+                  <td>
+                  <Link to={`/manager/viewuserdetails/${data._id}`}><img src={eye} alt="View Details" ></img></Link>
+                    {data.ActiveStatus ? (
+                      <div
+                        onClick={() =>
+                          toggleUserStatus(data._id, data.ActiveStatus)
+                        }
+                      >
+                        <img src={active} alt="Deactivate" />
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() =>
+                          toggleUserStatus(data._id, data.ActiveStatus)
+                        }
+                      >
+                        <img src={deactive} alt="Activate" />
+                      </div>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
-          </Table></div>
-          <div>cd c </div>
-          
+          </Table>
         </div>
+
+        {/* Pagination */}
+        <nav aria-label="Page navigation example" className="mt-3">
+          <ul className="pagination justify-content-center">
+            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+              <button
+                className="page-link"
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                &laquo;
+              </button>
+            </li>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <li
+                className={`page-item ${
+                  currentPage === i + 1 ? "active" : ""
+                }`}
+                key={i}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => handlePageChange(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              </li>
+            ))}
+            <li
+              className={`page-item ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+            >
+              <button
+                className="page-link"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                &raquo;
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <div className="col-1"></div>
     </div>
   );
 }

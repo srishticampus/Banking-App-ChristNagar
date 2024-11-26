@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams,Link } from "react-router-dom";
+import { useParams,Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import AdminSidebar from "./AdminSidebar";
 import profiletop from "../../Asserts/images/Rectangle 158.png";
@@ -17,7 +17,14 @@ function AdminViewAManager() {
       })
       .catch(() => {});
   };
+  const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem("admin")==null){
+      navigate("/adminlogin")
+    }
 
+  },[])
   useEffect(() => {
     getAData();
   },[]);
@@ -54,7 +61,8 @@ function AdminViewAManager() {
               </p>
               <p>
                 <div className="text-secondary">Date of birth</div>
-                <b>{new Date(manager.dob).toDateString()}</b>
+                <b>{new Date(manager.dob).toLocaleDateString('en-GB')}                   
+</b>
               </p>{" "}
               <p>
                 <div className="text-secondary">Qualification</div>
@@ -72,8 +80,8 @@ function AdminViewAManager() {
               </p>
               <p>
                 <div className="text-secondary">Date Of Joining</div>
-                <b className="text-dark" >{new Date(manager.dateofjoining).toDateString()}</b>
-              </p>
+                <b className="text-dark" >                  {new Date(manager.dateofjoining).toLocaleDateString('en-GB')}                   
+</b>              </p>
               <p>
                 <div className="text-secondary">Address</div>
                 <b className="text-dark">{manager.address}</b>

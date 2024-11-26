@@ -140,6 +140,13 @@ function AdminEditAmanagerData() {
       }
     }
   };
+  
+  useEffect(()=>{
+    if(localStorage.getItem("admin")==null){
+      navigate("/adminlogin")
+    }
+
+  },[])
 
   return (
     <div>

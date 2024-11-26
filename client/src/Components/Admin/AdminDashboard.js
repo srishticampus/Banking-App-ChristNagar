@@ -1,7 +1,17 @@
-import React from "react";
+import React,{useEffect} from "react";
 import AdminSidebar from "./AdminSidebar";
 import "../../Asserts/Styles/LandingPage.css";
+import { useNavigate } from "react-router-dom";
 function AdminDashboard() {
+
+  const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem("admin")==null){
+      navigate("/adminlogin")
+    }
+
+  },[])
   return (
     <div>
       <div className="row">

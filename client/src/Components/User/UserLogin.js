@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "../../Asserts/Styles/manager.css";
 import fmang from "../../Asserts/images/userlogin.png";
-import { FiEyeOff } from 'react-icons/fi';
-import { FaEye } from 'react-icons/fa6';
+import { FiEyeOff } from "react-icons/fi";
+import { FaEye } from "react-icons/fa6";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LandingFooter from "../Main/LandingFooter";
 import LandingNav from "../Main/LandingNav";
 import axiosinstance from "../../apis/axiosinstance";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+
 function UserLogin() {
   const [log, setLog] = useState({
     userMail: "",
@@ -45,8 +46,8 @@ function UserLogin() {
     return formValid;
   };
 
-  const navigate=useNavigate()
-  
+  const navigate = useNavigate();
+
   const onclk = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -54,12 +55,12 @@ function UserLogin() {
         const response = await axiosinstance.post("/userlogin", log);
         if (response.status === 200) {
           alert(response.data.msg);
-          if(response.data.msg=="User login successfully"){
-            localStorage.setItem("userid",response.data.data._id)
-            navigate("/user/homepage")
-          }
-          else{
-            navigate("/user/login") 
+          
+          if (response.data.msg == "User login successfully") {
+            localStorage.setItem("userid", response.data.data._id);
+            navigate("/user/homepage");
+          } else {
+            navigate("/user/login");
           }
         }
       } catch (error) {
@@ -105,39 +106,49 @@ function UserLogin() {
                     value={log.userMail}
                     onChange={onchg}
                   />
-                  {errors.userMail && <div className="error">{errors.userMail}</div>}
+                  {errors.userMail && (
+                    <div className="error">{errors.userMail}</div>
+                  )}
                   <br />
                   <label>
                     <b>Password</b>
                   </label>
                   <br />
                   <input
-                  type={showPassword ? "text" : "password"}
+                    type={showPassword ? "text" : "password"}
                     name="userPassword"
                     className="form-control loginput"
                     value={log.userPassword}
                     onChange={onchg}
                   />
-                  <div className=" Customerforget-pswd-eyeicon" onClick={togglePasswordVisibility}>
-                      {showPassword ? <FiEyeOff /> : <FaEye/>}
-                </div>
-                  {errors.userPassword && <div className="error">{errors.userPassword}</div>}
-                  <Link to="/user/forgot" className="d-flex justify-content-end" id="linkstyle">forgot password</Link>
+                  <div
+                    className=" Customerforget-pswd-eyeicon"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <FiEyeOff /> : <FaEye />}
+                  </div>
+                  {errors.userPassword && (
+                    <div className="error">{errors.userPassword}</div>
+                  )}
+                  <Link
+                    to="/user/forgot"
+                    className="d-flex justify-content-end"
+                    id="linkstyle"
+                  >
+                    forgot password
+                  </Link>
                   <div className="text-center">
                     <button name="submit" id="submit" onClick={onclk}>
                       Sign In
                     </button>
                     <center className="mt-3">
-
-                <p id="foot">
-                Don’t have an Account?  {" "}
-                  
-                    <Link to="/user/register" id="linkstyle">
-                      <b>Sign Up</b>
-                    </Link>
-                 
-                </p>
-              </center>
+                      <p id="foot">
+                        Don’t have an Account?{" "}
+                        <Link to="/user/register" id="linkstyle">
+                          <b>Sign Up</b>
+                        </Link>
+                      </p>
+                    </center>
                   </div>
                 </div>
               </div>

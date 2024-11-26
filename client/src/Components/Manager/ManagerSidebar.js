@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Nav from "react-bootstrap/Nav";
 import home from "../../Asserts/images/Home.png";
 import loan from "../../Asserts/images/managerloan.png";
@@ -14,30 +14,42 @@ import profile from "../../Asserts/images/Customer Service.png";
 
 function ManagerSidebar() {
   const navigate = useNavigate();
+  const [tooglebtn,setTooglebtn]=useState(false)
+
+  const togglemangerbtn=()=>{
+    setTooglebtn(true)
+  }
 
   const handleLogout = () => {
     localStorage.removeItem("managerid");
     alert("Please Login Again");
     navigate("/manager/login");
   };
+  
+  useEffect(()=>{
+    if(localStorage.getItem("managerid")==null){
+      navigate("/manager/login")
+    }
+
+  },[])
   return (
     <div>
       <div className="main-container">
         <div className="side-nav">
           <div className="profile"></div>
-          <Nav defaultActiveKey="/home" className="flex-column ">
+          <Nav  className="flex-column ">
             <div className="col-2 d-flex align-items-center">
-              <Navbar.Brand to="#home">
+              <Navbar.Brand to="">
                 <img src={logo} alt="Logo" />
               </Navbar.Brand>
-              <Link to={"/manager/profile"} className="d-flex">
+              <Link to={"/manager/profile"}>
                 {" "}
                 <img src={profile} alt="Logo" />
               </Link>
             </div>
             <Nav.Item className="nav-link mt-3">
               <Link
-                to="/manager/home"
+                to=""
                 className="text-decoration-none text-light ms-3"
               >
                 <img src={home}></img> Dashboard
@@ -61,11 +73,16 @@ function ManagerSidebar() {
             </Nav.Item>
             <Nav.Item className="nav-link">
               <Link
-                to="/manager/home"
+              onClick={togglemangerbtn}
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={clerk}></img> Clerk Management
               </Link>
+              { tooglebtn==true ? <div className="managermainbtn mt-1">
+                <div><Link to="/manager/addclerk" className="managerbtn text-light btn ">Add A Clerk</Link></div>
+                <div className="mt-2"><Link to="/manager/viewclerks" className="managerbtn text-light btn mt-1"> View All Clerk</Link></div>
+              </div>:""}
+
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
@@ -83,7 +100,7 @@ function ManagerSidebar() {
                 <img src={user}></img> View Users
               </Link>
             </Nav.Item>
-            <Nav.Item className="mt-3">
+            <Nav.Item className="mt-3 ms-3">
               <Nav.Link onClick={handleLogout}>
                 <img src={logout}></img> Logout
               </Nav.Link>

@@ -140,7 +140,13 @@ function ManagerEditProfile() {
       }
     }
   };
+  
+useEffect(()=>{
+    if(localStorage.getItem("managerid")==null){
+      navigate("/manager/login")
+    }
 
+  },[])
   return (
     <div>
       <div className="row">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdminSidebar from "./AdminSidebar";
 import "../../Asserts/Styles/admindashboard.css";
 import axiosInstance from "../../apis/axiosinstance";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import imgURL from "../../apis/imgURL";
 import { IoMdCheckmark } from "react-icons/io";
 import { FaXmark } from "react-icons/fa6";
@@ -52,7 +52,14 @@ function AdminviewManagers() {
         console.log("err", err);
       });
   };
+  const navigate=useNavigate()
 
+  useEffect(()=>{
+    if(localStorage.getItem("admin")==null){
+      navigate("/adminlogin")
+    }
+
+  },[])
   return (
     <div>
       <div className="row">

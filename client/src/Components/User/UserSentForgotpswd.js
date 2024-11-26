@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../../Asserts/Styles/user.css";
 import Registr from "../../Asserts/images/frgtpswdsent.png";
 import Row from "react-bootstrap/Row";
 import LandingNav from "../Main/LandingNav";
 import LandingFooter from "../Main/LandingFooter";
 import axiosinstance from "../../apis/axiosinstance";
+import { useNavigate } from "react-router-dom";
 
 function UserSentForgotpswd() {
   const [log, setLog] = useState({
@@ -50,6 +51,15 @@ function UserSentForgotpswd() {
       }
     }
   };
+
+  const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem("managerid")==null){
+      navigate("/manager/login")
+    }
+
+  },[])
 
   return (
     <div className="customerform">

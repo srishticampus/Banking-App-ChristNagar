@@ -156,7 +156,14 @@ for (let pair of formData.entries()) {
     navigate("/user/login");
   };
   
+  
+  useEffect(()=>{
+    if(localStorage.getItem("managerid")==null){
+      navigate("/manager/login")
+    }
 
+  },[])
+  
   return (
     <Navbar className="usernavbar">
       <Container>
@@ -261,8 +268,7 @@ for (let pair of formData.entries()) {
                 <p>
                   <div className="text-secondary">Date of birth</div>
                   <b>
-                  {new Date(user.userDate).toDateString()}
-                   
+                  {new Date(user.userDate).toLocaleDateString('en-GB')}                   
                   </b>
                 </p>{" "}
                 <p>
