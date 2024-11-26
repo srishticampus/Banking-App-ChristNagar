@@ -1,7 +1,17 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "../../Asserts/Styles/LandingPage.css";
 import ManagerSidebar from "./ManagerSidebar";
+import { useNavigate } from "react-router-dom";
 function ManagerHome() {
+
+  const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem("managerid")==null){
+      navigate("/manager/login")
+    }
+
+  },[])
   return (
     <div>
       <div className="row">

@@ -1,4 +1,4 @@
-const Clerk = require("../Models/ClerkSchema");
+const Clerk = require("../Models/ClerksSchema");
 
 const multer = require("multer");
 const jwt = require("jsonwebtoken");
@@ -17,7 +17,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).array("files");
 
 // Function to add a new Clerk
-const adminAddClerk = async (req, res) => {
+const AddClerk = async (req, res) => {
+  console.log(req.body);
+  
   try {
     const {
       name,
@@ -26,7 +28,7 @@ const adminAddClerk = async (req, res) => {
       password,
       dob,
       qualification,
-      destination,
+      chooseid,
       address,
       dateofjoining,
     } = req.body;
@@ -57,7 +59,7 @@ const adminAddClerk = async (req, res) => {
       password,
       dob,
       qualification,
-      destination,
+      chooseid,
       address,
       idproof: req.files[0], // assuming first file is ID proof
       dateofjoining,
@@ -305,7 +307,7 @@ const deActivateClerkById = (req, res) => {
 
 module.exports = {
   upload,
-  adminAddClerk,
+  AddClerk,
   viewClerks,
   viewClerkById,
   editClerkById,

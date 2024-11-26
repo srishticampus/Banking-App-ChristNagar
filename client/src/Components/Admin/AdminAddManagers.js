@@ -1,6 +1,6 @@
 import AdminSidebar from "./AdminSidebar";
 import addbtn from "../../Asserts/images/login button.png";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import { useNavigate, Link } from "react-router-dom";
 import { FiEyeOff } from 'react-icons/fi';
@@ -176,6 +176,12 @@ function AdminAddManagers() {
     }
   };
 
+  useEffect(()=>{
+    if(localStorage.getItem("admin")==null){
+      navigate("/adminlogin")
+    }
+
+  },[])
   
   return (
     <div>

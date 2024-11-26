@@ -62,7 +62,7 @@ function ManagerLogin() {
               alert("Your account has been deactivated. Please contact the admin.");
             } else {
               localStorage.setItem("managerid", data._id);
-              setInterval(()=>{
+              setTimeout(()=>{
                 navigate("/manager/home");
               },1000)
              

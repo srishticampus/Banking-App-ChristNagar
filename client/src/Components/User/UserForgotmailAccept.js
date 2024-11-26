@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../../Asserts/Styles/manager.css";
 import fmang from "../../Asserts/images/changfrgtpswd.png";
 import { FiEyeOff } from "react-icons/fi";
@@ -79,6 +79,13 @@ function UserForgotmailAccept() {
     setshowCPassword(!showCPassword);
   };
 
+  
+  useEffect(()=>{
+    if(localStorage.getItem("userid")==null){
+      navigate("/manager/login")
+    }
+
+  },[])
   return (
     <div>
       <LandingNav />

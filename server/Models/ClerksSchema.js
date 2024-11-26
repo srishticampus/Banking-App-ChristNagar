@@ -21,7 +21,7 @@ const ClerkSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  destination: {
+  chooseid: {
     type: String,
     required: true,
   },

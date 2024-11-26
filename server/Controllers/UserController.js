@@ -32,7 +32,7 @@ const testMail = (data) => {
     if (error) {
       console.log("Error:", error);
     } else {
-      console.log("Email sent:", info.response);
+      // console.log("Email sent:", info.response);
     }
   });
 };
@@ -169,9 +169,9 @@ const viewUserById = (req, res) => {
 };
 
 const editUserById = async (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-  console.log(req.userPicture);
+  // console.log(req.body);
+  // console.log(req.files);
+  // console.log(req.userPicture);
 
   const {
     username,
@@ -226,11 +226,13 @@ const createToken = (user) => {
 };
 
 const LoginUser = (req, res) => {
+  
   const { userMail, userPassword } = req.body;
 
   User.findOne({ userMail })
     .exec()
     .then((user) => {
+
       if (!user) {
         return res.json({ status: 409, msg: "user not found" });
       } else if (user.userPassword !== userPassword) {

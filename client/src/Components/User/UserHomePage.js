@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "../../Asserts/Styles/user.css";
 import userhome from "../../Asserts/images/userhome.png";
 import img1 from "../../Asserts/images/image 10 (1).png";
@@ -14,7 +14,17 @@ import star from "../../Asserts/images/Star (1).png";
 import LandingFooter from "../Main/LandingFooter";
 import UserNavbar from "./UserNavbar";
 import arrowimg from "../../Asserts/images/basil_arrow-up-outline.png";
+import { useNavigate } from "react-router-dom";
+
 function UserHomePage() {
+  const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem("managerid")==null){
+      navigate("/manager/login")
+    }
+
+  },[])
   return (
     <div>
     <UserNavbar/>

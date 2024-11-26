@@ -4,15 +4,24 @@ import home from "../../Asserts/images/Home.png";
 import manage from "../../Asserts/images/Management.png";
 import customer from "../../Asserts/images/Customer Insight.png";
 import manager from "../../Asserts/images/Project Manager.png";
+import logout from "../../Asserts/images/managerlogout.png";
+
 import "../../Asserts/Styles/admindashboard.css";
 import { Link, useNavigate } from "react-router-dom";
+
 function AdminSidebar() {
-  const [tooglebtn,setTooglebtn]=useState(false)
+  const [tooglebtn, setTooglebtn] = useState(false);
+  const navigate = useNavigate();
 
-  const togglemangerbtn=()=>{
-    setTooglebtn(true)
+  const togglemangerbtn = () => {
+    setTooglebtn(true);
+  };
+
+  const handleLogout=()=>{
+    localStorage.removeItem("adminid");
+    alert("Please Login Again");
+    navigate("/adminlogin");
   }
-
   return (
     <div className="sidebardesign">
       <img src={logo}></img>
@@ -35,6 +44,7 @@ function AdminSidebar() {
         </div>
         <div className="col-9">Customer Management</div>
       </div>
+
       <Link
         to="/admin/viewmanages"
         className="text-decoration-none text-light"
@@ -44,10 +54,16 @@ function AdminSidebar() {
         <div className="col-1">
           <img src={manage}></img>
         </div>
-        <div className="col-9">Clerk Management</div>
-        <div
-          className="text-decoration-none text-light"
-        >
+        <div className="col-9">
+          {" "}
+          <Link
+            to="/admin/viewclerks"
+            className="col-3 text-decoration-none text-light"
+          >
+            Clerk Management
+          </Link>
+        </div>
+        <div className="text-decoration-none text-light">
           <div className="row mt-3 hover">
             <div className="col-1"></div>
             <div className="col-1">
@@ -56,11 +72,32 @@ function AdminSidebar() {
             <div className="col-9">
               {" "}
               <label onClick={togglemangerbtn}>Manager Management</label>
-              { tooglebtn==true ? <div className="managermainbtn mt-1">
-                <Link to="/admin/addmanagers" className="managerbtn text-light btn">Add A Manager</Link>
-                <Link to="/admin/viewmanages" className="managerbtn text-light btn mt-1"> View All Managers</Link>
-              </div>:""}
-              
+              {tooglebtn == true ? (
+                <div className="managermainbtn mt-1">
+                  <Link
+                    to="/admin/addmanagers"
+                    className="managerbtn text-light btn"
+                  >
+                    Add A Manager
+                  </Link>
+                  <Link
+                    to="/admin/viewmanages"
+                    className="managerbtn text-light btn mt-1"
+                  >
+                    {" "}
+                    View All Managers
+                  </Link>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="row mt-3 hover" onClick={handleLogout}>
+              <div className="col-1"></div>
+              <div className="col-1">
+                <img src={logout}></img>
+              </div>
+              <div className="col-9">Logout</div>
             </div>
           </div>
         </div>
