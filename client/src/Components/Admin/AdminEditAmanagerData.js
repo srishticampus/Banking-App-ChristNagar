@@ -28,7 +28,7 @@ function AdminEditAmanagerData() {
 
   const getAData = () => {
     axiosInstance
-      .get(`/view_a_manger/${managerid}`)
+      .get(`/view_a_manager/${managerid}`)
       .then((res) => {
         const data = res.data.data;
         setManagerdata({

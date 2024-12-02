@@ -34,6 +34,8 @@ function ManagerEditProfile() {
       .get(`/view_a_manager/${managerid}`)
       .then((res) => {
         const data = res.data.data;
+        console.log(data,"mangerdata");
+        
         setManagerdata({
           ...data,
           dob: data.dob ? new Date(data.dob).toISOString().split("T")[0] : "",
@@ -155,11 +157,6 @@ function ManagerEditProfile() {
       }
     }
   };
-
-  // Show loading spinner
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>

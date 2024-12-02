@@ -125,7 +125,7 @@ function ClerkLogin() {
                     <div className="error">{errors.password}</div>
                   )}
                   <Link
-                    to="/client/forgot"
+                    to="/clerk/forgot"
                     className="d-flex justify-content-end"
                     id="linkstyle"
                   >
@@ -135,21 +135,14 @@ function ClerkLogin() {
                     <button name="submit" id="submit" onClick={onclk}>
                       Sign In
                     </button>
-                    <center className="mt-3">
-                      <p id="foot">
-                        Don’t have an Account?{" "}
-                        <Link to="/client/register" id="linkstyle">
-                          <b>Sign Up</b>
-                        </Link>
-                      </p>
-                    </center>
+                    
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-6">
               <div id="imgstyle">
-                <img src={fmang} alt="client Login" />
+                <img src={fmang} alt="clerk Login" />
               </div>
             </div>
           </Row>
