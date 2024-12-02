@@ -13,7 +13,7 @@ function ManagerProfile() {
 
   const getAData = () => {
     axiosInstance
-      .get(`/view_a_manger/${managerid}`)
+      .get(`/view_a_manager/${managerid}`)
       .then((res) => {
         setManager(res.data.data);
       })

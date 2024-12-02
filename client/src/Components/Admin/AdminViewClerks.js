@@ -18,10 +18,10 @@ function AdminViewClerks() {
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
 
-  const [show, setShow] = useState(false);
+  const [idshow, setidShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setidShow(false);
+  const handleShow = () => setidShow(true);
 
   useEffect(() => {
     getData();
@@ -171,12 +171,7 @@ function AdminViewClerks() {
                     </Link>
                   </td>
 
-                  <Modal show={show} onHide={handleClose}>
-                    <img
-                      src={`http://localhost:4051/${data.idproof.filename}`}
-                      className={"clerkidproofimg"}
-                    ></img>
-                  </Modal>
+                  
                   <td>
                     {data.ActiveStatus ? (
                       <div
@@ -196,7 +191,14 @@ function AdminViewClerks() {
                       </div>
                     )}
                   </td>
+                  <Modal show={idshow} onHide={handleClose}>
+                    <img
+                      src={`${imgurl}/${data.idproof.filename}`}
+                      className={"clerkidproofimg"}
+                    ></img>
+                  </Modal>
                 </tr>
+                
               ))}
             </tbody>
           </Table>

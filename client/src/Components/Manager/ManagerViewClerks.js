@@ -76,8 +76,8 @@ function ManagerViewClerks() {
       setFilteredclerks(clerks); // Reset to full list if search is cleared
       return;
     }
-    const filtered = clerks.filter((user) =>
-      user.username.toLowerCase().includes(searchTerm)
+    const filtered = clerks.filter((clerk) =>
+      clerk.name.toLowerCase().includes(searchTerm)
     );
     setFilteredclerks(filtered);
     setCurrentPage(1); // Reset to the first page on search
@@ -163,9 +163,9 @@ function ManagerViewClerks() {
                     <td>{data.qualification}</td>
                     <td>{new Date(data.dob).toLocaleDateString("en-GB")}</td>
                     <td>
-                      <Link to={""} onClick={handleShow}>
+                      <div onClick={handleShow}>
                         View file
-                      </Link>
+                      </div>
                     </td>
 
                     <Modal show={show} onHide={handleClose}>
@@ -183,7 +183,7 @@ function ManagerViewClerks() {
                   </tr>
                 ))
               ) : (
-                <h4>Please Add A Clerk</h4>
+                <h4 className="w-100 m-5">Please Add A Clerk</h4>
               )}
             </tbody>
           </Table>

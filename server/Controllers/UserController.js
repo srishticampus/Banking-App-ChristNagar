@@ -169,9 +169,9 @@ const viewUserById = (req, res) => {
 };
 
 const editUserById = async (req, res) => {
-  // console.log(req.body);
-  // console.log(req.files);
-  // console.log(req.userPicture);
+  console.log(req.body);
+  console.log(req.files);
+  console.log(req.userPicture);
 
   const {
     username,
