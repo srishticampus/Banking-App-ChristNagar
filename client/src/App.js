@@ -23,6 +23,10 @@ import ManagerViewUsers from "./Components/Manager/ManagerViewUsers";
 import ManagerAddClerk from "./Components/Manager/ManagerAddClerk";
 import AdminViewClerks from "./Components/Admin/AdminViewClerks";
 import ManagerViewUserDetails from "./Components/Manager/ManagerViewUserDetails";
+import ClerkLogin from "./Components/Clerk/ClerkLogin";
+import ClerkDashboard from "./Components/Clerk/ClerkDashboard";
+import ManagerViewClerks from "./Components/Manager/ManagerViewClerks";
+import ManagerEditClerk from "./Components/Manager/ManagerEditClerk";
 
 function App() {
   return (
@@ -48,6 +52,8 @@ function App() {
         <Route path="/manager/viewusers" element={<ManagerViewUsers/>} />
         <Route path="/manager/addClerk" element={<ManagerAddClerk/>} />
         <Route path="/manager/viewuserdetails/:userid" element={<ManagerViewUserDetails/>} />
+        <Route path="/manager/viewclerks" element={<ManagerViewClerks/>} />
+        <Route path="/manager/editclerk/:clerkid" element={<ManagerEditClerk/>} />
 
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/login" element={<UserLogin />} />
@@ -55,7 +61,14 @@ function App() {
         <Route path="/user/forgot" element={<UserSentForgotpswd/>} />
         <Route path="/reset-password/:id" element={<UserForgotmailAccept/>} />
 
-        
+
+        <Route path="/clerk/login" element={<ClerkLogin />} />
+        <Route path="/clerk/forgot" element={<UserSentForgotpswd/>} />
+        <Route path="/clerk/reset-password/:id" element={<UserForgotmailAccept/>} />
+        <Route path="/manager/profile" element={<ManagerProfile/>} />
+        <Route path="/manager/editprofile" element={<ManagerEditProfile/>} />
+        <Route path="/clerk/homepage" element={<ClerkDashboard/>} />
+
       </Routes>
     </BrowserRouter>
   );
