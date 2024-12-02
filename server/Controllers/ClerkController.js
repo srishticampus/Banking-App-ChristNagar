@@ -16,6 +16,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).array("files");
 
+const specUp = multer({ storage: storage }).fields([
+  { name: "profile", maxCount: 1 }, // Handle profile image
+  { name: "idproof", maxCount: 2 }, // Handle ID proofs (max 2 files)
+])
+
 // Function to add a new Clerk
 const AddClerk = async (req, res) => {
   console.log(req.body);
@@ -113,7 +118,7 @@ const viewClerks = (req, res) => {
 };
 
 const viewClerkById = (req, res) => {
-  Clerk.findById(req.params.Clerkid)
+  Clerk.findById(req.params.clerkid)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -131,46 +136,41 @@ const viewClerkById = (req, res) => {
 };
 
 const editClerkById = async (req, res) => {
-  console.log(req.files);
   const {
     name,
-    email,
-    contact,
-    password,
-    dob,
-    qualification,
-    destination,
-    address,
-    dateofjoining,
+      email,
+      contact,
+      password,
+      dob,
+      qualification,
+      chooseid,
+      address,
+      dateofjoining,
   } = req.body;
 
   const updateData = {
     name,
-    email,
-    contact,
-    password,
-    dob,
-    qualification,
-    destination,
-    address,
-    // idproof: req.files[0], // assuming first file is ID proof
-    dateofjoining,
-    // profile: req.files[1],
+      email,
+      contact,
+      password,
+      dob,
+      qualification,
+      chooseid,
+      address,
+      dateofjoining,
   };
 
-  if (req.files && req.files.length > 0) {
-    for (var i in req.files) {
-      if (req.files[i].mimetype.indexOf("video") > 0) {
-        updateData.idproof = req.files[i];
-      } else {
-        updateData.profile = req.files[i];
-      }
-    }
+  if(req.files.idproof) {
+    updateData.idproof = req.files.idproof[0];
+  }
+
+  if (req.files.profile) {
+    updateData.profile = req.files.profile[0];
   }
 
   try {
     const data = await Clerk.findByIdAndUpdate(
-      req.params.Clerkid,
+      req.params.clerkid,
       updateData,
       {
         new: true,
@@ -197,10 +197,11 @@ const createToken = (user) => {
   return jwt.sign({ userId: user.id }, secret, { expiresIn: "1hr" });
 };
 
-const loginMentor = (req, res) => {
+const loginClerk = (req, res) => {
+  console.log(req.body);
+  
   const { email, password } = req.body;
-  Mentor.mentors
-    .findOne({ email })
+  Clerk.findOne({ email })
     .exec()
     .then((user) => {
       if (!user) {
@@ -215,6 +216,7 @@ const loginMentor = (req, res) => {
         data: user,
         status: 200,
         token: token,
+        msg:"login successfully"
       });
     })
     .catch((err) => {
@@ -306,11 +308,12 @@ const deActivateClerkById = (req, res) => {
 };
 
 module.exports = {
-  upload,
+  upload,loginClerk,
   AddClerk,
   viewClerks,
   viewClerkById,
   editClerkById,
   activateClerkById,
   deActivateClerkById,
+  specUp
 };

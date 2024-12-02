@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 
 const testMail = (data) => {
   
-  let email = data.userMail;
+  let email = data.email;
   const mailOptions = {
     from: "supprot.web.application@gmail.com",
     to: email,
@@ -274,8 +274,7 @@ const requireAuth = (req, res, next) => {
 
 // Forgot Password for entrepreneur
 const forgotPassword = (req, res) => {
-  Mentor.mentors
-    .findOneAndUpdate(
+  Clerk.findOneAndUpdate(
       { email: req.body.email },
       {
         password: req.body.password,
@@ -340,8 +339,7 @@ const deActivateUserById = (req, res) => {
 const forgotPWDsentMail = async (req, res) => {
  
   try {
-    const data = await User.findOne({ userMail: req.body.userMail });
-
+    const data = await Clerk.findOne({ email: req.body.email });
     if (data) {
       const id = data._id.toString();
       testMail(data);
@@ -365,10 +363,10 @@ const forgotPWDsentMail = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-  await User.findByIdAndUpdate(
+  await Clerk.findByIdAndUpdate(
     { _id: req.params.id },
     {
-      userPassword: req.body.password,
+      password: req.body.password,
     }
   )
     .exec()

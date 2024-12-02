@@ -40,12 +40,12 @@ function LandingNav() {
                </a></Dropdown.Toggle>
                 <Dropdown.Menu className="mt-2">
                   <Dropdown.Item ><Link to="/user/login"  className="text-decoration-none text-dark">User</Link></Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
+                  <Dropdown.Item>
                   <Link to="/manager/login"  className="text-decoration-none text-dark " >Manager</Link>
                    
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
-                   Clerk
+                  <Dropdown.Item >
+                  <Link to="/clerk/login"  className="text-decoration-none text-dark" >Clerk</Link>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

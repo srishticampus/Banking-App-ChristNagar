@@ -49,7 +49,7 @@ function ManagerSidebar() {
             </div>
             <Nav.Item className="nav-link mt-3">
               <Link
-                to=""
+                to="/manager/home"
                 className="text-decoration-none text-light ms-3"
               >
                 <img src={home}></img> Dashboard
@@ -73,15 +73,12 @@ function ManagerSidebar() {
             </Nav.Item>
             <Nav.Item className="nav-link">
               <Link
-              onClick={togglemangerbtn}
+              to="/manager/viewclerks"
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={clerk}></img> Clerk Management
               </Link>
-              { tooglebtn==true ? <div className="managermainbtn mt-1">
-                <div><Link to="/manager/addclerk" className="managerbtn text-light btn ">Add A Clerk</Link></div>
-                <div className="mt-2"><Link to="/manager/viewclerks" className="managerbtn text-light btn mt-1"> View All Clerk</Link></div>
-              </div>:""}
+             
 
             </Nav.Item>
             <Nav.Item className="nav-link ">

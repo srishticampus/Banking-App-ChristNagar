@@ -1,5 +1,5 @@
 import addbtn from "../../Asserts/images/login button.png";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import { useNavigate, Link } from "react-router-dom";
 import { FiEyeOff } from "react-icons/fi";
@@ -165,7 +165,7 @@ function ManagerAddClerk() {
         );
         if (response.status === 200) {
           alert(response.data.msg);
-          navigate("/admin/viewclerks"); 
+          navigate("/manager/viewclerks");
         }
       } catch (error) {
         console.error("Error:", error);
@@ -176,12 +176,11 @@ function ManagerAddClerk() {
       console.log("Form is not valid", formValid);
     }
   };
-  useEffect(()=>{
-    if(localStorage.getItem("managerid")==null){
-      navigate("/manager/login")
+  useEffect(() => {
+    if (localStorage.getItem("managerid") == null) {
+      navigate("/manager/login");
     }
-
-  },[])
+  }, []);
 
   return (
     <div>
@@ -200,7 +199,11 @@ function ManagerAddClerk() {
                 <div className="col-4 w-25">
                   <img
                     className="editprofileimhg rounded-circle"
-                    src={profile}
+                    src={
+                      clerkdata.profile
+                        ? URL.createObjectURL(clerkdata.profile)
+                        : profile
+                    }
                     alt="Profile Preview"
                     style={{ width: "150px", height: "150px" }}
                   />
@@ -208,7 +211,7 @@ function ManagerAddClerk() {
                     <FaCamera
                       onClick={() =>
                         document.getElementById("fileInput").click()
-                      } // Trigger click on hidden file input
+                      }
                       style={{
                         cursor: "pointer",
                         fontSize: "24px",
@@ -216,7 +219,18 @@ function ManagerAddClerk() {
                       }}
                     />
                   </div>
-                </div>{" "}
+                  <input
+                    id="fileInput"
+                    type="file"
+                    className="d-none" // Hide the input
+                    onChange={handleFileChange}
+                  />
+                  {errors.profile && (
+                    <div className="text-danger">{errors.profile}</div>
+                  )}
+                  {error && <div className="text-danger">{error}</div>}
+                </div>
+
                 <div className="col-4"></div>
               </div>
               <div className="col-5">
@@ -297,22 +311,7 @@ function ManagerAddClerk() {
                 </div>
               </div>
             </div>
-            <div className="mb-3">
-              <label>Address</label>
-              <div className="row">
-                <div className="col-10">
-                  {" "}
-                  <textarea
-                    className="form-control"
-                    name="address"
-                    onChange={handleInputChange}
-                  />
-                  {errors.address && (
-                    <div className="text-danger">{errors.address}</div>
-                  )}
-                </div>
-              </div>
-            </div>
+           
             <div className="row">
               <div className="col-5">
                 <div className="mb-3">
@@ -330,17 +329,21 @@ function ManagerAddClerk() {
                   )}
                 </div>
                 <div className="mb-3">
-                  <label>Profile Picture</label>
+              <label>Address</label>
+             
+                <div className="">
+                  {" "}
                   <input
-                    type="file"
                     className="form-control"
-                    onChange={handleFileChange}
+                    name="address"
+                    onChange={handleInputChange}
                   />
-                  {errors.profile && (
-                    <div className="text-danger">{errors.profile}</div>
+                  {errors.address && (
+                    <div className="text-danger">{errors.address}</div>
                   )}
-                  {error && <div className="text-danger">{error}</div>}
-                </div>
+               
+              </div>
+            </div>
               </div>
               <div className="col-5">
                 <div className="mb-3">

@@ -2,15 +2,16 @@ import ManagerSidebar from "./ManagerSidebar";
 import addbtn from "../../Asserts/images/login button.png";
 import React, { useEffect, useState } from "react";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import imgurl from "../../apis/imgURL";
 import { FaCamera } from "react-icons/fa"; // Import a camera icon from react-icons
 
 function ManagerEditProfile() {
   const navigate = useNavigate();
-  const managerid = localStorage.getItem("managerid")
+  const managerid = localStorage.getItem("managerid");
 
+  // State for manager data
   const [managerdata, setManagerdata] = useState({
     name: "",
     email: "",
@@ -25,10 +26,12 @@ function ManagerEditProfile() {
 
   const [errors, setErrors] = useState({});
   const [profilePreview, setProfilePreview] = useState(""); // To show the image preview
+  const [loading, setLoading] = useState(true); // Loading state
 
+  // Fetch manager data
   const getAData = () => {
     axiosInstance
-      .get(`/view_a_manger/${managerid}`)
+      .get(`/view_a_manager/${managerid}`)
       .then((res) => {
         const data = res.data.data;
         setManagerdata({
@@ -38,20 +41,30 @@ function ManagerEditProfile() {
             ? new Date(data.dateofjoining).toISOString().split("T")[0]
             : "",
         });
-        setProfilePreview(`${imgurl}/${data.profile?.filename}`);
+        setProfilePreview(data.profile?.filename ? `${imgurl}/${data.profile.filename}` : "");
+        setLoading(false);
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.error("Error fetching manager data:", err);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
-    getAData();
+    if (!managerid) {
+      navigate("/manager/login");
+    } else {
+      getAData();
+    }
   }, [managerid]);
 
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setManagerdata({ ...managerdata, [name]: value });
   };
 
+  // Handle file input change
   const handleFileChange = (e) => {
     const profile = e.target.files[0];
     if (profile && !profile.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
@@ -66,6 +79,7 @@ function ManagerEditProfile() {
     setProfilePreview(URL.createObjectURL(profile)); // Show preview of selected image
   };
 
+  // Form validation
   const validateForm = () => {
     const newErrors = {};
     let formValid = true;
@@ -107,6 +121,7 @@ function ManagerEditProfile() {
     return formValid;
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -140,13 +155,12 @@ function ManagerEditProfile() {
       }
     }
   };
-  
-useEffect(()=>{
-    if(localStorage.getItem("managerid")==null){
-      navigate("/manager/login")
-    }
 
-  },[])
+  // Show loading spinner
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="row">
@@ -278,48 +292,25 @@ useEffect(()=>{
               </div>
             </div>
             <div className="row">
-              <div className="col-5">
+              <div className="col-10">
                 <div className="mb-3">
                   <label>Address</label>
-                  <input
-                    type="text"
+                  <textarea
                     className="form-control"
                     name="address"
                     value={managerdata.address}
                     onChange={handleInputChange}
-                  />
+                  ></textarea>
                   {errors.address && (
                     <span className="text-danger">{errors.address}</span>
                   )}
                 </div>
-
-                
               </div>
-
-              <div className="col-5">
-                <div className="mb-3">
-                  <label>Date of Joining</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="dateofjoining"
-                    value={managerdata.dateofjoining}
-                    onChange={handleInputChange}
-                  />
-                  {errors.dateofjoining && (
-                    <span className="text-danger">{errors.dateofjoining}</span>
-                  )}
-                </div>
-                
-                
-              </div>
-              
-            </div>{" "}
-            <div className="row">
-            <div className="col-4"></div>
-              <div className="col-5">
-                <button type="submit" className="managersavebtn ms-2 mt-3">
-                  Save
+            </div>
+            <div className="row justify-content-center mt-4">
+              <div className="col-3">
+                <button type="submit" className="btn btn-success w-100">
+                  Update Profile
                 </button>
               </div>
             </div>

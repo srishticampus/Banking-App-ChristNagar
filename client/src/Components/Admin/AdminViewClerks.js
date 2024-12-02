@@ -173,7 +173,7 @@ function AdminViewClerks() {
 
                   <Modal show={show} onHide={handleClose}>
                     <img
-                      src={`${imgurl}/${data?.idproof?.filename}`}
+                      src={`http://localhost:4051/${data.idproof.filename}`}
                       className={"clerkidproofimg"}
                     ></img>
                   </Modal>

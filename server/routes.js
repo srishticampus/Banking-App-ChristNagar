@@ -29,11 +29,11 @@ router.post('/activate_a_user/:id',user.activateUserById)
 
 router.post('/addClerk',clerk.upload,clerk.AddClerk)
 router.get('/viewallclerks',clerk.viewClerks)
-// router.get('/view_a_manger/:managerid',clerk.viewManagerById)
-// router.post('/editManagerById/:managerid',clerk.upload,clerk.editManagerById)
-router.post('/deactivate_a_clerk/:id',clerk.deActivateClerkById)
-router.post('/activate_a_clerk/:id',clerk.activateClerkById)
-// router.post('/managerlogin',clerk.ManagerLogin)
+router.get('/view_a_clerk/:clerkid',clerk.viewClerkById)
+router.post('/edit_a_clerk/:clerkid',clerk.specUp,clerk.editClerkById)
+router.post('/deactivate_a_clerk/:clerkid',clerk.deActivateClerkById)
+router.post('/activate_a_clerk/:clerkid',clerk.activateClerkById)
+router.post('/clerklogin',clerk.loginClerk)
 
 
 module.exports=router
