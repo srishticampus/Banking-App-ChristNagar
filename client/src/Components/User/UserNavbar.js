@@ -114,23 +114,22 @@ function UserNavbar() {
 
   const formData = new FormData();
 
-  // Append only non-null fields to FormData
+  // Append all form data, including the image
   Object.entries(userdata).forEach(([key, value]) => {
     if (value !== null && value !== undefined) {
-      // Append the file directly for userPicture
-      if (key === "profilePreview" && value instanceof File) {
+      // Handle the userPicture (image file) separately to ensure it's appended correctly
+      if (key === "userPicture" && value instanceof File) {
         formData.append(key, value);
       } else {
-        formData.append(key, String(value));
+        formData.append(key, value);
       }
     }
   });
 
-  console.log("FormData content:", formData);
   console.log("FormData Content:");
-for (let pair of formData.entries()) {
-  console.log(pair[0] + ":", pair[1]);
-}
+  for (let pair of formData.entries()) {
+    console.log(pair[0] + ":", pair[1]);
+  }
 
   try {
     const response = await axiosMultipartInstance.post(
@@ -150,6 +149,7 @@ for (let pair of formData.entries()) {
   }
 };
 
+
   const handleLogout = () => {
     localStorage.removeItem("userid");
     alert("Logged out successfully");
@@ -158,8 +158,8 @@ for (let pair of formData.entries()) {
   
   
   useEffect(()=>{
-    if(localStorage.getItem("managerid")==null){
-      navigate("/manager/login")
+    if(localStorage.getItem("userid")==null){
+      navigate("/user/login")
     }
 
   },[])
@@ -183,7 +183,7 @@ for (let pair of formData.entries()) {
                 Home
               </Link>
               <Link
-                to="#about"
+                to="/user/applayloan"
                 className="me-5 text-light text-decoration-none"
               >
                 Loan
@@ -338,6 +338,7 @@ for (let pair of formData.entries()) {
                     accept="image/*"
                     onChange={handleFileChange}
                     style={{ display: "none" }} // Hide the input
+                    name="userPicture"
                   />
                   {errors.userPicture && (
                     <span className="text-danger">{errors.userPicture}</span>
