@@ -5,8 +5,6 @@ const multer = require('multer');
 // for saving loan application data
 const SaveLoanApplicationData = async (req, res) => {
 
-    console.log(req.body)
-
     const userData = new LoanSchema({
         loantype: req.body.loantype,
         loanamount: req.body.loanamount,
