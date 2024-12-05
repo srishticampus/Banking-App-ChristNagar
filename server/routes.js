@@ -27,6 +27,8 @@ router.post('/deactivate_a_user/:id',user.deActivateUserById)
 router.post('/activate_a_user/:id',user.activateUserById)
 
 
+
+
 router.post('/addClerk',clerk.upload,clerk.AddClerk)
 router.get('/viewallclerks',clerk.viewClerks)
 router.get('/view_a_clerk/:clerkid',clerk.viewClerkById)
