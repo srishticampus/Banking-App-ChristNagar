@@ -21,6 +21,83 @@ const LoanSchema = new mongoose.Schema({
     loanverification: {
         type: Boolean,
         default: false
+    },
+    pancardnumber: {
+        type: String,
+        required: true
+    },
+    pancardimage: {
+        type: Object,
+        required: true
+    },
+    aadharnumber: {
+        type: String,
+        required: true
+    },
+    aadharimage: {
+        type: Object,
+        required: true
+    },
+    votersidfile: {
+        type: Object
+    },
+    drivinglicensefile: {
+        type: Object
+    },
+    passportfile: {
+        type: Object
+    },
+    userid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Userid"
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    contactnumber: {
+        type: Number,
+        required: true
+    },
+    gender: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    dob: {
+        type: Date,
+        required: true
+    },
+    profilepicture: {
+        type: Object,
+        required: true
+    },
+    nameofemployer: {
+        type: String,
+        required: true
+    },
+    employercontact: {
+        type: Number,
+        required: true
+    },
+    workexp: {
+        type: String,
+        required: true
+    },
+    salary: {
+        type: Number,
+        required: true
+    },
+    position: {
+        type: String,
+        required: true
+    },
+    salaryslipimg: {
+        type: Object,
+        required: true
     }
 
 
