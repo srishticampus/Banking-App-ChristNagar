@@ -67,20 +67,21 @@ const SaveLoanApplicationData = async (req, res) => {
 
 }
 
-// for seeing one loan application
 const ViewLoanApplication = (req, res) => {
 
-    const userLoanId = req.params.id
-
-    LoanSchema.findById(loanId)
+    LoanSchema.findOne({}).populate('userid')
         .then((response) => {
-            res.json({ status: 200, msg: 'Loan Application Fetched', data: response })
+            if (!response) {
+                return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
+            }
+            res.json({ status: 200, msg: 'Loan Application Fetched', data: response });
         })
         .catch((error) => {
-            res.json({ status: 500, msg: 'Loan Application Fetch Failed', data: error })
-        })
+            res.status(500).json({ status: 500, msg: 'Loan Application Fetch Failed', data: error });
+        });
 
-}
+};
+
 
 // for seeing all loan applications
 const ViewAllLoanApplications = (res, req) => {
