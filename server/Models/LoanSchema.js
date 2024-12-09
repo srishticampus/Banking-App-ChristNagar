@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+//new 
 const LoanSchema = new mongoose.Schema({
     
 })
