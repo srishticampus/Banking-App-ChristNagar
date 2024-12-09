@@ -1,104 +1,175 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import './CustLoanDetails.css';
+import "../../Asserts/Styles/Loan.css";
+import axiosInstance from "../../apis/axiosinstance";
+import { useLocation, useNavigate } from "react-router-dom";
+import UserNavbar from "../User/UserNavbar";
 
 function CustomerLoanpersonDetail() {
-    const [form, setForm] = useState({
-        Email: "",
-        Contact: "",
-        Address: "",
-        Gender: "",
-        Dateofbirth: ""
-    });
+  const [data, setData] = useState({});
+  const location = useLocation();
+  const loanDetails = location.state;
 
-    const store = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+  useEffect(() => {
+    console.log("Received Loan Details:", loanDetails);
+
+    const fetchUserData = async () => {
+      try {
+        const userId = localStorage.getItem("userid");
+        const response = await axiosInstance.get(`/view_a_user/${userId}`);
+        console.log("User Data:", response.data);
+        setData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     };
 
-    const update = (e) => {
-        console.log(form);
-    };
+    fetchUserData();
+  }, [loanDetails]);
 
-    return (
-        <div className='CustLoanPersonalDetails'>
-            <div className="CustLoanPersonalDetailscirclecontainer">
-                <div className="CustLoanPersonalDetailscircle1">1</div>
-                <input className='CustLoanPersonalDetailsInput1'/>
-                <div className="CustLoanPersonalDetailscircle2">2</div>
-                <input  className='CustLoanPersonalDetailsInput2'/>
-                <div className="CustLoanPersonalDetailscircle3">3</div>
-                
+  const navigate = useNavigate();
+  const update = () => {
+    navigate("/user/applyloanIdentity", { state: { loanDetails } });
+  };
+  
+  return (
+    <div className="CustLoanPersonalDetails">
+    <UserNavbar/>
+      {/* Progress Bar */}
+      <Container>
+        <Row className="justify-content-center">
+          <Col md={8} className="text-center">
+            <div className="progress-bar-container">
+              <div>
+                {" "}
+                <div className="circle active">1</div>
+                <span className="progress-text">Personal Details</span>
+              </div>
+
+              <div className="profildetaildline"></div>
+              <div>
+                {" "}
+                <div className="circle">2</div>
+                <span className="progress-text">Identity</span>
+              </div>
+
+              <div className="profildetaildline"></div>
+
+              <div>
+                {" "}
+                <div className="circle">3</div>
+                <span className="progress-text">Employment Details</span>
+              </div>
             </div>
+          </Col>
+        </Row>
+      </Container>
 
+      {/* Form Section */}
+      <Container>
+        <Card
+          className="CustLoanPersonalDetailshorizontal-card mx-auto"
+          style={{ maxWidth: "900px" }}
+        >
+          <Card.Body>
+            <h5 className="text-center" style={{ color: "#9A00FF" }}>
+              Personal Details
+            </h5>
+            <Row>
+              {/* Left Column */}
+              <Col md={6}>
+                <div className="mb-4">
+                  <label>Name</label>
+                  <input
+                    className="form-control CustLoanPersonalDetailsformcontrol"
+                    type="text"
+                    name="Name"
+                    placeholder={data?.username}
+                  />
+                </div>
 
-            <center>
-                <Card className="CustLoanPersonalDetailshorizontal-card" style={{ width: '900px', height: '400px' }}>
-                    <Card.Body>
-                        <div className="customerform">
-                            <Container className="CustLoanPersonalDetailsCustcontainer1">
-                                <h5 style={{ color: "#9A00FF" }}>Personal Details</h5>
-                                <Row>
-                                    <Col>
-                                        <div className="CustLoanPersonalDetailsformstyle">
-                                            <Container className="CustLoanPersonalDetailscontainer2">
-                                                <Row>
-                                                    <Col>
-                                                        <label >Name</label>
-                                                        <input className='CustLoanPersonalDetailsformcontrol' type="text" name="Name" onChange={store} /><br />
-                                                        <label>Gender</label><br />
-                                                        <label>
-                                                            <input type="radio" name="gender" value="male" /> Male
-                                                        </label>&nbsp;&nbsp;&nbsp;
-                                                        <label>
-                                                            <input type="radio" name="gender" value="female" /> Female
-                                                        </label>&nbsp;&nbsp;&nbsp;
-                                                        <label>
-                                                            <input type="radio" name="gender" value="other" /> Other
-                                                        </label><br /><br /><br />
-                                                        <div className='CustLoanPersonalDetailsDate'>
-                                                            <label>Date Of Birth</label>
-                                                            <input type="date" name="date" onChange={store} className='CustLoanPersonalDetailsformcontrol' />
-                                                        </div>
-                                                    </Col>
-                                                </Row>
-                                            </Container>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div className="CustLoanPersonalDetailsformstyle">
-                                            <Container className="CustLoanPersonalDetailscontainer2">
-                                                <Row>
-                                                    <Col>
-                                                        <label>Phone Number</label><br />
-                                                        <input className='CustLoanPersonalDetailsformcontrol' type="text" name="Number" onChange={store} /><br />
-                                                        <label >Address</label><br />
-                                                        <input className='CustLoanPersonalDetailsformcontrol' type="text" name="address" onChange={store} /><br />
-                                                        <label >Profile Picture</label>
-                                                        <input type="text" name="profile" placeholder='Upload File' onChange={store} className='CustLoanPersonalDetailsformcontrol' />
-                                                        <div className='CustLoanPersonalDetailsIcon'>
-                                                            <MdOutlineFileUpload />
-                                                        </div>
-                                                    </Col>
-                                                    <center>
-                                                        <button id='CustLoanPersonalDetailsButton'>Continue</button>
-                                                        <div className='CustLoanPersonalDetailsArrow'>
-                                                            <FaLongArrowAltRight />
-                                                        </div>
-                                                    </center>
-                                                </Row>
-                                            </Container>
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Container>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </center>
-        </div>
-    );
+                <div className="mb-4">
+                  <label>Date of Birth</label>
+                  <input
+                    className="form-control CustLoanPersonalDetailsformcontrol"
+                    type="date"
+                    name="DateOfBirth"
+                    value={
+                      data?.userDate
+                        ? new Date(data?.userDate).toISOString().split("T")[0]
+                        : ""
+                    }
+                  />
+                </div>
+              </Col>
+
+              {/* Right Column */}
+              <Col md={6}>
+                <div className="mb-4">
+                  <label>Contact Number</label>
+                  <input
+                    className="form-control CustLoanPersonalDetailsformcontrol"
+                    type="text"
+                    name="Contact"
+                    placeholder={data?.userContact}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label>Address</label>
+                  <input
+                    className="form-control CustLoanPersonalDetailsformcontrol"
+                    type="text"
+                    name="Address"
+                    placeholder={data?.userAddress}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label>Profile Picture</label>
+                  <div className="d-flex align-items-center">
+                    <input
+                      className="form-control CustLoanPersonalDetailsformcontrol"
+                      type="text"
+                      name="ProfilePicture"
+                      placeholder={data?.userPicture?.filename}
+                    />
+                    <MdOutlineFileUpload className="ms-2" size={24} />
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            {/* Continue Button */}
+            <div className="text-center">
+              <Button
+                id="CustLoanPersonalDetailsButton"
+                className="d-inline-flex align-items-center"
+                onClick={update}
+              >
+                Continue
+                <FaLongArrowAltRight className="ms-2" />
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
+      </Container>
+    </div>
+  );
 }
 
 export default CustomerLoanpersonDetail;
+
+// <div className="mb-4">
+//                   <label>Gender</label>
+//                   <div>
+//                     <label className="me-4">
+//                       <input type="radio" name="Gender" value="Male"  /> Male
+//                     </label>
+//                     <label className="me-4">
+//                       <input type="radio" name="Gender" value="Female"  /> Female
+//                     </label>
+//                     <label>
+//                       <input type="radio" name="Gender" value="Others"  /> Others
+//                     </label>
+//                   </div>
+//                 </div>

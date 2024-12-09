@@ -267,7 +267,6 @@ function ManagerEditProfile() {
                     className="form-control"
                     name="dob"
                     value={managerdata.dob}
-                    onChange={handleInputChange}
                   />
                   {errors.dob && (
                     <span className="text-danger">{errors.dob}</span>

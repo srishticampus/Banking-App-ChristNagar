@@ -29,6 +29,9 @@ import ManagerViewClerks from "./Components/Manager/ManagerViewClerks";
 import ManagerEditClerk from "./Components/Manager/ManagerEditClerk";
 import CustomerApplyLoan from "./Components/CustomerLoan/CustomerApplyLoan";
 import CustomerLoanPersonalDetails from "./Components/CustomerLoan/CustomerApplicationStatus";
+import CustomerLoanpersonDetail from "./Components/CustomerLoan/CustomerLoanpersonDetail";
+import CustomerLoanIdentity from "./Components/CustomerLoan/CustomerLoanIdentity";
+import CustomerLoanEmployeDetails from "./Components/CustomerLoan/CustomerLoanEmployeDetails";
 
 function App() {
   return (
@@ -71,9 +74,11 @@ function App() {
         <Route path="/manager/editprofile" element={<ManagerEditProfile/>} />
         <Route path="/clerk/homepage" element={<ClerkDashboard/>} />
 
-        <Route path="/user/applayloan" element={<CustomerApplyLoan/>} />
+        <Route path="/user/applyloan" element={<CustomerApplyLoan/>} />
+        <Route path="/user/applyloanpersonaldetail" element={<CustomerLoanpersonDetail/>} />
+        <Route path="/user/applyloanIdentity" element={<CustomerLoanIdentity/>} />
+        <Route path="/user/applyloanEmpdetails" element={<CustomerLoanEmployeDetails/>} />
         <Route path="/user/applayloanpersonaldetails" element={<CustomerLoanPersonalDetails/>} />
-
       </Routes>
     </BrowserRouter>
   );
