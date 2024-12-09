@@ -58,7 +58,7 @@ function CustomerLoanEmployeDetails() {
     <div>
       <div className="CustLoanEmplDetails">
         <UserNavbar />
-        {/* Progress Bar */}
+        {/* Progress Barss */}
         <Container>
           <Row className="justify-content-center">
             <Col md={8} className="text-center">
