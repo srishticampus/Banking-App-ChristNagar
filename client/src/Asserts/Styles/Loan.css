@@ -44,7 +44,7 @@
     padding-left: 50px;
     padding-right: 50px;
     border-radius: 20px;
-    background-color: #bf5dff;
+    /* background-color: #bf5dff; */
     color:white;
     border:none;
 }
@@ -123,7 +123,7 @@
   }
   
   .progress-line {
-    height: 2px;
+    height: 1px;
     width: 80px;
     background-color: #d3d3d3;
   }
@@ -231,7 +231,245 @@
     color: #a113fe;
   } 
   
-   .cust-app-card-tex2 {
+  .cust-app-card-tex2 {
     margin-top: 24px;
     margin-bottom: 24px;
+  }
+
+  .CustLoanPersonalDetails{
+    background-color: #F5F2F7;
+
+}
+
+
+  /* loan apply user detaaails */
+  /* .CustLoanPersonalDetails {
+    background-color: #f8f8f8;
+    padding-top: 50px;
+  } */
+
+  .CustLoanPersonalDetailshorizontal-card {
+    border-radius: 20px !important;
+    overflow: hidden;
+    background-color: #f5f2f7;
+  }
+
+  .CustLoanPersonalDetailscirclecontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+  }
+
+  .CustLoanPersonalDetailscircle1,
+  .CustLoanPersonalDetailscircle2,
+  .CustLoanPersonalDetailscircle3 {
+    width: 60px;
+    height: 60px;
+    background-color: #bf5dff;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .CustLoanPersonalDetailscircle2,
+  .CustLoanPersonalDetailscircle3 {
+    background-color: #e4d9ec;
+    color: black;
+  }
+
+  .CustLoanPersonalDetailsStepText {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .CustLoanPersonalDetailsformcontrol {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  #CustLoanPersonalDetailsButton {
+    background-color: #bf5dff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    font-size: 16px;
+  }
+
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #e4d9ec;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+  }
+
+  .circle.active {
+    background-color: #bf5dff;
+    color: white;
+  }
+
+  .profildetaildline {
+    /* flex: 1; */
+    height: 2px;
+    background-color: #e4d9ec;
+    position: relative;
+    top: -20px;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .progress-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #9a00ff;
+    text-align: center;
+    width: 100px;
+  }
+
+  /* loanidentity */
+
+  .CustLoanIdentity {
+    /* padding-top: 50px; */
+    background-color: #f8f8f8;
+    min-height: 100vh;
+}
+
+.CustLoanIdentityStepText {
+    font-size: 14px;
+    color: #9a00ff;
+    text-align: center;
+}
+
+.CustLoanIdentityhorizontal-card {
+    border-radius: 20px;
+    background-color: #f5f2f7;
+    width: 900px;
+    padding: 20px;
+}
+
+.customerLoanIdentityformcontrol {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.input-upload {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.upload-icon {
+    position: absolute;
+    right: 15px;
+    font-size: 20px;
+    color: #bf5dff;
+}
+
+#CustomerLoanIdentity {
+    width: 150px;
+    padding: 10px;
+    background-color: #bf5dff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.CustLoanIconArrow {
+    margin-left: 10px;
+    font-size: 20px;
+    color: white;
+}
+
+/* empdata */
+
+
+#Employ{
+  position: relative;
+  right:210px;
+  top: 20px;
+  width: auto;
+  padding: 0px 38px 3px;
+  border-radius: 20px!important;
+  background-color: #BF5DFF;
+  color: white;
+  border: none;
+}
+
+.CustLoanEmplDetailscirclecontainer {
+   display: flex;
+   align-items: center;
+   gap: 290px; 
+   position: absolute;
+   margin-top: -115px;
+   left: 190px;
+   align-items: start;
+}
+
+.CustLoanEmplDetailsformcontrol {
+width: 100%;
+padding: 12px 15px;
+margin-bottom: 25px;
+border: 1px solid #ccc;
+border-radius: 8px;
+font-size: 14px;
+color: #333;
+background: #fff;
+
+}
+.CustLoanEmplDetailsCustIcon{
+   position: absolute;
+     right: 48px; 
+     top: 278px;
+
+   }
+   .CustLoanEmplDetailsInput1{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: #BF5DFF;
+    position: relative;
+    right:240px;
+    width: 290px;
+ } 
+ .CustLoanEmplDetailsInput2{
+     border-top: 0px;
+     border-left: 0px;
+     border-right: 0px;
+     border-color: #BF5DFF;
+     position: relative;
+     right:820px;
+     width: 290px;
+
+ }
+ .formstyle {
+    font-weight: 500;
+    margin-top: 80px;
   }
