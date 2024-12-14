@@ -1,22 +1,45 @@
-import React, { useRef } from "react";
+import React, { useRef,useState } from "react";
 import "../../Asserts/Styles/Loan.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
-import { GoDotFill } from "react-icons/go";
 import { FaArrowRightLong } from "react-icons/fa6";
 import customer from "../../Asserts/images/custloan.png";
 import UserNavbar from "../User/UserNavbar";
+import { GoDotFill } from "react-icons/go";
 
 import Applaynow from "../../Asserts/images/ApplyNowBTN.png";
+import { useNavigate } from "react-router-dom";
 
 function CustomerApplyLoan() {
+  const [loanDetails, setLoanDetails] = useState({
+    loanType: "",
+    loanAmount: "",
+    loanPurpose: "",
+  })
+
   const applayref = useRef();
 
   const handleLoanApply = () => {
     applayref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+
+  const navigate=useNavigate()
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoanDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/user/applyloanpersonaldetail',{ state: loanDetails })
+    console.log("Loan Details Submitted: ", loanDetails);
+    // Add your logic to send loanDetails to the backend
   };
 
   return (
@@ -87,8 +110,7 @@ function CustomerApplyLoan() {
           <br />
           <div className="custloanapplysection2pt2formborder">
             <div className="custloanapplysection2pt2formpt">
-              <Form>
-                <div className="row">
+<Form onSubmit={handleSubmit}>                <div className="row">
                   <div className="col-6">
                     <Form.Group
                       className=""
@@ -96,10 +118,17 @@ function CustomerApplyLoan() {
                       id="custloanapplytypebox"
                     >
                       <Form.Label>Loan Type</Form.Label>
-                      <Form.Select defaultValue="">
+                      <Form.Select
+                        name="loanType"
+                        value={loanDetails.loanType}
+                        onChange={handleChange}
+                      >
                         <option value="" disabled>
                           Choose Loan Type
                         </option>
+                        <option value="Personal Loan">Personal Loan</option>
+                        <option value="Home Loan">Home Loan</option>
+                        <option value="Car Loan">Car Loan</option>
                       </Form.Select>
                     </Form.Group>
                   </div>
@@ -110,8 +139,13 @@ function CustomerApplyLoan() {
                       id="custloanapplyamtrequiredbox"
                     >
                       <Form.Label>Amount Required</Form.Label>
-                      <Form.Control type="text" placeholder="Rs.0/-" />
-                    </Form.Group>
+                      <Form.Control
+                      type="text"
+                      placeholder="Rs.0/-"
+                      name="loanAmount"
+                      value={loanDetails.loanAmount}
+                      onChange={handleChange}
+                    />                    </Form.Group>
                   </div>
                 </div>
                 <Row>
@@ -125,6 +159,9 @@ function CustomerApplyLoan() {
                       as="textarea"
                       aria-label="With textarea"
                       placeholder="Description"
+                      name="loanPurpose"
+                      value={loanDetails.loanPurpose}
+                      onChange={handleChange}
                     />
                   </Form.Group>
                 </Row>
