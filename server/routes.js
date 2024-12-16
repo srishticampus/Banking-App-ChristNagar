@@ -28,7 +28,7 @@ router.post('/deactivate_a_user/:id', user.deActivateUserById)
 router.post('/activate_a_user/:id', user.activateUserById)
 
 
-router.post('/saveloandata', loan.upload, loan.SaveLoanApplicationData)
+router.post('/saveloandata/:userid', loan.upload, loan.SaveLoanApplicationData)
 router.get('/viewoneloan', loan.ViewLoanApplication)
 router.get('/viewallloan', loan.ViewAllLoanApplications)
 router.post('/verifyloan', loan.VerifyLoanApplication)

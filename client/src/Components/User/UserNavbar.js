@@ -183,7 +183,7 @@ function UserNavbar() {
                 Home
               </Link>
               <Link
-                to="/user/applayloan"
+                to="/user/applyloan"
                 className="me-5 text-light text-decoration-none"
               >
                 Loan

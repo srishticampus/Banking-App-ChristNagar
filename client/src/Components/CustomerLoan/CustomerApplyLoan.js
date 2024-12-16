@@ -44,7 +44,6 @@ function CustomerApplyLoan() {
 
   return (
     <div>
-      <UserNavbar />
       <div className="custloanapplysection1">
         <div className="custloanapplysection1pt1">
           <div className="row">
