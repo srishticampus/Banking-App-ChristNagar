@@ -37,6 +37,7 @@ function CustomerLoanpersonDetail() {
 
 return (
     <div className="CustLoanPersonalDetails">
+    <UserNavbar/>
       {/* Progress Bar */}
       <Container>
         <Row className="justify-content-center">

@@ -3,6 +3,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import UserNavbar from "../User/UserNavbar";
 
 function CustomerLoanIdentity() {
   const [form, setForm] = useState({
@@ -97,6 +98,7 @@ function CustomerLoanIdentity() {
 
   return (
     <div className="CustLoanIdentity">
+    <UserNavbar/>
       <Container>
         <Row className="justify-content-center">
           <Col md={8} className="text-center">
