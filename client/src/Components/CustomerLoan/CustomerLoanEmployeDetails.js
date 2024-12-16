@@ -3,6 +3,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
+import UserNavbar from "../User/UserNavbar";
 
 function CustomerLoanEmployeDetails() {
   const location = useLocation();
@@ -92,6 +93,7 @@ function CustomerLoanEmployeDetails() {
 
   return (
     <div>
+    <UserNavbar/>
       <div className="CustLoanEmplDetails">
         <Container>
           <Row className="justify-content-center">
