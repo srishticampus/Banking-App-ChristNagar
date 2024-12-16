@@ -28,7 +28,7 @@ const SaveLoanApplicationData = async (req, res) => {
     console.log(req.files)
 
     const userData = new LoanSchema({
-        userid:req.params.userid,
+        userid: req.params.userid,
         loantype: req.body.loanType,
         loanamount: req.body.loanAmount,
         loanpurpose: req.body.loanPurpose,
@@ -95,6 +95,33 @@ const ViewAllLoanApplications = (res, req) => {
         })
 
 }
+
+// for viewing verified loan applications
+const VerifiedLoanApplication = async (res, req) => {
+
+    await LoanSchema.find({ loanverification: true })
+        .then((response) => {
+            res.json({ status: 200, msg: 'Data retrieved', data: response })
+        })
+        .catch((error) => {
+            res.json({ status: 500, msg: 'Data failed tto retrive', data: error })
+        })
+
+}
+
+// for viewing non verified applications
+const NonVerifiedLoanApplication = async (res,req) => {
+
+    await LoanSchema.find({ loanverification: false })
+        .then((response) => {
+            res.json({ status: 200, msg: 'Data recieved', data: response })
+        } )
+        .catch((error) => {
+            res.json({status:500, msg:'Data failed to retrieve', data: response})
+        })
+
+}
+
 
 // for verifying loan application
 const VerifyLoanApplication = async (res, req) => {
