@@ -13,18 +13,22 @@ function CustomerLoanpersonDetail() {
   const location = useLocation();
   const loanDetails = location.state;
 
+  const fetchUserData = async () => {
+    try {
+      const userId = localStorage.getItem("userid");
+
+      const response = await axiosInstance.get(`/view_a_user/${userId}`);
+      console.log("User Data:", response.data);
+      setData(response.data.data);
+
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }}
+    
   useEffect(() => {
     console.log("Received Loan Details:", loanDetails)
-
-    const fetchUserData = async () => {
-        try {
-          const userId = localStorage.getItem("userid");
-          const response = await axiosInstance.get(`/view_a_user/${userId}`);
-          console.log("User Data:", response.data);
-          setData(response.data.data);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }}},[])
+    fetchUserData()
+    },[])
 
         const navigate = useNavigate();
   const update = () => {

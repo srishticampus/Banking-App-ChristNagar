@@ -51,30 +51,6 @@ const LoanSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Userid"
     },
-    name: {
-        type: String,
-        required: true
-    },
-    contactnumber: {
-        type: Number,
-        required: true
-    },
-    gender: {
-        type: String,
-        required: true
-    },
-    address: {
-        type: String,
-        required: true
-    },
-    dob: {
-        type: Date,
-        required: true
-    },
-    profilepicture: {
-        type: Object,
-        required: true
-    },
     nameofemployer: {
         type: String,
         required: true

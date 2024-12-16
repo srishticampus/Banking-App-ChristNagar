@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { MdOutlineFileUpload } from "react-icons/md";
-import UserNavbar from "../User/UserNavbar";
 import { useLocation } from "react-router-dom";
+import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
+import UserNavbar from "../User/UserNavbar";
 
 function CustomerLoanEmployeDetails() {
   const location = useLocation();
   const combinedData = location.state?.combinedData;
-
-  console.log("Received Data in Employment Details:", combinedData);
 
   const [form, setForm] = useState({
     nameofemployer: "",
@@ -16,8 +15,11 @@ function CustomerLoanEmployeDetails() {
     workexp: "",
     salary: "",
     position: "",
-    salaryslip: null, // File upload
+    salaryslip: null,
   });
+
+  const [errors, setErrors] = useState({});
+  const userid = localStorage.getItem("userid");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,35 +32,69 @@ function CustomerLoanEmployeDetails() {
     setForm((prevForm) => ({ ...prevForm, [name]: file }));
   };
 
-  const handleSubmit = () => {
+  const validate = () => {
+    let newErrors = {};
+    if (!form.nameofemployer.trim()) newErrors.nameofemployer = "Employer name is required.";
+    if (!form.employercontact.trim()) {
+      newErrors.employercontact = "Employer contact is required.";
+    } else if (!/^\d{10}$/.test(form.employercontact)) {
+      newErrors.employercontact = "Employer contact must be 10 digits.";
+    }
+    if (!form.workexp.trim()) newErrors.workexp = "Work experience is required.";
+    if (!form.salary.trim()) newErrors.salary = "Salary is required.";
+    if (!form.position.trim()) newErrors.position = "Position is required.";
+    if (!form.salaryslip) newErrors.salaryslip = "Salary slip is required.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async () => {
+    if (!validate()) return;
+
     const formData = new FormData();
     formData.append("nameofemployer", form.nameofemployer);
     formData.append("employercontact", form.employercontact);
     formData.append("workexp", form.workexp);
     formData.append("salary", form.salary);
     formData.append("position", form.position);
-    if (form.salaryslip) formData.append("salaryslip", form.salaryslip);
+    if (form.salaryslip) formData.append("salaryslipimg", form.salaryslip);
 
-    // Include previously received data
+    // Append previously received data
     if (combinedData) {
       Object.entries(combinedData).forEach(([key, value]) => {
-        formData.append(key, value);
+        if (key === "files") {
+          Object.entries(combinedData.files).forEach(([skey, svalue]) => {
+            formData.append(skey, svalue);
+          });
+        } else {
+          formData.append(key, value);
+        }
       });
     }
 
-    // Logging the FormData contents for debugging
-    for (const pair of formData.entries()) {
-      console.log(`${pair[0]}:`, pair[1]);
+    try {
+      const response = await axiosMultipartInstance.post(`/saveloandata/${userid}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("Success:", response.data);
+      alert("Application submitted successfully.");
+    } catch (error) {
+      console.error("Error:", error.response || error);
+      alert("Failed to submit the application. Please try again.");
     }
-
-    // You can send `formData` to the server here
   };
+
+  useEffect(() => {
+    console.log(combinedData);
+  }, []);
 
   return (
     <div>
+    <UserNavbar/>
       <div className="CustLoanEmplDetails">
-        <UserNavbar />
-        {/* Progress Barss */}
         <Container>
           <Row className="justify-content-center">
             <Col md={8} className="text-center">
@@ -82,10 +118,7 @@ function CustomerLoanEmployeDetails() {
           </Row>
         </Container>
         <center>
-          <Card
-            className="CustLoanEmplDetailshorizontalcard"
-            style={{ width: "900px", height: "400px" }}
-          >
+          <Card className="CustLoanEmplDetailshorizontalcard" style={{ width: "900px", height: "400px" }}>
             <Card.Body>
               <div className="CustLoanEmplDetailscustomerform">
                 <Container className="CustLoanEmplDetailsCustcontainer1">
@@ -104,6 +137,7 @@ function CustomerLoanEmployeDetails() {
                                 value={form.nameofemployer}
                                 onChange={handleChange}
                               />
+                              {errors.nameofemployer && <p style={{ color: "red" }}>{errors.nameofemployer}</p>}
                               <br />
                               <label>Work Experience</label>
                               <input
@@ -113,6 +147,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
+                              {errors.workexp && <p style={{ color: "red" }}>{errors.workexp}</p>}
                               <label>Position</label>
                               <input
                                 type="text"
@@ -121,6 +156,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
+                              {errors.position && <p style={{ color: "red" }}>{errors.position}</p>}
                             </Col>
                           </Row>
                         </Container>
@@ -139,6 +175,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
+                              {errors.employercontact && <p style={{ color: "red" }}>{errors.employercontact}</p>}
                               <br />
                               <label>Salary</label>
                               <input
@@ -148,6 +185,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
+                              {errors.salary && <p style={{ color: "red" }}>{errors.salary}</p>}
                               <label>Salary Slip</label>
                               <input
                                 type="file"
@@ -155,6 +193,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleFileChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
+                              {errors.salaryslip && <p style={{ color: "red" }}>{errors.salaryslip}</p>}
                               <div className="CustLoanEmplDetailsCustIcon">
                                 <MdOutlineFileUpload />
                               </div>

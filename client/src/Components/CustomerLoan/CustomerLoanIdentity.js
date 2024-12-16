@@ -2,43 +2,38 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import UserNavbar from "../User/UserNavbar";
 import { useLocation, useNavigate } from "react-router-dom";
+import UserNavbar from "../User/UserNavbar";
 
 function CustomerLoanIdentity() {
   const [form, setForm] = useState({
     pancardNumber: "",
-    panCardFile: null, // Store file object
+    panCardFile: null,
     aadhaarNumber: "",
-    aadhaarFile: null, // Store file object
-    votersIDFile: null, // Store file object
-    drivingLicenseFile: null, // Store file object
-    passportFile: null, // Store file object
+    aadhaarFile: null,
+    votersIDFile: null,
+    drivingLicenseFile: null,
+    passportFile: null,
   });
   const navigate = useNavigate();
   const location = useLocation();
   const loanDetails = location.state?.loanDetails;
   const [errors, setErrors] = useState({});
 
-  // Store field values
   const store = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" }); // Clear error on input change
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  // Handle file uploads
-  const handleFileUpload = (e, fieldName) => {
+  const handleFileChange = (e, key) => {
+    console.log(e.target.files[0],"k");
+    
     const file = e.target.files[0];
-    if (file && file.size > 5 * 1024 * 1024) { // 5 MB limit
-      setErrors({ ...errors, [fieldName]: "File size must be under 5 MB." });
-    } else {
-      setForm({ ...form, [fieldName]: file });
-      setErrors({ ...errors, [fieldName]: "" });
-    }
+    const name = key || e.target.name; // Use either the passed key or the input's name attribute
+    setForm((prevForm) => ({ ...prevForm, [name]: file }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" })); // Clear error for the field
   };
-  
 
-  // Validate form fields
   const validate = () => {
     let isValid = true;
     const newErrors = {};
@@ -73,42 +68,37 @@ function CustomerLoanIdentity() {
     return isValid;
   };
 
-  // Handle form submission
   const handleContinue = () => {
     if (validate()) {
-      const plainData = {
+      // Combine all data into an object to pass to the next component
+      const combinedData = {
+        ...loanDetails, // Data received from the previous component
         pancardNumber: form.pancardNumber,
         aadhaarNumber: form.aadhaarNumber,
-        panCardFile: form.panCardFile ? form.panCardFile.name : null, // Pass file name or any metadata
-        aadhaarFile: form.aadhaarFile ? form.aadhaarFile.name : null,
-        votersIDFile: form.votersIDFile ? form.votersIDFile.name : null,
-        drivingLicenseFile: form.drivingLicenseFile
-          ? form.drivingLicenseFile.name
-          : null,
-        passportFile: form.passportFile ? form.passportFile.name : null,
+        files: {
+          panCardFile: form.panCardFile,
+          aadhaarFile: form.aadhaarFile,
+          votersIDFile: form.votersIDFile,
+          drivingLicenseFile: form.drivingLicenseFile,
+          passportFile: form.passportFile,
+        },
       };
-  
-      const combinedData = {
-        ...loanDetails,
-        ...plainData, // Include plain object instead of FormData
-      };
-  
-      console.log("Combined Data to Send:", combinedData);
+
+      // Navigate to the next component with the combined data
       navigate("/user/applyloanEmpdetails", { state: { combinedData } });
     } else {
       console.log("Validation failed:", errors);
       alert("Please fix the errors before continuing.");
     }
   };
-  
+
   useEffect(() => {
     console.log("Received Loan Details:", loanDetails);
   }, [loanDetails]);
 
   return (
     <div className="CustLoanIdentity">
-      <UserNavbar />
-      {/* Progress Bar */}
+    <UserNavbar/>
       <Container>
         <Row className="justify-content-center">
           <Col md={8} className="text-center">
@@ -117,15 +107,12 @@ function CustomerLoanIdentity() {
                 <div className="circle active">1</div>
                 <span className="progress-text">Personal Details</span>
               </div>
-
               <div className="profildetaildline"></div>
               <div>
                 <div className="circle active">2</div>
                 <span className="progress-text">Identity</span>
               </div>
-
               <div className="profildetaildline"></div>
-
               <div>
                 <div className="circle">3</div>
                 <span className="progress-text">Employment Details</span>
@@ -134,7 +121,6 @@ function CustomerLoanIdentity() {
           </Col>
         </Row>
       </Container>
-      {/* Form Section */}
       <center>
         <Card className="CustLoanIdentityhorizontal-card">
           <Card.Body>
@@ -159,7 +145,7 @@ function CustomerLoanIdentity() {
                       <input
                         type="file"
                         className="customerLoanIdentityformcontrol"
-                        onChange={(e) => handleFileUpload(e, "panCardFile")}
+                        onChange={(e) => handleFileChange(e, "panCardFile")}
                       />
                       <MdOutlineFileUpload className="upload-icon" />
                     </div>
@@ -184,7 +170,7 @@ function CustomerLoanIdentity() {
                       <input
                         type="file"
                         className="customerLoanIdentityformcontrol"
-                        onChange={(e) => handleFileUpload(e, "aadhaarFile")}
+                        onChange={(e) => handleFileChange(e, "aadhaarFile")}
                       />
                       <MdOutlineFileUpload className="upload-icon" />
                     </div>
@@ -200,7 +186,7 @@ function CustomerLoanIdentity() {
                       <input
                         type="file"
                         className="customerLoanIdentityformcontrol"
-                        onChange={(e) => handleFileUpload(e, "votersIDFile")}
+                        onChange={(e) => handleFileChange(e, "votersIDFile")}
                       />
                       <MdOutlineFileUpload className="upload-icon" />
                     </div>
@@ -210,7 +196,7 @@ function CustomerLoanIdentity() {
                         type="file"
                         className="customerLoanIdentityformcontrol"
                         onChange={(e) =>
-                          handleFileUpload(e, "drivingLicenseFile")
+                          handleFileChange(e, "drivingLicenseFile")
                         }
                       />
                       <MdOutlineFileUpload className="upload-icon" />
@@ -220,7 +206,7 @@ function CustomerLoanIdentity() {
                       <input
                         type="file"
                         className="customerLoanIdentityformcontrol"
-                        onChange={(e) => handleFileUpload(e, "passportFile")}
+                        onChange={(e) => handleFileChange(e, "passportFile")}
                       />
                       <MdOutlineFileUpload className="upload-icon" />
                     </div>
