@@ -20,8 +20,8 @@ function UserHomePage() {
   const navigate=useNavigate()
   
   useEffect(()=>{
-    if(localStorage.getItem("managerid")==null){
-      navigate("/manager/login")
+    if(localStorage.getItem("userid")==null){
+      navigate("/user/login")
     }
 
   },[])
