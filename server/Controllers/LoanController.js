@@ -28,7 +28,7 @@ const SaveLoanApplicationData = async (req, res) => {
     console.log(req.files)
 
     const userData = new LoanSchema({
-        userid:req.params.userid,
+        userid: req.params.userid,
         loantype: req.body.loanType,
         loanamount: req.body.loanAmount,
         loanpurpose: req.body.loanPurpose,
@@ -67,27 +67,33 @@ const SaveLoanApplicationData = async (req, res) => {
 
 }
 
-// for seeing one loan application
 const ViewLoanApplication = (req, res) => {
 
-    const userLoanId = req.params.id
-
-    LoanSchema.findById(loanId)
+    LoanSchema.findOne({}).populate('userid')
         .then((response) => {
-            res.json({ status: 200, msg: 'Loan Application Fetched', data: response })
+            if (!response) {
+                return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
+            }
+            res.json({ status: 200, msg: 'Loan Application Fetched', data: response });
         })
         .catch((error) => {
-            res.json({ status: 500, msg: 'Loan Application Fetch Failed', data: error })
-        })
+            res.status(500).json({ status: 500, msg: 'Loan Application Fetch Failed', data: error });
+        });
 
-}
+};
+
 
 // for seeing all loan applications
-const ViewAllLoanApplications = (res, req) => {
+const ViewAllLoanApplications = (req, res) => {
 
     LoanSchema.find()
         .then((response) => {
-            res.json({ status: 200, msg: 'Loan Applications Fetched', data: response })
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Applications' })
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetched', data: response })
+            }
         })
         .catch((error) => {
             res.json({ status: 500, mgs: 'Loan Applications Fetch Failed', data: error })
@@ -96,7 +102,7 @@ const ViewAllLoanApplications = (res, req) => {
 }
 
 // for verifying loan application
-const VerifyLoanApplication = async (res, req) => {
+const VerifyLoanApplication = async (req, res) => {
 
     const userLoanId = req.params.id;
 
@@ -110,8 +116,44 @@ const VerifyLoanApplication = async (res, req) => {
 
 }
 
+// for viewing non verified applications
+const NonVerifiedLoanApplication = (req, res) => {
+
+    LoanSchema.find({ loanverification: false })
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Applications' })
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetched', data: response })
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 500, msg: 'Data failed to retrieve', data: error })
+        })
+
+}
+
+// for viewing verified loan applications
+const VerifiedLoanApplication = (req, res) => {
+
+    LoanSchema.find({ loanverification: true })
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Applications' })
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetched', data: response })
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 500, msg: 'Data failed tto retrive', data: error })
+        })
+
+}
+
 // for approving loan
-const ApproveLoanApplication = async (res, req) => {
+const ApproveLoanApplication = async (req, res) => {
 
     const userLoanId = req.params.id;
 
@@ -120,9 +162,45 @@ const ApproveLoanApplication = async (res, req) => {
             res.json({ status: 200, msg: 'Loan Approved', data: response })
         })
         .catch((error) => {
-            res.json({ status: 200, msg: 'Loan Approval Failed', data: error })
+            res.json({ status: 500, msg: 'Loan Approval Failed', data: error })
         })
 
 }
 
-module.exports = { SaveLoanApplicationData, upload, ViewLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication }
+// for viewing non approved loans
+const NonApprovedLoanApplication = (req, res) => {
+
+    LoanSchema.find({ loanverification: true, loanapproval: false })
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Applications' })
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetched', data: response })
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 200, msg: 'Data not Fectched', data: error })
+        })
+
+}
+
+// for viewing approved loans
+const ApprovedLoanApplication = (req, res) => {
+
+    LoanSchema.find({ loanverification: true, loanapproval: true })
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Applications' })
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetched', data: response })
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 200, msg: 'Data failed to fetch', data: error })
+        })
+
+}
+
+module.exports = { SaveLoanApplicationData, upload, ViewLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication }
