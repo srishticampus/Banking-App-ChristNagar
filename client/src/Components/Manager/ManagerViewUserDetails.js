@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import imgurl from "../../apis/imgURL";
 import axiosInstance from "../../apis/axiosinstance";
 import "../../Asserts/Styles/managerviewuserdetails.css";
+import transaction from "../../Asserts/images/transactionbutton.png"
 import ManagerSidebar from "./ManagerSidebar";
 
 function ManagerViewUserDetails() {
@@ -34,6 +35,11 @@ function ManagerViewUserDetails() {
       navigate("/manager/login");
     }
   }, []);
+
+  const moveToTransaction =(id)=>{
+    navigate("")
+
+  }
 
   return (
     <div className="row">
@@ -227,6 +233,8 @@ function ManagerViewUserDetails() {
                     )}
                   </div>
                 </div>
+                          <div className="text-center p-4" onClick={()=>moveToTransaction(user._id)}><img src={transaction}></img></div>
+
               </div>
             </div>
           </div>
