@@ -32,6 +32,8 @@ import CustomerLoanPersonalDetails from "./Components/CustomerLoan/CustomerAppli
 import CustomerLoanpersonDetail from "./Components/CustomerLoan/CustomerLoanpersonDetail";
 import CustomerLoanIdentity from "./Components/CustomerLoan/CustomerLoanIdentity";
 import CustomerLoanEmployeDetails from "./Components/CustomerLoan/CustomerLoanEmployeDetails";
+import ClerkManageLoan from "./Components/Clerk/ClerkManageLoan";
+import ClerkSideBar from "./Components/Clerk/ClerkSideBar";
 
 function App() {
   return (
@@ -50,35 +52,36 @@ function App() {
         <Route path="/admin/viewclerks" element={<AdminViewClerks />} />
 
 
-        <Route path="/manager/login" element={<ManagerLogin/>} />
-        <Route path="/manager/home" element={<ManagerHome/>} />
-        <Route path="/manager/profile" element={<ManagerProfile/>} />
-        <Route path="/manager/editprofile" element={<ManagerEditProfile/>} />
-        <Route path="/manager/viewusers" element={<ManagerViewUsers/>} />
-        <Route path="/manager/addClerk" element={<ManagerAddClerk/>} />
-        <Route path="/manager/viewuserdetails/:userid" element={<ManagerViewUserDetails/>} />
-        <Route path="/manager/viewclerks" element={<ManagerViewClerks/>} />
-        <Route path="/manager/editclerk/:clerkid" element={<ManagerEditClerk/>} />
+        <Route path="/manager/login" element={<ManagerLogin />} />
+        <Route path="/manager/home" element={<ManagerHome />} />
+        <Route path="/manager/profile" element={<ManagerProfile />} />
+        <Route path="/manager/editprofile" element={<ManagerEditProfile />} />
+        <Route path="/manager/viewusers" element={<ManagerViewUsers />} />
+        <Route path="/manager/addClerk" element={<ManagerAddClerk />} />
+        <Route path="/manager/viewuserdetails/:userid" element={<ManagerViewUserDetails />} />
+        <Route path="/manager/viewclerks" element={<ManagerViewClerks />} />
+        <Route path="/manager/editclerk/:clerkid" element={<ManagerEditClerk />} />
 
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/login" element={<UserLogin />} />
-        <Route path="/user/homepage" element={<UserHomePage/>} />
-        <Route path="/user/forgot" element={<UserSentForgotpswd/>} />
-        <Route path="/reset-password/:id" element={<UserForgotmailAccept/>} />
+        <Route path="/user/homepage" element={<UserHomePage />} />
+        <Route path="/user/forgot" element={<UserSentForgotpswd />} />
+        <Route path="/reset-password/:id" element={<UserForgotmailAccept />} />
 
 
         <Route path="/clerk/login" element={<ClerkLogin />} />
-        <Route path="/clerk/forgot" element={<UserSentForgotpswd/>} />
-        <Route path="/clerk/reset-password/:id" element={<UserForgotmailAccept/>} />
-        <Route path="/manager/profile" element={<ManagerProfile/>} />
-        <Route path="/manager/editprofile" element={<ManagerEditProfile/>} />
-        <Route path="/clerk/homepage" element={<ClerkDashboard/>} />
+        <Route path="/clerk/forgot" element={<UserSentForgotpswd />} />
+        <Route path="/clerk/reset-password/:id" element={<UserForgotmailAccept />} />
+        <Route path="/manager/profile" element={<ManagerProfile />} />
+        <Route path="/manager/editprofile" element={<ManagerEditProfile />} />
+        <Route path="/clerk/homepage" element={<ClerkDashboard />} />
+        <Route path="/clerk/manageloan" element={<ClerkManageLoan />} />
 
-        <Route path="/user/applyloan" element={<CustomerApplyLoan/>} />
-        <Route path="/user/applyloanpersonaldetail" element={<CustomerLoanpersonDetail/>} />
-        <Route path="/user/applyloanIdentity" element={<CustomerLoanIdentity/>} />
-        <Route path="/user/applyloanEmpdetails" element={<CustomerLoanEmployeDetails/>} />
-        <Route path="/user/applayloanpersonaldetails" element={<CustomerLoanPersonalDetails/>} />    
+        <Route path="/user/applyloan" element={<CustomerApplyLoan />} />
+        <Route path="/user/applyloanpersonaldetail" element={<CustomerLoanpersonDetail />} />
+        <Route path="/user/applyloanIdentity" element={<CustomerLoanIdentity />} />
+        <Route path="/user/applyloanEmpdetails" element={<CustomerLoanEmployeDetails />} />
+        <Route path="/user/applayloanpersonaldetails" element={<CustomerLoanPersonalDetails />} />
       </Routes>
     </BrowserRouter>
   );
