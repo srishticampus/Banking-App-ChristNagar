@@ -39,9 +39,9 @@ function ManagerSidebar() {
           <div className="profile"></div>
           <Nav  className="flex-column ">
             <div className="col-2 d-flex align-items-center">
-              <Navbar.Brand to="">
+              <Link to="/manager/home">
                 <img src={logo} alt="Logo" />
-              </Navbar.Brand>
+              </Link>
               <Link to={"/manager/profile"}>
                 {" "}
                 <img src={profile} alt="Logo" />

@@ -306,7 +306,7 @@ function ManagerEditProfile() {
             </div>
             <div className="row justify-content-center mt-4">
               <div className="col-3">
-                <button type="submit" className="btn btn-success w-100">
+                <button type="submit"  className="managersavebtn text-light ">
                   Update Profile
                 </button>
               </div>

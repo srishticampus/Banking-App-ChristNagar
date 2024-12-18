@@ -168,9 +168,9 @@ function UserNavbar() {
     <Navbar className="usernavbar">
       <Container>
         <div className="col-2 d-flex align-items-center">
-          <Navbar.Brand to="#home">
+          <Link  to="/user/homepage">
             <img src={logo} alt="Logo" />
-          </Navbar.Brand>
+          </Link>
         </div>
 
         <div className="col-9 d-flex justify-content-center">

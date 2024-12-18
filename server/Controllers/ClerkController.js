@@ -271,7 +271,7 @@ const forgotPassword = (req, res) => {
 };
 
 const activateClerkById = (req, res) => {
-  Clerk.findByIdAndUpdate({ _id: req.params.id }, { ActiveStatus: true })
+  Clerk.findByIdAndUpdate({ _id: req.params.clerkid }, { ActiveStatus: true })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -290,7 +290,7 @@ const activateClerkById = (req, res) => {
 
 // approve investorReq by  Admin
 const deActivateClerkById = (req, res) => {
-  Clerk.findByIdAndUpdate({ _id: req.params.id }, { ActiveStatus: false })
+  Clerk.findByIdAndUpdate({ _id: req.params.clerkid }, { ActiveStatus: false })
     .exec()
     .then((data) => {
       res.status(200).json({
