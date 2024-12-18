@@ -38,6 +38,7 @@ router.get('/verifiedloan', loan.VerifiedLoanApplication)                       
 router.post('/approveloan', loan.ApproveLoanApplication)                            // for approving loan application
 router.get('/nonapprovedloan', loan.NonApprovedLoanApplication)                     // for viewing verified but non approved application
 router.get('/approvedloan', loan.ApprovedLoanApplication)                           // for viewing verified and approved loan application
+router.post('/populateloandetails', loan.ViewLoanApplication)
 
 
 router.post('/addClerk', clerk.upload, clerk.AddClerk)

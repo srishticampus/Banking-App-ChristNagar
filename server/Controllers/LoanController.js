@@ -69,9 +69,11 @@ const SaveLoanApplicationData = async (req, res) => {
 
 const ViewLoanApplication = (req, res) => {
 
-    LoanSchema.findOne({}).populate('userid')
+    const { userid } = req.body
+
+    LoanSchema.find({}).populate('userid')
         .then((response) => {
-            if (!response) {
+            if (response == "") {
                 return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
             }
             res.json({ status: 200, msg: 'Loan Application Fetched', data: response });
