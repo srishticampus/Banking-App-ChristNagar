@@ -260,7 +260,7 @@ function AdminAddManagers() {
                   )}
                 </div>
                 <div className="mb-3">
-                  <label>Destination</label>
+                  <label>designation</label>
                   <input
                     type="text"
                     className="form-control"

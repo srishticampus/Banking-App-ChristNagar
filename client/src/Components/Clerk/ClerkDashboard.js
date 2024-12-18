@@ -12,7 +12,7 @@ function ClerkDashboard() {
     axiosInstance.get("/viewusers").then((res) => {
       setuserData(res.data.data,"ppppp");
     });
-  });
+  },[]);
   return (
     <div>
       <div className="row">
@@ -23,7 +23,7 @@ function ClerkDashboard() {
           {" "}
           <div className="clerkDashboardfullbody">
             <h3 className="clerkdashboard">
-              <span id="clerkDashboardclerkcolor">CLERK</span>DASHBOARD
+              <span id="clerkDashboardclerkcolor">CLERK </span>DASHBOARD
             </h3>
             <div>
               <div className="row">

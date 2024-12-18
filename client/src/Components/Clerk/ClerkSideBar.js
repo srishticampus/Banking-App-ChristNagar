@@ -1,5 +1,4 @@
-
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import home from "../../Asserts/images/Home.png";
 import loan from "../../Asserts/images/managerloan.png";
@@ -12,46 +11,45 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import logo from "../../Asserts/images/Logo.png";
 import Navbar from "react-bootstrap/Navbar";
 import profile from "../../Asserts/images/Customer Service.png";
-import axiosMultipartInstance from "../../apis/axiosMultipartInstance"
-import axiosInstance from "../../apis/axiosinstance"
-import imgurl from "../../apis/imgURL"
+import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
+import axiosInstance from "../../apis/axiosinstance";
+import imgurl from "../../apis/imgURL";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Modal from "react-bootstrap/Modal";
-import { FaCamera } from "react-icons/fa"; 
-import watch from "../../Asserts/images/watch.png"
+import { FaCamera } from "react-icons/fa";
+import watch from "../../Asserts/images/watch.png";
 
 function ClerkSideBar() {
   const navigate = useNavigate();
-  const [tooglebtn,setTooglebtn]=useState(false)
+  const [tooglebtn, setTooglebtn] = useState(false);
 
-
-
-  const togglemangerbtn=()=>{
-    setTooglebtn(true)
-  }
+  const togglemangerbtn = () => {
+    setTooglebtn(true);
+  };
 
   const [show, setShow] = useState(false);
   const [clerk, setclerk] = useState({});
   const [modalShow, setModalShow] = useState(false);
   const [clerkdata, setclerkdata] = useState({
-    name:"",
-    email:"",
-    contact:"",
-    password:"",
-    dob:"",
-    qualification:"",
-    chooseid:"",
-    address:"",
-    dateofjoining:"",profile:null
+    name: "",
+    email: "",
+    contact: "",
+    password: "",
+    dob: "",
+    qualification: "",
+    chooseid: "",
+    address: "",
+    dateofjoining: "",
+    profile: null,
   });
 
   const [errors, setErrors] = useState({});
   const [profilePreview, setProfilePreview] = useState("");
-  console.log(profilePreview,"changable image");
-  console.log(clerk,"view clerk");
-  console.log(clerkdata,"send data");
+  console.log(profilePreview, "changable image");
+  console.log(clerk, "view clerk");
+  console.log(clerkdata, "send data");
 
   const clerkid = localStorage.getItem("clerkid");
 
@@ -59,11 +57,6 @@ function ClerkSideBar() {
   const handleShow = () => setShow(true);
   const handleModalClose = () => setModalShow(false);
   const handleModalShow = () => setModalShow(true);
-
-  
-  useEffect(() => {
-    fetchclerkDetails();
-  }, []);
 
   const fetchclerkDetails = async () => {
     try {
@@ -87,7 +80,7 @@ function ClerkSideBar() {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-      console.log(file,"after changing");
+    console.log(file, "after changing");
 
     if (file) {
       if (!file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
@@ -123,81 +116,79 @@ function ClerkSideBar() {
     return formValid;
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (!validateForm()) return;
+    if (!validateForm()) return;
 
-  const formData = new FormData();
+    const formData = new FormData();
 
-  // Append only non-null fields to FormData
-  Object.entries(clerkdata).forEach(([key, value]) => {
-    if (value !== null && value !== undefined) {
-      // Append the file directly for profile
-      if (key === "profilePreview" && value instanceof File) {
-        formData.append(key, value);
-      } else {
-        formData.append(key, String(value));
+    // Append only non-null fields to FormData
+    Object.entries(clerkdata).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        // Append the file directly for profile
+        if (key === "profilePreview" && value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, String(value));
+        }
       }
+    });
+
+    console.log("FormData content:", formData);
+    console.log("FormData Content:");
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ":", pair[1]);
     }
-  });
 
-  console.log("FormData content:", formData);
-  console.log("FormData Content:");
-for (let pair of formData.entries()) {
-  console.log(pair[0] + ":", pair[1]);
-}
+    try {
+      const response = await axiosMultipartInstance.post(
+        `/edit_a_clerk/${clerkid}`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
 
-  try {
-    const response = await axiosMultipartInstance.post(
-      `/edit_a_clerk/${clerkid}`,
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-
-    if (response.status === 200) {
-      alert(response.data.msg);
-      fetchclerkDetails(); // Reload clerk details after successful update
-      handleModalClose(); // Close the modal
+      if (response.status === 200) {
+        alert(response.data.msg);
+        fetchclerkDetails(); // Reload clerk details after successful update
+        handleModalClose(); // Close the modal
+      }
+    } catch (error) {
+      console.error("Error updating clerk", error);
+      alert(error?.response?.data?.msg || "Error updating clerk details");
     }
-  } catch (error) {
-    console.error("Error updating clerk", error);
-    alert(error?.response?.data?.msg || "Error updating clerk details");
-  }
-};
+  };
   const handleLogout = () => {
     localStorage.removeItem("clerkid");
     alert("Please Login Again");
     navigate("/clerk/login");
   };
-  
-  useEffect(()=>{
-    if(localStorage.getItem("clerkid")==null){
-      navigate("/clerk/login")
-    }
 
-  },[])
-  
+  useEffect(() => {
+    fetchclerkDetails();
+    
+    if (localStorage.getItem("clerkid") == null) {
+      navigate("/clerk/login");
+    }
+  }, [clerkid]);
+
   return (
     <div>
       <div className="main-container">
         <div className="side-nav">
           <div className="profile"></div>
-          <Nav  className="flex-column ">
+          <Nav className="flex-column ">
             <div className="col-2 d-flex align-items-center">
-              <Navbar.Brand to="">
+              <Link to="/clerk/homepage">
                 <img src={logo} alt="Logo" />
-              </Navbar.Brand>
+              </Link>
               <div onClick={handleShow}>
                 {" "}
                 <img src={profile} alt="Logo" />
               </div>
             </div>
             <Nav.Item className="nav-link mt-3">
-              <Link
-                to=""
-                className="text-decoration-none text-light ms-3"
-              >
+              <Link to="" className="text-decoration-none text-light ms-3">
                 <img src={home}></img> Dashboard
               </Link>
             </Nav.Item>
@@ -217,7 +208,7 @@ for (let pair of formData.entries()) {
                 <img src={credit}></img> Credit Card
               </Link>
             </Nav.Item>
-             <Nav.Item className="nav-link ">
+            <Nav.Item className="nav-link ">
               <Link
                 to="/manager/home"
                 className="text-decoration-none text-light ms-3 "
@@ -225,7 +216,7 @@ for (let pair of formData.entries()) {
                 <img src={transaction}></img> Manage Cheque
               </Link>
             </Nav.Item>
-             <Nav.Item className="nav-link ">
+            <Nav.Item className="nav-link ">
               <Link
                 to="/manager/home"
                 className="text-decoration-none text-light ms-3 "
@@ -235,21 +226,20 @@ for (let pair of formData.entries()) {
             </Nav.Item>
             <Nav.Item className="nav-link">
               <Link
-              onClick={togglemangerbtn}
+                onClick={togglemangerbtn}
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={clerkimg}></img> View Users
               </Link>
-              
-
             </Nav.Item>
-           
+
             <Nav.Item className="nav-link ">
               <Link
                 to="/manager/viewclerks"
                 className="text-decoration-none text-light ms-3"
               >
-                <img src={insurance}></img> Manage Insurance</Link>
+                <img src={insurance}></img> Manage Insurance
+              </Link>
             </Nav.Item>
             <Nav.Item className="mt-3 ms-3">
               <Nav.Link onClick={handleLogout}>
@@ -285,13 +275,12 @@ for (let pair of formData.entries()) {
                   <div className="text-secondary">Email</div>
                   <b className="text-dark">{clerk.email}</b>
                 </p>
-                 <p>
+                <p>
                   <div className="text-secondary">Contact</div>
                   <b className="text-dark">{clerk.contact}</b>
                 </p>
-               
               </div>
-              
+
               <div className="text-center text-light">
                 <button onClick={handleModalShow} className="profileedit ">
                   Edit
@@ -344,7 +333,6 @@ for (let pair of formData.entries()) {
               <div className="col-3"></div>
             </div>
             <div className="row">
-              
               <div className="">
                 <div className="mb-3">
                   <label>Email</label>
@@ -373,33 +361,40 @@ for (let pair of formData.entries()) {
                   )}
                 </div>
                 <div className="mb-3">
-                <label>Contact</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="contact"
-                  value={clerkdata.contact}
-                  onChange={handleInputChange}
-                />
-                {errors.contact && (
-                  <span className="text-danger">{errors.contact}</span>
-                )}
-              </div>
-                
+                  <label>Contact</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="contact"
+                    value={clerkdata.contact}
+                    onChange={handleInputChange}
+                  />
+                  {errors.contact && (
+                    <span className="text-danger">{errors.contact}</span>
+                  )}
+                </div>
               </div>
             </div>
-            
+
             <div className="row">
-              <div className="col-4"></div>
+              <div className="col-4">
+                {" "}
+                <button
+                  type="button"
+                  onClick={handleModalClose}
+                  className="managersavebtn ms-2 mt-3"
+                >
+                  Cancel
+                </button>
+              </div>
               <div className="col-5">
-                <button type="submit"  className="managersavebtn ms-2 mt-3">
+                <button type="submit" className="managersavebtn ms-2 mt-3">
                   Save
                 </button>
               </div>
             </div>
           </form>
         </Modal.Body>
-        
       </Modal>
     </div>
   );
