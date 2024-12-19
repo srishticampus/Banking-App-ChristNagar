@@ -89,6 +89,28 @@
 
 }
 
+.CML-Button3 {
+
+    background: none;
+    border: none;
+    max-height: 10px;
+    max-width: 25px;
+    padding: 0px;
+    max-height: min-content;
+    border-radius: 60%;
+
+}
+
+.CML-img {
+
+    height: 41px;
+    width: 40px;
+    border: none;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
 .CML-Table-Contain-Shadow {
 
     display: inline-block;

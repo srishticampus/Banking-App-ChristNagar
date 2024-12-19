@@ -69,9 +69,9 @@ const SaveLoanApplicationData = async (req, res) => {
 
 const ViewLoanApplication = (req, res) => {
 
-    const { userid } = req.body
+    const userid = req.params.userid
 
-    LoanSchema.find({}).populate('userid')
+    LoanSchema.find({ userid }).populate('userid')
         .then((response) => {
             if (response == "") {
                 return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
@@ -108,7 +108,7 @@ const VerifyLoanApplication = async (req, res) => {
 
     const userLoanId = req.params.id;
 
-    await LoanSchema.findByIdAndUpdate(userLoanId, { loanverification: true, new: true })
+    await LoanSchema.findByIdAndUpdate(userLoanId, { loanverification: true }, { new: true })
         .then((response) => {
             res.json({ status: 200, msg: 'Loan Verified', data: response })
         })
@@ -121,7 +121,7 @@ const VerifyLoanApplication = async (req, res) => {
 // for viewing non verified applications
 const NonVerifiedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: false })
+    LoanSchema.find({ loanverification: false }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -139,7 +139,7 @@ const NonVerifiedLoanApplication = (req, res) => {
 // for viewing verified loan applications
 const VerifiedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true })
+    LoanSchema.find({ loanverification: true }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -149,7 +149,7 @@ const VerifiedLoanApplication = (req, res) => {
             }
         })
         .catch((error) => {
-            res.json({ status: 500, msg: 'Data failed tto retrive', data: error })
+            res.json({ status: 500, msg: 'Data failed to retrive', data: error })
         })
 
 }

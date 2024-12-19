@@ -1,29 +1,66 @@
 import React, { useEffect, useState } from 'react'
 import ClerkSideBar from './ClerkSideBar'
 import '../../Asserts/Styles/ClerkManageLoan.css'
-import img from '../../Asserts/images/unsplash_ktQ5qaFR2Dw.png'
 import img2 from '../../Asserts/images/carbon_view-filled.png'
 import axiosInstance from '../../apis/axiosinstance'
+import imgurl from '../../apis/imgURL'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function ClerkManageLoan() {
 
-    const [DbData, setDbDataD] = useState([])
+    const [DbData, setDbData] = useState([])
+    const [verified, setverified] = useState(false)
+    const [buttonState, setButtonState] = useState(false)
+    const [vDbData, setVDbData] = useState([])
+    const navigate = useNavigate();
 
-    const EmployeeData = async () => {
+    const ApplicationData = async () => {
 
         try {
-            const response = await axiosInstance.get('/viewallloan')
+            const response = await axiosInstance.get('/nonverifiedloan')
             console.log("user list", response.data)
-            setDbDataD(response.data.data)
+            setDbData(response.data.data)
         }
         catch (error) {
-            console.error('error fetching user data:', error)
+            console.error('error fetching user data?:', error)
         }
 
     }
 
+    const VerifiedApplicationData = async () => {
+
+        try {
+            const response = await axiosInstance.get('/verifiedloan')
+            console.log('userlist', `response.data`)    
+            setVDbData(response.data.data)
+        }
+        catch (error) {
+            console.error('error fetching user data?:', error)
+        }
+
+    }
+
+    // for button css and switching the table
+    const ApplicationState = () => {
+
+        setverified(false);
+        setButtonState(false)
+
+    }
+
+    // for button css and switching the table
+    const VerifiedApplicationState = () => {
+
+        setverified(true);
+        setButtonState(true)
+
+    }
+
     useEffect(() => {
-        EmployeeData();
+        ApplicationData();
+    }, [])
+    useEffect(() => {
+        VerifiedApplicationData();
     }, [])
 
     return (
@@ -45,8 +82,8 @@ function ClerkManageLoan() {
 
                     <div className='CML-MainDiv-ContainDiv-ButtonDiv'>
 
-                        <button className='CML-Button1'>Application</button>
-                        <button className='CML-Button2'>Verified Application</button>
+                        <button className={buttonState == false ? 'CML-Button1' : 'CML-Button2'} id='appbutton' onClick={ApplicationState}>Application</button>
+                        <button className={buttonState == false ? 'CML-Button2' : 'CML-Button1'} id='verifiedappbutton' onClick={VerifiedApplicationState}>Verified Application</button>
 
                     </div>
 
@@ -78,34 +115,85 @@ function ClerkManageLoan() {
 
                                 <tbody className='CML-Table-tbody'>
 
-                                    {DbData.length > 0 ? (
+                                    {verified == false ? (
+                                        DbData?.length > 0 ? (
 
-                                        DbData.map((data, index) => {
+                                            DbData?.map((data, index) => {
 
-                                            return (
+                                                return (
 
-                                                <tr className='CML-Table-tbody-tr' key={index}>
+                                                    <tr className='CML-Table-tbody-tr' key={index}>
 
-                                                    <td className='CML-Table-td-center'>{index+1}</td>
-                                                    <td className='CML-Table-td-center'><img src={data.userid?.userPicture} alt='Profile' /></td>{/* profile img */}
-                                                    <td className='CML-Table-td'>{data.userid?.username}</td>
-                                                    <td className='CML-Table-td'>{data.userid?.userContact}</td>
-                                                    <td className='CML-Table-td'>
-                                                        <p className='CML-Table-p'>{data.userid?.userAddress}</p>
-                                                        <p className='CML-Table-p-2'>{data.userid?.userNumber}</p>
-                                                    </td>
-                                                    <td className='CML-Table-td'>{data.userid?.userDate}</td>
-                                                    <td className='CML-Table-td'>{data.loantype}</td>
-                                                    <td className='CML-Table-td-center'>₹{data.loanamount}</td>
-                                                    <td className='CML-Table-td-center'><img src={img2} alt='View Details' /></td>{/* eye icon */}
+                                                        <td className='CML-Table-td-center'>{index + 1}.</td>
+                                                        <td className='CML-Table-td-center'>
+                                                            <img
+                                                                src={`${imgurl}/${data?.userid?.userPicture?.originalname}`}
+                                                                alt='Profile'
+                                                                className='CML-img'
+                                                            />
+                                                        </td>{/* profile img */}
+                                                        <td className='CML-Table-td'>{data?.userid?.username}</td>
+                                                        <td className='CML-Table-td'>{data?.userid?.userContact}</td>
+                                                        <td className='CML-Table-td'>
+                                                            <p className='CML-Table-p'>{data?.userid?.userAddress}</p>
+                                                            <p className='CML-Table-p-2'>{data?.userid?.userNumber}</p>
+                                                        </td>
+                                                        <td className='CML-Table-td'>{new Date(data?.userid?.userDate).toLocaleDateString('en-GB')}</td>
+                                                        <td className='CML-Table-td'>{data?.loantype}</td>
+                                                        <td className='CML-Table-td-center'>₹{data?.loanamount}</td>
+                                                        <td className='CML-Table-td-center'><button className='CML-Button3' onClick={() => navigate(`/clerk/viewloandetails/${data.userid._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
 
-                                                </tr>
+                                                    </tr>
 
-                                            )
+                                                )
 
-                                        })
+                                            })
+                                        ) : (
+                                            <tr>
+                                                <td><p className=' text-center text-danger'>No Data Found</p></td>
+                                            </tr>
+                                        )
                                     ) : (
-                                        <tr><p className=' text-danger'>No Data Found</p></tr>
+
+                                        //if the verified status is true
+
+                                        vDbData?.length > 0 ? (
+
+                                            vDbData.map((data, index) => {
+
+                                                return (
+
+                                                    <tr className='CML-Table-tbody-tr' key={index}>
+
+                                                        <td className='CML-Table-td-center'>{index + 1}.</td>
+                                                        <td className='CML-Table-td-center'>
+                                                            <img
+                                                                src={`${imgurl}/${data?.userid?.userPicture?.originalname}`}
+                                                                alt='Profile'
+                                                                className='CML-img'
+                                                            />
+                                                        </td>{/* profile img */}
+                                                        <td className='CML-Table-td'>{data?.userid?.username}</td>
+                                                        <td className='CML-Table-td'>{data?.userid?.userContact}</td>
+                                                        <td className='CML-Table-td'>
+                                                            <p className='CML-Table-p'>{data?.userid?.userAddress}</p>
+                                                            <p className='CML-Table-p-2'>{data?.userid?.userNumber}</p>
+                                                        </td>
+                                                        <td className='CML-Table-td'>{new Date(data?.userid?.userDate).toLocaleDateString('en-GB')}</td>
+                                                        <td className='CML-Table-td'>{data?.loantype}</td>
+                                                        <td className='CML-Table-td-center'>₹{data?.loanamount}</td>
+                                                        <td className='CML-Table-td-center'><button className='CML-Button3' onClick={() => navigate(`/clerk/viewloandetails/${data.userid._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
+
+                                                    </tr>
+
+                                                )
+
+                                            })
+                                        ) : (
+                                            <tr>
+                                                <td><p className=' text-center text-danger'>No Data Found</p></td>
+                                            </tr>
+                                        )
                                     )}
 
                                 </tbody>

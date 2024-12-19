@@ -30,9 +30,9 @@ router.post('/activate_a_user/:id', user.activateUserById)
 
 // Loan application
 router.post('/saveloandata/:userid', loan.upload, loan.SaveLoanApplicationData)     // Saving Loan data 
-router.get('/viewoneloan', loan.ViewLoanApplication)                                // viewing a loan application
+router.post('/viewoneloan/:userid', loan.ViewLoanApplication)                                // viewing a loan application
 router.get('/viewallloan', loan.ViewAllLoanApplications)                            // viewing all loan applications
-router.post('/verifyloan', loan.VerifyLoanApplication)                              // for verifying loan application
+router.post('/verifyloan/:id', loan.VerifyLoanApplication)                              // for verifying loan application
 router.get('/nonverifiedloan', loan.NonVerifiedLoanApplication)                     // for viewing all non verified applicaton
 router.get('/verifiedloan', loan.VerifiedLoanApplication)                           // for viewing all verified application
 router.post('/approveloan', loan.ApproveLoanApplication)                            // for approving loan application

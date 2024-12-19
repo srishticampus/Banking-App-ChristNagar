@@ -34,6 +34,7 @@ import CustomerLoanIdentity from "./Components/CustomerLoan/CustomerLoanIdentity
 import CustomerLoanEmployeDetails from "./Components/CustomerLoan/CustomerLoanEmployeDetails";
 import ClerkManageLoan from "./Components/Clerk/ClerkManageLoan";
 import ClerkSideBar from "./Components/Clerk/ClerkSideBar";
+import ClerkViewDetails from "./Components/Clerk/ClerkViewDetails";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
         <Route path="/manager/editprofile" element={<ManagerEditProfile />} />
         <Route path="/clerk/homepage" element={<ClerkDashboard />} />
         <Route path="/clerk/manageloan" element={<ClerkManageLoan />} />
+        <Route path="/clerk/viewloandetails/:data" element={<ClerkViewDetails/>} />
 
         <Route path="/user/applyloan" element={<CustomerApplyLoan />} />
         <Route path="/user/applyloanpersonaldetail" element={<CustomerLoanpersonDetail />} />
