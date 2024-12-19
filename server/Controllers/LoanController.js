@@ -88,7 +88,7 @@ const ViewLoanApplication = (req, res) => {
 // for seeing all loan applications
 const ViewAllLoanApplications = (req, res) => {
 
-    LoanSchema.find()
+    LoanSchema.find({}).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })

@@ -49,7 +49,7 @@ const LoanSchema = new mongoose.Schema({
     },
     userid: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Userid"
+        ref: "User"
     },
     nameofemployer: {
         type: String,
