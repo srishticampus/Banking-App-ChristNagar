@@ -13,7 +13,7 @@ import axiosInstance from "../../apis/axiosinstance";
 import profiletop from "../../Asserts/images/Rectangle 158.png";
 import imgurl from "../../apis/imgURL";
 import Modal from "react-bootstrap/Modal";
-import { FaCamera } from "react-icons/fa"; 
+import { FaCamera } from "react-icons/fa";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 
 function UserNavbar() {
@@ -33,9 +33,9 @@ function UserNavbar() {
   });
   const [errors, setErrors] = useState({});
   const [profilePreview, setProfilePreview] = useState("");
-  console.log(profilePreview,"changable image");
-  console.log(user,"view user");
-  console.log(userdata,"send data");
+  console.log(profilePreview, "changable image");
+  console.log(user, "view user");
+  console.log(userdata, "send data");
 
   const navigate = useNavigate();
   const userid = localStorage.getItem("userid");
@@ -56,7 +56,9 @@ function UserNavbar() {
       setUser(data);
       setUserdata({
         ...data,
-        userDate: data.userDate ? new Date(data.userDate).toISOString().split("T")[0] : "",
+        userDate: data.userDate
+          ? new Date(data.userDate).toISOString().split("T")[0]
+          : "",
       });
       setProfilePreview(`${imgurl}/${data.userPicture?.filename}`);
     } catch (error) {
@@ -71,7 +73,7 @@ function UserNavbar() {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-      console.log(file,"after changing");
+    console.log(file, "after changing");
 
     if (file) {
       if (!file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
@@ -107,70 +109,67 @@ function UserNavbar() {
     return formValid;
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (!validateForm()) return;
+    if (!validateForm()) return;
 
-  const formData = new FormData();
+    const formData = new FormData();
 
-  // Append all form data, including the image
-  Object.entries(userdata).forEach(([key, value]) => {
-    if (value !== null && value !== undefined) {
-      // Handle the userPicture (image file) separately to ensure it's appended correctly
-      if (key === "userPicture" && value instanceof File) {
-        formData.append(key, value);
-      } else {
-        formData.append(key, value);
+    // Append all form data, including the image
+    Object.entries(userdata).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        // Handle the userPicture (image file) separately to ensure it's appended correctly
+        if (key === "userPicture" && value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, value);
+        }
       }
+    });
+
+    console.log("FormData Content:");
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ":", pair[1]);
     }
-  });
 
-  console.log("FormData Content:");
-  for (let pair of formData.entries()) {
-    console.log(pair[0] + ":", pair[1]);
-  }
+    try {
+      const response = await axiosMultipartInstance.post(
+        `/edit_a_user/${userid}`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
 
-  try {
-    const response = await axiosMultipartInstance.post(
-      `/edit_a_user/${userid}`,
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-
-    if (response.status === 200) {
-      alert(response.data.msg);
-      fetchUserDetails(); // Reload user details after successful update
-      handleModalClose(); // Close the modal
+      if (response.status === 200) {
+        alert(response.data.msg);
+        fetchUserDetails(); // Reload user details after successful update
+        handleModalClose(); // Close the modal
+      }
+    } catch (error) {
+      console.error("Error updating user", error);
+      alert(error?.response?.data?.msg || "Error updating user details");
     }
-  } catch (error) {
-    console.error("Error updating user", error);
-    alert(error?.response?.data?.msg || "Error updating user details");
-  }
-};
-
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("userid");
     alert("Logged out successfully");
     navigate("/user/login");
   };
-  
-  
-  useEffect(()=>{
-    if(localStorage.getItem("userid")==null){
-      navigate("/user/login")
-    }
 
-  },[])
-  
+  useEffect(() => {
+    if (localStorage.getItem("userid") == null) {
+      navigate("/user/login");
+    }
+  }, []);
+
   return (
     <Navbar className="usernavbar">
       <Container>
         <div className="col-2 d-flex align-items-center">
-          <Navbar.Brand to="#home">
+          <Link to="/user/homepage">
             <img src={logo} alt="Logo" />
-          </Navbar.Brand>
+          </Link>
         </div>
 
         <div className="col-9 d-flex justify-content-center">
@@ -260,25 +259,25 @@ function UserNavbar() {
               </div>
             </div>
             <div className="row">
-              <div className="col-4 ms-5">
-                <p>
+              <div className="col-6 ms-2">
+              <p>
                   <div className="text-secondary">Email</div>
                   <b className="text-dark">{user.userMail}</b>
                 </p>
+
+               
                 <p>
                   <div className="text-secondary">Date of birth</div>
-                  <b>
-                  {new Date(user.userDate).toLocaleDateString('en-GB')}                   
-                  </b>
+                  <b>{new Date(user.userDate).toLocaleDateString("en-GB")}</b>
                 </p>{" "}
                 <p>
                   <div className="text-secondary">IFSC Code</div>
                   <b>{user.userCode}</b>
                 </p>
               </div>
-              <div className="col-5 ms-5">
+              <div className="col-5 ms-4">
                 <p>
-                  <div className="text-secondary">Contact</div>
+                  <div className="text-secondary ms-3">Contact</div>
                   <b className="text-dark">{user.userContact}</b>
                 </p>
                 <p>
@@ -348,7 +347,6 @@ function UserNavbar() {
               <div className="col-3"></div>
             </div>
             <div className="row">
-              
               <div className="">
                 <div className="mb-3">
                   <label>Email</label>
@@ -377,33 +375,31 @@ function UserNavbar() {
                   )}
                 </div>
                 <div className="mb-3">
-                <label>Contact</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="userContact"
-                  value={userdata.userContact}
-                  onChange={handleInputChange}
-                />
-                {errors.userContact && (
-                  <span className="text-danger">{errors.userContact}</span>
-                )}
-              </div>
-                
+                  <label>Contact</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="userContact"
+                    value={userdata.userContact}
+                    onChange={handleInputChange}
+                  />
+                  {errors.userContact && (
+                    <span className="text-danger">{errors.userContact}</span>
+                  )}
+                </div>
               </div>
             </div>
-            
+
             <div className="row">
               <div className="col-4"></div>
               <div className="col-5">
-                <button type="submit"  className="managersavebtn ms-2 mt-3">
+                <button type="submit" className="managersavebtn ms-2 mt-3">
                   Save
                 </button>
               </div>
             </div>
           </form>
         </Modal.Body>
-        
       </Modal>
     </Navbar>
   );

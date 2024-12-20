@@ -103,7 +103,7 @@ function ManagerViewUsers() {
       {/* Main Content */}
       <div className="main-content col-lg-9 col-md-8 col-sm-12">
         <h3 className="mt-4">
-          <span id="view">VIEW</span> USERS
+          <span id="view">VIEW </span> USERS
         </h3>
 
         {/* Search Bar */}
@@ -127,10 +127,10 @@ function ManagerViewUsers() {
                 <th id="th">S/No</th>
                 <th id="th">Name</th>
                 <th id="th">Phone Number</th>
-                <th id="th">Address</th>
                 <th id="th">Account No</th>
                 <th id="th">IFSC Code</th>
                 <th id="th">Balance</th>
+                <th id="th">Transaction History</th>
                 <th id="th">Action</th>
               </tr>
             </thead>
@@ -140,10 +140,10 @@ function ManagerViewUsers() {
                   <td>{indexOfFirstRow + index + 1}</td>
                   <td>{data.username}</td>
                   <td>{data.userContact}</td>
-                  <td>{data.userAddress}</td>
                   <td>{data.userNumber}</td>
                   <td>{data.userCode}</td>
                   <td>{data.balance}</td>
+                  <td><Link>View Details</Link></td>
                   <td>
                   <Link to={`/manager/viewuserdetails/${data._id}`}><img src={eye} alt="View Details" ></img></Link>
                     {data.ActiveStatus ? (
@@ -164,6 +164,7 @@ function ManagerViewUsers() {
                       </div>
                     )}
                   </td>
+
                 </tr>
               ))}
             </tbody>
