@@ -34,7 +34,7 @@ function ClerkViewDetails() {
 
     const VerifybuttonOnClick = async () => {
         try {
-            await axiosInstance.post(`/verifyloan/${data}`);
+            await axiosInstance.post(`/verifyloan/${user._id}`);
             alert("Loan Verified Successfully");
             navigate("/clerk/manageloan");
         } catch (error) {
@@ -57,6 +57,7 @@ function ClerkViewDetails() {
 
             {console.log('user', user)}
             {console.log('id', user._id)}
+            {console.log('data-data',data)}
 
             <div className="CVD-MainDiv-ContainDiv">
 
