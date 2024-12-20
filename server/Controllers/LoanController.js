@@ -106,7 +106,7 @@ const ViewAllLoanApplications = (req, res) => {
 // for verifying loan application
 const VerifyLoanApplication = async (req, res) => {
 
-    const userLoanId = req.params.id;
+    const data = req.params.id;
 
     await LoanSchema.findByIdAndUpdate(userLoanId, { loanverification: true }, { new: true })
         .then((response) => {
