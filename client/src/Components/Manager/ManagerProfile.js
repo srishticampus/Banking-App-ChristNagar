@@ -5,7 +5,7 @@ import ManagerSidebar from "./ManagerSidebar";
 import profiletop from "../../Asserts/images/Rectangle 158.png";
 import "../../Asserts/Styles/admindashboard.css";
 import imgurl from "../../apis/imgURL";
-
+import editbtn from "../../Asserts/images/editbtn.png";
 
 function ManagerProfile() {
   const [manager, setManager] = useState({});
@@ -51,7 +51,6 @@ function ManagerProfile() {
             <div className="col-2 ms-5 mt-3 text-center">
               <h4>{manager?.name}</h4>
               <h5 className="text-secondary">{manager.destination}</h5>
-                    <Link to="/manager/editprofile">Edit</Link>
 
             </div>
           </div>
@@ -87,10 +86,12 @@ function ManagerProfile() {
                 <div className="text-secondary">Address</div>
                 <b className="text-dark">{manager.address}</b>
               </p>
-            </div>
+            </div>                             
+            <div className="text-center"><Link to="/manager/editprofile"><img src={editbtn}></img></Link></div> 
+
             
           </div>
-          
+
         </div>
       </div>
     </div>

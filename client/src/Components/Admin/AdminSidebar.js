@@ -24,7 +24,7 @@ function AdminSidebar() {
   }
   return (
     <div className="sidebardesign">
-      <img src={logo}></img>
+     <Link to="/admin/dashboard" ><img src={logo}></img></Link>
       <div className="row mt-5 hover ">
         <div className="col-1"></div>
         <div className="col-1">

@@ -298,20 +298,26 @@ function ManagerAddClerk() {
                   )}
                 </div>
                 <div className="mb-3">
-                  <label>Choose Id Proof</label>
-                  <input
-                    type="text"
+                  <label>Choose ID Proof</label>
+                  <select
                     className="form-control"
                     name="chooseid"
+                    value={clerkdata.chooseid}
                     onChange={handleInputChange}
-                  />
+                  >
+                    <option value="">Select ID Proof</option>
+                    <option value="Aadhar">Aadhar</option>
+                    <option value="Passport">Passport</option>
+                    <option value="Voter ID">Voter ID</option>
+                    <option value="PAN Card">PAN Card</option>
+                  </select>
                   {errors.chooseid && (
                     <div className="text-danger">{errors.chooseid}</div>
                   )}
                 </div>
               </div>
             </div>
-           
+
             <div className="row">
               <div className="col-5">
                 <div className="mb-3">
@@ -329,21 +335,20 @@ function ManagerAddClerk() {
                   )}
                 </div>
                 <div className="mb-3">
-              <label>Address</label>
-             
-                <div className="">
-                  {" "}
-                  <input
-                    className="form-control"
-                    name="address"
-                    onChange={handleInputChange}
-                  />
-                  {errors.address && (
-                    <div className="text-danger">{errors.address}</div>
-                  )}
-               
-              </div>
-            </div>
+                  <label>Address</label>
+
+                  <div className="">
+                    {" "}
+                    <input
+                      className="form-control"
+                      name="address"
+                      onChange={handleInputChange}
+                    />
+                    {errors.address && (
+                      <div className="text-danger">{errors.address}</div>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className="col-5">
                 <div className="mb-3">
