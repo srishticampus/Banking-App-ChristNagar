@@ -15,8 +15,9 @@ const LoanSchema = new mongoose.Schema({
         required: true
     },
     loanapproval: {
-        type: Boolean,
-        default: false
+        type: String,
+        enum: ['Pending', 'Approved', 'Rejected'],
+        default: 'Pending'
     },
     loanverification: {
         type: Boolean,
