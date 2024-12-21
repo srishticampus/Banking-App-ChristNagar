@@ -34,6 +34,9 @@ import CustomerLoanIdentity from "./Components/CustomerLoan/CustomerLoanIdentity
 import CustomerLoanEmployeDetails from "./Components/CustomerLoan/CustomerLoanEmployeDetails";
 import ClerkManageLoan from "./Components/Clerk/ClerkManageLoan";
 import ClerkSideBar from "./Components/Clerk/ClerkSideBar";
+import ClerkViewDetails from "./Components/Clerk/ClerkViewDetails";
+import ManagerManageLoan from "./Components/Manager/ManagerManageLoan";
+import ManagerViewLoanDetails from "./Components/Manager/ManagerViewLoanDetails";
 
 function App() {
   return (
@@ -61,6 +64,8 @@ function App() {
         <Route path="/manager/viewuserdetails/:userid" element={<ManagerViewUserDetails />} />
         <Route path="/manager/viewclerks" element={<ManagerViewClerks />} />
         <Route path="/manager/editclerk/:clerkid" element={<ManagerEditClerk />} />
+        <Route path="/manager/managermanageloan" element={<ManagerManageLoan />} />
+        <Route path="/manager/viewloandetails/:data" element={<ManagerViewLoanDetails/>} />
 
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/login" element={<UserLogin />} />
@@ -76,6 +81,7 @@ function App() {
         <Route path="/manager/editprofile" element={<ManagerEditProfile />} />
         <Route path="/clerk/homepage" element={<ClerkDashboard />} />
         <Route path="/clerk/manageloan" element={<ClerkManageLoan />} />
+        <Route path="/clerk/viewloandetails/:data" element={<ClerkViewDetails/>} />
 
         <Route path="/user/applyloan" element={<CustomerApplyLoan />} />
         <Route path="/user/applyloanpersonaldetail" element={<CustomerLoanpersonDetail />} />

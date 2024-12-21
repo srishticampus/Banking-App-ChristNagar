@@ -57,7 +57,7 @@ function ManagerSidebar() {
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
-                to="/manager/home"
+                to="/manager/managermanageloan"
                 className="text-decoration-none text-light ms-3"
               >
                 <img src={loan}></img> Manage Loan

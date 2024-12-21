@@ -1,11 +1,11 @@
-.CML-MainDiv {
+.MML-MainDiv {
 
     background-color: #F5F2F7;
     min-height: 100vh;
 
 }
 
-.CML-MainDiv-ContainDiv {
+.MML-MainDiv-ContainDiv {
 
     display: flex;
     flex-direction: row;
@@ -14,7 +14,7 @@
 
 }
 
-.CML-MainDiv-ContainDiv-ContentDiv {
+.MML-MainDiv-ContainDiv-ContentDiv {
 
     width: 100%;
     display: flex;
@@ -23,7 +23,7 @@
 
 }
 
-.CML-MainDiv-ContainDiv-HeaderDiv {
+.MML-MainDiv-ContainDiv-HeaderDiv {
 
     display: flex;
     flex-direction: row;
@@ -33,7 +33,7 @@
 
 }
 
-.CML-h1 {
+.MML-h1 {
 
     color: #A112FF;
     font-weight: 600 !important;
@@ -41,13 +41,13 @@
 
 }
 
-.CML-h2 {
+.MML-h2 {
 
     font-weight: 600 !important;
 
 }
 
-.CML-Button1 {
+.MML-Button1 {
 
     height: 40px;
     width: 230px;
@@ -58,7 +58,7 @@
 
 }
 
-.CML-Button2 {
+.MML-Button2 {
 
     height: 40px;
     width: 230px;
@@ -69,7 +69,7 @@
 
 }
 
-.CML-MainDiv-ContainDiv-ButtonDiv {
+.MML-MainDiv-ContainDiv-ButtonDiv {
 
     display: flex;
     gap: 10px;
@@ -79,7 +79,7 @@
 
 }
 
-.CML-MainDiv-ContainDiv-Content {
+.MML-MainDiv-ContainDiv-Content {
 
     margin-top: 30px;
     overflow-x: auto;
@@ -89,7 +89,7 @@
 
 }
 
-.CML-Button3 {
+.MML-Button3 {
 
     background: none;
     border: none;
@@ -101,7 +101,7 @@
 
 }
 
-.CML-img {
+.MML-img {
 
     height: 41px;
     width: 40px;
@@ -111,7 +111,7 @@
 
 }
 
-.CML-Table-Contain-Shadow {
+.MML-Table-Contain-Shadow {
 
     display: inline-block;
     border-radius: 5px;
@@ -122,12 +122,12 @@
 
 }
 
-.CML-Table-Contain-Shadow:hover {
+.MML-Table-Contain-Shadow:hover {
     box-shadow: 0px 1px 10px 6px rgba(0, 0, 0, 0.3);
     transition: box-shadow 0.3s ease;
 }
 
-.CML-Table {
+.MML-Table {
 
     min-width: 100%;
     border-collapse: separate;
@@ -138,58 +138,58 @@
 }
 
 
-.CML-Table-thead-tr {
+.MML-Table-thead-tr {
 
     background-color: #BF5DFF;
     height: 40px;
 
 }
 
-.CML-Table-thead-th-center {
+.MML-Table-thead-th-center {
 
     text-align: center;
 
 }
 
-.CML-Table-tbody-tr {
+.MML-Table-tbody-tr {
 
     height: 60px;
 
 }
 
-.CML-Table-tbody-tr:nth-child(odd) {
+.MML-Table-tbody-tr:nth-child(odd) {
 
     background-color: white;
 
 }
 
-.CML-Table-tbody-tr:nth-child(even) {
+.MML-Table-tbody-tr:nth-child(even) {
 
     background-color: #FCF6FF;
 
 }
 
 
-.CML-Table-td {
+.MML-Table-td {
 
     text-align: left;
 
 }
 
-.CML-Table-td-center {
+.MML-Table-td-center {
 
     text-align: center;
 
 }
 
-.CML-Table-p {
+.MML-Table-p {
 
     margin-bottom: 0px;
     margin-top: 10px;
 
 }
 
-.CML-Table-p-2 {
+.MML-Table-p-2 {
 
     font-size: 13px;
     font-weight: 400;

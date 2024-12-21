@@ -69,9 +69,9 @@ const SaveLoanApplicationData = async (req, res) => {
 
 const ViewLoanApplication = (req, res) => {
 
-    const { userid } = req.body
+    const userid = req.params.userid
 
-    LoanSchema.find({}).populate('userid')
+    LoanSchema.find({ userid }).populate('userid')
         .then((response) => {
             if (response == "") {
                 return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
@@ -88,7 +88,7 @@ const ViewLoanApplication = (req, res) => {
 // for seeing all loan applications
 const ViewAllLoanApplications = (req, res) => {
 
-    LoanSchema.find()
+    LoanSchema.find({}).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -106,9 +106,12 @@ const ViewAllLoanApplications = (req, res) => {
 // for verifying loan application
 const VerifyLoanApplication = async (req, res) => {
 
-    const userLoanId = req.params.id;
+    console.log('====================================');
+    console.log("id-id",req.params.id);
+    console.log('====================================');
+    const data = req.params.id;
 
-    await LoanSchema.findByIdAndUpdate(userLoanId, { loanverification: true, new: true })
+    await LoanSchema.findByIdAndUpdate(data, { loanverification: true }, { new: true })
         .then((response) => {
             res.json({ status: 200, msg: 'Loan Verified', data: response })
         })
@@ -121,7 +124,7 @@ const VerifyLoanApplication = async (req, res) => {
 // for viewing non verified applications
 const NonVerifiedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: false })
+    LoanSchema.find({ loanverification: false }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -139,7 +142,7 @@ const NonVerifiedLoanApplication = (req, res) => {
 // for viewing verified loan applications
 const VerifiedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true })
+    LoanSchema.find({ loanverification: true, loanapproval: false }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -149,7 +152,7 @@ const VerifiedLoanApplication = (req, res) => {
             }
         })
         .catch((error) => {
-            res.json({ status: 500, msg: 'Data failed tto retrive', data: error })
+            res.json({ status: 500, msg: 'Data failed to retrive', data: error })
         })
 
 }
@@ -157,9 +160,10 @@ const VerifiedLoanApplication = (req, res) => {
 // for approving loan
 const ApproveLoanApplication = async (req, res) => {
 
-    const userLoanId = req.params.id;
+    const data = req.params.id;
+    console.log("idid", req.params.id)
 
-    await LoanSchema.findByIdAndUpdate(userLoanId, { loanapproval: true, new: true })
+    await LoanSchema.findByIdAndUpdate(data, { loanapproval: true }, { new: true })
         .then((response) => {
             res.json({ status: 200, msg: 'Loan Approved', data: response })
         })
@@ -172,7 +176,7 @@ const ApproveLoanApplication = async (req, res) => {
 // for viewing non approved loans
 const NonApprovedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true, loanapproval: false })
+    LoanSchema.find({ loanverification: true, loanapproval: false }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -190,7 +194,7 @@ const NonApprovedLoanApplication = (req, res) => {
 // for viewing approved loans
 const ApprovedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true, loanapproval: true })
+    LoanSchema.find({ loanverification: true, loanapproval: true }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
