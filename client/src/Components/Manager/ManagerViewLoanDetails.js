@@ -279,7 +279,7 @@ function ManagerViewLoanDetails() {
 
                         {!user.loanapproval && (
                             <div className="MVLD-MainDiv-ContainDiv-Content-Card-Button">
-                                <button className="MVLD-button1" onClick={CancelbuttonOnClick}>Cancel</button>
+                                <button className="MVLD-button1" onClick={CancelbuttonOnClick}>Reject</button>
                                 <button className="MVLD-button2" onClick={VerifybuttonOnClick}>Approve</button>
                             </div>
                         )}
