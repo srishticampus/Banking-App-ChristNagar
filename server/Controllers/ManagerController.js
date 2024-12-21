@@ -130,7 +130,6 @@ const viewManagerById = (req, res) => {
 };
 
 const editManagerById = async (req, res) => {
-  console.log(req.files);
   const {
     name,
     email,
@@ -197,7 +196,6 @@ const createToken = (user) => {
 };
 
 const ManagerLogin = (req, res) => {
-  console.log(req.body);
   
   const { email, password } = req.body;
  

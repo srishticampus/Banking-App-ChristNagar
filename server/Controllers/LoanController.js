@@ -24,8 +24,6 @@ const upload = multer({ storage: storage }).fields([
 // for saving loan application data
 const SaveLoanApplicationData = async (req, res) => {
 
-    // console.log(req.body)
-    console.log(req.files)
 
     const userData = new LoanSchema({
         userid: req.params.userid,
@@ -106,9 +104,6 @@ const ViewAllLoanApplications = (req, res) => {
 // for verifying loan application
 const VerifyLoanApplication = async (req, res) => {
 
-    console.log('====================================');
-    console.log("id-id",req.params.id);
-    console.log('====================================');
     const data = req.params.id;
 
     await LoanSchema.findByIdAndUpdate(data, { loanverification: true }, { new: true })
@@ -161,7 +156,6 @@ const VerifiedLoanApplication = (req, res) => {
 const ApproveLoanApplication = async (req, res) => {
 
     const data = req.params.id;
-    console.log("idid", req.params.id)
 
     await LoanSchema.findByIdAndUpdate(data, { loanapproval: true }, { new: true })
         .then((response) => {

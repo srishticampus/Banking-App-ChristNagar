@@ -22,9 +22,7 @@ const specUp = multer({ storage: storage }).fields([
 ])
 
 // Function to add a new Clerk
-const AddClerk = async (req, res) => {
-  console.log(req.body);
-  
+const AddClerk = async (req, res) => {  
   try {
     const {
       name,
@@ -198,7 +196,6 @@ const createToken = (user) => {
 };
 
 const loginClerk = (req, res) => {
-  console.log(req.body);
   
   const { email, password } = req.body;
   Clerk.findOne({ email })
