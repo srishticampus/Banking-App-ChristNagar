@@ -207,3 +207,9 @@
     transition: background-color 0.3s ease;
 
 }
+.CVD-textcontain {
+
+    max-width: 237px;
+    min-width: none;
+
+}

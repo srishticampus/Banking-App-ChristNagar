@@ -13,8 +13,9 @@ function ClerkViewDetails() {
 
     const GetUserData = async () => {
         try {
-            const response = await axiosInstance.post(`/viewoneloan/${data}`);
+            const response = await axiosInstance.post(`/viewonenonverifiedloan/${data}`);
             if (Array.isArray(response.data.data) && response.data.data.length > 0) {
+                console.log('response-response', response)
                 setUser(response.data.data[0]);
             } else {
                 console.error("Unexpected API response structure.");
@@ -57,7 +58,7 @@ function ClerkViewDetails() {
 
             {console.log('user', user)}
             {console.log('id', user._id)}
-            {console.log('data-data',data)}
+            {console.log('data-data', data)}
 
             <div className="CVD-MainDiv-ContainDiv">
 
@@ -96,12 +97,12 @@ function ClerkViewDetails() {
 
                                         <div className="CVD-MainDiv-ContainDiv-Content-Card-Left-Details">
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="email" className="CVD-label">E-mail</label>
                                                 <h1 name='email' className="CVD-h4">{user.userid.userMail}</h1>
                                             </div>
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="DOB" className="CVD-label">Date Of Birth</label>
                                                 <h1 name='DOB' className="CVD-h4">{new Date(user.userid.userDate).toLocaleDateString('en-GB')}</h1>
                                             </div>
@@ -111,12 +112,12 @@ function ClerkViewDetails() {
 
                                     <div className="CVD-MainDiv-ContainDiv-Content-Card-Right">
 
-                                        <div>
+                                        <div className="CVD-textcontain">
                                             <label for="Contact" className="CVD-label">Contact</label>
                                             <h1 name='Contact' className="CVD-h4">{user.userid.userContact}</h1>
                                         </div>
 
-                                        <div>
+                                        <div className="CVD-textcontain">
                                             <label for="address" className="CVD-label">Address</label>
                                             <h1 name='address' className="CVD-h4">{user.userid.userAddress}</h1>
                                         </div>
@@ -137,22 +138,22 @@ function ClerkViewDetails() {
 
                                         <div className="CVD-MainDiv-ContainDiv-Content-Card-Left-Details">
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="email" className="CVD-label">PAN Card Number</label>
                                                 <h1 name='email' className="CVD-h4">{user.pancardnumber}</h1>
                                             </div>
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="pancard" className="CVD-label">PAN Card</label>
                                                 <h1 name='pancard' className="CVD-h4">View File</h1>
                                             </div>
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="aadhaarnum" className="CVD-label">Aadhaar Number</label>
                                                 <h1 name='aadhaarnum' className="CVD-h4">{user.aadharnumber}</h1>
                                             </div>
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="aadhaarcard" className="CVD-label">Aadhaar Card</label>
                                                 <h1 name='aadhaarcard' className="CVD-h4">View File</h1>
                                             </div>
@@ -163,17 +164,17 @@ function ClerkViewDetails() {
 
                                     <div className="CVD-MainDiv-ContainDiv-Content-Card-Right">
 
-                                        <div>
+                                        <div className="CVD-textcontain">
                                             <label for="votersid" className="CVD-label">Voter's ID</label>
                                             <h1 name='votersid' className="CVD-h4">View File</h1>
                                         </div>
 
-                                        <div>
+                                        <div className="CVD-textcontain">
                                             <label for="dl" className="CVD-label">Driving License</label>
                                             <h1 name='dl' className="CVD-h4">View File</h1>
                                         </div>
 
-                                        <div>
+                                        <div className="CVD-textcontain">
                                             <label for="passport" className="CVD-label">Passport</label>
                                             <h1 name='passport' className="CVD-h4">View File</h1>
                                         </div>
@@ -199,17 +200,17 @@ function ClerkViewDetails() {
 
                                         <div className="CVD-MainDiv-ContainDiv-Content-Card-Left-Details">
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="empname" className="CVD-label">Name Of Employer</label>
                                                 <h1 name='empname' className="CVD-h4">{user.nameofemployer}</h1>
                                             </div>
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="workexp" className="CVD-label">Work Experience</label>
                                                 <h1 name='workexp' className="CVD-h4">{user.workexp} Years</h1>
                                             </div>
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="Position" className="CVD-label">Position</label>
                                                 <h1 name='Position' className="CVD-h4">{user.position}</h1>
                                             </div>
@@ -219,17 +220,17 @@ function ClerkViewDetails() {
 
                                     <div className="CVD-MainDiv-ContainDiv-Content-Card-Right">
 
-                                        <div>
+                                        <div className="CVD-textcontain">
                                             <label for="Contact" className="CVD-label">Contact</label>
                                             <h1 name='Contact' className="CVD-h4">{user.employercontact}</h1>
                                         </div>
 
-                                        <div>
+                                        <div className="CVD-textcontain">
                                             <label for="address" className="CVD-label">Salary</label>
                                             <h1 name='address' className="CVD-h4">₹{user.salary}/-</h1>
                                         </div>
 
-                                        <div>
+                                        <div className="CVD-textcontain">
                                             <label for="salslip" className="CVD-label">Salary Slip</label>
                                             <h1 name='salslip' className="CVD-h4">View File</h1>
                                         </div>
@@ -250,12 +251,12 @@ function ClerkViewDetails() {
 
                                         <div className="CVD-MainDiv-ContainDiv-Content-Card-Left-Details">
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="loantype" className="CVD-label">Loan Type</label>
                                                 <h1 name='loantype' className="CVD-h4">{user.loantype}</h1>
                                             </div>
 
-                                            <div>
+                                            <div className="CVD-textcontain">
                                                 <label for="loanpurpose" className="CVD-label">Purpose Of Loan</label>
                                                 <h1 name='loanpurpose' className="CVD-h4">{user.loanpurpose}</h1>
                                             </div>
@@ -266,11 +267,9 @@ function ClerkViewDetails() {
 
                                     <div className="CVD-MainDiv-ContainDiv-Content-Card-Right">
 
-                                        <div>
-
+                                        <div className="CVD-textcontain">
                                             <label for="loanamount" className="CVD-label">Amount Required</label>
                                             <h1 name='loanamount' className="CVD-h4">₹{user.loanamount}/-</h1>
-
                                         </div>
 
                                     </div>
@@ -280,11 +279,12 @@ function ClerkViewDetails() {
 
                         </div>
 
-                        <div className="CVD-MainDiv-ContainDiv-Content-Card-Button">
-                            <button className="CVD-button1" onClick={CancelbuttonOnClick}>Cancel</button>
-                            <button className="CVD-button2" onClick={VerifybuttonOnClick}>Verify</button>
-                        </div>
-
+                        {!user.loanverification && (
+                            <div className="CVD-MainDiv-ContainDiv-Content-Card-Button">
+                                <button className="CVD-button1" onClick={CancelbuttonOnClick}>Cancel</button>
+                                <button className="CVD-button2" onClick={VerifybuttonOnClick}>Verify</button>
+                            </div>
+                        )}
                     </div>
 
                 </div>

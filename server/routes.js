@@ -30,7 +30,8 @@ router.post('/activate_a_user/:id', user.activateUserById)
 
 // Loan application
 router.post('/saveloandata/:userid', loan.upload, loan.SaveLoanApplicationData)     // Saving Loan data 
-router.post('/viewoneloan/:userid', loan.ViewLoanApplication)                                // viewing a loan application
+router.post('/viewonenonverifiedloan/:loanid', loan.ViewVerifiedLoanApplication)                                // viewing a loan application
+router.post('/viewonenonapprovedloan/:loanid', loan.ViewApprovedLoanApplication)                                // viewing a loan application
 router.get('/viewallloan', loan.ViewAllLoanApplications)                            // viewing all loan applications
 router.post('/verifyloan/:id', loan.VerifyLoanApplication);                         // for verifying loan application
 router.get('/nonverifiedloan', loan.NonVerifiedLoanApplication)                     // for viewing all non verified applicaton
@@ -38,7 +39,7 @@ router.get('/verifiedloan', loan.VerifiedLoanApplication)                       
 router.post('/approveloan/:id', loan.ApproveLoanApplication)                            // for approving loan application
 router.get('/nonapprovedloan', loan.NonApprovedLoanApplication)                     // for viewing verified but non approved application
 router.get('/approvedloan', loan.ApprovedLoanApplication)                           // for viewing verified and approved loan application
-router.post('/populateloandetails', loan.ViewLoanApplication)
+
 
 
 router.post('/addClerk', clerk.upload, clerk.AddClerk)

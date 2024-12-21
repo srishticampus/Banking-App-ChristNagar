@@ -67,11 +67,30 @@ const SaveLoanApplicationData = async (req, res) => {
 
 }
 
-const ViewLoanApplication = (req, res) => {
+const ViewVerifiedLoanApplication = (req, res) => {
 
-    const userid = req.params.userid
+    // const loanid = req.params.loanid
+    console.log('loan-loam', req.params.loanid)
 
-    LoanSchema.find({ userid }).populate('userid')
+    LoanSchema.find({ _id: req.params.loanid }).populate('userid')
+        .then((response) => {
+            // console.log('response', response)
+            if (response == "") {
+                return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
+            }
+            res.json({ status: 200, msg: 'Loan Application Fetched', data: response });
+        })
+        .catch((error) => {
+            res.status(500).json({ status: 500, msg: 'Loan Application Fetch Failed', data: error });
+        });
+
+};
+
+const ViewApprovedLoanApplication = (req, res) => {
+
+    const loanid = req.params.loanid
+
+    LoanSchema.find({ _id: loanid }).populate('userid')
         .then((response) => {
             if (response == "") {
                 return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
@@ -107,7 +126,7 @@ const ViewAllLoanApplications = (req, res) => {
 const VerifyLoanApplication = async (req, res) => {
 
     console.log('====================================');
-    console.log("id-id",req.params.id);
+    console.log("id-id", req.params.id);
     console.log('====================================');
     const data = req.params.id;
 
@@ -142,7 +161,7 @@ const NonVerifiedLoanApplication = (req, res) => {
 // for viewing verified loan applications
 const VerifiedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true, loanapproval: false }).populate('userid')
+    LoanSchema.find({ loanverification: true }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -209,4 +228,4 @@ const ApprovedLoanApplication = (req, res) => {
 
 }
 
-module.exports = { SaveLoanApplicationData, upload, ViewLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication }
+module.exports = { SaveLoanApplicationData, upload, ViewVerifiedLoanApplication, ViewApprovedLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication }
