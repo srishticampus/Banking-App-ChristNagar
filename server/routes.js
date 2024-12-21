@@ -37,6 +37,7 @@ router.post('/verifyloan/:id', loan.VerifyLoanApplication);                     
 router.get('/nonverifiedloan', loan.NonVerifiedLoanApplication)                     // for viewing all non verified applicaton
 router.get('/verifiedloan', loan.VerifiedLoanApplication)                           // for viewing all verified application
 router.post('/approveloan/:id', loan.ApproveLoanApplication)                            // for approving loan application
+router.post('/rejectloan/:id', loan.RejectLoanApplication)                            // for rejecting loan application
 router.get('/nonapprovedloan', loan.NonApprovedLoanApplication)                     // for viewing verified but non approved application
 router.get('/approvedloan', loan.ApprovedLoanApplication)                           // for viewing verified and approved loan application
 

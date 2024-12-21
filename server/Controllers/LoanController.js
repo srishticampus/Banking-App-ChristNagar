@@ -163,12 +163,27 @@ const VerifiedLoanApplication = (req, res) => {
 
 }
 
-// for approving loan
+// for approving loans
 const ApproveLoanApplication = async (req, res) => {
 
     const data = req.params.id;
 
     await LoanSchema.findByIdAndUpdate(data, { loanapproval: "Approved" }, { new: true })
+        .then((response) => {
+            res.json({ status: 200, msg: 'Loan Approved', data: response })
+        })
+        .catch((error) => {
+            res.json({ status: 500, msg: 'Loan Approval Failed', data: error })
+        })
+
+}
+
+// for rejecting loans
+const RejectLoanApplication = async (req, res) => {
+
+    const data = req.params.id;
+
+    await LoanSchema.findByIdAndUpdate(data, { loanapproval: "Rejected" }, { new: true })
         .then((response) => {
             res.json({ status: 200, msg: 'Loan Approved', data: response })
         })
@@ -214,4 +229,4 @@ const ApprovedLoanApplication = (req, res) => {
 
 }
 
-module.exports = { SaveLoanApplicationData, upload, ViewVerifiedLoanApplication, ViewApprovedLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication }
+module.exports = { SaveLoanApplicationData, upload, ViewVerifiedLoanApplication, ViewApprovedLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication, RejectLoanApplication }

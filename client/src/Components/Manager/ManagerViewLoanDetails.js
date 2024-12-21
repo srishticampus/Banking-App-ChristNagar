@@ -32,10 +32,20 @@ function ManagerViewLoanDetails() {
 
     }
 
-    const VerifybuttonOnClick = async () => {
+    const ApprovebuttonOnClick = async () => {
         try {
             await axiosInstance.post(`/approveloan/${user._id}`);
             alert("Loan approved Successfully");
+            navigate("/manager/managermanageloan");
+        } catch (error) {
+            console.error("Error verifying loan:", error);
+        }
+    };
+    
+    const RejectbuttonOnClick = async () => {
+        try {
+            await axiosInstance.post(`/rejectloan/${user._id}`);
+            alert("Loan Rejected");
             navigate("/manager/managermanageloan");
         } catch (error) {
             console.error("Error verifying loan:", error);
@@ -279,8 +289,8 @@ function ManagerViewLoanDetails() {
 
                         {user.loanapproval == "Pending" && (
                             <div className="MVLD-MainDiv-ContainDiv-Content-Card-Button">
-                                <button className="MVLD-button1" onClick={CancelbuttonOnClick}>Reject</button>
-                                <button className="MVLD-button2" onClick={VerifybuttonOnClick}>Approve</button>
+                                <button className="MVLD-button1" onClick={RejectbuttonOnClick}>Reject</button>
+                                <button className="MVLD-button2" onClick={ApprovebuttonOnClick}>Approve</button>
                             </div>
                         )}
                     </div>
