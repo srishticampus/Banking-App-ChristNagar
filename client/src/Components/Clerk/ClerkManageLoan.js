@@ -141,7 +141,7 @@ function ClerkManageLoan() {
                                                         <td className='CML-Table-td'>{new Date(data?.userid?.userDate).toLocaleDateString('en-GB')}</td>
                                                         <td className='CML-Table-td'>{data?.loantype}</td>
                                                         <td className='CML-Table-td-center'>₹{data?.loanamount}</td>
-                                                        <td className='CML-Table-td-center'><button className='CML-Button3' onClick={() => navigate(`/clerk/viewloandetails/${data.userid._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
+                                                        <td className='CML-Table-td-center'><button className='CML-Button3' onClick={() => navigate(`/clerk/viewloandetails/${data._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
                                                         {console.log("data-data",data)}
                                                         {console.log("data-data-data",data._id)}
 
@@ -184,7 +184,7 @@ function ClerkManageLoan() {
                                                         <td className='CML-Table-td'>{new Date(data?.userid?.userDate).toLocaleDateString('en-GB')}</td>
                                                         <td className='CML-Table-td'>{data?.loantype}</td>
                                                         <td className='CML-Table-td-center'>₹{data?.loanamount}</td>
-                                                        <td className='CML-Table-td-center'><button className='CML-Button3' onClick={() => navigate(`/clerk/viewloandetails/${data.userid._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
+                                                        <td className='CML-Table-td-center'><button className='CML-Button3' onClick={() => navigate(`/clerk/viewloandetails/${data._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
 
                                                     </tr>
 
