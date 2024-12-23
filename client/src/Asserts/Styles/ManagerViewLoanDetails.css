@@ -19,7 +19,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
 
 }
 
@@ -116,7 +115,10 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 40px;
     border-radius: 10px;
-    min-width: 421px;
+    min-width: 474px;
+    max-width: 474px;
+    white-space: wrap;
+    word-wrap: break-word;
 
 }
 
@@ -165,6 +167,9 @@
 
     font-size: 16px;
     font-weight: bold;
+    max-width: 237px;
+    min-width: none;
+    overflow-wrap: anywhere;
 
 }
 
@@ -205,5 +210,15 @@
     border-radius: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+
+}
+
+.MVLD-txt-contain {
+
+    max-width: 237px;
+    min-width: none;
+    white-space: wrap;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
 
 }

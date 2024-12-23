@@ -32,7 +32,6 @@ const testMail = (data) => {
     if (error) {
       console.log("Error:", error);
     } else {
-      // console.log("Email sent:", info.response);
     }
   });
 };
@@ -169,10 +168,6 @@ const viewUserById = (req, res) => {
 };
 
 const editUserById = async (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-  console.log(req.userPicture);
-
   const {
     username,
     userContact,

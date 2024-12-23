@@ -24,16 +24,12 @@ const upload = multer({ storage: storage }).fields([
 // for saving loan application data
 const SaveLoanApplicationData = async (req, res) => {
 
-    // console.log(req.body)
-    console.log(req.files)
 
     const userData = new LoanSchema({
         userid: req.params.userid,
         loantype: req.body.loanType,
         loanamount: req.body.loanAmount,
         loanpurpose: req.body.loanPurpose,
-        // loanapproval: req.body.loanapproval,
-        // loanverification: req.body.loanverification,
         pancardnumber: req.body.pancardNumber,
         pancardimage: req.files['panCardFile'] ? req.files['panCardFile'][0] : null,
         aadharnumber: req.body.aadhaarNumber,
@@ -41,12 +37,6 @@ const SaveLoanApplicationData = async (req, res) => {
         votersidfile: req.files['votersIDFile'] ? req.files['votersIDFile'][0] : null,
         drivinglicensefile: req.files['drivingLicenseFile'] ? req.files['drivingLicenseFile'][0] : null,
         passportfile: req.files['passportFile'] ? req.files['passportFile'][0] : null,
-        // name: req.body.name,
-        // contactnumber: req.body.contactnumber,
-        // gender: req.body.gender,
-        // address: req.body.address,
-        // dob: req.body.dob,
-        // profilepicture: req.files['profilepicture'] ? req.files['profilepicture'][0] : null,
         nameofemployer: req.body.nameofemployer,
         employercontact: req.body.employercontact,
         workexp: req.body.workexp,
@@ -67,11 +57,30 @@ const SaveLoanApplicationData = async (req, res) => {
 
 }
 
-const ViewLoanApplication = (req, res) => {
+const ViewVerifiedLoanApplication = (req, res) => {
 
-    const userid = req.params.userid
+    // const loanid = req.params.loanid
+    console.log('loan-loam', req.params.loanid)
 
-    LoanSchema.find({ userid }).populate('userid')
+    LoanSchema.find({ _id: req.params.loanid }).populate('userid')
+        .then((response) => {
+            // console.log('response', response)
+            if (response == "") {
+                return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
+            }
+            res.json({ status: 200, msg: 'Loan Application Fetched', data: response });
+        })
+        .catch((error) => {
+            res.status(500).json({ status: 500, msg: 'Loan Application Fetch Failed', data: error });
+        });
+
+};
+
+const ViewApprovedLoanApplication = (req, res) => {
+
+    const loanid = req.params.loanid
+
+    LoanSchema.find({ _id: loanid }).populate('userid')
         .then((response) => {
             if (response == "") {
                 return res.status(404).json({ status: 404, msg: 'No Loan Application Found' });
@@ -106,9 +115,6 @@ const ViewAllLoanApplications = (req, res) => {
 // for verifying loan application
 const VerifyLoanApplication = async (req, res) => {
 
-    console.log('====================================');
-    console.log("id-id",req.params.id);
-    console.log('====================================');
     const data = req.params.id;
 
     await LoanSchema.findByIdAndUpdate(data, { loanverification: true }, { new: true })
@@ -142,7 +148,7 @@ const NonVerifiedLoanApplication = (req, res) => {
 // for viewing verified loan applications
 const VerifiedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true, loanapproval: false }).populate('userid')
+    LoanSchema.find({ loanverification: true }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -157,13 +163,27 @@ const VerifiedLoanApplication = (req, res) => {
 
 }
 
-// for approving loan
+// for approving loans
 const ApproveLoanApplication = async (req, res) => {
 
     const data = req.params.id;
-    console.log("idid", req.params.id)
 
-    await LoanSchema.findByIdAndUpdate(data, { loanapproval: true }, { new: true })
+    await LoanSchema.findByIdAndUpdate(data, { loanapproval: "Approved" }, { new: true })
+        .then((response) => {
+            res.json({ status: 200, msg: 'Loan Approved', data: response })
+        })
+        .catch((error) => {
+            res.json({ status: 500, msg: 'Loan Approval Failed', data: error })
+        })
+
+}
+
+// for rejecting loans
+const RejectLoanApplication = async (req, res) => {
+
+    const data = req.params.id;
+
+    await LoanSchema.findByIdAndUpdate(data, { loanapproval: "Rejected" }, { new: true })
         .then((response) => {
             res.json({ status: 200, msg: 'Loan Approved', data: response })
         })
@@ -176,7 +196,7 @@ const ApproveLoanApplication = async (req, res) => {
 // for viewing non approved loans
 const NonApprovedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true, loanapproval: false }).populate('userid')
+    LoanSchema.find({ loanverification: true, loanapproval: "Pending" }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -194,7 +214,7 @@ const NonApprovedLoanApplication = (req, res) => {
 // for viewing approved loans
 const ApprovedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true, loanapproval: true }).populate('userid')
+    LoanSchema.find({ loanverification: true, loanapproval: "Approved" }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -209,4 +229,4 @@ const ApprovedLoanApplication = (req, res) => {
 
 }
 
-module.exports = { SaveLoanApplicationData, upload, ViewLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication }
+module.exports = { SaveLoanApplicationData, upload, ViewVerifiedLoanApplication, ViewApprovedLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication, RejectLoanApplication }

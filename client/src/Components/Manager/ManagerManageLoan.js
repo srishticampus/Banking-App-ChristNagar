@@ -141,7 +141,7 @@ function ManagerManageLoan() {
                                                         <td className='MML-Table-td'>{new Date(data?.userid?.userDate).toLocaleDateString('en-GB')}</td>
                                                         <td className='MML-Table-td'>{data?.loantype}</td>
                                                         <td className='MML-Table-td-center'>₹{data?.loanamount}</td>
-                                                        <td className='MML-Table-td-center'><button className='MML-Button3' onClick={() => navigate(`/manager/viewloandetails/${data.userid._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
+                                                        <td className='MML-Table-td-center'><button className='MML-Button3' onClick={() => navigate(`/manager/viewloandetails/${data._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
 
                                                     </tr>
 
@@ -182,7 +182,7 @@ function ManagerManageLoan() {
                                                         <td className='MML-Table-td'>{new Date(data?.userid?.userDate).toLocaleDateString('en-GB')}</td>
                                                         <td className='MML-Table-td'>{data?.loantype}</td>
                                                         <td className='MML-Table-td-center'>₹{data?.loanamount}</td>
-                                                        <td className='MML-Table-td-center'><button className='MML-Button3'><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
+                                                        <td className='MML-Table-td-center'><button className='MML-Button3' onClick={() => navigate(`/manager/viewloandetails/${data._id}`)}><img src={img2} alt='View Details' /></button></td>{/* eye icon */}
 
                                                     </tr>
 
