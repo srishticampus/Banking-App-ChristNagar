@@ -106,9 +106,12 @@ const ViewAllLoanApplications = (req, res) => {
 // for verifying loan application
 const VerifyLoanApplication = async (req, res) => {
 
-    const userLoanId = req.params.id;
+    console.log('====================================');
+    console.log("id-id",req.params.id);
+    console.log('====================================');
+    const data = req.params.id;
 
-    await LoanSchema.findByIdAndUpdate(userLoanId, { loanverification: true }, { new: true })
+    await LoanSchema.findByIdAndUpdate(data, { loanverification: true }, { new: true })
         .then((response) => {
             res.json({ status: 200, msg: 'Loan Verified', data: response })
         })
@@ -139,7 +142,7 @@ const NonVerifiedLoanApplication = (req, res) => {
 // for viewing verified loan applications
 const VerifiedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true }).populate('userid')
+    LoanSchema.find({ loanverification: true, loanapproval: false }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -157,9 +160,10 @@ const VerifiedLoanApplication = (req, res) => {
 // for approving loan
 const ApproveLoanApplication = async (req, res) => {
 
-    const userLoanId = req.params.id;
+    const data = req.params.id;
+    console.log("idid", req.params.id)
 
-    await LoanSchema.findByIdAndUpdate(userLoanId, { loanapproval: true, new: true })
+    await LoanSchema.findByIdAndUpdate(data, { loanapproval: true }, { new: true })
         .then((response) => {
             res.json({ status: 200, msg: 'Loan Approved', data: response })
         })
@@ -172,7 +176,7 @@ const ApproveLoanApplication = async (req, res) => {
 // for viewing non approved loans
 const NonApprovedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true, loanapproval: false })
+    LoanSchema.find({ loanverification: true, loanapproval: false }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -190,7 +194,7 @@ const NonApprovedLoanApplication = (req, res) => {
 // for viewing approved loans
 const ApprovedLoanApplication = (req, res) => {
 
-    LoanSchema.find({ loanverification: true, loanapproval: true })
+    LoanSchema.find({ loanverification: true, loanapproval: true }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })

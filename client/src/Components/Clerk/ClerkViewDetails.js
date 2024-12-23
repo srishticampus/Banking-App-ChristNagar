@@ -14,14 +14,14 @@ function ClerkViewDetails() {
     const GetUserData = async () => {
         try {
             const response = await axiosInstance.post(`/viewoneloan/${data}`);
-            console.log("API Response:", response.data.data);
-
             if (Array.isArray(response.data.data) && response.data.data.length > 0) {
                 setUser(response.data.data[0]);
             } else {
                 console.error("Unexpected API response structure.");
             }
+            console.log("API Response:", response.data.data);
         } catch (error) {
+            alert("Failed to fetch user details. Please try again.");
             console.error("Error fetching user data:", error);
         }
     };
@@ -34,7 +34,7 @@ function ClerkViewDetails() {
 
     const VerifybuttonOnClick = async () => {
         try {
-            await axiosInstance.post(`/verifyloan/${data}`);
+            await axiosInstance.post(`/verifyloan/${user._id}`);
             alert("Loan Verified Successfully");
             navigate("/clerk/manageloan");
         } catch (error) {
@@ -57,6 +57,7 @@ function ClerkViewDetails() {
 
             {console.log('user', user)}
             {console.log('id', user._id)}
+            {console.log('data-data',data)}
 
             <div className="CVD-MainDiv-ContainDiv">
 
