@@ -3,6 +3,7 @@ const manager = require("./Controllers/ManagerController")
 const user = require("./Controllers/UserController")
 const clerk = require("./Controllers/ClerkController")
 const loan = require("./Controllers/LoanController")
+const card = require("./Controllers/CreditCardController")
 
 const router = express.Router()
 
@@ -42,6 +43,16 @@ router.get('/nonapprovedloan', loan.NonApprovedLoanApplication)                 
 router.get('/approvedloan', loan.ApprovedLoanApplication)                           // for viewing verified and approved loan application
 
 
+// Credit Card
+router.post('/carduser', card.upload, card.CustomerPersonalDetails)
+router.post('/viewallcreditapplication', card.ViewCreditCardApplication)
+router.post('/viewonecreditapplication/:id', card.ViewSingleCreditCardApplication)
+router.post('/nonverifiedcreditapplication', card.NonVerifiedCreditCardApplication)
+router.post('/verifiedcreditapplication', card.VerifiedCreditCardApplication)
+router.post('/verifyingcreditapplication/:id', card.VerifyCreditCardApplication)
+router.post('/nonapprovedcreditapplication', card.NonApprovedCreditCardApplication)
+router.post('/approvecreditapplication/:id', card.ApproveCreditCardApplication)
+router.post('/approvedcreditapplication', card.ApprovedCreditCardApplication)
 
 router.post('/addClerk', clerk.upload, clerk.AddClerk)
 router.get('/viewallclerks', clerk.viewClerks)
