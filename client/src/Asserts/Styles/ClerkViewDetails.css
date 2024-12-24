@@ -9,17 +9,17 @@
 
     display: flex;
     flex-direction: row;
-    gap: 25%;
+    gap: 0%;
 
 
 }
 
 .CVD-MainDiv-ContainDiv-ContentDiv {
 
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
+    /* margin-left: 30px; */
 
 }
 
@@ -27,9 +27,9 @@
 
     display: flex;
     flex-direction: row;
-    gap: 15px;
-    margin-top: 60px;
-    margin-left: 27px;
+    gap: 10px;
+    margin-top: 40px;
+    margin-left: 2px;
 
 }
 
@@ -50,8 +50,8 @@
 .CVD-MainDiv-ContainDiv-Content {
 
     border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    margin: 20px;
+    /* padding: 40px; */
+    /* margin: 20px; */
     gap: 40px;
     margin-right: 60px;
     margin-top: 40px;
@@ -61,7 +61,7 @@
     align-items: center;
     justify-content: center;
     width: max-content;
-    margin-left: 50%;
+    /* margin-left: 50%; */
     transform: translate(-50%);
 
 }
@@ -96,7 +96,7 @@
 
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: 10px;
 
 }
 
@@ -104,7 +104,7 @@
 
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: 10px;
 
 }
 
@@ -112,11 +112,11 @@
 
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 40px;
+    padding: 10px;
     border-radius: 10px;
-    min-width: 421px;
+    /* min-width: 421px; */
 
 }
 
@@ -124,7 +124,7 @@
 
     display: flex;
     flex-direction: row;
-    gap: 60px;
+    gap: 10px;
     align-items: start;
 
 }
@@ -133,7 +133,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 1px;
 
 
 }
@@ -171,7 +171,7 @@
 
     display: flex;
     flex-direction: row;
-    gap: 25%;
+    gap: 22%;
 
 
 }
@@ -188,9 +188,9 @@
 
     display: flex;
     flex-direction: row;
-    gap: 15px;
-    margin-top: 60px;
-    margin-left: 27px;
+    gap: 10px;
+    margin-top: 30px;
+    margin-left: 2px;
 
 }
 
@@ -211,8 +211,8 @@
 .CVD-MainDiv-ContainDiv-Content {
 
     border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    margin: 20px;
+    padding: 10px;
+    margin: 2px;
     gap: 40px;
     margin-right: 60px;
     margin-top: 40px;
@@ -275,7 +275,7 @@
     flex-direction: column;
     gap: 20px;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 40px;
+    padding: 10px;
     border-radius: 10px;
     min-width: 474px;
     max-width: 474px;
