@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { MdOutlineFileUpload } from "react-icons/md";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import UserNavbar from "../User/UserNavbar";
 
 function CustomerLoanEmployeDetails() {
   const location = useLocation();
   const combinedData = location.state?.combinedData;
+  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     nameofemployer: "",
@@ -85,6 +86,9 @@ function CustomerLoanEmployeDetails() {
       console.error("Error:", error.response || error);
       alert("Failed to submit the application. Please try again.");
     }
+
+    navigate('/user/applyloan')
+
   };
 
   useEffect(() => {

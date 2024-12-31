@@ -112,6 +112,24 @@ const ViewAllLoanApplications = (req, res) => {
 
 }
 
+// for seeing all loan applications of a user
+const ViewUserLoanApplications = (req, res) => {
+
+    LoanSchema.find({ userid: req.params.id }).populate('userid')
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Applications' })
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetched', data: response })
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 500, mgs: 'Loan Applications Fetch Failed', data: error })
+        })
+
+}
+
 // for verifying loan application
 const VerifyLoanApplication = async (req, res) => {
 
@@ -232,7 +250,7 @@ const ApprovedLoanApplication = (req, res) => {
 
 const ApprovedLoanApplicationbyUserId = (req, res) => {
     console.log(req.params.userid);
-    LoanSchema.find({userid:req.params.userid, loanverification: true, loanapproval: "Approved" }).populate('userid')
+    LoanSchema.find({ userid: req.params.userid, loanverification: true, loanapproval: "Approved" }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Applications' })
@@ -246,4 +264,4 @@ const ApprovedLoanApplicationbyUserId = (req, res) => {
         })
 
 }
-module.exports = { SaveLoanApplicationData, upload, ViewVerifiedLoanApplication, ViewApprovedLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication, RejectLoanApplication ,ApprovedLoanApplicationbyUserId}
+module.exports = { SaveLoanApplicationData, upload,ViewUserLoanApplications, ViewVerifiedLoanApplication, ViewApprovedLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication, RejectLoanApplication, ApprovedLoanApplicationbyUserId }
