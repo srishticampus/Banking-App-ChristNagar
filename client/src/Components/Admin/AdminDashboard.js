@@ -2,6 +2,7 @@ import React,{useEffect} from "react";
 import AdminSidebar from "./AdminSidebar";
 import "../../Asserts/Styles/LandingPage.css";
 import { useNavigate } from "react-router-dom";
+import DashboardCharts from "./AdminDashboardpiechart"
 function AdminDashboard() {
 
   const navigate=useNavigate()
@@ -22,6 +23,7 @@ function AdminDashboard() {
           <h3 className="mt-4">
             <span className="dashboardheadcolor">ADMIN </span> DASHBOARD
           </h3>
+          <DashboardCharts/>
         </div>
       </div>
     </div>

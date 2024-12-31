@@ -37,6 +37,9 @@ import ClerkSideBar from "./Components/Clerk/ClerkSideBar";
 import ClerkViewDetails from "./Components/Clerk/ClerkViewDetails";
 import ManagerManageLoan from "./Components/Manager/ManagerManageLoan";
 import ManagerViewLoanDetails from "./Components/Manager/ManagerViewLoanDetails";
+import AdminViewUserslist from "./Components/Admin/AdminViewUserslist";
+import AdminviewUserDetails from "./Components/Admin/AdminviewUserDetails"
+import CustomerApplyCreaditCard from "./Components/User/CustomerApplyCreaditCard";
 
 function App() {
   return (
@@ -53,6 +56,8 @@ function App() {
         <Route path="/admin/view_a_managers/:managerid" element={<AdminViewAManager />} />
         <Route path="/admin/edit_a_managers/:managerid" element={<AdminEditAmanagerData />} />
         <Route path="/admin/viewclerks" element={<AdminViewClerks />} />
+        <Route path="/admin/viewusers" element={<AdminViewUserslist />} />
+        <Route path="/admin/viewuserdetails/:userid" element={<AdminviewUserDetails />} />
 
 
         <Route path="/manager/login" element={<ManagerLogin />} />
@@ -88,6 +93,9 @@ function App() {
         <Route path="/user/applyloanIdentity" element={<CustomerLoanIdentity />} />
         <Route path="/user/applyloanEmpdetails" element={<CustomerLoanEmployeDetails />} />
         <Route path="/user/applayloanpersonaldetails" element={<CustomerLoanPersonalDetails />} />
+
+        <Route path="/user/applylcreaditcard" element={<CustomerApplyCreaditCard />} />
+
       </Routes>
     </BrowserRouter>
   );

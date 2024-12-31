@@ -188,7 +188,7 @@ function UserNavbar() {
                 Loan
               </Link>
               <Link
-                to="#contact"
+                to="/user/applylcreaditcard"
                 className="me-5 text-light text-decoration-none"
               >
                 Credit Card
