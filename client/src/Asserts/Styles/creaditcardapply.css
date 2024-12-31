@@ -6,12 +6,16 @@
 
 .CACC-p {
     color: #bf5dff;
+    margin-top: 10px;
 }
 
 .CACC-p-link {
     color: #bf5dff;
     text-decoration: 2px solid underline;
-
+    margin-top: 10px;
+}
+.CACC-p-link:hover {
+    cursor: pointer;
 }
 
 .custcreditstatussect2 {

@@ -40,6 +40,7 @@ import ManagerViewLoanDetails from "./Components/Manager/ManagerViewLoanDetails"
 import AdminViewUserslist from "./Components/Admin/AdminViewUserslist";
 import AdminviewUserDetails from "./Components/Admin/AdminviewUserDetails"
 import CustomerApplyCreaditCard from "./Components/User/CustomerApplyCreaditCard";
+import UserCreditApplicationDetails from "./Components/User/UserCreditApplicationDetails";
 
 function App() {
   return (
@@ -95,6 +96,7 @@ function App() {
         <Route path="/user/applayloanpersonaldetails" element={<CustomerLoanPersonalDetails />} />
 
         <Route path="/user/applylcreaditcard" element={<CustomerApplyCreaditCard />} />
+        <Route path="/user/creditcarddetails/:data" element={<UserCreditApplicationDetails />} />
 
       </Routes>
     </BrowserRouter>

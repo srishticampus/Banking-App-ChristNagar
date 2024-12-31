@@ -9,12 +9,14 @@ import creditcardgirl from "../../Asserts/images/creditcard.png";
 import Applaynow from "../../Asserts/images/ApplyNowBTN.png";
 import "../../Asserts/Styles/creaditcardapply.css"
 import axiosInstance from "../../apis/axiosinstance";
+import { useNavigate } from "react-router-dom";
 
 function CustomerApplyCreditCard() {
 
     const applayref = useRef();
 
     const [user, setUser] = useState(null)
+    const navigate = useNavigate();
 
     const GetUserData = async () => {
 
@@ -40,6 +42,7 @@ function CustomerApplyCreditCard() {
     useEffect(() => {
         GetUserData();
     }, []);
+
 
     const handleLoanApply = () => {
         applayref.current?.scrollIntoView({ behavior: "smooth" });
@@ -181,12 +184,12 @@ function CustomerApplyCreditCard() {
                                                         </td>
                                                         <td className="custcreditstatussect2formthonerow">
 
-                                                            <p className="CACC-p"><GoDotFill className="custcreditstatusradiobtn" />{data.loanapproval}</p>
+                                                            <p className="CACC-p"><GoDotFill className="custcreditstatusradiobtn" />{data.approvalstatus}</p>
 
                                                         </td>
                                                         <td className="custcreditstatussect2formthonerow">
 
-                                                            <p className="CACC-p-link">View More</p>
+                                                            <p className="CACC-p-link" onClick={() => navigate(`/user/creditcarddetails/${data._id}`)}>View More</p>
 
                                                         </td>
                                                     </tr>
