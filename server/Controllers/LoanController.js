@@ -229,4 +229,21 @@ const ApprovedLoanApplication = (req, res) => {
 
 }
 
-module.exports = { SaveLoanApplicationData, upload, ViewVerifiedLoanApplication, ViewApprovedLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication, RejectLoanApplication }
+
+const ApprovedLoanApplicationbyUserId = (req, res) => {
+    console.log(req.params.userid);
+    LoanSchema.find({userid:req.params.userid, loanverification: true, loanapproval: "Approved" }).populate('userid')
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Applications' })
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetched', data: response })
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 200, msg: 'Data failed to fetch', data: error })
+        })
+
+}
+module.exports = { SaveLoanApplicationData, upload, ViewVerifiedLoanApplication, ViewApprovedLoanApplication, VerifiedLoanApplication, NonVerifiedLoanApplication, ApprovedLoanApplication, NonApprovedLoanApplication, ViewAllLoanApplications, VerifyLoanApplication, ApproveLoanApplication, RejectLoanApplication ,ApprovedLoanApplicationbyUserId}

@@ -41,6 +41,7 @@ router.post('/approveloan/:id', loan.ApproveLoanApplication)                    
 router.post('/rejectloan/:id', loan.RejectLoanApplication)                            // for rejecting loan application
 router.get('/nonapprovedloan', loan.NonApprovedLoanApplication)                     // for viewing verified but non approved application
 router.get('/approvedloan', loan.ApprovedLoanApplication)                           // for viewing verified and approved loan application
+router.get('/viewloanbyuser/:userid', loan.ApprovedLoanApplicationbyUserId)                            // viewing all loan applications
 
 
 // Credit Card
