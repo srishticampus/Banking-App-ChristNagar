@@ -86,3 +86,111 @@ hr {
     height: 500px;
     
 }
+
+
+/* piechart */
+/* .managerDashboardfullbody{
+    background-color: rgba(128, 128, 128, 0.082);
+} */
+.managerDashboardpiechart {
+    background-color:white;
+    /* margin-left: 50px;
+    margin-right: 25px; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+}
+.managerDashboardpiechart1{
+    background-color:white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+
+}
+
+ .managerDashboardTableHead {
+    background-color: rgba(191, 93, 255, 1);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+
+} 
+#managerDashBoardTable{
+    position: relative;
+    top: 25px;
+    /* left: 150px; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px; 
+    
+
+}
+.managerDashboardTableData{
+    text-align: center;
+    padding: 10px;
+    font-weight: 500;
+    font-size: large;
+}
+
+.managerDashboardsubline {
+    color: grey;
+    font-weight: 400;
+    font-size: medium;
+}
+
+.managerDashboardrowclr {
+    background-color: rgba(190, 93, 255, 0.041);
+}
+
+#managerDashboardeyeicon {
+    color: rgba(191, 93, 255, 1);
+    font-size: larger;
+}
+
+.managerDashboardviewuser{
+    padding-top: 35px;
+    /* padding-left: 50px; */
+}
+.managerdashboard{
+    padding-top: 25px;
+    padding-bottom: 25px;    
+}
+#managerDashboardclerkcolor{
+    color: rgba(191, 93, 255, 1);
+}
+.managerDashboardTableDataviewDetails{
+    color: rgba(191, 93, 255, 1);
+    text-align: center;
+    padding: 10px;
+    font-weight: 300;
+    font-size: large;
+}
+.managerDashboardpiechartdetails{
+    padding-left: 50px;
+}
+#managerDashboardLoanButton{
+    margin-top: 10px;
+    color: rgba(191, 93, 255, 1);
+    background-color: white;
+    border-color: rgba(191, 93, 255, 1);
+}
+#managerDashboardLoanButton:hover{
+    margin-top: 10px;
+    background-color: rgba(191, 93, 255, 1);
+    color: white;
+    border-color: rgba(191, 93, 255, 1);
+}
+#managerDashboardclerkLifeinduranceButton{
+    margin-top: 10px;
+    color: rgba(191, 93, 255, 1);
+    background-color: white;
+    border-color: rgba(191, 93, 255, 1);
+}
+.managerDashboardpiechartimg{
+    padding-bottom: 25px;
+    padding-top: 25px;
+
+}
+#managerDashboardViewwallLink{
+    color: rgba(191, 93, 255, 1);
+}
