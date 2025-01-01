@@ -2,30 +2,6 @@ const mongoose = require("mongoose");
 
 const CreditCardSchema = new mongoose.Schema({
 
-    customername: {
-        type: String,
-        required: true
-    },
-    contactnumber: {
-        type: Number,
-        required: true
-    },
-    emailid: {
-        type: String,
-        required: true
-    },
-    address: {
-        type: String,
-        required: true
-    },
-    dob: {
-        type: Date,
-        required: true
-    },
-    profilepicture: {
-        type: Object,
-        required: true
-    },
     pancardnumber: {
         type: String,
         required: true
