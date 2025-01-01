@@ -72,101 +72,139 @@ function CustomerApplyLifeInsurance() {
         </div>
       </div>
       {/* section2 start */}
-      <div  className="custloanapplysection2">
-        
-        <div className="custloanapplysection2pt2">
-          <br />
+
+      <div className="custcreditstatussect3" style={{backgroundColor:"#f5f2f7"}}>
+        <br />
+        <br />
+        <div className="custcreditstatussect3pt3">
           <br />
           <center>
-            <h3 id="custloanapplysection2pt2h3">Apply Now</h3>
+            <h4>LIFE INSURANCE</h4>
+            <br />
+            <br />
+            <h3 id="custcreditstatussect3h3">
+              "Secure Your Future with Our Life Insurance Plans”
+            </h3>
           </center>
-        </div>
-        {/* Section 1 */}
-
-        <div className="custcreditstatussect2">
           <br />
-          <br />
-          <div className="custcreditstatussect2pt2">
+          <div className="custcreditstatussect3pt3details">
+            <p>
+              Apply for life insurance effortlessly and secure your loved ones'
+              future. Our simple, step-by-step process ensures quick application
+              and transparent policy options. Start today and gain peace of mind
+              for tomorrow.
+            </p>
             <br />
             <center>
-              <h3 id="custcreditstatussect2h3">Application Status</h3>
+              <div onClick={handleLoanApply} style={{ cursor: "pointer" }}>
+                <img src={Applaynow} alt="Apply Now Button" />
+              </div>
             </center>
             <br />
             <br />
-            <div className="custcreditstatussect2formborder1">
-              <div className="custcreditstatussect2formpt1">
-                <table>
-                  <tr>
-                    <th className="custcreditstatussect2formth">
-                      <label className="custcreditstatussect2datalabel">
-                        Name
-                      </label>
-                    </th>
-                    <th className="custcreditstatussect2formth">
-                      <label className="custcreditstatussect2datalabel">
-                        Contact
-                      </label>
-                    </th>
-                    <th className="custcreditstatussect2formth">
-                      <label className="custcreditstatussect2datalabel">
-                        Email
-                      </label>
-                    </th>
-                    <th className="custcreditstatussect2formth">
-                      <label className="custcreditstatussect2datalabel">
-                        Card Type
-                      </label>
-                    </th>
-                    <th className="custcreditstatussect2formth">
-                      <label className="custcreditstatussect2datalabel">
-                        Credit Card Limit
-                      </label>
-                    </th>
-
-                    <th className="custcreditstatussect2formthonerow">
-                      <label id="custcreditstatussect2formthlabel1">
-                        <br />
-                        <GoDotFill className="custcreditstatusradiobtn" />
-                        Pending
-                      </label>
-                    </th>
-                    <th className="custcreditstatussect2formthonerow">
-                      <label id="custcreditstatussect2formthlabel2">
-                        <br />
-                        View More
-                      </label>
-                    </th>
-                  </tr>
-
-                  <tr>
-                    <td className="custcreditstatussect2formtd">
-                      <p className="custcreditstatussect2data">Akhila K</p>
-                    </td>
-                    <td className="custcreditstatussect2formtd">
-                      <p className="custcreditstatussect2data">1234567890</p>
-                    </td>
-                    <td className="custcreditstatussect2formtd">
-                      <p className="custcreditstatussect2data">
-                        akhila45@gmail.com
-                      </p>
-                    </td>
-                    <td className="custcreditstatussect2formtd">
-                      <p className="custcreditstatussect2data">Platinum</p>
-                    </td>
-                    <td className="custcreditstatussect2formtd">
-                      <p className="custcreditstatussect2data">Rs.2,00,000/-</p>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
           </div>
         </div>
+        <br />
+        <br />
       </div>
       <div class=""></div>
-      <LandingFooter/>
+      <LandingFooter />
     </div>
   );
 }
 
 export default CustomerApplyLifeInsurance;
+
+// {user && (
+//   <div className="custcreditstatussect2">
+//       <br />
+//       <br />
+//       <div className="custcreditstatussect2pt2">
+//           <br />
+//           <center>
+//               <h3 id="custcreditstatussect2h3">Application Status</h3>
+//           </center>
+//           <br />
+//           <br />
+//           <div className="custcreditstatussect2formborder1">
+//               <div className="custcreditstatussect2formpt1">
+//                   <table>
+
+//                       <tbody>
+//                           <tr>
+//                               <th className="custcreditstatussect2formth">
+//                                   <label className="custcreditstatussect2datalabel">
+//                                       Name
+//                                   </label>
+//                               </th>
+//                               <th className="custcreditstatussect2formth">
+//                                   <label className="custcreditstatussect2datalabel">
+//                                       Contact
+//                                   </label>
+//                               </th>
+//                               <th className="custcreditstatussect2formth">
+//                                   <label className="custcreditstatussect2datalabel">
+//                                       Email
+//                                   </label>
+//                               </th>
+//                               <th className="custcreditstatussect2formth">
+//                                   <label className="custcreditstatussect2datalabel">
+//                                       Card Type
+//                                   </label>
+//                               </th>
+//                               <th className="custcreditstatussect2formth">
+//                                   <label className="custcreditstatussect2datalabel">
+//                                       Credit Card Limit
+//                                   </label>
+//                               </th>
+
+//                           </tr>
+
+//                           {user?.length > 0 ? (
+//                               user?.map((data, index) => {
+//                                   return (
+//                                       <tr key={index}>
+//                                           <td className="custcreditstatussect2formtd">
+//                                               {data.customername}
+//                                           </td>
+//                                           <td className="custcreditstatussect2formtd">
+//                                               {data.contactnumber}
+//                                           </td>
+//                                           <td className="custcreditstatussect2formtd">
+//                                               {data.emailid}
+//                                           </td>
+//                                           <td className="custcreditstatussect2formtd">
+//                                               {data.cardtype}
+//                                           </td>
+//                                           <td className="custcreditstatussect2formtd">
+//                                               {data.creditcardlimit}
+//                                           </td>
+//                                           <td className="custcreditstatussect2formthonerow">
+
+//                                               <p className="CACC-p"><GoDotFill className="custcreditstatusradiobtn" />{data.approvalstatus}</p>
+
+//                                           </td>
+//                                           <td className="custcreditstatussect2formthonerow">
+
+//                                               <p className="CACC-p-link" onClick={() => navigate(`/user/creditcarddetails/${data._id}`)}>View More</p>
+
+//                                           </td>
+//                                       </tr>
+//                                   )
+//                               })
+//                           ) : (
+//                               <tr>
+//                                   <td><p className=' text-center text-danger'>No Data Found</p></td>
+//                               </tr>
+//                           )}
+//                       </tbody>
+//                   </table>
+//               </div>
+//           </div>
+//           <br />
+//       </div>
+//       <br />
+//   </div>
+// )}
+
+// {/* Section 2 */}
