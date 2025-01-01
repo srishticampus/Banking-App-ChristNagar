@@ -4,6 +4,7 @@ import imgurl from "../../apis/imgURL";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../Asserts/Styles/CustomerViewLoanDetails.css";
 import LandingFooter from "../Main/LandingFooter";
+import UserNavbar from "../User/UserNavbar";
 
 function CustomerViewLoanDetails() {
     const [user, setUser] = useState(null);
@@ -56,6 +57,7 @@ function CustomerViewLoanDetails() {
 
     return (
         <div className="CVLD-MainDiv">
+        <UserNavbar/>
             {console.log("user", user)}
             {console.log("id", user._id)}
             {console.log("data-data", data)}
