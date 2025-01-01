@@ -6,6 +6,7 @@ import "../../Asserts/Styles/Loan.css";
 import axiosInstance from "../../apis/axiosinstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
+import LandingFooter from "../Main/LandingFooter";
 
 function CustomerLoanpersonDetail() {
 
@@ -152,6 +153,7 @@ return (
           </Card.Body>
         </Card>
       </Container>
+      <LandingFooter/>
     </div>
   );
               }

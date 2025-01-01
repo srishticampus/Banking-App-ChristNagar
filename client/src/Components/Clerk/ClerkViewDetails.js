@@ -4,6 +4,7 @@ import imgurl from "../../apis/imgURL";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../Asserts/Styles/ClerkViewDetails.css";
 import ClerkSideBar from "./ClerkSideBar";
+import LandingFooter from "../Main/LandingFooter";
 
 function ClerkViewDetails() {
   const [user, setUser] = useState(null);
@@ -440,6 +441,7 @@ function ClerkViewDetails() {
           </div>
         </div>
       </div>
+      <LandingFooter/>
     </div>
   );
 }

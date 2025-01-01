@@ -10,6 +10,7 @@ import { GoDotFill } from "react-icons/go";
 import Applaynow from "../../Asserts/images/ApplyNowBTN.png";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
+import LandingFooter from "../Main/LandingFooter";
 
 function CustomerApplyLoan() {
 
@@ -123,7 +124,7 @@ function CustomerApplyLoan() {
                 </div>
             </div>
             {/* section2 start */}
-            <div ref={applayref} className="custloanapplysection2">
+            <div  className="custloanapplysection2">
                 <br />
                 <br />
 
@@ -219,7 +220,7 @@ function CustomerApplyLoan() {
                     </div>
                 )}
 
-                <div className="custloanapplysection2pt2">
+                <div ref={applayref} className="custloanapplysection2pt2">
                     <br />
                     <br />
                     <center>
@@ -304,6 +305,7 @@ function CustomerApplyLoan() {
                 <br />
             </div>
             {/* section2 end */}
+            <LandingFooter/>
         </div>
     );
 }

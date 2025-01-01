@@ -10,6 +10,7 @@ import Applaynow from "../../Asserts/images/ApplyNowBTN.png";
 import "../../Asserts/Styles/creaditcardapply.css"
 import axiosInstance from "../../apis/axiosinstance";
 import { useNavigate } from "react-router-dom";
+import LandingFooter from "../Main/LandingFooter";
 
 function CustomerApplyCreditCard() {
 
@@ -247,6 +248,7 @@ function CustomerApplyCreditCard() {
                 <br />
                 <br />
             </div>
+            <LandingFooter/>
         </div>
     );
 
