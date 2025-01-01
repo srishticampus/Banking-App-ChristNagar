@@ -27,19 +27,15 @@ const logRequestMiddleware = (req, res, next) => {
 const CustomerPersonalDetails = async (req, res) => {
     try {
         const newCustomer = new CreditCardSchema({
-            customername: req.body.customername,
-            contactnumber: req.body.contactnumber,
-            emailid: req.body.emailid,
-            address: req.body.address,
-            dob: req.body.dob,
-            profilepicture: req.files['profilepicture'] ? req.files['profilepicture'][0] : null,
             pancardnumber: req.body.pancardnumber,
             cardtype: req.body.cardtype,
             employmentstatus: req.body.employmentstatus,
             salary: req.body.salary,
             creditcardlimit: req.body.creditcardlimit,
             idproof: req.files['idproof'] ? req.files['idproof'][0] : null,
-            incomeproof: req.files['incomeproof'] ? req.files['incomeproof'][0] : null
+            incomeproof: req.files['incomeproof'] ? req.files['incomeproof'][0] : null,
+            userid: req.params.userid,
+            pancardnumber: req.params.data
         });
 
         const response = await newCustomer.save();
