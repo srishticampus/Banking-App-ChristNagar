@@ -56,7 +56,24 @@ const ViewCreditCardApplication = (req, res) => {
     CreditCardSchema.find().populate('userid')
         .then((response) => {
             if (response == "") {
-                res.json({ status: 200, msg: 'No Data Found' });
+                res.json({ status: 200, msg: 'No Data Found', data: response });
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetch Successful', data: response });
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 500, msg: 'Data fetch failed', data: error });
+        });
+};
+
+// for viewing user credit card applications
+const ViewUserCreditCardApplication = (req, res) => {
+
+    CreditCardSchema.find({ userid: req.params.id }).populate('userid')
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Data Found', data: response });
             }
             else {
                 res.json({ status: 200, msg: 'Data fetch Successful', data: response });
@@ -194,4 +211,4 @@ const ApprovedCreditCardApplication = (req, res) => {
         })
 }
 
-module.exports = { CustomerPersonalDetails, upload, NonApprovedCreditCardApplication, ApproveCreditCardApplication, ApprovedCreditCardApplication, VerifiedCreditCardApplication, VerifyCreditCardApplication, NonVerifiedCreditCardApplication, ViewSingleCreditCardApplication, ViewCreditCardApplication, logRequestMiddleware };
+module.exports = { CustomerPersonalDetails, upload, NonApprovedCreditCardApplication, ApproveCreditCardApplication, ApprovedCreditCardApplication,ViewUserCreditCardApplication, VerifiedCreditCardApplication, VerifyCreditCardApplication, NonVerifiedCreditCardApplication, ViewSingleCreditCardApplication, ViewCreditCardApplication, logRequestMiddleware };
