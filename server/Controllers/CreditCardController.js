@@ -99,7 +99,7 @@ const ViewSingleCreditCardApplication = (req, res) => {
 // for viewing non verified applications
 const NonVerifiedCreditCardApplication = (req, res) => {
 
-    CreditCardSchema.find({ verificationstatus: false })
+    CreditCardSchema.find({ verificationstatus: false }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Data Found' });
@@ -137,7 +137,7 @@ const VerifyCreditCardApplication = async (req, res) => {
 // for viewing verified applications
 const VerifiedCreditCardApplication = (req, res) => {
 
-    CreditCardSchema.find({ verificationstatus: true })
+    CreditCardSchema.find({ verificationstatus: true }).populate('userid').populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Data Found' });
@@ -155,7 +155,7 @@ const VerifiedCreditCardApplication = (req, res) => {
 // for viewing non approved applications
 const NonApprovedCreditCardApplication = (req, res) => {
 
-    CreditCardSchema.find({ verificationstatus: true, approvalstatus: "Pending" })
+    CreditCardSchema.find({ verificationstatus: true, approvalstatus: "Pending" }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Data Found' });
@@ -193,7 +193,7 @@ const ApproveCreditCardApplication = async (req, res) => {
 // for viewing approved applications
 const ApprovedCreditCardApplication = (req, res) => {
 
-    CreditCardSchema.find({ verificationstatus: true, approvalstatus: "Approved" })
+    CreditCardSchema.find({ verificationstatus: true, approvalstatus: "Approved" }).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Data Found' });

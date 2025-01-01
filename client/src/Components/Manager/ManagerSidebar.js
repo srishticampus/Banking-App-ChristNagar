@@ -65,7 +65,7 @@ function ManagerSidebar() {
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
-                to="/manager/home"
+                to="/manager/managermanagecreditcard"
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={credit}></img> Credit Card

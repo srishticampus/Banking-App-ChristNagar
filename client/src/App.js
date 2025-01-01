@@ -33,7 +33,6 @@ import CustomerLoanpersonDetail from "./Components/CustomerLoan/CustomerLoanpers
 import CustomerLoanIdentity from "./Components/CustomerLoan/CustomerLoanIdentity";
 import CustomerLoanEmployeDetails from "./Components/CustomerLoan/CustomerLoanEmployeDetails";
 import ClerkManageLoan from "./Components/Clerk/ClerkManageLoan";
-import ClerkSideBar from "./Components/Clerk/ClerkSideBar";
 import ClerkViewDetails from "./Components/Clerk/ClerkViewDetails";
 import ManagerManageLoan from "./Components/Manager/ManagerManageLoan";
 import ManagerViewLoanDetails from "./Components/Manager/ManagerViewLoanDetails";
@@ -47,6 +46,10 @@ import CustomerCreditCardApply from "./Components/User/CustomerCreditCardApply";
 import CustomerCreditApplyCardDetails from "./Components/User/CustomerCreditApplyCardDetails";
 import CustomerLifeInsurancePersonalDetails from "./Components/customerInsurance/CustomerLifeInsurancePersonalDetails";
 import LifeInsurancePlicyPage from "./Components/customerInsurance/LifeInsurancePlicyPage";
+import ClerkManageCreditCard from "./Components/Clerk/ClerkManageCreditCard";
+import ClerkViewCardDetails from "./Components/Clerk/ClerkViewCardDetails";
+import ManagerManageCreditCard from "./Components/Manager/ManagerManageCreditCard";
+import ManagerViewCardDetails from "./Components/Manager/ManagerViewCardDetails";
 
 function App() {
   return (
@@ -77,6 +80,8 @@ function App() {
         <Route path="/manager/viewclerks" element={<ManagerViewClerks />} />
         <Route path="/manager/editclerk/:clerkid" element={<ManagerEditClerk />} />
         <Route path="/manager/managermanageloan" element={<ManagerManageLoan />} />
+        <Route path="/manager/managermanagecreditcard" element={<ManagerManageCreditCard />} />
+        <Route path="/manager/managecreditcard/:data" element={<ManagerViewCardDetails/>} />
         <Route path="/manager/viewloandetails/:data" element={<ManagerViewLoanDetails/>} />
 
         <Route path="/user/register" element={<UserRegister />} />
@@ -94,7 +99,8 @@ function App() {
         <Route path="/clerk/homepage" element={<ClerkDashboard />} />
         <Route path="/clerk/manageloan" element={<ClerkManageLoan />} />
         <Route path="/clerk/viewloandetails/:data" element={<ClerkViewDetails/>} />
-        
+        <Route path="/clerk/managecreditcard" element={<ClerkManageCreditCard />} />
+        <Route path="/clerk/viewcreditcard/:data" element={<ClerkViewCardDetails />} />
 
         <Route path="/user/applyloan" element={<CustomerApplyLoan />} />
         <Route path="/user/applyloanpersonaldetail" element={<CustomerLoanpersonDetail />} />
@@ -107,6 +113,7 @@ function App() {
         <Route path="/user/creditcarddetails/:data" element={<UserCreditApplicationDetails />} />
         <Route path="/user/personaldetails" element={<CustomerCreditCardApply />} />
         <Route path="/user/carddetails/:data" element={<CustomerCreditApplyCardDetails />} />
+
 
         <Route path="/user/applyllifeinsurance" element={<CustomerApplyLifeInsurance />} />
         <Route path="/user/applyllifeinsurancedetails" element={<CustomerLifeInsurancePersonalDetails />} />
