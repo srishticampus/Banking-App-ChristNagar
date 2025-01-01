@@ -9,7 +9,7 @@ import UserNavbar from "../User/UserNavbar";
 
 function CustomerLoanpersonDetail() {
 
-    const [data, setData] = useState({});
+  const [data, setData] = useState({});
   const location = useLocation();
   const loanDetails = location.state;
 
@@ -41,7 +41,7 @@ return (
       {/* Progress Bar */}
       <Container>
         <Row className="justify-content-center">
-          <Col md={8} className="text-center">
+          <Col md={6} className="text-center">
             <div className="progress-bar-container">
               <div>
                 {" "}

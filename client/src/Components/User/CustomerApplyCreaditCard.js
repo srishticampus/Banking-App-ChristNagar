@@ -168,13 +168,13 @@ function CustomerApplyCreditCard() {
                                                 return (
                                                     <tr key={index}>
                                                         <td className="custcreditstatussect2formtd">
-                                                            {data.customername}
+                                                            {data.userid.username}
                                                         </td>
                                                         <td className="custcreditstatussect2formtd">
-                                                            {data.contactnumber}
+                                                            {data.userid.userContact}
                                                         </td>
                                                         <td className="custcreditstatussect2formtd">
-                                                            {data.emailid}
+                                                            {data.userid.userMail}
                                                         </td>
                                                         <td className="custcreditstatussect2formtd">
                                                             {data.cardtype}
@@ -236,7 +236,7 @@ function CustomerApplyCreditCard() {
                         </p>
                         <br />
                         <center>
-                            <div onClick={handleLoanApply} style={{ cursor: "pointer" }}>
+                            <div onClick={() => { navigate("/user/personaldetails") }} style={{ cursor: "pointer" }}>
                                 <img src={Applaynow} alt="Apply Now Button" />
                             </div>
                         </center>

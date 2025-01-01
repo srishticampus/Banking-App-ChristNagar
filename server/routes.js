@@ -46,7 +46,7 @@ router.get('/viewloanbyuser/:userid', loan.ApprovedLoanApplicationbyUserId)     
 
 
 // Credit Card
-router.post('/carduser', card.upload, card.CustomerPersonalDetails)
+router.post('/carduser/:userid/:pancardnumber', card.upload, card.CustomerPersonalDetails)
 router.post('/viewallcreditapplication', card.ViewCreditCardApplication)
 router.post('/viewusercreditapplication/:id', card.ViewUserCreditCardApplication)
 router.post('/viewonecreditapplication/:id', card.ViewSingleCreditCardApplication)
