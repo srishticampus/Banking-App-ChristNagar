@@ -10,8 +10,8 @@ function CustomerCreditApplyCardDetails() {
     const location = useLocation();
     const combinedData = location.state?.combinedData;
     const navigate = useNavigate()
-    const { pancardnumber } = useParams();
-    console.log("pan-pan", pancardnumber);
+    const { data } = useParams();
+    console.log("pan-pan", data);
 
     const [form, setForm] = useState({
         cardtype: "",
@@ -74,11 +74,7 @@ function CustomerCreditApplyCardDetails() {
         }
 
         try {
-            const response = await axiosMultipartInstance.post(`/carduser`, formData, {
-                params: {
-                    userid: userid,
-                    pancardnumber: pancardnumber
-                },
+            const response = await axiosMultipartInstance.post(`/carduser/${userid}/${data}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

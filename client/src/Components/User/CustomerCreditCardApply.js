@@ -27,7 +27,7 @@ function CustomerCreditCardApply() {
 
     const navigate = useNavigate();
     const update = () => {
-        navigate("/user/carddetails", { state: { panCN } });
+        navigate(`/user/carddetails/${panCN}`);
         console.log("pan-pan-pan",panCN)
     };
 

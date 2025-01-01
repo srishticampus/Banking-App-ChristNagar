@@ -35,7 +35,7 @@ const CustomerPersonalDetails = async (req, res) => {
             idproof: req.files['idproof'] ? req.files['idproof'][0] : null,
             incomeproof: req.files['incomeproof'] ? req.files['incomeproof'][0] : null,
             userid: req.params.userid,
-            pancardnumber: req.params.pancardnumber
+            pancardnumber: req.params.data
         });
 
         const response = await newCustomer.save();
