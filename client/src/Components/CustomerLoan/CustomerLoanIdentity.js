@@ -4,6 +4,7 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
+import LandingFooter from "../Main/LandingFooter";
 
 function CustomerLoanIdentity() {
   const [form, setForm] = useState({
@@ -221,6 +222,7 @@ function CustomerLoanIdentity() {
           </Card.Body>
         </Card>
       </center>
+      <LandingFooter/>
     </div>
   );
 }

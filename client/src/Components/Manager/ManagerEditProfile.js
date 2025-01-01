@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import imgurl from "../../apis/imgURL";
 import { FaCamera } from "react-icons/fa"; // Import a camera icon from react-icons
+import LandingFooter from "../Main/LandingFooter";
 
 function ManagerEditProfile() {
   const navigate = useNavigate();
@@ -314,6 +315,7 @@ function ManagerEditProfile() {
           </form>
         </div>
       </div>
+      <LandingFooter/>
     </div>
   );
 }

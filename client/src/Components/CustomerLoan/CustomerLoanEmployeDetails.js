@@ -4,6 +4,7 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import UserNavbar from "../User/UserNavbar";
+import LandingFooter from "../Main/LandingFooter";
 
 function CustomerLoanEmployeDetails() {
   const location = useLocation();
@@ -218,6 +219,7 @@ function CustomerLoanEmployeDetails() {
           </Card>
         </center>
       </div>
+      <LandingFooter/>
     </div>
   );
 }

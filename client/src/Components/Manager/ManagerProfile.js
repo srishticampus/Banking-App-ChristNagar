@@ -6,6 +6,7 @@ import profiletop from "../../Asserts/images/Rectangle 158.png";
 import "../../Asserts/Styles/admindashboard.css";
 import imgurl from "../../apis/imgURL";
 import editbtn from "../../Asserts/images/editbtn.png";
+import LandingFooter from "../Main/LandingFooter";
 
 function ManagerProfile() {
   const [manager, setManager] = useState({});
@@ -94,6 +95,7 @@ function ManagerProfile() {
 
         </div>
       </div>
+      <LandingFooter/>
     </div>
   );
 }
