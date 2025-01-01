@@ -202,7 +202,7 @@ function ClerkSideBar() {
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
-                to="/clerk/home"
+                to="/clerk/managecreditcard"
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={credit}></img> Credit Card
