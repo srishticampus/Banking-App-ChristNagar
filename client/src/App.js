@@ -40,6 +40,7 @@ import ManagerViewLoanDetails from "./Components/Manager/ManagerViewLoanDetails"
 import AdminViewUserslist from "./Components/Admin/AdminViewUserslist";
 import AdminviewUserDetails from "./Components/Admin/AdminviewUserDetails"
 import CustomerApplyCreaditCard from "./Components/User/CustomerApplyCreaditCard";
+import CustomerApplyLifeInsurance from "./Components/customerInsurance/CustomerApplyLifeInsurance";
 
 function App() {
   return (
@@ -96,7 +97,9 @@ function App() {
 
         <Route path="/user/applylcreaditcard" element={<CustomerApplyCreaditCard />} />
 
-      </Routes>
+        <Route path="/user/applyllifeinsurance" element={<CustomerApplyLifeInsurance />} />
+
+        </Routes>
     </BrowserRouter>
   );
 }

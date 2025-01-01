@@ -194,7 +194,7 @@ function UserNavbar() {
                 Credit Card
               </Link>
               <Link
-                to="#about"
+                to="/user/applyllifeinsurance"
                 className="me-5 text-light text-decoration-none"
               >
                 Life Insurance
