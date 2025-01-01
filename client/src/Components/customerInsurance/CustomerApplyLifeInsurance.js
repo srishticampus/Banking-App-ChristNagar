@@ -9,7 +9,8 @@ import creditcardgirl from "../../Asserts/images/image 56.png";
 import Applaynow from "../../Asserts/images/ApplyNowBTN.png";
 import "../../Asserts/Styles/creaditcardapply.css";
 import LandingFooter from "../Main/LandingFooter";
-
+import "../../Asserts/Styles/customerLifeinsurance.css";
+import applyinsurance from "../../Asserts/images/applybtnlifecard.png";
 function CustomerApplyLifeInsurance() {
   const applayref = useRef();
 
@@ -73,7 +74,10 @@ function CustomerApplyLifeInsurance() {
       </div>
       {/* section2 start */}
 
-      <div className="custcreditstatussect3" style={{backgroundColor:"#f5f2f7"}}>
+      <div
+        className="custcreditstatussect3 mb-5"
+        style={{ backgroundColor: "#f5f2f7" }}
+      >
         <br />
         <br />
         <div className="custcreditstatussect3pt3">
@@ -106,8 +110,49 @@ function CustomerApplyLifeInsurance() {
         </div>
         <br />
         <br />
+        <div class="container">
+          <div className="lifeinsuarancecard">
+            <div className="details">
+              <div className="row">
+                <div className="col-6">
+                  {" "}
+                  <GoDotFill className="custloanapplysection1radiobtn" />
+                  <span id="custcreditstatussect3h3">
+                    &nbsp; Coverage Amount{" "}
+                    <div className="ms-4">₹20,00,000/-</div>
+                  </span>
+                  <div className="mt-3">
+                  <GoDotFill className="custloanapplysection1radiobtn" />
+                  <span id="custcreditstatussect3h3" >
+                    {" "}
+                    &nbsp; Monthly / <div className="ms-4">10 Years</div>
+                  </span>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <img
+                    style={{ width: "100%", height: "90px" }}
+                    src={creditcardgirl}
+                  ></img>
+                </div>
+              </div>
+
+              <h2 id="custcreditstatussect3h3" className="mt-3">Family Protector Plan</h2>
+              <p className="amount" id="custcreditstatussect3h3">
+                Amount to be paid: ₹2,000/-
+              </p>
+              <p className="description">
+                Get comprehensive protection for your loved ones with a flexible
+                plan that adapts to your life’s needs. Affordable premiums and
+                lifetime peace of mind.
+              </p>
+          </div>
+          <div>
+          <img src={applyinsurance}></img></div>
+        </div>
+
+        </div>
       </div>
-      <div class=""></div>
       <LandingFooter />
     </div>
   );
