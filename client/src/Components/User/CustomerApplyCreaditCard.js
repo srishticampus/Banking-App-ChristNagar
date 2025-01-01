@@ -29,7 +29,7 @@ function CustomerApplyCreditCard() {
                 setUser(response.data.data);
             } else {
                 console.error("Unexpected API response structure.");
-                setUser([])
+                setUser(null)
             }
             console.log('API resp', response.data.data)
         }

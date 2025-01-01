@@ -14,13 +14,18 @@
 
 .CAL-p {
     color: #bf5dff;
+    margin-top:10px;
 }
 
 .CAL-p-link {
     color: #bf5dff;
     text-decoration: 2px solid underline;
-
+    margin-top:10px;
 }
+.CAL-p-link:hover {
+    cursor: pointer;
+}
+
 
 .custloanapplysection2pt2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
