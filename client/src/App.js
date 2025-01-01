@@ -41,6 +41,7 @@ import AdminViewUserslist from "./Components/Admin/AdminViewUserslist";
 import AdminviewUserDetails from "./Components/Admin/AdminviewUserDetails"
 import CustomerApplyCreaditCard from "./Components/User/CustomerApplyCreaditCard";
 import UserCreditApplicationDetails from "./Components/User/UserCreditApplicationDetails";
+import CustomerViewLoanDetails from "./Components/CustomerLoan/CustomerViewLoanDetails";
 
 function App() {
   return (
@@ -88,12 +89,14 @@ function App() {
         <Route path="/clerk/homepage" element={<ClerkDashboard />} />
         <Route path="/clerk/manageloan" element={<ClerkManageLoan />} />
         <Route path="/clerk/viewloandetails/:data" element={<ClerkViewDetails/>} />
+        
 
         <Route path="/user/applyloan" element={<CustomerApplyLoan />} />
         <Route path="/user/applyloanpersonaldetail" element={<CustomerLoanpersonDetail />} />
         <Route path="/user/applyloanIdentity" element={<CustomerLoanIdentity />} />
         <Route path="/user/applyloanEmpdetails" element={<CustomerLoanEmployeDetails />} />
         <Route path="/user/applayloanpersonaldetails" element={<CustomerLoanPersonalDetails />} />
+        <Route path="/user/viewloandetails/:data" element={<CustomerViewLoanDetails/>} />
 
         <Route path="/user/applylcreaditcard" element={<CustomerApplyCreaditCard />} />
         <Route path="/user/creditcarddetails/:data" element={<UserCreditApplicationDetails />} />

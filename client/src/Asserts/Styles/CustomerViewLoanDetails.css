@@ -1,40 +1,39 @@
-
-.UCAD-MainDiv {
+.CVLD-MainDiv {
 
     background-color: #F5F2F7;
     min-height: 100vh;
 
 }
 
-.UCAD-MainDiv-ContainDiv {
+.CVLD-MainDiv-ContainDiv {
 
     display: flex;
     flex-direction: row;
     gap: 22%;
-    padding-top: 60px;
+    
 
 }
 
-.UCAD-MainDiv-ContainDiv-ContentDiv {
+.CVLD-MainDiv-ContainDiv-ContentDiv {
 
     width: 100%;
     display: flex;
     flex-direction: column;
-
+    margin:30px;
 }
 
-.UCAD-MainDiv-ContainDiv-HeaderDiv {
-
+.CVLD-MainDiv-ContainDiv-HeaderDiv {
+    
     display: flex;
     flex-direction: row;
+    justify-content:center;
     gap: 10px;
     margin-top: 30px;
     margin-left: 2px;
-    justify-content:center;
 
 }
 
-.UCAD-h1 {
+.CVLD-h1 {
 
     color: #A112FF;
     font-weight: 600 !important;
@@ -42,20 +41,19 @@
 
 }
 
-.UCAD-h2 {
+.CVLD-h2 {
 
     font-weight: 600 !important;
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content {
+.CVLD-MainDiv-ContainDiv-Content {
 
     border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 30px;
-    margin: 2px;
-    gap: 40px;
+    padding-top:50px;
+    gap: 30px;
     margin-top: 40px;
-    margin-bottom:40px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -67,10 +65,10 @@
 
 }
 
-.UCAD-profile-img {
+.CVLD-profile-img {
 
-    height: 131px;
-    width: 131px;
+    height: 161px;
+    width: 161px;
     border: none;
     border-radius: 50%;
     object-fit: cover;
@@ -79,43 +77,42 @@
 
 }
 
-.UCAD-profile-img:hover {
+.CVLD-profile-img:hover {
     box-shadow: 0px 0px 12px 10px rgba(0, 0, 0, 0.466);
     transition: box-shadow 0.3s ease;
 }
 
-.UCAD-h3 {
+.CVLD-h3 {
 
     color: rgba(191, 93, 255, 1);
-    font-size: 28px;
+    font-size: 25px;
     font-weight: bold !important;
-    margin-top: 10px;
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content-Card-Upper {
+.CVLD-MainDiv-ContainDiv-Content-Card-Upper {
 
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: 30px;
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content-Card-Lower {
+.CVLD-MainDiv-ContainDiv-Content-Card-Lower {
 
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: 30px;
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content-Card {
+.CVLD-MainDiv-ContainDiv-Content-Card {
 
     display: flex;
     flex-direction: column;
     gap: 20px;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
     min-width: 474px;
     max-width: 474px;
@@ -124,7 +121,7 @@
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content-Card-Contain {
+.CVLD-MainDiv-ContainDiv-Content-Card-Contain {
 
     display: flex;
     flex-direction: row;
@@ -133,23 +130,16 @@
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content-Card-Left {
+.CVLD-MainDiv-ContainDiv-Content-Card-Left {
 
     display: flex;
     flex-direction: column;
     gap: 5px;
-    margin-left:20px;
-}
-
-.UCAD-MainDiv-ContainDiv-Content-Card-Left-Details {
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content-Card-Right {
+.CVLD-MainDiv-ContainDiv-Content-Card-Left-Details {
 
     display: flex;
     flex-direction: column;
@@ -157,14 +147,22 @@
 
 }
 
-.UCAD-label {
+.CVLD-MainDiv-ContainDiv-Content-Card-Right {
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+.CVLD-label {
 
     font-size: 16px !important;
     color: rgba(110, 110, 110, 1);
 
 }
 
-.UCAD-h4 {
+.CVLD-h4 {
 
     font-size: 16px;
     font-weight: bold;
@@ -174,18 +172,28 @@
 
 }
 
-.UCAD-h5 {
+.CVLD-h4-img {
+
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 237px;
+    min-width: none;
+    overflow-wrap: anywhere;
+    color:rgba(191, 93, 255, 1);
+    text-decoration: 2px solid underline;
+
+}
+
+.CVLD-h5 {
 
     font-size: 18px;
     color: rgba(191, 93, 255, 1);
     text-align: left !important;
     font-weight: bold;
-    margin-left:20px;
-    margin-top:20px;
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content-Card-Button {
+.CVLD-MainDiv-ContainDiv-Content-Card-Button {
 
     display: flex;
     flex-direction: row;
@@ -194,7 +202,7 @@
 
 }
 
-.UCAD-button1 {
+.CVLD-button1 {
 
     background-color: white;
     color: rgba(191, 93, 255, 1);
@@ -204,7 +212,7 @@
     cursor: pointer;
 
 }
-.UCAD-button2 {
+.CVLD-button2 {
 
     background-color: rgba(191, 93, 255, 1);
     color: white;
@@ -216,7 +224,7 @@
 
 }
 
-.UCAD-txt-contain {
+.CVLD-txt-contain {
 
     max-width: 237px;
     min-width: none;
@@ -225,7 +233,7 @@
     overflow-wrap: anywhere;
 
 }
-.UCAD-h4 {
+.CVLD-h4 {
 
     font-size: 16px;
     font-weight: bold;
@@ -235,7 +243,7 @@
 
 }
 
-.UCAD-h5 {
+.CVLD-h5 {
 
     font-size: 18px;
     color: rgba(191, 93, 255, 1);
@@ -244,7 +252,7 @@
 
 }
 
-.UCAD-MainDiv-ContainDiv-Content-Card-Button {
+.CVLD-MainDiv-ContainDiv-Content-Card-Button {
 
     display: flex;
     flex-direction: row;
@@ -253,7 +261,7 @@
 
 }
 
-.UCAD-button1 {
+.CVLD-button1 {
 
     background-color: white;
     color: rgba(191, 93, 255, 1);
@@ -264,7 +272,7 @@
 
 }
 
-.UCAD-button2 {
+.CVLD-button2 {
 
     background-color: rgba(191, 93, 255, 1);
     color: white;
@@ -276,7 +284,7 @@
 
 }
 
-.UCAD-textcontain {
+.CVLD-textcontain {
 
     max-width: 237px;
     min-width: none;

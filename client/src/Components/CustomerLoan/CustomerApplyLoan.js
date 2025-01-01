@@ -39,7 +39,7 @@ function CustomerApplyLoan() {
                 setUser(response.data.data);
             } else {
                 console.error("Unexpected API response structure.");
-                setUser([])
+                setUser(null)
             }
             console.log('API resp', response.data.data)
         }
@@ -178,21 +178,19 @@ function CustomerApplyLoan() {
 
                                                     <tr key={index}>
                                                         <td className="custcreditstatussect2formtd">
-                                                            <p className="custcreditstatussect2data">{data.userid.username}</p>
+                                                            {data.userid.username}
                                                         </td>
                                                         <td className="custcreditstatussect2formtd">
-                                                            <p className="custcreditstatussect2data">{data.userid.userNumber}</p>
+                                                            {data.userid.userNumber}
                                                         </td>
                                                         <td className="custcreditstatussect2formtd">
-                                                            <p className="custcreditstatussect2data">
                                                                 {data.userid.userMail}
-                                                            </p>
                                                         </td>
                                                         <td className="custcreditstatussect2formtd">
-                                                            <p className="custcreditstatussect2data">{data.loantype}</p>
+                                                            {data.loantype}
                                                         </td>
                                                         <td className="custcreditstatussect2formtd">
-                                                            <p className="custcreditstatussect2data">₹{data.loanamount}/-</p>
+                                                            ₹{data.loanamount}/-
                                                         </td>
                                                         <td className="custcreditstatussect2formthonerow">
 
@@ -201,7 +199,7 @@ function CustomerApplyLoan() {
                                                         </td>
                                                         <td className="custcreditstatussect2formthonerow">
 
-                                                            <p className="CAL-p-link">View More</p>
+                                                            <p className="CAL-p-link" onClick={() => navigate(`/user/viewloandetails/${data._id}`)}>View More</p>
 
                                                         </td>
                                                     </tr>)
