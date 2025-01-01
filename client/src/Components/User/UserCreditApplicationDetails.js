@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import imgurl from '../../apis/imgURL';
 import axiosInstance from '../../apis/axiosinstance';
 import '../../Asserts/Styles/UserCreditApplicationDetails.css'
+import LandingFooter from '../Main/LandingFooter';
 
 function UserCreditApplicationDetails() {
 
@@ -219,6 +220,7 @@ function UserCreditApplicationDetails() {
                     </div>
                 </div>
             </div>
+            <LandingFooter/>
         </div>
     );
 

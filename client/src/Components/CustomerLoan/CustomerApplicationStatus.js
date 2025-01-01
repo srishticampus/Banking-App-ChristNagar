@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 // import green from '../Assert/green.png';
 // import cust from '../Assert/profile.png';
 import '../../Asserts/Styles/Loan.css';
+import LandingFooter from '../Main/LandingFooter';
 
 function CustomerApplicationStatus() {
   return (
@@ -187,6 +188,7 @@ function CustomerApplicationStatus() {
           </Container>
         </Card>
       </center>
+      <LandingFooter/>
     </div>
   );
 }

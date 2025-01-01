@@ -8,6 +8,7 @@ import UserNavbar from "../User/UserNavbar";
 import creditcardgirl from "../../Asserts/images/image 56.png";
 import Applaynow from "../../Asserts/images/ApplyNowBTN.png";
 import "../../Asserts/Styles/creaditcardapply.css";
+import LandingFooter from "../Main/LandingFooter";
 
 function CustomerApplyLifeInsurance() {
   const applayref = useRef();
@@ -163,6 +164,7 @@ function CustomerApplyLifeInsurance() {
         </div>
       </div>
       <div class=""></div>
+      <LandingFooter/>
     </div>
   );
 }

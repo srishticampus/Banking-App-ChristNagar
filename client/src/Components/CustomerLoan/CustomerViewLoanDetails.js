@@ -3,6 +3,7 @@ import axiosInstance from "../../apis/axiosinstance";
 import imgurl from "../../apis/imgURL";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../Asserts/Styles/CustomerViewLoanDetails.css";
+import LandingFooter from "../Main/LandingFooter";
 
 function CustomerViewLoanDetails() {
     const [user, setUser] = useState(null);
@@ -400,6 +401,7 @@ function CustomerViewLoanDetails() {
                     </div>
                 </div>
             </div>
+            <LandingFooter/>
         </div>
     );
 }
