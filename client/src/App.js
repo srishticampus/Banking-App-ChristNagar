@@ -52,6 +52,7 @@ import ManagerViewCardDetails from "./Components/Manager/ManagerViewCardDetails"
 function App() {
   return (
     <BrowserRouter basename="/bank_app">
+  
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route

@@ -81,12 +81,12 @@ function CustomerCreditApplyCardDetails() {
             });
             console.log("Success:", response.data);
             alert("Application submitted successfully.");
+            navigate('/user/applylcreaditcard');
         } catch (error) {
             console.error("Error:", error.response || error);
             alert("Failed to submit the application. Please try again.");
         }
 
-        // navigate('/user/applylcreaditcard');
 
     };
 
@@ -153,7 +153,7 @@ function CustomerCreditApplyCardDetails() {
                                                                 />
                                                                 <label htmlFor="Gold" className="CCACD-cardtype-label">Gold</label>
                                                             </div>
-                                                            {errors.nameofemployer && <p style={{ color: "red" }}>{errors.nameofemployer}</p>}
+                                                            {errors.cardtype && <p style={{ color: "red" }}>{errors.cardtype}</p>}
                                                             <br />
                                                             <label>Employement Status</label>
                                                             <input
@@ -163,7 +163,7 @@ function CustomerCreditApplyCardDetails() {
                                                                 onChange={handleChange}
                                                                 className="CustLoanEmplDetailsformcontrol"
                                                             />
-                                                            {errors.workexp && <p style={{ color: "red" }}>{errors.workexp}</p>}
+                                                            {errors.employmentstatus && <p style={{ color: "red" }}>{errors.employmentstatus}</p>}
                                                             <label>Salary</label>
                                                             <input
                                                                 type="text"
@@ -172,7 +172,7 @@ function CustomerCreditApplyCardDetails() {
                                                                 onChange={handleChange}
                                                                 className="CustLoanEmplDetailsformcontrol"
                                                             />
-                                                            {errors.position && <p style={{ color: "red" }}>{errors.position}</p>}
+                                                            {errors.salary && <p style={{ color: "red" }}>{errors.salary}</p>}
                                                         </Col>
                                                     </Row>
                                                 </Container>
@@ -191,7 +191,7 @@ function CustomerCreditApplyCardDetails() {
                                                                 onChange={handleChange}
                                                                 className="CustLoanEmplDetailsformcontrol"
                                                             />
-                                                            {errors.employercontact && <p style={{ color: "red" }}>{errors.employercontact}</p>}
+                                                            {errors.creditcardlimit && <p style={{ color: "red" }}>{errors.creditcardlimit}</p>}
                                                             <br />
                                                             <label>ID Proof</label>
                                                             <input
@@ -200,7 +200,7 @@ function CustomerCreditApplyCardDetails() {
                                                                 onChange={handleFileChange}
                                                                 className="CCACD-CustLoanEmplDetailsformcontrol"
                                                             />
-                                                            {errors.salaryslip && <p style={{ color: "red" }}>{errors.salaryslip}</p>}
+                                                            {errors.idproof && <p style={{ color: "red" }}>{errors.idproof}</p>}
                                                             <div className="CustLoanEmplDetailsCustIcon">
                                                                 <MdOutlineFileUpload />
                                                             </div>
@@ -211,7 +211,7 @@ function CustomerCreditApplyCardDetails() {
                                                                 onChange={handleFileChange}
                                                                 className="CCACD-CustLoanEmplDetailsformcontrol"
                                                             />
-                                                            {errors.salaryslip && <p style={{ color: "red" }}>{errors.salaryslip}</p>}
+                                                            {errors.incomeproof && <p style={{ color: "red" }}>{errors.incomeproof}</p>}
                                                             <div className="CustLoanEmplDetailsCustIcon">
                                                                 <MdOutlineFileUpload />
                                                             </div>

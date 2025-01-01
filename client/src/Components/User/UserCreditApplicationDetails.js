@@ -4,6 +4,9 @@ import imgurl from '../../apis/imgURL';
 import axiosInstance from '../../apis/axiosinstance';
 import '../../Asserts/Styles/UserCreditApplicationDetails.css'
 import LandingFooter from '../Main/LandingFooter';
+import checkmark from '../../Asserts/images/Vector.png';
+import UserNavbar from './UserNavbar';
+import { Col, Container, Row } from 'react-bootstrap';
 
 function UserCreditApplicationDetails() {
 
@@ -42,6 +45,7 @@ function UserCreditApplicationDetails() {
 
     return (
         <div className="UCAD-MainDiv">
+            <UserNavbar />
             {console.log("user", user)}
 
             <div className="UCAD-MainDiv-ContainDiv">
@@ -62,6 +66,132 @@ function UserCreditApplicationDetails() {
 
                         <div>
                             <h1 className="UCAD-h3">{user?.userid?.username}</h1>
+                        </div>
+
+                        <div>
+                            {/* Progress Bar */}
+                            <Container>
+                                <Row className="justify-content-center">
+                                    <Col md={8} className="text-center">
+
+                                        <div className="UCADcirclecontainer">
+
+                                            <div className="UCADcirclecontainer-1">
+
+                                                <div className='circlecontainerdiv'>
+                                                    <div className="UCADcircle active">
+                                                        <img src={checkmark} alt="checkmark" />
+                                                    </div>
+                                                    <span className="UCAD-progress-text">Apply</span>
+                                                </div>
+
+                                            </div>
+
+                                            {user?.verificationstatus ? (
+
+                                                <>
+                                                    <div className="UCAD-profildetaildline active" />
+
+                                                    <div className="UCADcirclecontainer-2">
+
+                                                        <div className='circlecontainerdiv'>
+                                                            <div className="UCADcircle active">
+
+                                                                <img src={checkmark} alt="checkmark" />
+                                                            </div>
+                                                            <span className="UCAD-progress-text">Clerk Verify</span>
+                                                        </div>
+
+                                                    </div>
+                                                </>
+
+                                            ) : (
+
+                                                <>
+
+                                                    <div className="UCAD-profildetaildline" />
+
+                                                    <div className="UCADcirclecontainer-2">
+
+                                                        <div className='circlecontainerdiv'>
+                                                            <div className="UCADcircle">
+                                                            </div>
+                                                            <span className="UCAD-progress-text">Clerk Verify</span>
+                                                        </div>
+
+                                                    </div>
+
+                                                </>
+
+                                            )}
+
+                                            {user?.approvalstatus == "Approved" ? (
+
+                                                <>
+                                                    <div className="UCAD-profildetaildline active" />
+
+                                                    <div className="UCADcirclecontainer-3">
+
+                                                        <div className='circlecontainerdiv'>
+                                                            <div className="UCADcircle active">
+                                                                <img src={checkmark} alt="checkmark" />
+                                                            </div>
+                                                            <span className="UCAD-progress-text">Manager Approval</span>
+                                                            
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className="UCAD-profildetaildline active" />
+
+                                                    <div className="UCADcirclecontainer-4">
+
+                                                        <div className='circlecontainerdiv'>
+                                                            <div className="UCADcircle active">
+                                                                <img src={checkmark} alt="checkmark" />
+                                                            </div>
+                                                            <span className="UCAD-progress-text">Card Approved</span>
+                                                        </div>
+
+                                                    </div>
+                                                </>
+
+                                            ) : (
+
+                                                <>
+                                                    <div className="UCAD-profildetaildline " />
+
+                                                    <div className="UCADcirclecontainer-3">
+
+                                                        <div className='circlecontainerdiv'>
+                                                            <div className="UCADcircle ">
+                                                            </div>
+                                                            <span className="UCAD-progress-text">Manager Approval</span>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className="UCAD-profildetaildline" />
+
+                                                    <div className="UCADcirclecontainer-4">
+
+                                                        <div className='circlecontainerdiv'>
+                                                            <div className="UCADcircle ">
+                                                            </div>
+                                                            <span className="UCAD-progress-text">Card Approved</span>
+                                                        </div>
+
+                                                    </div>
+                                                </>
+                                            )}
+
+
+
+
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Container>
                         </div>
 
                         {/* Personal Details */}
@@ -220,7 +350,7 @@ function UserCreditApplicationDetails() {
                     </div>
                 </div>
             </div>
-            <LandingFooter/>
+            <LandingFooter />
         </div>
     );
 
