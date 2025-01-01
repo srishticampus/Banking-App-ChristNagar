@@ -5,33 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../../Asserts/Styles/ClerkViewDetails.css";
 import ClerkSideBar from "./ClerkSideBar";
 import LandingFooter from "../Main/LandingFooter";
+import UserNavbar from "../User/UserNavbar";
 
 function ClerkViewDetails() {
   const [user, setUser] = useState(null);
-  // const [panshow, setPanShow] = useState(false);
-  // const [adharshow, setadharShow] = useState(false);
-  // const [votershow, setvoterShow] = useState(false);
-  // const [passportshow, setpassportShow] = useState(false);
-  // const [drivingshow, setdrivingShow] = useState(false);
-  // const [salaryshow, setsalaryShow] = useState(false);
-
-  // const handlepanClose = () => setPanShow(false);
-  // const handlepanShow = () => setPanShow(true);
-
-  // const handleadharClose = () => setadharShow(false);
-  // const handleadharShow = () => setadharShow(true);
-
-  // const handlevoterClose = () => setvoterShow(false);
-  // const handlevoterShow = () => setvoterShow(true);
-
-  // const handlepassportClose = () => setpassportShow(false);
-  // const handlepassportShow = () => setpassportShow(true);
-
-  // const handledrivingClose = () => setdrivingShow(false);
-  // const handledrivingShow = () => setdrivingShow(true);
-
-  // const handlesalaryClose = () => setsalaryShow(false);
-  // const handlesalaryShow = () => setsalaryShow(true);
 
   const navigate = useNavigate();
   const { data } = useParams();
@@ -82,6 +59,7 @@ function ClerkViewDetails() {
 
   return (
     <div className="CVD-MainDiv">
+    <UserNavbar/>
       {console.log("user", user)}
       {console.log("id", user._id)}
       {console.log("data-data", data)}
