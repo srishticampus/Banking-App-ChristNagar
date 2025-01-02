@@ -243,12 +243,13 @@ function ManagerViewCardDetails() {
 
                         {user.approvalstatus == "Pending" && (
                             <div className="CVD-MainDiv-ContainDiv-Content-Card-Button">
+                            <button className="CVD-button2" onClick={VerifybuttonOnClick}>
+                                    Approve
+                                </button>
                                 <button className="CVD-button1" onClick={CancelbuttonOnClick}>
-                                    Cancel
+                                    Reject
                                 </button>
-                                <button className="CVD-button2" onClick={VerifybuttonOnClick}>
-                                    Verify
-                                </button>
+                                
                             </div>
                         )}
 
