@@ -12,6 +12,7 @@ function CustomerCreditCardApply() {
     const [data, setData] = useState({});
     const location = useLocation();
     const [panCN, setPanCN] = useState('');
+    const [errors, setErrors] = useState({});
 
     const fetchUserData = async () => {
         try {
@@ -27,13 +28,27 @@ function CustomerCreditCardApply() {
 
     const navigate = useNavigate();
     const update = () => {
-        navigate(`/user/carddetails/${panCN}`);
-        console.log("pan-pan-pan",panCN)
+
+        let isValid = true;
+        const newErrors = {};
+
+        if (!panCN) {
+            newErrors.panCN = "PAN Card Number is mandatory.";
+            isValid = false;
+        } else if (panCN.length !== 10) {
+            newErrors.panCN = "PAN Card Number must be 10 characters.";
+            isValid = false;
+        }
+        else {
+            navigate(`/user/carddetails/${panCN}`);
+            console.log("pan-pan-pan", panCN)
+        }
+        setErrors(newErrors);
     };
 
     useEffect(() => {
         fetchUserData();
-    },[])
+    }, [])
 
     return (
         <div className="CCCA">
@@ -117,6 +132,9 @@ function CustomerCreditCardApply() {
                                         value={panCN}
                                         onChange={(e) => setPanCN(e.target.value)}
                                     />
+                                    {errors.panCN && (
+                                        <span className="text-danger">{errors.panCN}</span>
+                                    )}
                                 </div>
 
                             </Col>
