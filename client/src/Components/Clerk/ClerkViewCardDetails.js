@@ -189,7 +189,7 @@ function ClerkViewCardDetails() {
                                             <label htmlFor="dl" className="CVCD-label">
                                                 ID Proof
                                             </label>
-                                            {user?.drivinglicensefile?.filename ? (
+                                            {user?.idproof?.filename ? (
                                                 <h1
                                                     name="dl"
                                                     className="CVCD-h4"
@@ -211,12 +211,12 @@ function ClerkViewCardDetails() {
                                         </div>
 
                                         <div className="CVCD-textcontain">
-                                            <label for="passport" className="CVCD-label">
+                                            <label for="incomeproof" className="CVCD-label">
                                                 Income Proof
                                             </label>
-                                            {user?.passportfile?.filename ? (
+                                            {user?.incomeproof?.filename ? (
                                                 <h1
-                                                    name="passport"
+                                                    name="incomeproof"
                                                     className="CVCD-h4"
                                                     onClick={() =>
                                                         openFileInNewTab(user?.incomeproof?.filename)
@@ -255,7 +255,6 @@ function ClerkViewCardDetails() {
                     </div>
                 </div>
             </div>
-            <LandingFooter />
         </div>
     );
 

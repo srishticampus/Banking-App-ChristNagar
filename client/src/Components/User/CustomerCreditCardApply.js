@@ -129,6 +129,7 @@ function CustomerCreditCardApply() {
                                         className=" CCCAformcontrol"
                                         type="text"
                                         name="PanCardNumber"
+                                        placeholder="Enter your PanCard Number"
                                         value={panCN}
                                         onChange={(e) => setPanCN(e.target.value)}
                                     />
