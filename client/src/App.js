@@ -44,6 +44,8 @@ import UserCreditApplicationDetails from "./Components/User/UserCreditApplicatio
 import CustomerViewLoanDetails from "./Components/CustomerLoan/CustomerViewLoanDetails";
 import CustomerCreditCardApply from "./Components/User/CustomerCreditCardApply";
 import CustomerCreditApplyCardDetails from "./Components/User/CustomerCreditApplyCardDetails";
+import CustomerLifeInsurancePersonalDetails from "./Components/customerInsurance/CustomerLifeInsurancePersonalDetails";
+import LifeInsurancePlicyPage from "./Components/customerInsurance/LifeInsurancePlicyPage";
 import ClerkManageCreditCard from "./Components/Clerk/ClerkManageCreditCard";
 import ClerkViewCardDetails from "./Components/Clerk/ClerkViewCardDetails";
 import ManagerManageCreditCard from "./Components/Manager/ManagerManageCreditCard";
@@ -115,6 +117,8 @@ function App() {
 
 
         <Route path="/user/applyllifeinsurance" element={<CustomerApplyLifeInsurance />} />
+        <Route path="/user/applyllifeinsurancedetails" element={<CustomerLifeInsurancePersonalDetails />} />
+        <Route path="/user/applyllifeinsurancepolicy" element={<LifeInsurancePlicyPage />} />
 
         </Routes>
     </BrowserRouter>
