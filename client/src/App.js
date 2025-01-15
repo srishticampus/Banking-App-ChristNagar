@@ -50,11 +50,17 @@ import ClerkManageCreditCard from "./Components/Clerk/ClerkManageCreditCard";
 import ClerkViewCardDetails from "./Components/Clerk/ClerkViewCardDetails";
 import ManagerManageCreditCard from "./Components/Manager/ManagerManageCreditCard";
 import ManagerViewCardDetails from "./Components/Manager/ManagerViewCardDetails";
+import AdminViewPlan from "./Components/AdminInsurance/AdminViewPlan";
+import CustomeLifeinsuranceApplicationLast from "./Components/customerInsurance/CustomeLifeinsuranceApplicationLast";
+import CustomerInsuranceApplyDetails from "./Components/customerInsurance/CustomerInsuranceApplyDetails";
+import ClerkviewInsurance from "./Components/Clerk/ClerkviewInsurance";
+import ClerkViewInsuranceDetails from "./Components/Clerk/ClerkViewInsuranceDetails";
+import ManagerViewVerifiedInsurance from "./Components/Manager/ManagerViewVerifiedInsurance";
+import ManagerViewInsuranceApplicationDetails from "./Components/Manager/ManagerViewInsuranceApplicationDetails";
 
 function App() {
   return (
     <BrowserRouter basename="/bank_app">
-  
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route
@@ -117,9 +123,22 @@ function App() {
 
 
         <Route path="/user/applyllifeinsurance" element={<CustomerApplyLifeInsurance />} />
-        <Route path="/user/applyllifeinsurancedetails" element={<CustomerLifeInsurancePersonalDetails />} />
+        <Route path="/user/applyllifeinsurancedetails/:planid" element={<CustomerLifeInsurancePersonalDetails />} />
         <Route path="/user/applyllifeinsurancepolicy" element={<LifeInsurancePlicyPage />} />
+        <Route path="/user/applyllifeinsurancepolicylast" element={<CustomeLifeinsuranceApplicationLast />} />
+        <Route path="/user/applyedllifeinsurancedetails/:data" element={<CustomerInsuranceApplyDetails />} />
+        <Route path="/admin/Viewllifeinsurancepolicy" element={<AdminViewPlan />} />
 
+
+        <Route path="/clerk/clerkviewinsurance" element={<ClerkviewInsurance />} />
+        <Route path="/clerk/clerkviewinsurancedetailstoverify/:planapplicationid" element={<ClerkViewInsuranceDetails />} />
+        
+        
+        <Route path="/manager/managerviewinsurance" element={<ManagerViewVerifiedInsurance />} />
+        <Route path="/manager/managerviewinsurancedetails/:planapplicationid" element={<ManagerViewInsuranceApplicationDetails />} />
+
+        <Route path="/manager/managerviewinsurance" element={<ManagerViewVerifiedInsurance />} />
+        <Route path="/manager/managerviewinsurancedetails/:planapplicationid" element={<ManagerViewInsuranceApplicationDetails />} />
         </Routes>
     </BrowserRouter>
   );

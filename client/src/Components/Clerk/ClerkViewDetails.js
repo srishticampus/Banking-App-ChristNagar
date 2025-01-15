@@ -419,7 +419,6 @@ function ClerkViewDetails() {
           </div>
         </div>
       </div>
-      <LandingFooter/>
     </div>
   );
 }

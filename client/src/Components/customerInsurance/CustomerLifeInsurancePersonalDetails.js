@@ -4,15 +4,17 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import "../../Asserts/Styles/Loan.css";
 import axiosInstance from "../../apis/axiosinstance";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
 
 function CustomerLifeInsurancePersonalDetails() {
 
   const [data, setData] = useState({});
-  const location = useLocation();
-  const loanDetails = location.state;
+  // const location = useLocation();
+  // const loanDetails = location.state;
+
+  const {planid}=useParams()
 
   const fetchUserData = async () => {
     try {
@@ -27,21 +29,26 @@ function CustomerLifeInsurancePersonalDetails() {
     }}
     
   useEffect(() => {
-    console.log("Received Loan Details:", loanDetails)
+    // console.log("Received Loan Details:", loanDetails)
     fetchUserData()
     },[])
 
         const navigate = useNavigate();
-  const update = () => {
-    navigate("/user/applyloanIdentity", { state: { loanDetails } });
+  const update = (userId) => {
+    // navigate("/user/applyllifeinsurancepolicy", { state: { loanDetails } });
+    console.log(userId,planid,"oo");
+
+      navigate("/user/applyllifeinsurancepolicy",  { state:{userId ,planid} });
+
+   
   };
 
 return (
-    <div className="CustLoanPersonalDetails">
+    <div className="CustLoanPersonalDetails ">
     <UserNavbar/>
       {/* Progress Bar */}
-      <Container>
-        <Row className="justify-content-center">
+      <Container >
+        <Row className="justify-content-center ">
           <Col md={6} className="text-center">
             <div className="progress-bar-container">
               <div>
@@ -53,7 +60,7 @@ return (
               <div className="profildetaildline"></div>
               <div>
                 {" "}
-                <div className="circle">2</div>
+                <div className="circle ">2</div>
                 <span className="progress-text">Policy & Nominee</span>
               </div>
 
@@ -70,7 +77,7 @@ return (
       </Container>
 
       {/* Form Section */}
-      <Container>
+      <Container className="pb-5 mt-5">
         <Card
           className="CustLoanPersonalDetailshorizontal-card mx-auto"
           style={{ maxWidth: "900px" }}
@@ -144,7 +151,7 @@ return (
               <Button
                 id="CustLoanPersonalDetailsButton"
                 className="d-inline-flex align-items-center"
-                onClick={update}
+                onClick={()=>update(data?._id)}
               >
                 Continue
                 <FaLongArrowAltRight className="ms-2" />

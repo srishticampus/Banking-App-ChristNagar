@@ -161,7 +161,7 @@ function AdminSidebar() {
               </div>
               <div className="col-9">
                 <Link
-                  to="/admin/viewusers"
+                  to="/admin/Viewllifeinsurancepolicy"
                   className="col-3 text-decoration-none text-light"
                 >
                   {" "}
