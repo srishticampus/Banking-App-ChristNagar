@@ -11,13 +11,61 @@ import "../../Asserts/Styles/creaditcardapply.css";
 import LandingFooter from "../Main/LandingFooter";
 import "../../Asserts/Styles/customerLifeinsurance.css";
 import applyinsurance from "../../Asserts/images/applybtnlifecard.png";
+import axiosInstance from "../../apis/axiosinstance";
+import imgurl from "../../apis/imgURL";
+import { useNavigate } from "react-router-dom";
+
 function CustomerApplyLifeInsurance() {
+  const [insurance, setInsurance] = useState([]);
+
   const applayref = useRef();
 
   const handleLoanApply = () => {
     applayref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const ApplicationData = async () => {
+    try {
+      const response = await axiosInstance.post("/viewallinsuranceapplication");
+      console.log("user list", response.data.data);
+      setInsurance(response.data.data);
+    } catch (error) {
+      console.error("error fetching user data?:", error);
+    }
+  };
+  const navigate=useNavigate()
+
+  const handleApplyAPlan=(planid)=>{
+
+navigate("/user/applyllifeinsurancedetails/"+planid)
+
+  }
+      const [user, setUser] = useState(null)
+      const GetUserData = async () => {
+
+        const data = localStorage.getItem("userid");
+
+        try {
+            const response = await axiosInstance.post(`/viewapplyinsuranceapplicationbyuserid/${data}`);
+            console.log('resp-resp', response);
+            if (Array.isArray(response.data.data) && response.data.data.length > 0) {
+                setUser(response.data.data);
+            } else {
+                console.error("Unexpected API response structure.");
+                setUser(null)
+            }
+            console.log('API resp', response.data.data)
+        }
+        catch (error) {
+            console.error('Error fetching user data', error);
+        }
+
+    }
+
+  useEffect(() => {
+    ApplicationData();
+    GetUserData()
+  }, []);
   return (
     <div>
       <UserNavbar />
@@ -74,12 +122,112 @@ function CustomerApplyLifeInsurance() {
       </div>
       {/* section2 start */}
 
+      
+
       <div
         className="custcreditstatussect3 mb-5"
         style={{ backgroundColor: "#f5f2f7" }}
       >
         <br />
         <br />
+        {user && (
+          <div className="custcreditstatussect2">
+              <br />
+              <br />
+              <div className="custcreditstatussect2pt2">
+                  <br />
+                  <center>
+                      <h3 id="custcreditstatussect2h3">Application Status</h3>
+                  </center>
+                  <br />
+                  <br />
+                  <div className="custcreditstatussect2formborder1">
+                      <div className="custcreditstatussect2formpt1">
+                          <table>
+
+                              <tbody>
+                                  <tr>
+                                      <th className="custcreditstatussect2formth">
+                                          <label className="custcreditstatussect2datalabel">
+                                              Name
+                                          </label>
+                                      </th>
+                                      <th className="custcreditstatussect2formth">
+                                          <label className="custcreditstatussect2datalabel">
+                                              Contact
+                                          </label>
+                                      </th>
+                                      <th className="custcreditstatussect2formth">
+                                          <label className="custcreditstatussect2datalabel">
+                                          planid
+                                          </label>
+                                      </th>
+                                      <th className="custcreditstatussect2formth">
+                                          <label className="custcreditstatussect2datalabel">
+                                          Coverage Amount
+                                          </label>
+                                      </th>
+                                      <th className="custcreditstatussect2formth">
+                                          <label className="custcreditstatussect2datalabel">
+                                          Policy Term
+                                          </label>
+                                      </th>
+                                      <th className="custcreditstatussect2formth">
+                                          <label className="custcreditstatussect2datalabel">
+                                          Payment Frequency
+                                          </label>
+                                      </th>
+
+
+                                  </tr>
+
+                                  {user?.length > 0 ? (
+                                      user?.map((data, index) => {
+                                          return (
+                                              <tr key={index}>
+                                                  <td className="custcreditstatussect2formtd">
+                                                      {data?.userid?.username}
+                                                  </td>
+                                                  <td className="custcreditstatussect2formtd">
+                                                      {data?.userid?.userContact}
+                                                  </td>
+                                                  <td className="custcreditstatussect2formtd">
+                                                      {data?.planid?.planname}
+                                                  </td>
+                                                  <td className="custcreditstatussect2formtd">
+                                                      {data?.planid?.coverageamount}
+                                                  </td>
+                                                  <td className="custcreditstatussect2formtd">
+                                                      {data?.planid?.policyterm}
+                                                  </td>
+                                                  <td className="custcreditstatussect2formthonerow">
+
+                                                      <p className="CACC-p"><GoDotFill className="custcreditstatusradiobtn" />{data.approvalstatus}</p>
+
+                                                  </td>
+                                                  
+                                                  <td className="custcreditstatussect2formthonerow">
+
+                                                      <p className="CACC-p-link" onClick={() => navigate(`/user/applyedllifeinsurancedetails/${data?._id}`)}>View More</p>
+
+                                                  </td>
+                                              </tr>
+                                          )
+                                      })
+                                  ) : (
+                                      <tr>
+                                          <td><p className=' text-center text-danger'>No Data Found</p></td>
+                                      </tr>
+                                  )}
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <br />
+              </div>
+              <br />
+          </div>
+      )}
         <div className="custcreditstatussect3pt3">
           <br />
           <center>
@@ -100,7 +248,11 @@ function CustomerApplyLifeInsurance() {
             </p>
             <br />
             <center>
-              <div onClick={handleLoanApply} style={{ cursor: "pointer" }}>
+              <div
+                ref={applayref}
+                onClick={handleLoanApply}
+                style={{ cursor: "pointer" }}
+              >
                 <img src={Applaynow} alt="Apply Now Button" />
               </div>
             </center>
@@ -110,146 +262,59 @@ function CustomerApplyLifeInsurance() {
         </div>
         <br />
         <br />
-        <div class="container">
-          <div className="lifeinsuarancecard">
-            <div className="details">
-              <div className="row">
-                <div className="col-6">
-                  {" "}
-                  <GoDotFill className="custloanapplysection1radiobtn" />
-                  <span id="custcreditstatussect3h3">
-                    &nbsp; Coverage Amount{" "}
-                    <div className="ms-4">₹20,00,000/-</div>
-                  </span>
-                  <div className="mt-3">
-                  <GoDotFill className="custloanapplysection1radiobtn" />
-                  <span id="custcreditstatussect3h3" >
-                    {" "}
-                    &nbsp; Monthly / <div className="ms-4">10 Years</div>
-                  </span>
+        <div className="container">
+          <div className="row">
+            {insurance.map((data, index) => (
+              <div className="col-md-4 mb-5" key={index}>
+                <div className="lifeinsuarancecard">
+                  <div className="details">
+                    <div className="row">
+                      <div className="col-6">
+                        {" "}
+                        <GoDotFill className="custloanapplysection1radiobtn" />
+                        <span id="custcreditstatussect3h3">
+                          &nbsp; Coverage Amount <div className="ms-4">₹{data?.coverageamount}/-</div>
+                        </span>
+                        <div className="mt-3">
+                          <GoDotFill className="custloanapplysection1radiobtn" />
+                          <span id="custcreditstatussect3h3">
+                            {" "}
+                            &nbsp; {data?.policyterm} /{" "}
+                            <div className="ms-4">{data?.paymentfrequency}</div>
+                          </span>
+                        </div>
+                      </div>
+                      <div className="col-6">
+                        <img style={{width:"130px",height:"100px"}}
+                          src={`${imgurl}/${data?.planimage?.filename}`}
+                        ></img>
+                      </div>
+                    </div>
                   </div>
+
+                  <h2 id="custcreditstatussect3h3" className="mt-3 ms-3">
+                    {data.planname}
+                  </h2>
+                  
+                   <p className="amount ms-3" id="custcreditstatussect3h3">
+                    Amount to be paid: ₹{data?.amounttobepaid}/-
+                  </p>
+                  <p className="description ms-3">
+                   {data?.description}
+                  </p>
+                  <div onClick={()=>{handleApplyAPlan(data._id)}}>
+                  <img src={applyinsurance}></img></div>
                 </div>
-                <div className="col-6">
-                  <img
-                    style={{ width: "100%", height: "90px" }}
-                    src={creditcardgirl}
-                  ></img>
-                </div>
+                <div></div>
               </div>
-
-              <h2 id="custcreditstatussect3h3" className="mt-3">Family Protector Plan</h2>
-              <p className="amount" id="custcreditstatussect3h3">
-                Amount to be paid: ₹2,000/-
-              </p>
-              <p className="description">
-                Get comprehensive protection for your loved ones with a flexible
-                plan that adapts to your life’s needs. Affordable premiums and
-                lifetime peace of mind.
-              </p>
+            ))}
           </div>
-          <div>
-          <img src={applyinsurance}></img></div>
-        </div>
-
         </div>
       </div>
+
       <LandingFooter />
     </div>
   );
 }
 
 export default CustomerApplyLifeInsurance;
-
-// {user && (
-//   <div className="custcreditstatussect2">
-//       <br />
-//       <br />
-//       <div className="custcreditstatussect2pt2">
-//           <br />
-//           <center>
-//               <h3 id="custcreditstatussect2h3">Application Status</h3>
-//           </center>
-//           <br />
-//           <br />
-//           <div className="custcreditstatussect2formborder1">
-//               <div className="custcreditstatussect2formpt1">
-//                   <table>
-
-//                       <tbody>
-//                           <tr>
-//                               <th className="custcreditstatussect2formth">
-//                                   <label className="custcreditstatussect2datalabel">
-//                                       Name
-//                                   </label>
-//                               </th>
-//                               <th className="custcreditstatussect2formth">
-//                                   <label className="custcreditstatussect2datalabel">
-//                                       Contact
-//                                   </label>
-//                               </th>
-//                               <th className="custcreditstatussect2formth">
-//                                   <label className="custcreditstatussect2datalabel">
-//                                       Email
-//                                   </label>
-//                               </th>
-//                               <th className="custcreditstatussect2formth">
-//                                   <label className="custcreditstatussect2datalabel">
-//                                       Card Type
-//                                   </label>
-//                               </th>
-//                               <th className="custcreditstatussect2formth">
-//                                   <label className="custcreditstatussect2datalabel">
-//                                       Credit Card Limit
-//                                   </label>
-//                               </th>
-
-//                           </tr>
-
-//                           {user?.length > 0 ? (
-//                               user?.map((data, index) => {
-//                                   return (
-//                                       <tr key={index}>
-//                                           <td className="custcreditstatussect2formtd">
-//                                               {data.customername}
-//                                           </td>
-//                                           <td className="custcreditstatussect2formtd">
-//                                               {data.contactnumber}
-//                                           </td>
-//                                           <td className="custcreditstatussect2formtd">
-//                                               {data.emailid}
-//                                           </td>
-//                                           <td className="custcreditstatussect2formtd">
-//                                               {data.cardtype}
-//                                           </td>
-//                                           <td className="custcreditstatussect2formtd">
-//                                               {data.creditcardlimit}
-//                                           </td>
-//                                           <td className="custcreditstatussect2formthonerow">
-
-//                                               <p className="CACC-p"><GoDotFill className="custcreditstatusradiobtn" />{data.approvalstatus}</p>
-
-//                                           </td>
-//                                           <td className="custcreditstatussect2formthonerow">
-
-//                                               <p className="CACC-p-link" onClick={() => navigate(`/user/creditcarddetails/${data._id}`)}>View More</p>
-
-//                                           </td>
-//                                       </tr>
-//                                   )
-//                               })
-//                           ) : (
-//                               <tr>
-//                                   <td><p className=' text-center text-danger'>No Data Found</p></td>
-//                               </tr>
-//                           )}
-//                       </tbody>
-//                   </table>
-//               </div>
-//           </div>
-//           <br />
-//       </div>
-//       <br />
-//   </div>
-// )}
-
-// {/* Section 2 */}

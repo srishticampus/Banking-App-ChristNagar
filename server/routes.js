@@ -4,6 +4,8 @@ const user = require("./Controllers/UserController")
 const clerk = require("./Controllers/ClerkController")
 const loan = require("./Controllers/LoanController")
 const card = require("./Controllers/CreditCardController")
+const insurance = require("./Controllers/InsuranceController")
+const insuranceApply = require("./Controllers/InsuranceApplyController")
 
 const router = express.Router()
 
@@ -64,6 +66,26 @@ router.post('/edit_a_clerk/:clerkid', clerk.specUp, clerk.editClerkById)
 router.post('/deactivate_a_clerk/:clerkid', clerk.deActivateClerkById)
 router.post('/activate_a_clerk/:clerkid', clerk.activateClerkById)
 router.post('/clerklogin', clerk.loginClerk)
+
+// lifeinsurance
+router.post('/addInsurance', insurance.upload, insurance.adminAddInsurance)
+router.post('/viewallinsuranceapplication', insurance.ViewInsuranceApplication)
+// router.post('/viewuserinsuranceapplication/:id', insurance.ViewUserInsuranceApplication)
+router.post('/viewoneinsuranceapplication/:planid', insurance.ViewSingleInsuranceApplication)
+router.post('/editinsuranceapplication/:planid', insurance.upload,insurance.editInsuranceById)
+
+
+router.post('/applyinsuranceapplication', insuranceApply.upload,insuranceApply.SaveInsuranceApplyApplicationData)
+router.post('/viewapplyinsuranceapplicationbyuserid/:userid', insuranceApply.ViewUserInsuranceApplications)
+router.post('/viewOneapplyedinsuranceapplication/:id',insuranceApply.ViewInsuranceApplicationbyPlanId)
+router.post('/nonverifiedinsuranceapplication', insuranceApply.NonVerifiedInsuranceApplication)
+router.post('/verifiedinsuranceapplication', insuranceApply.VerifiedInsuranceApplication)
+router.post('/verifyinginsuranceapplication/:id', insuranceApply.VerifyInsuranceApplication)
+router.post('/nonapprovedinsuranceapplication', insuranceApply.NonApprovedInsuranceApplication)
+router.post('/approvedinsuranceapplication', insuranceApply.ApprovedInsuranceApplication)
+router.post('/approveinsuranceapplication/:id', insuranceApply.ApproveInsuranceApplication)
+router.post('/rejectinsuranceapplication/:id', insuranceApply.RejectInsuranceApplication,
+)
 
 
 module.exports = router

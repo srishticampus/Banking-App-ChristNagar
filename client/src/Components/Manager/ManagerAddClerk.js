@@ -42,6 +42,7 @@ function ManagerAddClerk() {
   const [idproofFileName, setIdproofFileName] = useState("");
 
   const [error, setError] = useState(null);
+  
   const [errorVideo, setErrorVideo] = useState(null);
 
   const handleInputChange = (e) => {

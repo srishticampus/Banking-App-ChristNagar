@@ -95,7 +95,6 @@ function ManagerProfile() {
 
         </div>
       </div>
-      <LandingFooter/>
     </div>
   );
 }

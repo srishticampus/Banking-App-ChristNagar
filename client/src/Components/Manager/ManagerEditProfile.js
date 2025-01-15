@@ -315,7 +315,6 @@ function ManagerEditProfile() {
           </form>
         </div>
       </div>
-      <LandingFooter/>
     </div>
   );
 }

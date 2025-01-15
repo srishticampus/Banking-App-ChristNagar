@@ -235,7 +235,7 @@ function ClerkSideBar() {
 
             <Nav.Item className="nav-link ">
               <Link
-                to="/manager/viewclerks"
+                to="/clerk/clerkviewinsurance"
                 className="text-decoration-none text-light ms-3"
               >
                 <img src={insurance}></img> Manage Insurance
