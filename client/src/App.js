@@ -61,7 +61,6 @@ import ManagerViewInsuranceApplicationDetails from "./Components/Manager/Manager
 function App() {
   return (
     <BrowserRouter basename="/bank_app">
-  
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route
@@ -138,6 +137,8 @@ function App() {
         <Route path="/manager/managerviewinsurance" element={<ManagerViewVerifiedInsurance />} />
         <Route path="/manager/managerviewinsurancedetails/:planapplicationid" element={<ManagerViewInsuranceApplicationDetails />} />
 
+        <Route path="/manager/managerviewinsurance" element={<ManagerViewVerifiedInsurance />} />
+        <Route path="/manager/managerviewinsurancedetails/:planapplicationid" element={<ManagerViewInsuranceApplicationDetails />} />
         </Routes>
     </BrowserRouter>
   );
