@@ -58,6 +58,7 @@ router.post('/verifyingcreditapplication/:id', card.VerifyCreditCardApplication)
 router.post('/nonapprovedcreditapplication', card.NonApprovedCreditCardApplication)
 router.post('/approvecreditapplication/:id', card.ApproveCreditCardApplication)
 router.post('/approvedcreditapplication', card.ApprovedCreditCardApplication)
+router.post('/rejectcreaditcardapplication/:id', card.RejectCreditCardApplication)
 
 router.post('/addClerk', clerk.upload, clerk.AddClerk)
 router.get('/viewallclerks', clerk.viewClerks)
