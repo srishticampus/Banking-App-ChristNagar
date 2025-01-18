@@ -37,11 +37,15 @@ function CustomerCreditApplyCardDetails() {
     };
 
     const validate = () => {
+        let isValid = true;
         let newErrors = {};
         if (!form.cardtype.trim()) newErrors.cardtype = "Select the card type.";
         if (!form.employmentstatus.trim()) newErrors.employmentstatus = "Employment status is required.";
-        if (!form.salary.trim()) newErrors.salary = "Salary is required.";
-        if (!form.creditcardlimit.trim()) newErrors.creditcardlimit = "Enter your credit card limit.";
+        if (!form.salary || Number(form.salary) <= 1000) {
+            newErrors.salary = "Your salary must be greater than 1000.";
+            isValid = false;
+          }
+                if (!form.creditcardlimit.trim()) newErrors.creditcardlimit = "Enter your credit card limit.";
         if (!form.idproof) newErrors.idproof = "ID Proof is required.";
         if (!form.incomeproof) newErrors.incomeproof = "Income proof is required.";
 
@@ -166,14 +170,14 @@ function CustomerCreditApplyCardDetails() {
                                                             {errors.employmentstatus && <p style={{ color: "red" }}>{errors.employmentstatus}</p>}
                                                             <label>Salary</label>
                                                             <input
-                                                                type="text"
-                                                                name="salary"
-                                                                value={form.salary}
-                                                                onChange={handleChange}
-                                                                className="CustLoanEmplDetailsformcontrol"
+                                                              type="number"
+                                                              name="salary"
+                                                              value={form.salary}
+                                                              className="CustLoanEmplDetailsformcontrol"
+                                                              onChange={handleChange}
                                                             />
                                                             {errors.salary && <p style={{ color: "red" }}>{errors.salary}</p>}
-                                                        </Col>
+                                                                                                                    </Col>
                                                     </Row>
                                                 </Container>
                                             </div>

@@ -51,14 +51,19 @@ function ClerkLogin() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response =  await axiosInstance.post("/clerklogin", log);
+        const response = await axiosInstance.post("/clerklogin", log);
         if (response.status === 200) {
-          alert(response.data.msg);
-
-          if (response.data.msg == "login successfully") {
-            localStorage.setItem("clerkid", response.data.data._id);
-            navigate("/clerk/homepage");
+          const { msg, data } = response.data;
+  
+          if (msg === "login successfully") {
+            if (data.ActiveStatus) {
+              localStorage.setItem("clerkid", data._id);
+              navigate("/clerk/homepage");
+            } else {
+              alert("You are deactivated by admin. Please wait until admin activates your account.");
+            }
           } else {
+            alert(msg);
             navigate("/clerk/login");
           }
         }
@@ -68,6 +73,7 @@ function ClerkLogin() {
       }
     }
   };
+  
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {

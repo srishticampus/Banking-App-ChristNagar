@@ -19,6 +19,7 @@ function ManagerManageCreditCard() {
         try {
             const response = await axiosInstance.post('/nonapprovedcreditapplication')
             console.log("user list", response.data)
+            if(response.data.data.approvalstatus=="Pending")
             setDbData(response.data.data)
         }
         catch (error) {

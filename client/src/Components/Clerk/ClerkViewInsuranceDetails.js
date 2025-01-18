@@ -337,7 +337,7 @@ const VerifybuttonOnClick = async () => {
                             {user?.idproof?.filename ? (
                               <h1
                                 name="idproof"
-                                className="CVCD-h4"
+                                className="CVCD-h4 text-decoration-underline"
                                 onClick={() =>
                                   openFileInNewTab(user?.idproof?.filename)
                                 }
@@ -361,7 +361,7 @@ const VerifybuttonOnClick = async () => {
                             {user?.incomeproof?.filename ? (
                               <h1
                                 name="incomeproof"
-                                className="CVCD-h4"
+                                className="CVCD-h4 text-decoration-underline"
                                 onClick={() =>
                                   openFileInNewTab(user?.incomeproof?.filename)
                                 }
@@ -389,7 +389,7 @@ const VerifybuttonOnClick = async () => {
                           {user?.medicalreport?.filename ? (
                             <h1
                               name="medicalreport"
-                              className="CVCD-h4"
+                              className="CVCD-h4 text-decoration-underline"
                               onClick={() =>
                                 openFileInNewTab(user?.medicalreport?.filename)
                               }

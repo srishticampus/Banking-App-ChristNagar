@@ -136,7 +136,6 @@ function ManagerManageLoan() {
                                                         <td className='MML-Table-td'>{data?.userid?.userContact}</td>
                                                         <td className='MML-Table-td'>
                                                             <p className='MML-Table-p'>{data?.userid?.userAddress}</p>
-                                                            <p className='MML-Table-p-2'>{data?.userid?.userNumber}</p>
                                                         </td>
                                                         <td className='MML-Table-td'>{new Date(data?.userid?.userDate).toLocaleDateString('en-GB')}</td>
                                                         <td className='MML-Table-td'>{data?.loantype}</td>

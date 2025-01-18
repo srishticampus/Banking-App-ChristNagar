@@ -54,12 +54,18 @@ function UserLogin() {
       try {
         const response = await axiosinstance.post("/userlogin", log);
         if (response.status === 200) {
-          alert(response.data.msg);
-          
-          if (response.data.msg == "User login successfully") {
-            localStorage.setItem("userid", response.data.data._id);
-            navigate("/user/homepage");
+          const { msg, data } = response.data;
+  
+  
+          if (msg === "User login successfully") {
+            if (data.ActiveStatus) {
+              localStorage.setItem("userid", data._id);
+              navigate("/user/homepage");
+            } else {
+              alert("Your account is deactivated by the admin. Please wait until the admin reactivates your account.");
+            }
           } else {
+            alert(msg);
             navigate("/user/login");
           }
         }
@@ -69,6 +75,7 @@ function UserLogin() {
       }
     }
   };
+  
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {

@@ -188,7 +188,7 @@ function ClerkSideBar() {
               </div>
             </div>
             <Nav.Item className="nav-link mt-3">
-              <Link to="" className="text-decoration-none text-light ms-3">
+              <Link to="/clerk/homepage" className="text-decoration-none text-light ms-3">
                 <img src={home}></img> Dashboard
               </Link>
             </Nav.Item>
@@ -210,7 +210,7 @@ function ClerkSideBar() {
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
-                to="/manager/home"
+                to=""
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={transaction}></img> Manage Cheque
@@ -218,14 +218,14 @@ function ClerkSideBar() {
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
-                to="/manager/home"
+                to=""
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={watch}></img> Transaction
               </Link>
             </Nav.Item>
             <Nav.Item className="nav-link">
-              <Link
+              <Link to="/clerk/clerkviewuserlist"
                 onClick={togglemangerbtn}
                 className="text-decoration-none text-light ms-3 "
               >

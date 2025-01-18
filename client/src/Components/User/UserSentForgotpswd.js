@@ -39,7 +39,7 @@ function UserSentForgotpswd() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axiosinstance.post("/forgotPWDsentMail", { userMail: log.userMail });
+        const response = await axiosinstance.post("/forgotPWDsentMail", { email: log.userMail });
         if (response.data.status === 200) { 
           alert(response.data.msg);
         } else {
@@ -108,7 +108,6 @@ function UserSentForgotpswd() {
           </div>
         </Row>
       </div>
-      <LandingFooter />
     </div>
   );
 }

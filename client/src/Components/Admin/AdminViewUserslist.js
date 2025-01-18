@@ -60,8 +60,8 @@ function AdminViewUserslist() {
   const navigate=useNavigate()
   
   useEffect(()=>{
-    if(localStorage.getItem("managerid")==null){
-      navigate("/manager/login")
+    if(localStorage.getItem("admin")==null){
+      navigate("/adminlogin")
     }
   },[])
   
