@@ -208,7 +208,6 @@ function ClerkManageCreditCard() {
                 </div>
 
             </div>
-            <LandingFooter />
         </div>
 
     )

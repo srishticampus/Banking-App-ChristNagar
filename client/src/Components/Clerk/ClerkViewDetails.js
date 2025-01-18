@@ -59,7 +59,6 @@ function ClerkViewDetails() {
 
   return (
     <div className="CVD-MainDiv">
-    <UserNavbar/>
       {console.log("user", user)}
       {console.log("id", user._id)}
       {console.log("data-data", data)}
@@ -162,7 +161,7 @@ function ClerkViewDetails() {
                         </label>
                         <h1
                           name="pancard"
-                          className="CVD-h4"
+                          className="CVD-h4 text-decoration-underline"
                           onClick={() =>
                             user?.pancardimage == null
                               ? "no pancard image"
@@ -189,7 +188,7 @@ function ClerkViewDetails() {
                         {user?.aadharimage?.filename ? (
                           <h1
                             name="aadhaarcard"
-                            className="CVD-h4"
+                            className="CVD-h4 text-decoration-underline"
                             onClick={() =>
                               openFileInNewTab(user?.aadharimage?.filename)
                             }
@@ -217,7 +216,7 @@ function ClerkViewDetails() {
                       {user?.votersidfile?.filename ? (
                         <h1
                           name="votersid"
-                          className="CVD-h4"
+                          className="CVD-h4 text-decoration-underline"
                           onClick={() =>
                             openFileInNewTab(user?.votersidfile?.filename)
                           }
@@ -242,7 +241,7 @@ function ClerkViewDetails() {
                       {user?.drivinglicensefile?.filename ? (
                         <h1
                           name="dl"
-                          className="CVD-h4"
+                          className="CVD-h4 text-decoration-underline"
                           onClick={() =>
                             openFileInNewTab(user?.drivinglicensefile?.filename)
                           }
@@ -267,7 +266,7 @@ function ClerkViewDetails() {
                       {user?.passportfile?.filename ? (
                         <h1
                           name="passport"
-                          className="CVD-h4"
+                          className="CVD-h4 text-decoration-underline"
                           onClick={() =>
                             openFileInNewTab(user?.passportfile?.filename)
                           }
@@ -351,7 +350,7 @@ function ClerkViewDetails() {
                       </label>
                       <h1
                         name="salslip"
-                        className="CVD-h4"
+                        className="CVD-h4 text-decoration-underline"
                         onClick={() =>
                           user?.salaryslipimg == null
                             ? "no salaryslipimg image"

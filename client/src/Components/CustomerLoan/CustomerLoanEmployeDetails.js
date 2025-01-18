@@ -35,6 +35,7 @@ function CustomerLoanEmployeDetails() {
   };
 
   const validate = () => {
+
     let newErrors = {};
     if (!form.nameofemployer.trim()) newErrors.nameofemployer = "Employer name is required.";
     if (!form.employercontact.trim()) {
@@ -42,8 +43,15 @@ function CustomerLoanEmployeDetails() {
     } else if (!/^\d{10}$/.test(form.employercontact)) {
       newErrors.employercontact = "Employer contact must be 10 digits.";
     }
-    if (!form.workexp.trim()) newErrors.workexp = "Work experience is required.";
-    if (!form.salary.trim()) newErrors.salary = "Salary is required.";
+    if (!form.workexp.trim()) {
+      newErrors.workexp = "Work experience is required.";
+    } else if (Number(form.workexp) <= 0) {
+      newErrors.workexp = "Work experience must be greater than 0.";
+    }
+    if (!form.salary || Number(form.salary) <= 1000) {
+      newErrors.salary = "Your salary must be greater than 1000.";
+    }
+  
     if (!form.position.trim()) newErrors.position = "Position is required.";
     if (!form.salaryslip) newErrors.salaryslip = "Salary slip is required.";
 

@@ -57,6 +57,8 @@ import ClerkviewInsurance from "./Components/Clerk/ClerkviewInsurance";
 import ClerkViewInsuranceDetails from "./Components/Clerk/ClerkViewInsuranceDetails";
 import ManagerViewVerifiedInsurance from "./Components/Manager/ManagerViewVerifiedInsurance";
 import ManagerViewInsuranceApplicationDetails from "./Components/Manager/ManagerViewInsuranceApplicationDetails";
+import ClerkViewuserList from "./Components/Clerk/ClerkViewuserList";
+import ClerkViewUserDetails from "./Components/Clerk/ClerkViewUserDetails";
 
 function App() {
   return (
@@ -75,7 +77,6 @@ function App() {
         <Route path="/admin/viewclerks" element={<AdminViewClerks />} />
         <Route path="/admin/viewusers" element={<AdminViewUserslist />} />
         <Route path="/admin/viewuserdetails/:userid" element={<AdminviewUserDetails />} />
-
 
         <Route path="/manager/login" element={<ManagerLogin />} />
         <Route path="/manager/home" element={<ManagerHome />} />
@@ -96,7 +97,6 @@ function App() {
         <Route path="/user/homepage" element={<UserHomePage />} />
         <Route path="/user/forgot" element={<UserSentForgotpswd />} />
         <Route path="/reset-password/:id" element={<UserForgotmailAccept />} />
-
 
         <Route path="/clerk/login" element={<ClerkLogin />} />
         <Route path="/clerk/forgot" element={<UserSentForgotpswd />} />
@@ -121,7 +121,6 @@ function App() {
         <Route path="/user/personaldetails" element={<CustomerCreditCardApply />} />
         <Route path="/user/carddetails/:data" element={<CustomerCreditApplyCardDetails />} />
 
-
         <Route path="/user/applyllifeinsurance" element={<CustomerApplyLifeInsurance />} />
         <Route path="/user/applyllifeinsurancedetails/:planid" element={<CustomerLifeInsurancePersonalDetails />} />
         <Route path="/user/applyllifeinsurancepolicy" element={<LifeInsurancePlicyPage />} />
@@ -129,10 +128,10 @@ function App() {
         <Route path="/user/applyedllifeinsurancedetails/:data" element={<CustomerInsuranceApplyDetails />} />
         <Route path="/admin/Viewllifeinsurancepolicy" element={<AdminViewPlan />} />
 
-
         <Route path="/clerk/clerkviewinsurance" element={<ClerkviewInsurance />} />
+        <Route path="/clerk/clerkviewuserlist" element={<ClerkViewuserList />} />
+        <Route path="/clerk/viewuserdetails/:userid" element={<ClerkViewUserDetails />} />
         <Route path="/clerk/clerkviewinsurancedetailstoverify/:planapplicationid" element={<ClerkViewInsuranceDetails />} />
-        
         
         <Route path="/manager/managerviewinsurance" element={<ManagerViewVerifiedInsurance />} />
         <Route path="/manager/managerviewinsurancedetails/:planapplicationid" element={<ManagerViewInsuranceApplicationDetails />} />

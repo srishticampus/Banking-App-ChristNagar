@@ -157,7 +157,6 @@ function UserForgotmailAccept() {
           </Row>
         </div>
       </div>
-      <LandingFooter />
     </div>
   );
 }

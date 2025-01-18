@@ -332,11 +332,17 @@ const deActivateUserById = (req, res) => {
 };
 
 const forgotPWDsentMail = async (req, res) => {
+ console.log(req.body,"pp");
  
   try {
-    const data = await Clerk.findOne({ email: req.body.email });
-    if (data) {
+    const data = await User.find({userMail:req.body.email})
+    console.log(data.userMail ,"data");
+
+    if(data.userMail) {
+      
       const id = data._id.toString();
+      console.log(id ,"data");
+
       testMail(data);
       res.json({
         status: 200,
