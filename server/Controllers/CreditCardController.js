@@ -190,6 +190,25 @@ const ApproveCreditCardApplication = async (req, res) => {
 
 }
 
+const RejectCreditCardApplication = async (req, res) => {
+
+    const data = req.params.id;
+
+    await CreditCardSchema.findByIdAndUpdate(data, { approvalstatus: "Rejected" }, { new: true })
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Data Found' });
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetch Successful', data: response });
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 500, msg: 'Data fetch failed', data: error });
+        })
+
+}
+
 // for viewing approved applications
 const ApprovedCreditCardApplication = (req, res) => {
 
@@ -207,4 +226,4 @@ const ApprovedCreditCardApplication = (req, res) => {
         })
 }
 
-module.exports = { CustomerPersonalDetails, upload, NonApprovedCreditCardApplication, ApproveCreditCardApplication, ApprovedCreditCardApplication,ViewUserCreditCardApplication, VerifiedCreditCardApplication, VerifyCreditCardApplication, NonVerifiedCreditCardApplication, ViewSingleCreditCardApplication, ViewCreditCardApplication, logRequestMiddleware };
+module.exports = { CustomerPersonalDetails, upload, NonApprovedCreditCardApplication, ApproveCreditCardApplication, ApprovedCreditCardApplication,ViewUserCreditCardApplication, VerifiedCreditCardApplication, VerifyCreditCardApplication, NonVerifiedCreditCardApplication, ViewSingleCreditCardApplication, ViewCreditCardApplication, logRequestMiddleware ,RejectCreditCardApplication};

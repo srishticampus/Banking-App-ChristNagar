@@ -17,8 +17,14 @@ function ManagerViewCardDetails() {
         window.open(`${imgurl}/${filePath}`, "_blank");
     };
 
-    const CancelbuttonOnClick = () => {
-        navigate("/manager/managermanagecreditcard");
+    const CancelbuttonOnClick = async() => {
+        try {
+            await axiosInstance.post(`/rejectcreaditcardapplication/${user._id}`);
+            alert("Application Rejected Successfully");
+            navigate("/manager/managermanagecreditcard");
+        } catch (error) {
+            console.error("Error approved application:", error);
+        }
     };
 
     const VerifybuttonOnClick = async () => {

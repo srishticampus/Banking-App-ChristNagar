@@ -38,7 +38,7 @@ function CustomerApplyLoan() {
 
     try {
       const response = await axiosInstance.post(`/viewauserloan/${data}`);
-      console.log("resp-resp", response);
+      console.log("resp-resp", response.data.data);
       if (Array.isArray(response.data.data) && response.data.data.length > 0) {
         setUser(response.data.data);
       } else {
@@ -147,6 +147,99 @@ function CustomerApplyLoan() {
           </div>
         </div>
       </div>
+
+      {user && (
+        <div className="custcreditstatussect2">
+            <br />
+            <br />
+            <div className="custcreditstatussect2pt2">
+                <br />
+                <center>
+                    <h3 id="custcreditstatussect2h3">Application Status</h3>
+                </center>
+                <br />
+                <br />
+                <div className="custcreditstatussect2formborder1">
+                    <div className="custcreditstatussect2formpt1">
+                        <table>
+
+                            <tbody>
+                                <tr>
+                                    <th className="custcreditstatussect2formth">
+                                        <label className="custcreditstatussect2datalabel">
+                                            Name
+                                        </label>
+                                    </th>
+                                    <th className="custcreditstatussect2formth">
+                                        <label className="custcreditstatussect2datalabel">
+                                            Contact
+                                        </label>
+                                    </th>
+                                    <th className="custcreditstatussect2formth">
+                                        <label className="custcreditstatussect2datalabel">
+                                            Email
+                                        </label>
+                                    </th>
+                                    <th className="custcreditstatussect2formth">
+                                        <label className="custcreditstatussect2datalabel">
+                                            Loan Type
+                                        </label>
+                                    </th>
+                                    <th className="custcreditstatussect2formth">
+                                        <label className="custcreditstatussect2datalabel">
+                                        Amount Required
+                                        </label>
+                                    </th>
+
+
+                                </tr>
+
+                                {user?.length > 0 ? (
+                                    user?.map((data, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td className="custcreditstatussect2formtd">
+                                                    {data.userid.username}
+                                                </td>
+                                                <td className="custcreditstatussect2formtd">
+                                                    {data.userid.userContact}
+                                                </td>
+                                                <td className="custcreditstatussect2formtd">
+                                                    {data.userid.userMail}
+                                                </td>
+                                                <td className="custcreditstatussect2formtd">
+                                                    {data.loantype}
+                                                </td>
+                                                <td className="custcreditstatussect2formtd">
+                                                    {data.loanamount}
+                                                </td>
+                                                <td className="custcreditstatussect2formthonerow">
+
+                                                    <p className="CACC-p"><GoDotFill className="custcreditstatusradiobtn" />{data.loanapproval}</p>
+
+                                                </td>
+                                                <td className="custcreditstatussect2formthonerow">
+
+                                                    <p className="CACC-p-link" onClick={() => navigate(`/user/creditcarddetails/${data._id}`)}>View More</p>
+
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                ) : (
+                                    <tr>
+                                        <td><p className=' text-center text-danger'>No Data Found</p></td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <br />
+        </div>
+    )}
       {/* Section2 Start */}
       <div className="custloanapplysection2">
         <div ref={applayref} className="custloanapplysection2pt2">

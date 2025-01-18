@@ -15,30 +15,30 @@ function ManagerManageLoan() {
     const navigate = useNavigate();
 
     const ApplicationData = async () => {
-
         try {
-            const response = await axiosInstance.get('/nonapprovedloan')
-            console.log("user list", response.data)
-            setDbData(response.data.data)
+            const response = await axiosInstance.get('/nonapprovedloan');
+            console.log("user list", response.data);
+    
+            // Filter for loanapproval status as "Pending"
+            const filteredData = response.data.data.filter(item => item.loanapproval === "Pending");
+            setDbData(filteredData);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
         }
-        catch (error) {
-            console.error('error fetching user data?:', error)
-        }
-
-    }
-
+    };
+    
     const VerifiedApplicationData = async () => {
-
         try {
-            const response = await axiosInstance.get('/approvedloan')
-            console.log('userlist', `response.data`)    
-            setVDbData(response.data.data)
+            const response = await axiosInstance.get('/approvedloan');
+            console.log("user list", response.data);
+    
+           
+            setVDbData(response.data.data);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
         }
-        catch (error) {
-            console.error('error fetching user data?:', error)
-        }
-
-    }
+    };
+    
 
     // for button css and switching the table
     const ApplicationState = () => {
@@ -115,13 +115,13 @@ function ManagerManageLoan() {
 
                                 <tbody className='MML-Table-tbody'>
 
-                                    {verified == false ? (
+                                    {verified == false  ? (
                                         DbData?.length > 0 ? (
 
                                             DbData?.map((data, index) => {
 
                                                 return (
-
+                                
                                                     <tr className='MML-Table-tbody-tr' key={index}>
 
                                                         <td className='MML-Table-td-center'>{index + 1}.</td>

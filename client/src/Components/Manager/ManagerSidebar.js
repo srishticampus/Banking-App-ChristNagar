@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Asserts/images/Logo.png";
 import Navbar from "react-bootstrap/Navbar";
 import profile from "../../Asserts/images/Customer Service.png";
+import insurance from "../../Asserts/images/streamline_insurance-hand.png";
 
 function ManagerSidebar() {
   const navigate = useNavigate();
@@ -69,6 +70,14 @@ function ManagerSidebar() {
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={credit}></img> Credit Card
+              </Link>
+            </Nav.Item>
+            <Nav.Item className="nav-link ">
+              <Link
+                to="/manager/managerviewinsurance"
+                className="text-decoration-none text-light ms-3"
+              >
+                <img src={insurance}></img> Manage Insurance
               </Link>
             </Nav.Item>
             <Nav.Item className="nav-link">
