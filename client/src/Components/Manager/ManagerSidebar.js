@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import home from "../../Asserts/images/Home.png";
 import loan from "../../Asserts/images/managerloan.png";
@@ -15,30 +15,29 @@ import insurance from "../../Asserts/images/streamline_insurance-hand.png";
 
 function ManagerSidebar() {
   const navigate = useNavigate();
-  const [tooglebtn,setTooglebtn]=useState(false)
+  const [tooglebtn, setTooglebtn] = useState(false);
 
-  const togglemangerbtn=()=>{
-    setTooglebtn(true)
-  }
+  const togglemangerbtn = () => {
+    setTooglebtn(true);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("managerid");
     alert("Please Login Again");
     navigate("/manager/login");
   };
-  
-  useEffect(()=>{
-    if(localStorage.getItem("managerid")==null){
-      navigate("/manager/login")
-    }
 
-  },[])
+  useEffect(() => {
+    if (localStorage.getItem("managerid") == null) {
+      navigate("/manager/login");
+    }
+  }, []);
   return (
     <div>
       <div className="main-container">
         <div className="side-nav">
           <div className="profile"></div>
-          <Nav  className="flex-column ">
+          <Nav className="flex-column ">
             <div className="col-2 d-flex align-items-center">
               <Link to="/manager/home">
                 <img src={logo} alt="Logo" />
@@ -82,13 +81,11 @@ function ManagerSidebar() {
             </Nav.Item>
             <Nav.Item className="nav-link">
               <Link
-              to="/manager/viewclerks"
+                to="/manager/viewclerks"
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={clerk}></img> Clerk Management
               </Link>
-             
-
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link

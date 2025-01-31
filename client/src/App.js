@@ -59,6 +59,13 @@ import ManagerViewVerifiedInsurance from "./Components/Manager/ManagerViewVerifi
 import ManagerViewInsuranceApplicationDetails from "./Components/Manager/ManagerViewInsuranceApplicationDetails";
 import ClerkViewuserList from "./Components/Clerk/ClerkViewuserList";
 import ClerkViewUserDetails from "./Components/Clerk/ClerkViewUserDetails";
+import CustomerMobileRecharge from "./Components/CustomerBillPayment/CustomerMobileRecharge";
+import CustomerBillPayment from "./Components/CustomerBillPayment/CustomerBillPayment";
+import CustomerElectricityBill from "./Components/CustomerBillPayment/CustomerElectricityBill";
+import CustomerWaterBill from "./Components/CustomerBillPayment/CustomerWaterBill";
+import CustomerOnlineTransaction from "./Components/customerTransaction/CustomerOnlineTransaction";
+import NormalTransaction from "./Components/customerTransaction/NormalTransaction";
+import CustomerTransactionHistory from "./Components/customerTransaction/CustomerTransactionHistory";
 
 function App() {
   return (
@@ -126,6 +133,13 @@ function App() {
         <Route path="/user/applyllifeinsurancepolicy" element={<LifeInsurancePlicyPage />} />
         <Route path="/user/applyllifeinsurancepolicylast" element={<CustomeLifeinsuranceApplicationLast />} />
         <Route path="/user/applyedllifeinsurancedetails/:data" element={<CustomerInsuranceApplyDetails />} />
+
+
+        <Route path="/user/mobilerecharge" element={<CustomerMobileRecharge />} />
+        <Route path="/user/billpayment" element={<CustomerBillPayment />} />
+        <Route path="/user/electricbillpayment" element={<CustomerElectricityBill />} />
+        <Route path="/user/waterbillpayment" element={<CustomerWaterBill />} />
+
         <Route path="/admin/Viewllifeinsurancepolicy" element={<AdminViewPlan />} />
 
         <Route path="/clerk/clerkviewinsurance" element={<ClerkviewInsurance />} />
@@ -138,6 +152,11 @@ function App() {
 
         <Route path="/manager/managerviewinsurance" element={<ManagerViewVerifiedInsurance />} />
         <Route path="/manager/managerviewinsurancedetails/:planapplicationid" element={<ManagerViewInsuranceApplicationDetails />} />
+       
+        <Route path="/user/onlinetransaction" element={<CustomerOnlineTransaction/>} />
+        <Route path="/user/normaltransaction" element={<NormalTransaction/>} />
+        <Route path="/user/transactionhistory" element={<CustomerTransactionHistory/>} />
+
         </Routes>
     </BrowserRouter>
   );
