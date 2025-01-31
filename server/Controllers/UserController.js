@@ -100,6 +100,7 @@ const UserRegister = async (req, res) => {
       userMail,
       userDate,
       userNumber,
+      userBalance:1000,
       userPicture: req.files[0],
     });
 

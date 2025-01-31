@@ -205,13 +205,28 @@ function UserNavbar() {
                   Transaction
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item to="#/faqs">FAQs</Dropdown.Item>
-                  <Dropdown.Item to="#/feedbacks">Feedbacks</Dropdown.Item>
-                  <Dropdown.Item to="#/complaints">Complaints</Dropdown.Item>
+                  <div className="px-2 py-2 ">
+                    {" "}
+                    <Link to="/user/onlinetransaction" className="text-decoration-none">
+                      Online Cheque Transaction
+                    </Link>
+                  </div>
+                  <div className="px-2 py-2 ">
+                    {" "}
+                    <Link to="/user/normaltransaction" className="text-decoration-none">
+                      Normal Transaction
+                    </Link>
+                  </div>
+                  <div className="px-2 py-2  ">
+                    {" "}
+                    <Link className="text-decoration-none" to="/">
+                      Transaction History
+                    </Link>
+                  </div>
                 </Dropdown.Menu>
               </Dropdown>
               <Link
-                to="#about"
+                to="/user/billpayment"
                 className="me-5 text-light text-decoration-none"
               >
                 Bill Payment
@@ -260,25 +275,23 @@ function UserNavbar() {
             </div>
             <div className="row">
               <div className="col-6 ms-2">
-              <p>
+                <p>
                   <div className="text-secondary">Email</div>
-                  <b className="text-dark">{user.userMail}</b>
+                  <b className="text-dark">{user?.userMail}</b>
                 </p>
-
-               
                 <p>
                   <div className="text-secondary">Date of birth</div>
-                  <b>{new Date(user.userDate).toLocaleDateString("en-GB")}</b>
+                  <b>{new Date(user?.userDate).toLocaleDateString("en-GB")}</b>
                 </p>{" "}
                 <p>
                   <div className="text-secondary">IFSC Code</div>
-                  <b>{user.userCode}</b>
+                  <b>{user?.userCode}</b>
                 </p>
               </div>
               <div className="col-5 ms-4">
                 <p>
                   <div className="text-secondary ms-3">Contact</div>
-                  <b className="text-dark">{user.userContact}</b>
+                  <b className="text-dark">{user?.userContact}</b>
                 </p>
                 <p>
                   <div className="text-secondary">Account Number</div>
@@ -286,12 +299,12 @@ function UserNavbar() {
                     className="text-dark"
                     max={new Date().toISOString().split("T")[0]}
                   >
-                    {user.userNumber}
+                    {user?.userNumber}
                   </b>
                 </p>
                 <p>
                   <div className="text-secondary">Address</div>
-                  <b className="text-dark">{user.userAddress}</b>
+                  <b className="text-dark">{user?.userAddress}</b>
                 </p>
               </div>
               <div className="text-center text-light">

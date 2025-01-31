@@ -6,6 +6,12 @@ const loan = require("./Controllers/LoanController")
 const card = require("./Controllers/CreditCardController")
 const insurance = require("./Controllers/InsuranceController")
 const insuranceApply = require("./Controllers/InsuranceApplyController")
+const mobileplans=require("./Controllers/MobileplanController")
+const mobilerecharge=require("./Controllers/rechargrpaymentcontroller")
+
+const paybill=require("./Controllers/BillpaymentController")
+const transaction=require("./Controllers/OnlineTransactionController")
+const normaltransaction=require("./Controllers/Transactioncontroller")
 
 const router = express.Router()
 
@@ -85,8 +91,15 @@ router.post('/verifyinginsuranceapplication/:id', insuranceApply.VerifyInsurance
 router.post('/nonapprovedinsuranceapplication', insuranceApply.NonApprovedInsuranceApplication)
 router.post('/approvedinsuranceapplication', insuranceApply.ApprovedInsuranceApplication)
 router.post('/approveinsuranceapplication/:id', insuranceApply.ApproveInsuranceApplication)
-router.post('/rejectinsuranceapplication/:id', insuranceApply.RejectInsuranceApplication,
-)
+router.post('/rejectinsuranceapplication/:id', insuranceApply.RejectInsuranceApplication)
+
+router.post('/mobilerechargeplan', mobileplans.saverechargePlan)
+router.post('/mobilerechargeplanview', mobileplans.findmobileplans)
+router.post('/payElectricBill', paybill.payElectricBill)
+router.post('/payWaterBill', paybill.payWaterBill)
+router.post("/mobileRechargePayment", mobilerecharge.mobilepayment);
 
 
+router.post('/onlinetransaction', transaction.upload,transaction.createTransaction)
+router.post('/normaltransaction',normaltransaction.createNormalTransaction)
 module.exports = router

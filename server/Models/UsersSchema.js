@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   userCode: {
-    type: Number,
+    type: String,
     required: true,
   },
   userPassword: {
@@ -45,6 +45,10 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  userBalance:{
+    type: Number,
+    required: true,
+  }
 });
 
 const User = mongoose.model('User', UserSchema);
