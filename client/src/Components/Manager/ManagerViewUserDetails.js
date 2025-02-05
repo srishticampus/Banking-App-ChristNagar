@@ -36,8 +36,8 @@ function ManagerViewUserDetails() {
     }
   }, []);
 
-  const moveToTransaction =(id)=>{
-    navigate("")
+  const moveToTransaction =(userid)=>{
+    navigate(`/manager/transactionhistory/${userid}`)
 
   }
 

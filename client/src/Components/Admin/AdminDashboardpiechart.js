@@ -3,12 +3,58 @@ import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import axiosInstance from "../../apis/axiosinstance";
 import { IoEye } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
+import eye from "../../Asserts/images/eyebutton.png";
+import Table from "react-bootstrap/Table";
+
 
 // Register the required Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DashboardCharts = () => {
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // Fetch users from the backend
+  const getData = async () => {
+    try {
+      const res = await axiosInstance.get("/viewusers");
+      setUsers(res.data.data);
+      setFilteredUsers(res.data.data); // Initialize filteredUsers with the full user list
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+    }
+  };
+
+  // Toggle user status between active and inactive
+  
+
+  // Handle search functionality
+
+
+  // Pagination logic
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = filteredUsers.slice(indexOfFirstRow, indexOfLastRow);
+  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem("admin")==null){
+      navigate("/adminlogin")
+    }
+  },[])
   const [usersCount, setUsersCount] = useState(0);
   const [userlistdata, setuserdata] = useState([]);
   const [managersCount, setManagersCount] = useState(0);
@@ -127,59 +173,82 @@ const DashboardCharts = () => {
       <div className="col managerDashboardviewuser">
         <h4>View Users</h4>
       </div>
-      {/* table start */}
-      <div>
-        <table id="managerDashBoardTable">
-          <tr>
-            <th className="managerDashboardTableHead">S No</th>
-            <th className="managerDashboardTableHead">Name</th>
-            <th className="managerDashboardTableHead">Phone Number</th>
-            <th className="managerDashboardTableHead">Account No</th>
-            <th className="managerDashboardTableHead">IFSC Code</th>
-            <th className="managerDashboardTableHead">Balance</th>
-            <th className="managerDashboardTableHead">Transaction History</th>
-            <th className="managerDashboardTableHead">Action</th>
-          </tr>
-          {userlistdata.map((data) => (
-            <tr>
-              <td className="managerDashboardTableData">1.</td>
-              <td className="managerDashboardTableData">
-                {data.username} <br />{" "}
-                <span className="managerDashboardsubline">
-                {data.useremail} 
-                </span>
-              </td>
-              <td className="managerDashboardTableData">{data.userContact} </td>
-              <td className="managerDashboardTableData">{data.userNumber} </td>
-              <td className="managerDashboardTableData">{data.userCode} </td>
-              <td className="managerDashboardTableData">{data.username} </td>
-              <td>
-                <Link to="" className="managerDashboardTableDataviewDetails ">
-                  View Details
-                </Link>{" "}
-              </td>
-              <td className="managerDashboardTableData">
-                <Link to={`/admin/viewuserdetails/${data._id}`} id="managerDashboardeyeicon">
-                  <IoEye  />
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </table>
-      </div>
-      <br /> <br />
-      <div className="row">
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col">
-          <p>
-            <Link to="/admin/viewusers" id="managerDashboardViewwallLink">
-              View All
-            </Link>
-          </p>
+      <div className="mt-4">
+          <Table striped bordered hover className="user-table">
+            <thead>
+              <tr>
+                <th id="th">S/No</th>
+                <th id="th">Name</th>
+                <th id="th">Phone Number</th>
+                <th id="th">Account No</th>
+                <th id="th">IFSC Code</th>
+                <th id="th">Balance</th>
+                <th id="th">Transaction History</th>
+                <th id="th">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentRows.map((data, index) => (
+                <tr key={data._id}>
+                  <td>{indexOfFirstRow + index + 1}</td>
+                  <td>{data.username}</td>
+                  <td>{data.userContact}</td>
+                  <td>{data.userNumber}</td>
+                  <td>{data.userCode}</td>
+                  <td>{data.userBalance}</td>
+                  <td><Link to={`/admin/transactionhistory/${data._id}`}>View Details</Link></td>
+                  <td>
+                  <Link to={`/admin/viewuserdetails/${data._id}`}><img src={eye} alt="View Details" ></img></Link>
+                    
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </div>
-      </div>
+
+        {/* Pagination */}
+        <nav aria-label="Page navigation example" className="mt-3">
+          <ul className="pagination justify-content-center">
+            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+              <button
+                className="page-link"
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                &laquo;
+              </button>
+            </li>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <li
+                className={`page-item ${
+                  currentPage === i + 1 ? "active" : ""
+                }`}
+                key={i}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => handlePageChange(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              </li>
+            ))}
+            <li
+              className={`page-item ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+            >
+              <button
+                className="page-link"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                &raquo;
+              </button>
+            </li>
+          </ul>
+        </nav>
+     
     </div>
   );
 };

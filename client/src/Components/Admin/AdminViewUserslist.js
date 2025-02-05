@@ -114,8 +114,8 @@ function AdminViewUserslist() {
                   <td>{data.userContact}</td>
                   <td>{data.userNumber}</td>
                   <td>{data.userCode}</td>
-                  <td>{data.balance}</td>
-                  <td><Link>View Details</Link></td>
+                  <td>{data.userBalance}</td>
+                  <td><Link to={`/admin/transactionhistory/${data._id}`}>View Details</Link></td>
                   <td>
                   <Link to={`/admin/viewuserdetails/${data._id}`}><img src={eye} alt="View Details" ></img></Link>
                     

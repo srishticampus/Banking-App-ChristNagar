@@ -8,10 +8,10 @@ const insurance = require("./Controllers/InsuranceController")
 const insuranceApply = require("./Controllers/InsuranceApplyController")
 const mobileplans=require("./Controllers/MobileplanController")
 const mobilerecharge=require("./Controllers/rechargrpaymentcontroller")
-
 const paybill=require("./Controllers/BillpaymentController")
 const transaction=require("./Controllers/OnlineTransactionController")
 const normaltransaction=require("./Controllers/Transactioncontroller")
+const bills=require("./Controllers/billcontroller")
 
 const router = express.Router()
 
@@ -102,4 +102,18 @@ router.post("/mobileRechargePayment", mobilerecharge.mobilepayment);
 
 router.post('/onlinetransaction', transaction.upload,transaction.createTransaction)
 router.post('/normaltransaction',normaltransaction.createNormalTransaction)
+router.post('/findbillbyuserid/:userid',bills.getUserTransactions)
+router.post('/findallbill',bills.getAllTransactions)
+
+router.post('/ViewAllTransactions', transaction.upload,transaction.viewAllTransactions)
+router.post('/ViewUserTransactions/:userid',transaction.viewUserTransactions)
+router.post('/toVerifyTransactions/:transactionid',transaction.toVerifyTransactions)
+router.post('/viewNonVerifiedTransactions', transaction.viewNonVerifiedTransactions)
+router.post('/viewVerifiedTransactions',transaction.viewVerifiedTransactions)
+router.post('/toApproveTransactions/:transactionid', transaction.toApproveTransactions)
+router.post('/ViewApprovedtransaction',transaction.viewApprovedTransactions)
+router.post('/toRejectTransactions/:transactionid',transaction.toRejectTransactions)
+router.post('/viewNonApprovedTransactions',transaction.viewNonApprovedTransactions)
+router.post('/toRejectverificationTransactions/:transactionid',transaction.toRejectverificationTransactions)
+
 module.exports = router

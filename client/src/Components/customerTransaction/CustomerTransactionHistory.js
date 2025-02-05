@@ -12,10 +12,12 @@ import LandingFooter from "../Main/LandingFooter";
 
 function CustomerTransactionHistory() {
   const [users, setUsers] = useState([]);
+  const [auser, setAUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
 
+  const userid=localStorage.getItem("userid")
   useEffect(() => {
     getData();
   }, []);
@@ -23,9 +25,21 @@ function CustomerTransactionHistory() {
   // Fetch users from the backend
   const getData = async () => {
     try {
-      const res = await axiosInstance.get("/viewusers");
+      const res = await axiosInstance.post(`/findbillbyuserid/${userid}`);
+      console.log(res,"o");
+      
       setUsers(res.data.data);
       setFilteredUsers(res.data.data); // Initialize filteredUsers with the full user list
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+    }
+  };
+
+  const getAuserData = async () => {
+    try {
+      const res = await axiosInstance.get(`/view_a_user/${userid}`);
+      
+      setAUser(res.data.data);
     } catch (err) {
       console.error("Error fetching user data:", err);
     }
@@ -41,7 +55,7 @@ function CustomerTransactionHistory() {
       return;
     }
     const filtered = users.filter((user) =>
-      user.username.toLowerCase().includes(searchTerm)
+      user.type.toLowerCase().includes(searchTerm)
     );
     setFilteredUsers(filtered);
     setCurrentPage(1); // Reset to the first page on search
@@ -60,6 +74,7 @@ function CustomerTransactionHistory() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    getAuserData()
     if (localStorage.getItem("admin") == null) {
       navigate("/adminlogin");
     }
@@ -69,55 +84,51 @@ function CustomerTransactionHistory() {
     <div>
       <UserNavbar />
       <div className="container main-content col-lg-9 col-md-8 col-sm-12">
-        <h3 className="mt-4">
-          <span id="view">VIEW </span> USERS
+        <h3 className="my-4 text-center">
+          <span id="view">Transaction History </span> 
         </h3>
 
-        {/* Search Bar */}
-        <div className="d-flex justify-content-end mt-3">
-          <Form className="searchbar1 w-25">
+        <div className="row" >
+        <div className="col-3">
+          <Form className="searchbar1 ">
             <Form.Control
               type="search"
               placeholder="Search Here..."
-              className="me-2 searchbar"
+              className="searchbar"
               aria-label="Search"
               onChange={handleSearch}
             />
           </Form>
         </div>
+        <div className="col-7 text-center"><h4>{auser.username}</h4>
+        <b className="text-secondary">Acco.No:{auser.userNumber}</b></div>
+        <b style={{"color":" rgba(191, 93, 255, 1)"}} className="col-2"> Balance {auser.userBalance} /-</b>
+        </div>
+        {/* Search Bar */}
+        
 
         {/* Table */}
-        <div className="mt-4">
+        <div className="mt-4" style={{minHeight:"80vh"}}>
           <Table striped bordered hover className="user-table">
             <thead>
               <tr>
                 <th id="th">S/No</th>
-                <th id="th">Name</th>
-                <th id="th">Phone Number</th>
-                <th id="th">Account No</th>
-                <th id="th">IFSC Code</th>
-                <th id="th">Balance</th>
-                <th id="th">Transaction History</th>
-                <th id="th">Action</th>
+                <th id="th">Beneficiary Name</th>
+                <th id="th">Beneficiary Acc No</th>
+                <th id="th">Transaction ID</th>
+                <th id="th">Transaction Status</th>
+                <th id="th">Amount</th>
               </tr>
             </thead>
             <tbody>
               {currentRows.map((data, index) => (
-                <tr key={data._id}>
+                <tr key={data?._id}>
                   <td>{indexOfFirstRow + index + 1}</td>
-                  <td>{data.username}</td>
-                  <td>{data.userContact}</td>
-                  <td>{data.userNumber}</td>
-                  <td>{data.userCode}</td>
-                  <td>{data.balance}</td>
-                  <td>
-                    <Link>View Details</Link>
-                  </td>
-                  <td>
-                    <Link to={`/admin/viewuserdetails/${data._id}`}>
-                      <img src={eye} alt="View Details"></img>
-                    </Link>
-                  </td>
+                  <td>{data?.Payeename?data?.Payeename :"------"}</td>
+                  <td>{data?.accountnumber?data?.accountnumber :"------"}</td>
+                  <td>{data?._id}</td>
+                  <td>{data?.type}</td>
+                  <td>{data?.amount?data?.amount :data?.payamount}</td>                
                 </tr>
               ))}
             </tbody>

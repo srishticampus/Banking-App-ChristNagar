@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 const OnlineTransaction = new mongoose.Schema({
-  Payeename: {
+  payeename: {
     type: String,
     required: true,
   },
@@ -10,7 +10,7 @@ const OnlineTransaction = new mongoose.Schema({
     required: true,
   },
   ifsccode: {
-    type: Number,
+    type: String,
     required: true,
   },
   accountnumber: {
@@ -29,6 +29,16 @@ const OnlineTransaction = new mongoose.Schema({
     type: Date,
     default: Date.now,  
   },
+  transactionapproval: {
+    type: String,
+    enum: ['Pending', 'Approved', 'Rejected'],
+    default: 'Pending'
+},
+transactionverification: {
+    type: String,
+    enum: ['Pending', 'Approved', 'Rejected'],
+    default: 'Pending'
+},
 });
 
 module.exports = mongoose.model("onlinechequetransaction", OnlineTransaction);

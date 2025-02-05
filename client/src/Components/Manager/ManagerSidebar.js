@@ -89,6 +89,14 @@ function ManagerSidebar() {
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
+                to="/manager/onlinetransaction"
+                className="text-decoration-none text-light ms-3 "
+              >
+                <img src={transaction}></img> Manage Cheque
+              </Link>
+            </Nav.Item>
+            <Nav.Item className="nav-link ">
+              <Link
                 to="/manager/home"
                 className="text-decoration-none text-light ms-3 "
               >

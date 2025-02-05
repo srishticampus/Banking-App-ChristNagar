@@ -4,6 +4,7 @@ import { IoEye } from "react-icons/io5";
 import ClerkSideBar from "./ClerkSideBar";
 import "../../Asserts/Styles/clerkdashboard.css";
 import axiosInstance from "../../apis/axiosinstance";
+import { Link } from "react-router-dom";
 
 function ClerkDashboard() {
   const [userdata,setuserData]=useState([])
@@ -87,19 +88,19 @@ function ClerkDashboard() {
                     <td className="clerkDashboardTableData">{data.userContact}</td>
                     <td className="clerkDashboardTableData">{data.userNumber}</td>
                     <td className="clerkDashboardTableData">{data.userCode}</td>
-                    <td className="clerkDashboardTableData">0</td>
+                    <td className="clerkDashboardTableData">{data.userBalance}</td>
                     <td>
-                      <a
-                        href=""
+                      <Link
+                        to={`/clerk/transactionhistory/${data._id}`}
                         className="clerkDashboardTableDataviewDetails "
                       >
                         View Details
-                      </a>{" "}
+                      </Link>{" "}
                     </td>
-                    <td className="clerkDashboardTableData">
-                      <span id="clerkDashboardeyeicon">
+                    <td  className="clerkDashboardTableData">
+                      <Link to={`/clerk/viewuserdetails/${data._id}`}  id="clerkDashboardeyeicon">
                         <IoEye />
-                      </span>
+                      </Link>
                     </td>
                   </tr>))}
                 </table>

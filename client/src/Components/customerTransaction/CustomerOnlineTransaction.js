@@ -36,8 +36,8 @@ function CustomerOnlineTransaction() {
     if (!formData.accountnumber || formData.accountnumber.length !== 11) {
       newErrors.accountnumber = "Account number must be 11 characters long.";
     }
-    if (!formData.ifsccode || formData.ifsccode.length !== 11) {
-      newErrors.ifsccode = "IFSC code must be 11 characters long.";
+    if (!formData.ifsccode || formData.ifsccode.length !== 12) {
+      newErrors.ifsccode = "IFSC code must be 12 characters long.";
     }
     if (!formData.chequeimage) {
       newErrors.chequeimage = "Cheque image is required.";

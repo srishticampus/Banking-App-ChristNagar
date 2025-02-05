@@ -210,7 +210,7 @@ function ClerkSideBar() {
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
-                to=""
+                to="/clerk/onlinetransaction"
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={transaction}></img> Manage Cheque
