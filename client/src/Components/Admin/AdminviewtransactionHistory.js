@@ -9,9 +9,9 @@ import deactive from "../../Asserts/images/Choose Mode (1).png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
-import ClerkSideBar from "./ClerkSideBar";
+import AdminSidebar from "./AdminSidebar";
 
-function ClerkViewTransactionHistory() {
+function AdminviewtransactionHistory() {
   const [users, setUsers] = useState([]);
   const [auser, setAUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -77,18 +77,19 @@ function ClerkViewTransactionHistory() {
 
   useEffect(() => {
     getAuserData();
-    if (localStorage.getItem("clerkid") == null) {
-      navigate("/clerk/login");
+    if (localStorage.getItem("admin") == null) {
+      navigate("/adminlogin");
     }
   }, []);
 
   return (
     <div className="d-flex w-100">
+      {/* Sidebar */}
       <div className="sidebar col-lg-3 col-md-4 col-sm-12">
-        <ClerkSideBar />
+        <AdminSidebar />
       </div>
-      <div className="main-content col-lg-9 col-md-8 col-sm-12">
-        <div>
+      <div  className="main-content col-lg-9 col-md-8 col-sm-12">
+        <div >
           <h3 className="my-4 text-center">
             <span id="view">Transaction History </span>
           </h3>
@@ -194,4 +195,4 @@ function ClerkViewTransactionHistory() {
   );
 }
 
-export default ClerkViewTransactionHistory;
+export default AdminviewtransactionHistory;

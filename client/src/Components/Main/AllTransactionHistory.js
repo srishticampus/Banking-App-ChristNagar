@@ -11,7 +11,7 @@ import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
 import ClerkSideBar from "./ClerkSideBar";
 
-function ClerkViewTransactionHistory() {
+function AllTransactionHistory() {
   const [users, setUsers] = useState([]);
   const [auser, setAUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -27,7 +27,7 @@ function ClerkViewTransactionHistory() {
   // Fetch users from the backend
   const getData = async () => {
     try {
-      const res = await axiosInstance.post(`/findbillbyuserid/${userid}`);
+      const res = await axiosInstance.post(`/ViewAllTransactions`);
       console.log(res, "o");
 
       setUsers(res.data.data);
@@ -73,24 +73,14 @@ function ClerkViewTransactionHistory() {
     setCurrentPage(pageNumber);
   };
 
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    getAuserData();
-    if (localStorage.getItem("clerkid") == null) {
-      navigate("/clerk/login");
-    }
-  }, []);
 
   return (
     <div className="d-flex w-100">
-      <div className="sidebar col-lg-3 col-md-4 col-sm-12">
-        <ClerkSideBar />
-      </div>
       <div className="main-content col-lg-9 col-md-8 col-sm-12">
         <div>
           <h3 className="my-4 text-center">
-            <span id="view">Transaction History </span>
+          View<span id="view"> Transactions</span>
           </h3>
 
           <div className="row">
@@ -105,16 +95,7 @@ function ClerkViewTransactionHistory() {
                 />
               </Form>
             </div>
-            <div className="col-7 text-center">
-              <h4>{auser.username}</h4>
-              <b className="text-secondary">Acco.No:{auser.userNumber}</b>
-            </div>
-            <b style={{ color: " rgba(191, 93, 255, 1)" }} className="col-2">
-              {" "}
-              Balance {auser.userBalance} /-
-            </b>
           </div>
-          {/* Search Bar */}
 
           {/* Table */}
           <div className="mt-4" style={{ minHeight: "80vh" }}>
@@ -122,10 +103,12 @@ function ClerkViewTransactionHistory() {
               <thead>
                 <tr>
                   <th id="th">S/No</th>
-                  <th id="th">Beneficiary Name</th>
-                  <th id="th">Beneficiary Acc No</th>
-                  <th id="th">Transaction ID</th>
-                  <th id="th">Transaction Status</th>
+                  <th id="th">Name</th>
+                  <th id="th">Date</th>
+                  <th id="th">Transaction Type</th>
+                  <th id="th">Payee</th>
+                  <th id="th">Payee Acc No</th>
+                  <th id="th">IFSC</th>
                   <th id="th">Amount</th>
                 </tr>
               </thead>
@@ -133,12 +116,14 @@ function ClerkViewTransactionHistory() {
                 {currentRows.map((data, index) => (
                   <tr key={data?._id}>
                     <td>{indexOfFirstRow + index + 1}</td>
-                    <td>{data?.Payeename ? data?.Payeename : "------"}</td>
+                    <td>{auser.username}
+                    <small>{auser.userNumber}</small></td>
                     <td>
                       {data?.accountnumber ? data?.accountnumber : "------"}
                     </td>
                     <td>{data?._id}</td>
                     <td>{data?.type}</td>
+                    <td><p>{data?.Payeename ? data?.Payeename : "------"}</p></td>
                     <td>{data?.amount ? data?.amount : data?.payamount}</td>
                   </tr>
                 ))}
@@ -194,4 +179,4 @@ function ClerkViewTransactionHistory() {
   );
 }
 
-export default ClerkViewTransactionHistory;
+export default AllTransactionHistory;

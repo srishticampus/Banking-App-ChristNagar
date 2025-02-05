@@ -51,13 +51,13 @@ function AdminviewUserDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("managerid") == null) {
-      navigate("/manager/login");
+    if (localStorage.getItem("admin") == null) {
+      navigate("/adminlogin");
     }
   }, []);
 
-  const moveToTransaction = (id) => {
-    navigate("");
+  const moveToTransaction = (userid) => {
+    navigate(`/admin/transactionhistory/${userid}`);
   };
 
   return (
@@ -77,7 +77,7 @@ function AdminviewUserDetails() {
                 alt="PROFILE PIC"
                 id="usedetailsprofilepic"
               />
-              <h5 class="userdetailsview">{user.username} </h5>
+              <h5 class="userdetailsview">{user?.username} </h5>
             </center>
 
             <div className="row">
@@ -118,7 +118,7 @@ function AdminviewUserDetails() {
               </div>
 
               <div className="col-3">
-                {creditcard.length > 0 ? (
+                {creditcard?.length > 0 ? (
                   <Card style={{ width: "27rem" }} className="eachcard">
                     <Card.Body>
                       <Card.Title className=" userdetailsview cardtitle">
@@ -180,7 +180,7 @@ function AdminviewUserDetails() {
 
                 <div className="row py-5 ">
                   <div className="col-6 ms-3">
-                    {loan.length > 0 ? (
+                    {loan?.length > 0 ? (
                       <Card style={{ width: "27rem" }} className="eachcard">
                         <Card.Body>
                           <Card.Title className=" userdetailsview cardtitle">
@@ -202,7 +202,7 @@ function AdminviewUserDetails() {
                             </Card.Text>
                           </div>
 
-                          {loan.map((data) => (
+                          {loan?.map((data) => (
                             <div className="row">
                               <Card.Text className="col">
                                 <p className="carddetails">{data?.loantype}</p>
@@ -226,7 +226,7 @@ function AdminviewUserDetails() {
                     )}
                   </div>
                   <div className="col-4 ">
-                    {creditcard.length > 0 ? (
+                    {creditcard?.length > 0 ? (
                       <Card style={{ width: "27rem" }} className="eachcard">
                         <Card.Body>
                           <Card.Title className="cardtitle userdetailsview">

@@ -6,7 +6,7 @@ import "../../Asserts/Styles/manager.css";
 import eye from "../../Asserts/images/eyebutton.png";
 import active from "../../Asserts/images/Choose Mode.png";
 import deactive from "../../Asserts/images/Choose Mode (1).png";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ClerkSideBar from "./ClerkSideBar";
 
 function ClerkViewuserList() {
@@ -31,7 +31,6 @@ function ClerkViewuserList() {
   };
 
   // Toggle user status between active and inactive
-  
 
   // Handle search functionality
   const handleSearch = (e) => {
@@ -57,14 +56,14 @@ function ClerkViewuserList() {
     setCurrentPage(pageNumber);
   };
 
-  const navigate=useNavigate()
-  
-  useEffect(()=>{
-    if(localStorage.getItem("managerid")==null){
-      navigate("/manager/login")
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("clerkid") == null) {
+      navigate("/clerk/login");
     }
-  },[])
-  
+  }, []);
+
   return (
     <div className="d-flex w-100">
       {/* Sidebar */}
@@ -114,13 +113,18 @@ function ClerkViewuserList() {
                   <td>{data.userContact}</td>
                   <td>{data.userNumber}</td>
                   <td>{data.userCode}</td>
-                  <td>{data.balance}</td>
-                  <td><Link>View Details</Link></td>
+                  <td>{data.userBalance}</td>
                   <td>
-                  <Link to={`/clerk/viewuserdetails/${data._id}`}><img src={eye} alt="View Details" ></img></Link>
-                    
+                    {" "}
+                    <Link to={`/clerk/transactionhistory/${data._id}`}>
+                      View Details
+                    </Link>
                   </td>
-
+                  <td>
+                    <Link to={`/clerk/viewuserdetails/${data._id}`}>
+                      <img src={eye} alt="View Details"></img>
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -140,9 +144,7 @@ function ClerkViewuserList() {
             </li>
             {Array.from({ length: totalPages }, (_, i) => (
               <li
-                className={`page-item ${
-                  currentPage === i + 1 ? "active" : ""
-                }`}
+                className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
                 key={i}
               >
                 <button

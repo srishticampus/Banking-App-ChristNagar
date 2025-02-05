@@ -1,12 +1,9 @@
-const onlinetransactionschema = require("../Models/OnlineTransaction");
-
+const OnlineTransaction = require("../Models/OnlineTransaction");
 const multer = require("multer");
-const jwt = require("jsonwebtoken");
-const secret = "";
 
 // Multer storage configuration
 const storage = multer.diskStorage({
-  destination: function (req, res, cb) {
+  destination: function (req, file, cb) {
     cb(null, "./upload");
   },
   filename: function (req, file, cb) {
@@ -16,33 +13,217 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).single("chequeimage");
 
-// Function to add a new Insurance
-
+// Create a new online transaction
 const createTransaction = async (req, res) => {
+  console.log(req.body);
+  
   try {
     const { payeename, payamount, ifsccode, accountnumber, userid } = req.body;
-    const chequeimage = req.file;
-
-    if (!chequeimage) {
+    if (!req.file) {
       return res.status(400).json({ message: "Cheque image is required." });
     }
 
-    const transaction = new onlinetransactionschema({
-      Payeename: payeename,
-      payamount: payamount,
-      ifsccode: ifsccode,
-      accountnumber: accountnumber,
-      chequeimage: chequeimage,
-      userid: userid,
+    const transaction = new OnlineTransaction({
+      payeename,
+      payamount,
+      ifsccode,
+      accountnumber,
+      chequeimage: req.file, // Store only file path
+      userid,
     });
 
     await transaction.save();
-    res.status(201).json({ message: "onlinetransactionschema created successfully." });
+    res.status(201).json({ message: "Transaction successfully created." });
   } catch (error) {
     console.error("Error creating transaction:", error);
     res.status(500).json({ message: "Internal server error." });
   }
 };
 
+// Get all transactions
+const viewAllTransactions = async (req, res) => {
+  try {
+    const transactions = await OnlineTransaction.find().populate("userid");
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: "No transactions found." });
+    }
+    res.status(200).json({ message: "Data fetched", data: transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch transactions", error });
+  }
+};
 
-module.exports={upload,createTransaction}
+// Get transactions by user ID
+const viewUserTransactions = async (req, res) => {
+  try {
+    const transactions = await OnlineTransaction.find({ userid: req.params.userid }).populate("userid");
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: "No transactions found for this user." });
+    }
+    res.status(200).json({ message: "Data fetched", data: transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch transactions", error });
+  }
+};
+
+// Verify a transaction
+const toVerifyTransactions = async (req, res) => {
+  try {
+    const transaction = await OnlineTransaction.findByIdAndUpdate(
+      req.params.transactionid,
+      { transactionverification: "Approved" },
+      { new: true }
+    );
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found." });
+    }
+    res.status(200).json({ message: "Transaction Verified", data: transaction });
+  } catch (error) {
+    res.status(500).json({ message: "Transaction verification failed", error });
+  }
+};
+
+// View non-verified transactions
+const viewNonVerifiedTransactions = async (req, res) => {
+  try {
+    const transactions = await OnlineTransaction.find({ transactionverification: "Pending" }).populate("userid");
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: "No pending transactions." });
+    }
+    res.status(200).json({ message: "Data fetched", data: transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve transactions", error });
+  }
+};
+
+const toRejectverificationTransactions = async (req, res) => {
+  try {
+    const transaction = await OnlineTransaction.findByIdAndUpdate(
+      req.params.transactionid,
+      { transactionverification: "Rejected" },
+      { new: true }
+    );
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found." });
+    }
+    res.status(200).json({ message: "Transaction Rejected", data: transaction });
+  } catch (error) {
+    res.status(500).json({ message: "Transaction rejection failed", error });
+  }
+};
+
+// View verified transactions
+const viewVerifiedTransactions = async (req, res) => {
+  try {
+    const transactions = await OnlineTransaction.find({ transactionverification: "Approved" }).populate("userid");
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: "No approved transactions." });
+    }
+    res.status(200).json({ message: "Data fetched", data: transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve transactions", error });
+  }
+};
+
+// Approve a transaction
+const toApproveTransactions = async (req, res) => {
+  try {
+    const transaction = await OnlineTransaction.findByIdAndUpdate(
+      req.params.transactionid,
+      { transactionapproval: "Approved" },
+      { new: true }
+    );
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found." });
+    }
+    res.status(200).json({ message: "Transaction Approved", data: transaction });
+  } catch (error) {
+    res.status(500).json({ message: "Transaction approval failed", error });
+  }
+};
+
+// Reject a transaction
+const toRejectTransactions = async (req, res) => {
+  try {
+    const transaction = await OnlineTransaction.findByIdAndUpdate(
+      req.params.transactionid,
+      { transactionapproval: "Rejected" },
+      { new: true }
+    );
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found." });
+    }
+    res.status(200).json({ message: "Transaction Rejected", data: transaction });
+  } catch (error) {
+    res.status(500).json({ message: "Transaction rejection failed", error });
+  }
+};
+
+
+// View non-approved transactions
+const viewNonApprovedTransactions = async (req, res) => {
+  try {
+    const transactions = await OnlineTransaction.find({
+      transactionverification: "Approved",
+      transactionapproval: "Pending",
+    }).populate("userid");
+
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: "No pending approvals." });
+    }
+    res.status(200).json({ message: "Data fetched", data: transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve transactions", error });
+  }
+};
+
+// View approved transactions
+const viewApprovedTransactions = async (req, res) => {
+  try {
+    const transactions = await OnlineTransaction.find({
+      transactionverification: "Approved",
+      transactionapproval: "Approved",
+    }).populate("userid");
+
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: "No approved transactions." });
+    }
+    res.status(200).json({ message: "Data fetched", data: transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve transactions", error });
+  }
+};
+
+// View approved transactions by user ID
+const viewApprovedTransactionsByUserId = async (req, res) => {
+  try {
+    const transactions = await OnlineTransaction.find({
+      userid: req.params.userid,
+      transactionverification: "Approved",
+      transactionapproval: "Approved",
+    }).populate("userid");
+
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: "No approved transactions for this user." });
+    }
+    res.status(200).json({ message: "Data fetched", data: transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve transactions", error });
+  }
+};
+
+module.exports = {
+  upload,
+  createTransaction,
+  viewAllTransactions,
+  viewUserTransactions,
+  toVerifyTransactions,
+  viewNonVerifiedTransactions,
+  viewVerifiedTransactions,
+  toApproveTransactions,
+  toRejectTransactions,
+  viewNonApprovedTransactions,
+  viewApprovedTransactions,
+  toRejectverificationTransactions,
+  viewApprovedTransactionsByUserId,
+};

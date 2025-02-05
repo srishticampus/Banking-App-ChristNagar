@@ -219,7 +219,7 @@ function UserNavbar() {
                   </div>
                   <div className="px-2 py-2  ">
                     {" "}
-                    <Link className="text-decoration-none" to="/">
+                    <Link to="/user/transactionhistory" className="text-decoration-none">
                       Transaction History
                     </Link>
                   </div>

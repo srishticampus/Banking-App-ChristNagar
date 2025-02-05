@@ -66,6 +66,11 @@ import CustomerWaterBill from "./Components/CustomerBillPayment/CustomerWaterBil
 import CustomerOnlineTransaction from "./Components/customerTransaction/CustomerOnlineTransaction";
 import NormalTransaction from "./Components/customerTransaction/NormalTransaction";
 import CustomerTransactionHistory from "./Components/customerTransaction/CustomerTransactionHistory";
+import AdminviewtransactionHistory from "./Components/Admin/AdminviewtransactionHistory";
+import ClerkViewTransactionHistory from "./Components/Clerk/ClerkViewTransactionHistory";
+import ClerkViewonlineTransaction from "./Components/Clerk/ClerkViewonlineTransaction";
+import ManagerChequeTransaction from "./Components/Manager/ManagerChequeTransaction";
+import ManagerViewUserTransactions from "./Components/Manager/ManagerViewUserTransactions";
 
 function App() {
   return (
@@ -156,7 +161,11 @@ function App() {
         <Route path="/user/onlinetransaction" element={<CustomerOnlineTransaction/>} />
         <Route path="/user/normaltransaction" element={<NormalTransaction/>} />
         <Route path="/user/transactionhistory" element={<CustomerTransactionHistory/>} />
-
+        <Route path="/admin/transactionhistory/:userid" element={<AdminviewtransactionHistory/>} />
+        <Route path="/clerk/transactionhistory/:userid" element={<ClerkViewTransactionHistory/>} />
+        <Route path="/clerk/onlinetransaction" element={<ClerkViewonlineTransaction/>} />
+        <Route path="/manager/onlinetransaction" element={<ManagerChequeTransaction/>} />
+        <Route path="/manager/transactionhistory/:userid" element={<ManagerViewUserTransactions/>} />
         </Routes>
     </BrowserRouter>
   );

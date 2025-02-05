@@ -51,13 +51,13 @@ function ClerkViewUserDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("managerid") == null) {
-      navigate("/manager/login");
+    if (localStorage.getItem("clerkid") == null) {
+      navigate("/clerk/login");
     }
   }, []);
 
-  const moveToTransaction = (id) => {
-    navigate("");
+  const moveToTransaction = (userid) => {
+    navigate(`/clerk/transactionhistory/${userid}`);
   };
 
   return (
@@ -118,7 +118,7 @@ function ClerkViewUserDetails() {
               </div>
 
               <div className="col-3">
-                {creditcard.length > 0 ? (
+                {creditcard?.length > 0 ? (
                   <Card style={{ width: "27rem" }} className="eachcard">
                     <Card.Body>
                       <Card.Title className=" userdetailsview cardtitle">
@@ -180,7 +180,7 @@ function ClerkViewUserDetails() {
 
                 <div className="row py-5 ">
                   <div className="col-6 ms-3">
-                    {loan.length > 0 ? (
+                    {loan?.length > 0 ? (
                       <Card style={{ width: "27rem" }} className="eachcard">
                         <Card.Body>
                           <Card.Title className=" userdetailsview cardtitle">
@@ -226,7 +226,7 @@ function ClerkViewUserDetails() {
                     )}
                   </div>
                   <div className="col-4 ">
-                    {creditcard.length > 0 ? (
+                    {creditcard?.length > 0 ? (
                       <Card style={{ width: "27rem" }} className="eachcard">
                         <Card.Body>
                           <Card.Title className="cardtitle userdetailsview">
