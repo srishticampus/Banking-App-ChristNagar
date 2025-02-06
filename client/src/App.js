@@ -71,6 +71,11 @@ import ClerkViewTransactionHistory from "./Components/Clerk/ClerkViewTransaction
 import ClerkViewonlineTransaction from "./Components/Clerk/ClerkViewonlineTransaction";
 import ManagerChequeTransaction from "./Components/Manager/ManagerChequeTransaction";
 import ManagerViewUserTransactions from "./Components/Manager/ManagerViewUserTransactions";
+import AllTransactionHistory from "./Components/Main/AllTransactionHistory";
+import ManagerViewAllTransactions from "./Components/Manager/ManagerViewAllTransactions";
+import ClerkSideBar from "./Components/Clerk/ClerkSideBar";
+import ClerkviewAllTransactions from "./Components/Clerk/ClerkviewAllTransactions";
+import AdminViewTransactions from "./Components/Admin/AdminViewTransactions";
 
 function App() {
   return (
@@ -166,6 +171,11 @@ function App() {
         <Route path="/clerk/onlinetransaction" element={<ClerkViewonlineTransaction/>} />
         <Route path="/manager/onlinetransaction" element={<ManagerChequeTransaction/>} />
         <Route path="/manager/transactionhistory/:userid" element={<ManagerViewUserTransactions/>} />
+        <Route path="/alltransactions" element={<AllTransactionHistory/>} />
+        <Route path="/manager/alltransactions" element={<ManagerViewAllTransactions/>} />
+        <Route path="/clerk/alltransactions" element={<ClerkviewAllTransactions/>} />
+        <Route path="/admin/viewtransactions" element={<AdminViewTransactions/>} />
+
         </Routes>
     </BrowserRouter>
   );

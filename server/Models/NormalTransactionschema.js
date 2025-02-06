@@ -1,7 +1,7 @@
 var mongoose = require("mongoose")
 
 const normalTransaction = new mongoose.Schema({
- Payeename: {
+ payeename: {
     type: String,
     required: true,
   },

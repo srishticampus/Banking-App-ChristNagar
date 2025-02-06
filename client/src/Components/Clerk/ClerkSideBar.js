@@ -218,7 +218,7 @@ function ClerkSideBar() {
             </Nav.Item>
             <Nav.Item className="nav-link ">
               <Link
-                to=""
+                to="/clerk/alltransactions"
                 className="text-decoration-none text-light ms-3 "
               >
                 <img src={watch}></img> Transaction
