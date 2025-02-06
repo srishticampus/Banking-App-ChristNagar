@@ -1,4 +1,5 @@
 const OnlineTransaction = require("../Models/OnlineTransaction");
+const User = require("../Models/UsersSchema"); // Import User model
 const multer = require("multer");
 
 // Multer storage configuration
@@ -16,13 +17,31 @@ const upload = multer({ storage: storage }).single("chequeimage");
 // Create a new online transaction
 const createTransaction = async (req, res) => {
   console.log(req.body);
-  
+
   try {
     const { payeename, payamount, ifsccode, accountnumber, userid } = req.body;
+    
+    // Check if cheque image is uploaded
     if (!req.file) {
       return res.status(400).json({ message: "Cheque image is required." });
     }
 
+    // Find the user
+    const user = await User.findById(userid);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if user has enough balance
+    if (user.userBalance < payamount) {
+      return res.status(400).json({ message: "Insufficient balance." });
+    }
+
+    // Deduct amount from user balance
+    user.userBalance -= payamount;
+    await user.save(); // Save updated balance
+
+    // Create transaction
     const transaction = new OnlineTransaction({
       payeename,
       payamount,
@@ -33,6 +52,7 @@ const createTransaction = async (req, res) => {
     });
 
     await transaction.save();
+
     res.status(201).json({ message: "Transaction successfully created." });
   } catch (error) {
     console.error("Error creating transaction:", error);

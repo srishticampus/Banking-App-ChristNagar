@@ -115,5 +115,8 @@ router.post('/ViewApprovedtransaction',transaction.viewApprovedTransactions)
 router.post('/toRejectTransactions/:transactionid',transaction.toRejectTransactions)
 router.post('/viewNonApprovedTransactions',transaction.viewNonApprovedTransactions)
 router.post('/toRejectverificationTransactions/:transactionid',transaction.toRejectverificationTransactions)
+router.post('/viewnormaltransaction',normaltransaction.viewAlllNormaTransactions)
+router.post('/viewallinsurances',insuranceApply.ViewAllInsuranceApplications)
+
 
 module.exports = router

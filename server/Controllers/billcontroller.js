@@ -36,11 +36,11 @@ const getUserTransactions = async (req, res) => {
 const getAllTransactions = async (req, res) => {
     try {
 
-        const waterBills = await Waterbill.find().lean();
-        const electricBills = await Electricbill.find().lean();
-        const payments = await Payment.find().lean();
-        const normalTransactions = await NormalTransaction.find().lean();
-        const onlineTransactions = await OnlineTransaction.find().lean();
+        const waterBills = await Waterbill.find().populate('userid').lean();
+        const electricBills = await Electricbill.find().populate('userid').lean();
+        const payments = await Payment.find().populate('userid').lean();
+        const normalTransactions = await NormalTransaction.find().populate('userid').lean();
+        const onlineTransactions = await OnlineTransaction.find().populate('userid').lean();
 
         let allTransactions = [
             ...waterBills.map(bill => ({ ...bill, type: 'WaterBill' })),
@@ -50,7 +50,7 @@ const getAllTransactions = async (req, res) => {
             ...onlineTransactions.map(transaction => ({ ...transaction, type: 'Online Cheque Transaction' })),
         ];
 
-        allTransactions.sort((a, b) => new Date(b.date) - new Date(a.date)).populate("userid")
+        allTransactions.sort((a, b) => new Date(b.date) - new Date(a.date))
         
         res.status(200).json({ success: true, data: allTransactions });
     } catch (error) {

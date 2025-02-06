@@ -9,7 +9,6 @@ import deactive from "../../Asserts/images/Choose Mode (1).png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
-import ClerkSideBar from "./ClerkSideBar";
 
 function AllTransactionHistory() {
   const [users, setUsers] = useState([]);
@@ -27,21 +26,11 @@ function AllTransactionHistory() {
   // Fetch users from the backend
   const getData = async () => {
     try {
-      const res = await axiosInstance.post(`/ViewAllTransactions`);
+      const res = await axiosInstance.post(`/findallbill`);
       console.log(res, "o");
 
       setUsers(res.data.data);
       setFilteredUsers(res.data.data); // Initialize filteredUsers with the full user list
-    } catch (err) {
-      console.error("Error fetching user data:", err);
-    }
-  };
-
-  const getAuserData = async () => {
-    try {
-      const res = await axiosInstance.get(`/view_a_user/${userid}`);
-
-      setAUser(res.data.data);
     } catch (err) {
       console.error("Error fetching user data:", err);
     }
@@ -77,7 +66,7 @@ function AllTransactionHistory() {
 
   return (
     <div className="d-flex w-100">
-      <div className="main-content col-lg-9 col-md-8 col-sm-12">
+      <div>
         <div>
           <h3 className="my-4 text-center">
           View<span id="view"> Transactions</span>
@@ -116,14 +105,16 @@ function AllTransactionHistory() {
                 {currentRows.map((data, index) => (
                   <tr key={data?._id}>
                     <td>{indexOfFirstRow + index + 1}</td>
-                    <td>{auser.username}
-                    <small>{auser.userNumber}</small></td>
+                    <td>{data?.userid?.username?data?.userid?.username:"------"}<br/>
+                    <small className="text-secondary">{data?.userid?.userNumber}</small></td>
                     <td>
-                      {data?.accountnumber ? data?.accountnumber : "------"}
+                    {new Date(data?.date).toLocaleDateString("en-GB")}
+                      
                     </td>
-                    <td>{data?._id}</td>
                     <td>{data?.type}</td>
-                    <td><p>{data?.Payeename ? data?.Payeename : "------"}</p></td>
+                    <td><p>{data?.payeename ? data?.payeename : "------"}</p></td>
+                    <td><p>{data?.accountnumber ? data?.accountnumber : "------"}</p></td>
+                    <td><p>{data?.ifsccode ? data?.ifsccode : "------"}</p></td>
                     <td>{data?.amount ? data?.amount : data?.payamount}</td>
                   </tr>
                 ))}
