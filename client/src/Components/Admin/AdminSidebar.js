@@ -113,7 +113,7 @@ function AdminSidebar() {
               </div>
               <div className="col-9">
                 <Link
-                  to="/admin/viewusers"
+                  to="/admin/viewallapprovedloans"
                   className="col-3 text-decoration-none text-light"
                 >
                   {" "}
@@ -129,7 +129,7 @@ function AdminSidebar() {
               </div>
               <div className="col-9">
                 <Link
-                  to="/admin/viewusers"
+                  to="/admin/viewallapprovedcreadits"
                   className="col-3 text-decoration-none text-light"
                 >
                   {" "}

@@ -19,7 +19,7 @@
 
 .CAL-p-link {
     color: #bf5dff;
-    text-decoration: 2px solid underline;
+    /* text-decoration: 2px solid underline; */
     margin-top:10px;
 }
 .CAL-p-link:hover {

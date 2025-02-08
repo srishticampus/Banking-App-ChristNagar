@@ -5,7 +5,7 @@ import ClerkSideBar from "./ClerkSideBar";
 import "../../Asserts/Styles/clerkdashboard.css";
 import axiosInstance from "../../apis/axiosinstance";
 import { Link } from "react-router-dom";
-
+import AdminDashboardpiecharts from "../Admin/AdminDashboardpiechart"
 function ClerkDashboard() {
   const [userdata,setuserData]=useState([])
 
@@ -26,38 +26,7 @@ function ClerkDashboard() {
             <h3 className="clerkdashboard">
               <span id="clerkDashboardclerkcolor">CLERK </span>DASHBOARD
             </h3>
-            <div>
-              <div className="row">
-                <div className="col clerkDashboardpiechart">
-                  <h5>Users Review</h5>
-                  {/*<img src={userReviewPieChart} alt="PieChart" className='clerkDashboardpiechartimg'  />
-                <img src={userReviewPieChartDetails} alt="Details" className='clerkDashboardpiechartdetails' />*/}
-                </div>
-
-                <div className="col clerkDashboardpiechart1">
-                  <div className="row">
-                    <div className="col">
-                      <Button id="clerkDashboardclerkLoanButton">Loan</Button>
-                    </div>
-                    <div className="col">
-                      <Button id="clerkDashboardclerkCreditcardButton">
-                        Credit Card
-                      </Button>
-                    </div>
-                    <div className="col">
-                      <Button id="clerkDashboardclerkLifeinduranceButton">
-                        Life Insurance
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col">
-                      {/*<img src={userReviewPieChart1} alt="PieChart" className='clerkDashboardpiechartimg' />
-                <img src={userReviewPieChartDetails1} alt="Details" className='clerkDashboardpiechartdetails' />*/}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <AdminDashboardpiecharts/>
               <div className="col clerkDashboardviewuser">
                 <h4>View Users</h4>
               </div>
@@ -109,7 +78,6 @@ function ClerkDashboard() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

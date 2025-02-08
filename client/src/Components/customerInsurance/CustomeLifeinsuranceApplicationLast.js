@@ -17,15 +17,26 @@ function CustomeLifeinsuranceApplicationLast() {
     medicalreport: null,
   });
 
-  const userid= localStorage.getItem("userid")
+  const [isFormValid, setIsFormValid] = useState(false);
+  const userid = localStorage.getItem("userid");
   const location = useLocation();
-
-  const { insuranceDetails, formState } = location.state
-  
+  const { insuranceDetails, formState } = location.state;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Received insurance Details:", insuranceDetails,formState);
-  }, [insuranceDetails,formState]);
+    console.log("Received insurance Details:", insuranceDetails, formState);
+  }, [insuranceDetails, formState]);
+
+  useEffect(() => {
+    // Validate if all required fields (except medicalreport) are filled
+    setIsFormValid(
+      formApply.existingconditions.trim() !== "" &&
+      formApply.smoking.trim() !== "" &&
+      formApply.currentmedication.trim() !== "" &&
+      formApply.idproof !== null &&
+      formApply.incomeproof !== null
+    );
+  }, [formApply]);
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -36,47 +47,44 @@ function CustomeLifeinsuranceApplicationLast() {
   };
 
   const handleSubmit = async () => {
-    const formData = new FormData();
+    if (!isFormValid) {
+      alert("Please fill all required fields before submitting.");
+      return;
+    }
 
-    // Append form data
+    const formData = new FormData();
     formData.append("existingconditions", formApply.existingconditions);
     formData.append("smoking", formApply.smoking);
     formData.append("currentmedication", formApply.currentmedication);
-    if (formApply.idproof) formData.append("idproof", formApply.idproof);
-    if (formApply.incomeproof) formData.append("incomeproof", formApply.incomeproof);
+    formData.append("idproof", formApply.idproof);
+    formData.append("incomeproof", formApply.incomeproof);
     if (formApply.medicalreport) formData.append("medicalreport", formApply.medicalreport);
 
-    // Append insuranceDetails if needed
     formData.append("planid", insuranceDetails.planid);
     formData.append("userid", insuranceDetails.userId);
-    formData.append("nomineename",formState.nomineename );
-    formData.append("nomineerelationship",formState.nomineerelationship );
-    formData.append("nomineecontactnumber",formState.nomineecontactnumber );
-    formData.append("nomineeaddress",formState.nomineeaddress );
+    formData.append("nomineename", formState.nomineename);
+    formData.append("nomineerelationship", formState.nomineerelationship);
+    formData.append("nomineecontactnumber", formState.nomineecontactnumber);
+    formData.append("nomineeaddress", formState.nomineeaddress);
+
     try {
       const response = await axiosInstance.post(
         "/applyinsuranceapplication",
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
       console.log("API Response:", response.data);
       alert("Application submitted successfully!");
+      navigate("/user/applyllifeinsurance");
     } catch (error) {
       console.error("Error submitting application:", error);
       alert("Failed to submit the application.");
     }
   };
 
-  const navigate = useNavigate();
-
   return (
     <div className="CustLoanPersonalDetails">
-    <UserNavbar/>
-
+      <UserNavbar />
       <Container>
         <Row className="justify-content-center">
           <Col md={6} className="text-center">
@@ -85,15 +93,12 @@ function CustomeLifeinsuranceApplicationLast() {
                 <div className="circle active">1</div>
                 <span className="progress-text">Personal Details</span>
               </div>
-
               <div className="profildetaildline"></div>
               <div>
                 <div className="circle active">2</div>
                 <span className="progress-text">Policy & Nominee</span>
               </div>
-
               <div className="profildetaildline"></div>
-
               <div>
                 <div className="circle active">3</div>
                 <span className="progress-text">Health & Document</span>
@@ -104,14 +109,9 @@ function CustomeLifeinsuranceApplicationLast() {
       </Container>
 
       <Container className="my-5">
-        <Card
-          className="CustLoanPersonalDetailshorizontal-card mx-auto"
-          style={{ maxWidth: "900px" }}
-        >
+        <Card className="CustLoanPersonalDetailshorizontal-card mx-auto" style={{ maxWidth: "900px" }}>
           <Card.Body>
-            <h5 className="text-center" style={{ color: "#9A00FF" }}>
-              Health Information
-            </h5>
+            <h5 className="text-center" style={{ color: "#9A00FF" }}>Health Information</h5>
             <Row>
               <Col md={6}>
                 <div className="mb-4">
@@ -147,9 +147,7 @@ function CustomeLifeinsuranceApplicationLast() {
               </Col>
             </Row>
 
-            <h5 className="text-center" style={{ color: "#9A00FF" }}>
-              Documentation
-            </h5>
+            <h5 className="text-center" style={{ color: "#9A00FF" }}>Documentation</h5>
             <Row>
               <Col md={6}>
                 <div className="mb-4">
@@ -173,7 +171,7 @@ function CustomeLifeinsuranceApplicationLast() {
               </Col>
               <Col md={6}>
                 <div className="mb-4">
-                  <label>Medical Report</label>
+                  <label>Medical Report (Optional)</label>
                   <input
                     className="form-control CustLoanPersonalDetailsformcontrol"
                     type="file"
@@ -183,11 +181,13 @@ function CustomeLifeinsuranceApplicationLast() {
                 </div>
               </Col>
             </Row>
+
             <div className="text-center">
               <Button
                 id="CustLoanPersonalDetailsButton"
                 className="d-inline-flex align-items-center"
                 onClick={handleSubmit}
+                disabled={!isFormValid}
               >
                 Submit
                 <FaLongArrowAltRight className="ms-2" />

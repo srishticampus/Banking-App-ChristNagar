@@ -5,7 +5,6 @@ import img2 from '../../Asserts/images/carbon_view-filled.png'
 import axiosInstance from '../../apis/axiosinstance'
 import imgurl from '../../apis/imgURL'
 import { useNavigate, useParams } from 'react-router-dom'
-import LandingFooter from '../Main/LandingFooter'
 
 function ClerkManageCreditCard() {
 

@@ -1,152 +1,74 @@
-
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import imgurl from '../../apis/imgURL';
 import axiosInstance from '../../apis/axiosinstance';
-import '../../Asserts/Styles/UserCreditApplicationDetails.css'
+import '../../Asserts/Styles/ClerkViewCardDetails.css'
 import LandingFooter from '../Main/LandingFooter';
-import checkmark from '../../Asserts/images/Vector.png';
-import UserNavbar from './UserNavbar';
-import { Col, Container, Row } from 'react-bootstrap';
+import AdminSidebar from './AdminSidebar';
 
-function UserCreditApplicationDetails() {
-  const [user, setUser] = useState({});
-  const { data } = useParams();
+function AdminViewAcreadit() {
 
-  const openFileInNewTab = (filePath) => {
-    window.open(`${imgurl}/${filePath}`, "_blank");
-  };
+    const [user, setUser] = useState(null);
+    const { data } = useParams();
 
-  const GetUserData = async () => {
-    try {
-      const response = await axiosInstance.post(
-        `/viewonecreditapplication/${data}`
-      );
-      if (Array.isArray(response.data.data) && response.data.data.length > 0) {
-        console.log("response-response", response);
-        setUser(response.data.data[0]);
-      } else {
-        console.error("Unexpected API response structure.");
-      }
-      console.log("API Response:", response.data.data);
-    } catch (error) {
-      alert("Failed to fetch user details. Please try again.");
-      console.error("Error fetching user data:", error);
-    }
-  };
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    GetUserData();
-  }, []);
+    const openFileInNewTab = (filePath) => {
+        window.open(`${imgurl}/${filePath}`, "_blank");
+    };
 
-  
+    const GetUserData = async () => {
+        try {
+            const response = await axiosInstance.post(
+                `/viewonecreditapplication/${data}`
+            );
+            if (Array.isArray(response.data.data) && response.data.data.length > 0) {
+                console.log("response-response", response);
+                setUser(response.data.data[0]);
+            } else {
+                console.error("Unexpected API response structure.");
+            }
+            console.log("API Response:", response.data.data);
+        } catch (error) {
+            alert("Failed to fetch user details. Please try again.");
+            console.error("Error fetching user data:", error);
+        }
+    };
 
-  
+    useEffect(() => {
+        GetUserData();
+    }, []);
+
+   
+
     return (
-      <div className="UCAD-MainDiv">
-      <UserNavbar />    
-     
-      
-    
-          <div className="UCAD-MainDiv-ContainDiv-Content-Card-Right">
-    
-            <div className="UCAD-MainDiv-ContainDiv-Content">
-              <div>
-                <img
-                  className="UCAD-profile-img"
-                  src={`${imgurl}/${user?.userid?.userPicture?.originalname}`}
-                  alt="PROFILE"
-                />
-              </div>
-    
-              <div>
-                <h1 className="UCAD-h3">{user?.userid?.username}</h1>
-              </div>
-    
-              <div>
-                {/* Progress Bar */}
-                <Container>
-                  <Row className="justify-content-center">
-                    <Col md={8} className="text-center">
-                      <div className="UCADcirclecontainer">
-                        <div className="UCADcirclecontainer-1">
-                          <div className="circlecontainerdiv">
-                            <div className="UCADcircle active">
-                              <img src={checkmark} alt="checkmark" />
-                            </div>
-                            <span className="UCAD-progress-text">Apply</span>
-                          </div>
+        <div className="CVCD-MainDiv">
+            {console.log("user", user)}
+            <div>
+                <AdminSidebar />
+            </div>
+            <div className="CVCD-MainDiv-ContainDiv">
+
+                <div className="CVCD-MainDiv-ContainDiv-ContentDiv">
+                    <div className='CMCC-MainDiv-ContainDiv-HeaderDiv'>
+                        <h1 className='CMCC-h1'>View </h1>
+                        <h1 className='CMCC-h2'>Details</h1>
+                    </div>
+
+                    <div className="CVCD-MainDiv-ContainDiv-Content">
+                        <div>
+                            <img
+                                className="CVCD-profile-img"
+                                src={`${imgurl}/${user?.userid?.userPicture?.originalname}`}
+                                alt="PROFILE"
+                            />
                         </div>
-    
-                        {user?.verificationstatus ? (
-                          <>
-                            <div className="UCAD-profildetaildline active" />
-                            <div className="UCADcirclecontainer-2">
-                              <div className="circlecontainerdiv">
-                                <div className="UCADcircle active">
-                                  <img src={checkmark} alt="checkmark" />
-                                </div>
-                                <span className="UCAD-progress-text">Clerk Verify</span>
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="UCAD-profildetaildline" />
-                            <div className="UCADcirclecontainer-2">
-                              <div className="circlecontainerdiv">
-                                <div className="UCADcircle"></div>
-                                <span className="UCAD-progress-text">Clerk Verify</span>
-                              </div>
-                            </div>
-                          </>
-                        )}
-    
-                        {user?.approvalstatus === "Approved" ? (
-                          <>
-                            <div className="UCAD-profildetaildline active" />
-                            <div className="UCADcirclecontainer-3">
-                              <div className="circlecontainerdiv">
-                                <div className="UCADcircle active">
-                                  <img src={checkmark} alt="checkmark" />
-                                </div>
-                                <span className="UCAD-progress-text">Manager Approval</span>
-                              </div>
-                            </div>
-    
-                            <div className="UCAD-profildetaildline active" />
-                            <div className="UCADcirclecontainer-4">
-                              <div className="circlecontainerdiv">
-                                <div className="UCADcircle active">
-                                  <img src={checkmark} alt="checkmark" />
-                                </div>
-                                <span className="UCAD-progress-text">Card Approved</span>
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="UCAD-profildetaildline" />
-                            <div className="UCADcirclecontainer-3">
-                              <div className="circlecontainerdiv">
-                                <div className="UCADcircle"></div>
-                                <span className="UCAD-progress-text">Manager Approval</span>
-                              </div>
-                            </div>
-    
-                            <div className="UCAD-profildetaildline" />
-                            <div className="UCADcirclecontainer-4">
-                              <div className="circlecontainerdiv">
-                                <div className="UCADcircle"></div>
-                                <span className="UCAD-progress-text">Card Approved</span>
-                              </div>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    </Col>
-                  </Row>
-                  <div className="CVCD-MainDiv-ContainDiv-Content-Card-Upper">
+
+                        <div>
+                            <h1 className="CVCD-h3">{user?.userid?.username}</h1>
+                        </div>
+
+                        <div className="CVCD-MainDiv-ContainDiv-Content-Card-Upper">
 
                             {/* Personal Details */}
                             <div className="CVCD-MainDiv-ContainDiv-Content-Card">
@@ -278,7 +200,7 @@ function UserCreditApplicationDetails() {
                                             </label>
                                             {user?.incomeproof?.filename ? (
                                                 <h1
-                                                    name="incomeproof"
+                                                    name="passport"
                                                     className="CVCD-h4"
                                                     onClick={() =>
                                                         openFileInNewTab(user?.incomeproof?.filename)
@@ -302,18 +224,16 @@ function UserCreditApplicationDetails() {
                             </div>
 
                         </div>
-                </Container>
-              </div>
+
+                        
+
+                    </div>
+                </div>
             </div>
-    
-           
-           
-      </div>
-    
-      <LandingFooter />
-    </div>
-    
-  );
+        </div>
+    );
+
+
 }
 
-export default UserCreditApplicationDetails;
+export default AdminViewAcreadit
