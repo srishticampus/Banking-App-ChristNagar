@@ -94,25 +94,30 @@ const ViewApprovedInsuranceApplication = (req, res) => {
 };
 
 // for seeing all loan applications
-const ViewAllInsuranceApplications = (req, res) => {
-  insuranceApplySchema
-    .find({})
-    .populate("userid planid")
-    .then((response) => {
-      if (response == "") {
-        res.json({ status: 200, msg: "No Applications" });
-      } else {
-        res.json({ status: 200, msg: "Data fetched", data: response });
-      }
-    })
-    .catch((error) => {
-      res.json({
-        status: 500,
-        mgs: "Loan Applications Fetch Failed",
-        data: error,
-      });
-    });
+const ViewAllInsuranceApplications = async (req, res) => {
+  try {
+    const userId = req.query.userid; // Assuming user ID is passed as a query param
+
+    // Fetch all applied insurance plan IDs for the given user
+    const appliedPlans = await insuranceApplySchema.find({ userid: userId }).select("planid");
+    
+    // Extract plan IDs
+    const appliedPlanIds = appliedPlans.map(app => app.planid);
+    
+    // Fetch all insurance applications excluding already applied plans for the user
+    const applications = await insuranceApplySchema.find({ planid: { $nin: appliedPlanIds } }).populate("userid planid");
+
+    if (applications.length === 0) {
+      return res.json({ status: 200, msg: "No Applications" });
+    }
+
+    res.json({ status: 200, msg: "Data fetched", data: applications });
+  } catch (error) {
+    console.error(error);
+    res.json({ status: 500, msg: "Insurance Applications Fetch Failed", data: error });
+  }
 };
+
 
 // for seeing all loan applications of a user
 const ViewUserInsuranceApplications = (req, res) => {

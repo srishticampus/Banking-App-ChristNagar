@@ -107,7 +107,7 @@ function CustomerLoanEmployeDetails() {
   return (
     <div>
     <UserNavbar/>
-      <div className="CustLoanEmplDetails">
+      <div className="CustLoanEmplDetails" style={{minHeight:"100vh"}}>
         <Container>
           <Row className="justify-content-center">
             <Col md={8} className="text-center">
@@ -150,8 +150,7 @@ function CustomerLoanEmployeDetails() {
                                 value={form.nameofemployer}
                                 onChange={handleChange}
                               />
-                              {errors.nameofemployer && <p style={{ color: "red" }}>{errors.nameofemployer}</p>}
-                              <br />
+                              {errors.nameofemployer && <div style={{ color: "red" }}>{errors.nameofemployer}</div>}
                               <label>Work Experience</label>
                               <input
                                 type="number"
@@ -160,7 +159,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.workexp && <p style={{ color: "red" }}>{errors.workexp}</p>}
+                              {errors.workexp && <div style={{ color: "red" }}>{errors.workexp}</div>}
                               <label>Position</label>
                               <input
                                 type="text"
@@ -169,7 +168,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.position && <p style={{ color: "red" }}>{errors.position}</p>}
+                              {errors.position && <div style={{ color: "red" }}>{errors.position}</div>}
                             </Col>
                           </Row>
                         </Container>
@@ -188,8 +187,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.employercontact && <p style={{ color: "red" }}>{errors.employercontact}</p>}
-                              <br />
+                              {errors.employercontact && <div style={{ color: "red" }}>{errors.employercontact}</div>}
                               <label>Salary</label>
                               <input
                                 type="number"
@@ -198,7 +196,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.salary && <p style={{ color: "red" }}>{errors.salary}</p>}
+                              {errors.salary && <div style={{ color: "red" }}>{errors.salary}</div>}
                               <label>Salary Slip</label>
                               <input
                                 type="file"
@@ -206,7 +204,7 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleFileChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.salaryslip && <p style={{ color: "red" }}>{errors.salaryslip}</p>}
+                              {errors.salaryslip && <div style={{ color: "red" }}>{errors.salaryslip}</div>}
                               <div className="CustLoanEmplDetailsCustIcon">
                                 <MdOutlineFileUpload />
                               </div>

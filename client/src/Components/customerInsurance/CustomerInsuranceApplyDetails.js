@@ -234,7 +234,7 @@ function CustomerInsuranceApplyDetails() {
                             Relation Ship
                           </label>
                           <h1 name="email" className="CVCD-h4">
-                            ₹{user?.nomineerelationship}/-
+                            {user?.nomineerelationship}
                           </h1>
                         </div>
                       </div>
@@ -246,7 +246,7 @@ function CustomerInsuranceApplyDetails() {
                           Contact
                         </label>
                         <h1 name="email" className="CVCD-h4">
-                          ₹{user?.nomineecontactnumber}/-
+                          {user?.nomineecontactnumber}
                         </h1>
                       </div>
 

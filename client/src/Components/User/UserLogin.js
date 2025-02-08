@@ -62,7 +62,7 @@ function UserLogin() {
               localStorage.setItem("userid", data._id);
               navigate("/user/homepage");
             } else {
-              alert("Your account is deactivated by the admin. Please wait until the admin reactivates your account.");
+              alert("Your account has been deactivated by the Manager. Please Contact the Branch.");
             }
           } else {
             alert(msg);

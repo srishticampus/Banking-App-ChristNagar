@@ -57,7 +57,7 @@ router.get('/viewloanbyuser/:userid', loan.ApprovedLoanApplicationbyUserId)     
 router.post('/carduser/:userid/:data', card.upload, card.CustomerPersonalDetails)
 router.post('/viewallcreditapplication', card.ViewCreditCardApplication)
 router.post('/viewusercreditapplication/:id', card.ViewUserCreditCardApplication)
-router.post('/viewonecreditapplication/:id', card.ViewSingleCreditCardApplication)
+router.post('/viewonecreditapplication/:data', card.ViewSingleCreditCardApplication)
 router.post('/nonverifiedcreditapplication', card.NonVerifiedCreditCardApplication)
 router.post('/verifiedcreditapplication', card.VerifiedCreditCardApplication)
 router.post('/verifyingcreditapplication/:id', card.VerifyCreditCardApplication)
@@ -117,6 +117,6 @@ router.post('/viewNonApprovedTransactions',transaction.viewNonApprovedTransactio
 router.post('/toRejectverificationTransactions/:transactionid',transaction.toRejectverificationTransactions)
 router.post('/viewnormaltransaction',normaltransaction.viewAlllNormaTransactions)
 router.post('/viewallinsurances',insuranceApply.ViewAllInsuranceApplications)
-
+router.post('/rejectinsurance/:id',insurance.RejectInsuranceApplication)
 
 module.exports = router

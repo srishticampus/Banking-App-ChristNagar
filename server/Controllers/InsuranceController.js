@@ -63,7 +63,7 @@ const adminAddInsurance = async (req, res) => {
 };
 
 const ViewInsuranceApplication = (req, res) => {
-  Insurance.find()
+  Insurance.find( { approvalstatus: "Pending" })
     .then((response) => {
       if (response == "") {
         res.json({ status: 200, msg: "No Data Found", data: response });
@@ -199,6 +199,26 @@ const ApproveInsuranceApplication = async (req, res) => {
     });
 };
 
+const RejectInsuranceApplication = async (req, res) => {
+  const data = req.params.id;
+
+  await Insurance.findByIdAndUpdate(
+    data,
+    { approvalstatus: "Rejected" },
+    { new: true }
+  )
+    .then((response) => {
+      if (response == "") {
+        res.json({ status: 200, msg: "No Data Found" });
+      } else {
+        res.json({ status: 200, msg: "Data fetch Successful", data: response });
+      }
+    })
+    .catch((error) => {
+      res.json({ status: 500, msg: "Data fetch failed", data: error });
+    });
+};
+
 // for viewing approved applications
 const ApprovedInsuranceApplication = (req, res) => {
   Insurance.find({ verificationstatus: true, approvalstatus: "Approved" })
@@ -235,9 +255,8 @@ const editInsuranceById = async (req, res) => {
     amounttobepaid,
     policyterm,
     paymentfrequency,
-    planimage:req.files[0]
+    planimage: req.files[0],
   };
-
 
   try {
     const updatedInsurance = await Insurance.findByIdAndUpdate(
@@ -281,4 +300,5 @@ module.exports = {
   NonVerifiedInsuranceApplication,
   NonApprovedInsuranceApplication,
   ViewSingleInsuranceApplication,
+  RejectInsuranceApplication,
 };

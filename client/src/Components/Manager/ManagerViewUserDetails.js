@@ -24,10 +24,46 @@ function ManagerViewUserDetails() {
       })
       .catch(() => {});
   };
+  const getLoanData = () => {
+    axiosInstance
+      .get(`/viewloanbyuser/${userid}`)
+      .then((res) => {
+        setLoan(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch(() => {});
+  };
+  const getCreaditcardData = () => {
+    axiosInstance
+      .post(`/viewusercreditapplication/${userid}`)
+      .then((res) => {
+        setCreditcard(res.data.data);
+        console.log(res.data.data, "creadit");
+      })
+      .catch(() => {});
+  };
+
+  const getLifeInsuranceData = () => {
+    axiosInstance
+      .post(`/viewapplyinsuranceapplicationbyuserid/${userid}`)
+      .then((res) => {
+        setLifeinsurance(res.data.data);
+        console.log(res.data.data,"insurance");
+      })
+      .catch(() => {});
+  };
+
+  const openFileInNewTab = (filePath) => {
+    window.open(`${imgurl}/${filePath}`, "_blank");
+  };
 
   useEffect(() => {
     getAData();
+    getLoanData();
+    getCreaditcardData();
+    getLifeInsuranceData();
   }, []);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -99,52 +135,74 @@ function ManagerViewUserDetails() {
               </div>
 
               <div className="col-3">
-                {creditcard.length > 0 ? (
+                {creditcard?.length > 0 ? (
                   <Card style={{ width: "27rem" }} className="eachcard">
                     <Card.Body>
                       <Card.Title className=" userdetailsview cardtitle">
-                        Credit Card Details
+                        Creadit Card Details
                       </Card.Title>
                       <div className="row">
                         <Card.Text className="col">
                           <label className="cardlabels">Card Type</label>
-                          <p classname="carddetails">akila45@gmail.com</p>
                         </Card.Text>
                         <Card.Text className="col">
                           <label className="cardlabels">
-                            Employmeny Status
+                            Employment status{" "}
                           </label>
-                          <p className="carddetails">ABC</p>
-                        </Card.Text>
-                      </div>
-                      <div className="row">
-                        <Card.Text className="col">
-                          <label className="cardlabels">Income Range</label>
-                          <p className="carddetails">25,000/-</p>
                         </Card.Text>
                         <Card.Text className="col">
-                          <label className="cardlabels">Credit Card Limt</label>
-                          <p className="carddetails">2,00,0000/-</p>
+                          <label className="cardlabels ms-5">
+                            Creaditcard Limit
+                          </label>
+                        </Card.Text>
+                        <Card.Text className="col">
+                          <label className="cardlabels ms-5">
+                            Income Proof
+                          </label>
                         </Card.Text>
                       </div>
-                      <div className="row">
-                        <div className="col">
-                          <label className="cardlabels">ID Proof</label>
-                          <p>
-                            <Card.Link href="#" className="userdetailsview">
-                              Card Link
-                            </Card.Link>
-                          </p>
+                      {creditcard?.map((data) => (
+                        <div className="row">
+                          <Card.Text className="col">
+                            <p className="carddetails">{data?.cardtype}</p>
+                          </Card.Text>
+                          <Card.Text className="col">
+                            <p className="carddetails">
+                              {data?.employmentstatus}
+                            </p>
+                          </Card.Text>
+                          <Card.Text className="col">
+                            <p className="carddetails">
+                              {data?.creditcardlimit}
+                            </p>
+                          </Card.Text>
+                          <Card.Text className="col">
+                            <p className="carddetails">
+                              {data?.incomeproof?.filename ? (
+                                <h1
+                                  name="dl"
+                                  className="CVCD-h4"
+                                  onClick={() =>
+                                    openFileInNewTab(
+                                      data?.incomeproof?.filename
+                                    )
+                                  }
+                                >
+                                  View File
+                                </h1>
+                              ) : (
+                                <h1
+                                  name="dl"
+                                  className="CVCD-h4"
+                                  style={{ color: "gray" }}
+                                >
+                                  No file found
+                                </h1>
+                              )}
+                            </p>
+                          </Card.Text>
                         </div>
-                        <div className="col">
-                          <label className="cardlabels">Income Proof</label>
-                          <p>
-                            <Card.Link href="#" className="userdetailsview">
-                              Another Link
-                            </Card.Link>
-                          </p>
-                        </div>
-                      </div>
+                      ))}
                     </Card.Body>
                   </Card>
                 ) : (
@@ -161,7 +219,7 @@ function ManagerViewUserDetails() {
 
                 <div className="row py-5 ">
                   <div className="col-6 ms-3">
-                    {loan.length > 0 ? (
+                    {loan?.length > 0 ? (
                       <Card style={{ width: "27rem" }} className="eachcard">
                         <Card.Body>
                           <Card.Title className=" userdetailsview cardtitle">
@@ -170,67 +228,96 @@ function ManagerViewUserDetails() {
                           <div className="row">
                             <Card.Text className="col">
                               <label className="cardlabels">Loan Type</label>
-                              <p className="carddetails">ABC</p>
                             </Card.Text>
                             <Card.Text className="col">
                               <label className="cardlabels">
                                 Purpose of Loan{" "}
                               </label>
-                              <p className="carddetails">ABC</p>
                             </Card.Text>
-                          </div>
-                          <div className="row">
                             <Card.Text className="col">
-                              <label className="cardlabels">
+                              <label className="cardlabels ms-5">
                                 Amount Sanctioned
                               </label>
-                              <p className="carddetails"> ABC</p>
                             </Card.Text>
                           </div>
+
+                          {loan?.map((data) => (
+                            <div className="row">
+                              <Card.Text className="col">
+                                <p className="carddetails">{data?.loantype}</p>
+                              </Card.Text>
+                              <Card.Text className="col">
+                                <p className="carddetails">
+                                  {data?.loanpurpose}
+                                </p>
+                              </Card.Text>
+                              <Card.Text className="col">
+                                <p className="carddetails">
+                                  {data?.loanamount}
+                                </p>
+                              </Card.Text>
+                            </div>
+                          ))}
                         </Card.Body>
                       </Card>
                     ) : (
                       <div>No Loan You Have</div>
                     )}
                   </div>
-                  <div className="col-4 ">
-                    {creditcard.length > 0 ? (
+                  <div className="col-3">
+                    {lifeinsurance?.length > 0 ? (
                       <Card style={{ width: "27rem" }} className="eachcard">
                         <Card.Body>
-                          <Card.Title className="cardtitle userdetailsview">
+                          <Card.Title className=" userdetailsview cardtitle">
                             Life Insurance Details
                           </Card.Title>
                           <div className="row">
                             <Card.Text className="col">
-                              <label className="cardlabels">
-                                Insurance Plan
-                              </label>
-                              <p className="carddetails">ABC</p>
+                              <label className="cardlabels">Insurance Plan</label>
                             </Card.Text>
                             <Card.Text className="col">
-                              <label className="cardlabels">Policy Term</label>
-                              <p className="carddetails">ABC</p>
+                              <label className="cardlabels">
+                                Coverage amount
+                              </label>
+                            </Card.Text>
+                            <Card.Text className="col">
+                              <label className="cardlabels ms-5">
+                               Policy Term
+                              </label>
+                            </Card.Text>
+                            <Card.Text className="col">
+                              <label className="cardlabels ms-5">
+                               Payment Frequency
+                              </label>
                             </Card.Text>
                           </div>
-                          <div className="row">
-                            <Card.Text className="col">
-                              <label className="cardlabels">
-                                Coverage Amount
-                              </label>
-                              <p className="carddetails">2000/-</p>
-                            </Card.Text>
-                            <Card.Text className="col">
-                              <label className="cardlabels">
-                                Payment Frequency
-                              </label>
-                              <p className="carddetails">ABC</p>
-                            </Card.Text>
-                          </div>
+                          {lifeinsurance?.map((data) => (
+                            <div className="row">
+                              <Card.Text className="col">
+                                <p className="carddetails">{data?.planid?.planname}</p>
+                              </Card.Text>
+                              <Card.Text className="col">
+                                <p className="carddetails">
+                                  {data?.planid?.coverageamount}
+                                </p>
+                              </Card.Text>
+                              <Card.Text className="col">
+                                <p className="carddetails">
+                                  {data?.planid?.policyterm}
+                                </p>
+                              </Card.Text>
+                              <Card.Text className="col">
+                                <p className="carddetails">
+                                 {data?.planid?.paymentfrequency}
+                                </p>
+                              </Card.Text>
+                            </div>
+                          ))}
                         </Card.Body>
                       </Card>
                     ) : (
-                      <div>No Life Insurance </div>
-                    )}
+                      <div> No insurance available </div>
+                    )}{" "}
                   </div>
                 </div>
                           <div className="text-center p-4" onClick={()=>moveToTransaction(user._id)}><img src={transaction}></img></div>

@@ -17,7 +17,7 @@ function ClerkViewInsuranceDetails() {
     window.open(`${imgurl}/${filePath}`, "_blank");
   };
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const GetUserData = async () => {
     try {
@@ -33,17 +33,19 @@ function ClerkViewInsuranceDetails() {
   };
   const CancelbuttonOnClick = () => {
     navigate("/clerk/clerkviewinsurance");
-};
+  };
 
-const VerifybuttonOnClick = async () => {
+  const VerifybuttonOnClick = async () => {
     try {
-        await axiosInstance.post(`/verifyinginsuranceapplication/${planapplicationid}`);
-        alert("Application Verified Successfully");
-        navigate("/clerk/clerkviewinsurance");
+      await axiosInstance.post(
+        `/verifyinginsuranceapplication/${planapplicationid}`
+      );
+      alert("Application Verified Successfully");
+      navigate("/clerk/clerkviewinsurance");
     } catch (error) {
-        console.error("Error verifying Application:", error);
+      console.error("Error verifying Application:", error);
     }
-};
+  };
 
   useEffect(() => {
     GetUserData();
@@ -80,98 +82,6 @@ const VerifybuttonOnClick = async () => {
             <div>
               {/* Progress Bar */}
               <Container>
-                <Row className="justify-content-center">
-                  <Col md={8} className="text-center">
-                    <div className="UCADcirclecontainer">
-                      <div className="UCADcirclecontainer-1">
-                        <div className="circlecontainerdiv">
-                          <div className="UCADcircle active">
-                            <img src={checkmark} alt="checkmark" />
-                          </div>
-                          <span className="UCAD-progress-text">Apply</span>
-                        </div>
-                      </div>
-
-                      {user?.insuranceverification ? (
-                        <>
-                          <div className="UCAD-profildetaildline active" />
-                          <div className="UCADcirclecontainer-2">
-                            <div className="circlecontainerdiv">
-                              <div className="UCADcircle active">
-                                <img src={checkmark} alt="checkmark" />
-                              </div>
-                              <span className="UCAD-progress-text">
-                                Clerk Verify
-                              </span>
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="UCAD-profildetaildline" />
-                          <div className="UCADcirclecontainer-2">
-                            <div className="circlecontainerdiv">
-                              <div className="UCADcircle"></div>
-                              <span className="UCAD-progress-text">
-                                Clerk Verify
-                              </span>
-                            </div>
-                          </div>
-                        </>
-                      )}
-
-                      {user?.approvalstatus === "Approved" ? (
-                        <>
-                          <div className="UCAD-profildetaildline active" />
-                          <div className="UCADcirclecontainer-3">
-                            <div className="circlecontainerdiv">
-                              <div className="UCADcircle active">
-                                <img src={checkmark} alt="checkmark" />
-                              </div>
-                              <span className="UCAD-progress-text">
-                                Manager Approval
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="UCAD-profildetaildline active" />
-                          <div className="UCADcirclecontainer-4">
-                            <div className="circlecontainerdiv">
-                              <div className="UCADcircle active">
-                                <img src={checkmark} alt="checkmark" />
-                              </div>
-                              <span className="UCAD-progress-text">
-                                Card Approved
-                              </span>
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="UCAD-profildetaildline" />
-                          <div className="UCADcirclecontainer-3">
-                            <div className="circlecontainerdiv">
-                              <div className="UCADcircle"></div>
-                              <span className="UCAD-progress-text">
-                                Manager Approval
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="UCAD-profildetaildline" />
-                          <div className="UCADcirclecontainer-4">
-                            <div className="circlecontainerdiv">
-                              <div className="UCADcircle"></div>
-                              <span className="UCAD-progress-text">
-                                Card Approved
-                              </span>
-                            </div>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </Col>
-                </Row>
                 <div className="CVCD-MainDiv-ContainDiv-Content-Card-Upper">
                   {/* Personal Details */}
                   <div className="CVCD-MainDiv-ContainDiv-Content-Card">
@@ -199,8 +109,6 @@ const VerifybuttonOnClick = async () => {
                               ).toLocaleDateString("en-GB")}
                             </h1>
                           </div>
-
-                          
                         </div>
                       </div>
 
@@ -461,22 +369,25 @@ const VerifybuttonOnClick = async () => {
                         </div>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
-                {!user.insuranceverification && (
-                            <div className="CVD-MainDiv-ContainDiv-Content-Card-Button">
-                                <button className="CVD-button1" onClick={CancelbuttonOnClick}>
-                                    Cancel
-                                </button>
-                                <button className="CVD-button2" onClick={VerifybuttonOnClick}>
-                                    Verify
-                                </button>
-                            </div>
-                        )}
               </Container>
             </div>
+            <div className="text-center">
+          <div>
+            {!user.insuranceverification && (
+              <div className="CVD-MainDiv-ContainDiv-Content-Card-Button">
+                <button className="CVD-button1" onClick={CancelbuttonOnClick}>
+                  Cancel
+                </button>
+                <button className="CVD-button2" onClick={VerifybuttonOnClick}>
+                  Verify
+                </button>
+              </div>
+            )}</div>
           </div>
+          </div>
+          
         </div>
       </div>
     </div>

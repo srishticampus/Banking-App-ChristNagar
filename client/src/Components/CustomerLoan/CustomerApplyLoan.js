@@ -220,7 +220,7 @@ function CustomerApplyLoan() {
                                                 </td>
                                                 <td className="custcreditstatussect2formthonerow">
 
-                                                    <p className="CACC-p-link" onClick={() => navigate(`/user/creditcarddetails/${data._id}`)}>View More</p>
+                                                    <p className="CACC-p-link" onClick={() => navigate(`/user/viewloandetails/${data._id}`)}>View More</p>
 
                                                 </td>
                                             </tr>

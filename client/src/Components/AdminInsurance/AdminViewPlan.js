@@ -6,6 +6,7 @@ import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import "../../Asserts/Styles/manager.css";
 import addclerk from "../../Asserts/images/Frame 1000001036.png";
 import editbtn from "../../Asserts/images/notepad-edit.png";
+import deletebtn from "../../Asserts/images/hugeicons_delete-02.png";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
@@ -104,6 +105,13 @@ function AdminViewPlan() {
     setProfileFileName(file.name);
   };
 
+  const handleDelete = (id) => {
+    axiosInstance.post("/rejectinsurance/" + id).then((result) => {
+      alert("Insurance Plan Deactivated");
+      ApplicationData()
+    });
+  };
+
   const validateForm = () => {
     let isValid = true;
     let errorObj = {};
@@ -159,6 +167,7 @@ function AdminViewPlan() {
       );
       if (response.status === 200) {
         alert(response.data.msg);
+        window.location.reload();
         setShowAddModal(false);
         ApplicationData(); // Refresh the list
       }
@@ -349,6 +358,13 @@ function AdminViewPlan() {
                           handleEdit(data?._id);
                         }}
                       />
+                      <img
+                        src={deletebtn}
+                        alt="Edit"
+                        onClick={() => {
+                          handleDelete(data?._id);
+                        }}
+                      />
                     </td>
                   </tr>
                 ))
@@ -491,9 +507,7 @@ function AdminViewPlan() {
                       name="policyterm"
                       onChange={handleInputChange}
                     >
-                      <option value="" disabled>
-                        Select Policy Term
-                      </option>
+                      <option>Select Policy Term</option>
                       <option value="10year">10 Year</option>
                       <option value="20year">20 Year</option>
                       <option value="30year">30 Year</option>
@@ -511,9 +525,7 @@ function AdminViewPlan() {
                       name="paymentfrequency"
                       onChange={handleInputChange}
                     >
-                      <option value="" disabled>
-                        Select Payment Frequency
-                      </option>
+                      <option>Select Payment Frequency</option>
                       <option value="monthly">Monthly</option>
                       <option value="quarterly">Quarterly</option>
                       <option value="annually">Annually</option>

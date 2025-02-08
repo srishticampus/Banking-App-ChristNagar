@@ -51,16 +51,11 @@ function CustomerViewLoanDetails() {
         GetUserData();
     }, [data]);
 
-    if (!user) {
-        return <div>Loading user details...</div>;
-    }
+   
 
     return (
         <div className="CVLD-MainDiv">
         <UserNavbar/>
-            {console.log("user", user)}
-            {console.log("id", user._id)}
-            {console.log("data-data", data)}
 
             <div className="CVLD-MainDiv-ContainDiv">
                 

@@ -31,16 +31,16 @@ function ManagerViewInsuranceApplicationDetails() {
       console.error("Error fetching user data:", error);
     }
   };
-  const CancelbuttonOnClick = async() => {
+  const CancelbuttonOnClick = async () => {
     try {
-        await axiosInstance.post(
-          `/rejectinsuranceapplication/${planapplicationid}`
-        );
-        alert("Application Rejected");
-        navigate("/manager/managerviewinsurance");
-      } catch (error) {
-        console.error("Error verifying Application:", error);
-      }
+      await axiosInstance.post(
+        `/rejectinsuranceapplication/${planapplicationid}`
+      );
+      alert("Application Rejected");
+      navigate("/manager/managerviewinsurance");
+    } catch (error) {
+      console.error("Error verifying Application:", error);
+    }
   };
 
   const VerifybuttonOnClick = async () => {
@@ -319,14 +319,7 @@ function ManagerViewInsuranceApplicationDetails() {
                           </h1>
                         </div>
 
-                        <div className="CVCD-textcontain">
-                          <label for="address" className="CVCD-label">
-                            Address
-                          </label>
-                          <h1 name="address" className="CVCD-h4">
-                            {user?.userid?.userAddress}
-                          </h1>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -471,24 +464,30 @@ function ManagerViewInsuranceApplicationDetails() {
                     </div>
                   </div>
                 </div>
-                {user?.approvalstatus === "Pending" && (
-                  <div className="CVD-MainDiv-ContainDiv-Content-Card-Button">
-                    <button
-                      className="CVD-button2"
-                      onClick={VerifybuttonOnClick}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="CVD-button1"
-                      onClick={CancelbuttonOnClick}
-                    >
-                      Reject
-                    </button>
-                  </div>
-                )}
+                
               </Container>
+              
             </div>
+            <div className="text-center">
+                  <div>
+                    {user?.approvalstatus === "Pending" && (
+                      <div className="CVD-MainDiv-ContainDiv-Content-Card-Button">
+                        <button
+                          className="CVD-button2"
+                          onClick={VerifybuttonOnClick}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className="CVD-button1"
+                          onClick={CancelbuttonOnClick}
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
           </div>
         </div>
       </div>

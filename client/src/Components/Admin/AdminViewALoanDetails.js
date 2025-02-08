@@ -3,9 +3,9 @@ import axiosInstance from "../../apis/axiosinstance";
 import imgurl from "../../apis/imgURL";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../Asserts/Styles/ManagerViewLoanDetails.css";
-import ManagerSideBar from "./ManagerSidebar";
+import AdminSidebar from "./AdminSidebar";
 
-function ManagerViewLoanDetails() {
+function AdminViewALoanDetails() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const { data } = useParams();
@@ -27,50 +27,25 @@ function ManagerViewLoanDetails() {
     }
   };
 
-  const CancelbuttonOnClick = () => {
-    navigate("/manager/managermanageloan");
-  };
+
 
   const openFileInNewTab = (filePath) => {
     window.open(`${imgurl}/${filePath}`, "_blank");
   };
 
-  const ApprovebuttonOnClick = async () => {
-    try {
-      await axiosInstance.post(`/approveloan/${user._id}`);
-      alert("Loan approved Successfully");
-      navigate("/manager/managermanageloan");
-    } catch (error) {
-      console.error("Error verifying loan:", error);
-    }
-  };
-
-  const RejectbuttonOnClick = async () => {
-    try {
-      await axiosInstance.post(`/rejectloan/${user._id}`);
-      alert("Loan Rejected");
-      navigate("/manager/managermanageloan");
-    } catch (error) {
-      console.error("Error verifying loan:", error);
-    }
-  };
 
   useEffect(() => {
     GetUserData();
   }, [data]);
 
-  if (!user) {
-    return <div>Loading user details...</div>;
-  }
 
   return (
     <div className="MVLD-MainDiv">
-      {console.log("user", user)}
-      {console.log("id", user._id)}
+     
 
       <div className="MVLD-MainDiv-ContainDiv">
         <div>
-          <ManagerSideBar />
+          <AdminSidebar />
         </div>
 
         <div className="MVLD-MainDiv-ContainDiv-ContentDiv">
@@ -83,13 +58,13 @@ function ManagerViewLoanDetails() {
             <div>
               <img
                 className="MVLD-profile-img"
-                src={`${imgurl}/${user.userid.userPicture.originalname}`}
+                src={`${imgurl}/${user?.userid?.userPicture?.originalname}`}
                 alt="PROFILE"
               />
             </div>
 
             <div>
-              <h1 className="MVLD-h3">{user.userid.username}</h1>
+              <h1 className="MVLD-h3">{user?.userid?.username}</h1>
             </div>
 
             <div className="MVLD-MainDiv-ContainDiv-Content-Card-Upper">
@@ -105,7 +80,7 @@ function ManagerViewLoanDetails() {
                           E-mail
                         </label>
                         <h1 name="email" className="MVLD-h4">
-                          {user.userid.userMail}
+                          {user?.userid?.userMail}
                         </h1>
                       </div>
 
@@ -114,7 +89,7 @@ function ManagerViewLoanDetails() {
                           Date Of Birth
                         </label>
                         <h1 name="DOB" className="MVLD-h4">
-                          {new Date(user.userid.userDate).toLocaleDateString(
+                          {new Date(user?.userid?.userDate).toLocaleDateString(
                             "en-GB"
                           )}
                         </h1>
@@ -128,7 +103,7 @@ function ManagerViewLoanDetails() {
                         Contact
                       </label>
                       <h1 name="Contact" className="MVLD-h4">
-                        {user.userid.userContact}
+                        {user?.userid?.userContact}
                       </h1>
                     </div>
 
@@ -137,7 +112,7 @@ function ManagerViewLoanDetails() {
                         Address
                       </label>
                       <h1 name="address" className="MVLD-h4">
-                        {user.userid.userAddress}
+                        {user?.userid?.userAddress}
                       </h1>
                     </div>
                   </div>
@@ -307,7 +282,7 @@ function ManagerViewLoanDetails() {
                           Name Of Employer
                         </label>
                         <h1 name="empname" className="MVLD-h4">
-                          {user.nameofemployer}
+                          {user?.nameofemployer}
                         </h1>
                       </div>
 
@@ -316,7 +291,7 @@ function ManagerViewLoanDetails() {
                           Work Experience
                         </label>
                         <h1 name="workexp" className="MVLD-h4">
-                          {user.workexp} Years
+                          {user?.workexp} Years
                         </h1>
                       </div>
 
@@ -325,7 +300,7 @@ function ManagerViewLoanDetails() {
                           Position
                         </label>
                         <h1 name="Position" className="MVLD-h4">
-                          {user.position}
+                          {user?.position}
                         </h1>
                       </div>
                     </div>
@@ -337,7 +312,7 @@ function ManagerViewLoanDetails() {
                         Contact
                       </label>
                       <h1 name="Contact" className="MVLD-h4">
-                        {user.employercontact}
+                        {user?.employercontact}
                       </h1>
                     </div>
 
@@ -346,7 +321,7 @@ function ManagerViewLoanDetails() {
                         Salary
                       </label>
                       <h1 name="address" className="MVLD-h4">
-                        ₹{user.salary}/-
+                        ₹{user?.salary}/-
                       </h1>
                     </div>
 
@@ -355,27 +330,7 @@ function ManagerViewLoanDetails() {
                         Salary Slip
                       </label>
                       <h1 name="salslip" className="MVLD-h4 text-decoration-underline">
-                      {user?.salaryslipimg?.filename ? (
-                        <h1
-                          name="passport"
-                          className="CVD-h4 text-decoration-underline"
-                          onClick={() =>
-                            openFileInNewTab(user?.salaryslipimg?.filename)
-                          }
-                        >
-                          View File
-                        </h1>
-                      ) : (
-                        <h1
-                          name="passport"
-                          className="CVD-h4"
-                          style={{ color: "gray" }}
-                        >
-                          No file found
-                        </h1>
-                      )}{" "}
-
-                       
+                        View File
                       </h1>
                     </div>
                   </div>
@@ -394,7 +349,7 @@ function ManagerViewLoanDetails() {
                           Loan Type
                         </label>
                         <h1 name="loantype" className="MVLD-h4">
-                          {user.loantype}
+                          {user?.loantype}
                         </h1>
                       </div>
 
@@ -403,7 +358,7 @@ function ManagerViewLoanDetails() {
                           Purpose Of Loan
                         </label>
                         <h1 name="loanpurpose" className="MVLD-h4">
-                          {user.loanpurpose}
+                          {user?.loanpurpose}
                         </h1>
                       </div>
                     </div>
@@ -415,7 +370,7 @@ function ManagerViewLoanDetails() {
                         Amount Required
                       </label>
                       <h1 name="loanamount" className="MVLD-h4">
-                        ₹{user.loanamount}/-
+                        ₹{user?.loanamount}/-
                       </h1>
                     </div>
                   </div>
@@ -423,21 +378,12 @@ function ManagerViewLoanDetails() {
               </div>
             </div>
 
-            {user.loanapproval == "Pending" && (
-              <div className="MVLD-MainDiv-ContainDiv-Content-Card-Button">
-                <button className="MVLD-button1" onClick={RejectbuttonOnClick}>
-                  Reject
-                </button>
-                <button className="MVLD-button2" onClick={ApprovebuttonOnClick}>
-                  Approve
-                </button>
-              </div>
-            )}
+            
           </div>
         </div>
       </div>
     </div>
   );
-}
 
-export default ManagerViewLoanDetails;
+}
+export default AdminViewALoanDetails;

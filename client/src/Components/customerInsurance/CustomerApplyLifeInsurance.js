@@ -27,12 +27,24 @@ function CustomerApplyLifeInsurance() {
   const ApplicationData = async () => {
     try {
       const response = await axiosInstance.post("/viewallinsuranceapplication");
-      console.log("user list", response.data.data);
-      setInsurance(response.data.data);
+      const allPlans = response.data.data;
+  
+      // Fetch applied insurance plans
+      const userDataResponse = await axiosInstance.post(`/viewapplyinsuranceapplicationbyuserid/${localStorage.getItem("userid")}`);
+      const appliedPlans = userDataResponse.data.data || [];
+  
+      // Extract applied plan IDs
+      const appliedPlanIds = new Set(appliedPlans.map(plan => plan.planid?._id));
+  
+      // Filter out applied plans
+      const availablePlans = allPlans.filter(plan => !appliedPlanIds.has(plan._id));
+  
+      setInsurance(availablePlans);
     } catch (error) {
-      console.error("error fetching user data?:", error);
+      console.error("Error fetching user data:", error);
     }
   };
+  
   const navigate=useNavigate()
 
   const handleApplyAPlan=(planid)=>{
