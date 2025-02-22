@@ -46,36 +46,43 @@ function CustomerLoanIdentity() {
   const validate = () => {
     let isValid = true;
     const newErrors = {};
-
+  
+    // PAN Card Validation
+    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
     if (!form.pancardNumber) {
       newErrors.pancardNumber = "PAN Card Number is mandatory.";
       isValid = false;
-    } else if (form.pancardNumber.length !== 10) {
-      newErrors.pancardNumber = "PAN Card Number must be 10 characters.";
+    } else if (!panRegex.test(form.pancardNumber)) {
+      newErrors.pancardNumber =
+        "Invalid PAN format. Example: ABCDE1234F (all uppercase, no special characters).";
       isValid = false;
     }
-
+  
     if (!form.panCardFile) {
       newErrors.panCardFile = "PAN Card file is mandatory.";
       isValid = false;
     }
-
+  
+    // Aadhaar Number Validation
+    const aadhaarRegex = /^[0-9]{12}$/;
     if (!form.aadhaarNumber) {
       newErrors.aadhaarNumber = "Aadhaar Number is mandatory.";
       isValid = false;
-    } else if (form.aadhaarNumber.length !== 12) {
-      newErrors.aadhaarNumber = "Aadhaar Number must be 12 characters.";
+    } else if (!aadhaarRegex.test(form.aadhaarNumber)) {
+      newErrors.aadhaarNumber =
+        "Invalid Aadhaar format. Must be 12 digits, no special characters.";
       isValid = false;
     }
-
+  
     if (!form.aadhaarFile) {
       newErrors.aadhaarFile = "Aadhaar file is mandatory.";
       isValid = false;
     }
-
+  
     setErrors(newErrors);
     return isValid;
   };
+  
 
   const handleContinue = () => {
     if (validate()) {

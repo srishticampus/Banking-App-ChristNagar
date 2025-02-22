@@ -56,8 +56,8 @@ function CustomerLoanEmployeDetails() {
     } else if (Number(form.workexp) <= 0) {
       newErrors.workexp = "Work experience must be greater than 0.";
     }
-    if (!form.salary || Number(form.salary) <= 1000) {
-      newErrors.salary = "Your salary must be greater than 1000.";
+    if (!form.salary || Number(form.salary) <= 10000) {
+      newErrors.salary = "Your salary must be greater than 10000.";
     }
   
     if (!form.position.trim()) newErrors.position = "Position is required.";
@@ -102,6 +102,7 @@ function CustomerLoanEmployeDetails() {
         alert(response.data.msg)
       }else{
         alert(response.data.msg)
+        navigate("/user/applyloan")
       }
       
     } catch (error) {

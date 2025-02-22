@@ -81,6 +81,7 @@ import AdminViewAcreadit from "./Components/Admin/AdminViewAcreadit";
 import AdminViewAllApprovedLoan from "./Components/Admin/AdminViewAllApprovedLoan";
 import AdminViewALoanDetails from "./Components/Admin/AdminViewALoanDetails";
 import UserTermsAndCondition from "./UserTermsAndCondition";
+import AboutPage from "./Components/Main/AboutPage";
 
 function App() {
   return (
@@ -185,7 +186,7 @@ function App() {
         <Route path="/admin/viewallapprovedloans" element={<AdminViewAllApprovedLoan/>} />
         <Route path="/admin/viewaloandetails/:data" element={<AdminViewALoanDetails/>} />
         <Route path="/user/termsandcondition" element={<UserTermsAndCondition/>} />
-
+        <Route path="/about" element={<AboutPage/>} />
         </Routes>
     </BrowserRouter>
   );
