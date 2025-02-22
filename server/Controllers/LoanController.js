@@ -1,4 +1,3 @@
-const { response } = require('express');
 const LoanSchema = require('../Models/LoanSchema');
 const multer = require('multer');
 
@@ -23,9 +22,9 @@ const upload = multer({ storage: storage }).fields([
 
 // for saving loan application data
 const SaveLoanApplicationData = async (req, res) => {
-
-
-    const userData = new LoanSchema({
+const loantype=req.body.loanType
+const userid=req.params.userid
+const userData = new LoanSchema({
         userid: req.params.userid,
         loantype: req.body.loanType,
         loanamount: req.body.loanAmount,
@@ -44,7 +43,11 @@ const SaveLoanApplicationData = async (req, res) => {
         position: req.body.position,
         salaryslipimg: req.files['salaryslipimg'] ? req.files['salaryslipimg'][0] : null
     })
+    const existingApplication = await LoanSchema.findOne({ userid, loantype });
 
+    if (existingApplication) {
+        return res.json({ status: 400, msg: "Already applied for this same Loan before" });
+    }
     await userData.save()
         .then((response) => {
             res.json({ status: 200, msg: 'Application Successfull', data: response })

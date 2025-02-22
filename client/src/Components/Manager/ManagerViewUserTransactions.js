@@ -77,8 +77,8 @@ function ManagerViewUserTransactions() {
 
   useEffect(() => {
     getAuserData();
-    if (localStorage.getItem("clerkid") == null) {
-      navigate("/clerk/login");
+    if (localStorage.getItem("managerid") == null) {
+      navigate("/manager/login");
     }
   }, []);
 
@@ -133,7 +133,7 @@ function ManagerViewUserTransactions() {
                 {currentRows.map((data, index) => (
                   <tr key={data?._id}>
                     <td>{indexOfFirstRow + index + 1}</td>
-                    <td>{data?.Payeename ? data?.Payeename : "------"}</td>
+                    <td>{data?.payeename ? data?.payeename : "------"}</td>
                     <td>
                       {data?.accountnumber ? data?.accountnumber : "------"}
                     </td>

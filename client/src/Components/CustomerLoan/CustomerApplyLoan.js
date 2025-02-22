@@ -11,12 +11,20 @@ import Applaynow from "../../Asserts/images/ApplyNowBTN.png";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import LandingFooter from "../Main/LandingFooter";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerApplyLoan() {
   const [user, setUser] = useState(null);
   const applayref = useRef();
   const navigate = useNavigate();
 
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
   const [loanDetails, setLoanDetails] = useState({
     loanType: "",
     loanAmount: "",
@@ -71,12 +79,17 @@ function CustomerApplyLoan() {
       newErrors.loanType = "Please select a loan type.";
       valid = false;
     }
-    if (!loanDetails.loanAmount || isNaN(loanDetails.loanAmount) || loanDetails.loanAmount <= 0) {
+    if (
+      !loanDetails.loanAmount ||
+      isNaN(loanDetails.loanAmount) ||
+      loanDetails.loanAmount <= 0
+    ) {
       newErrors.loanAmount = "Please enter a valid loan amount.";
       valid = false;
     }
     if (!loanDetails.loanPurpose || loanDetails.loanPurpose.length < 10) {
-      newErrors.loanPurpose = "Loan purpose must be at least 10 characters long.";
+      newErrors.loanPurpose =
+        "Loan purpose must be at least 10 characters long.";
       valid = false;
     }
 
@@ -99,8 +112,17 @@ function CustomerApplyLoan() {
   return (
     <div>
       <UserNavbar />
+
       <div className="custloanapplysection1">
         <div className="custloanapplysection1pt1">
+          {" "}
+          <button
+            className="btn btn-light"
+            type="button"
+            onClick={UserbackButton}
+          >
+            <FaArrowLeft />
+          </button>
           <div className="row">
             <div className="col-4">
               <div className="custloanapplysection1pt1col1">
@@ -109,7 +131,9 @@ function CustomerApplyLoan() {
                 <br />
                 <br />
                 <br />
-                <p id="custloanapplysection1pt1col1p1">Start Your Application Today:</p>
+                <p id="custloanapplysection1pt1col1p1">
+                  Start Your Application Today:
+                </p>
                 <p id="custloanapplysection1pt1col1p2">
                   Easy online application with
                   <br />
@@ -148,100 +172,109 @@ function CustomerApplyLoan() {
         </div>
       </div>
 
-      {user && (
-        <div className="custcreditstatussect2">
+      {/* Section2 Start */}
+      <div className="custloanapplysection2">
+        {user && (
+          <div className="custcreditstatussect2">
             <br />
             <br />
             <div className="custcreditstatussect2pt2">
-                <br />
-                <center>
-                    <h3 id="custcreditstatussect2h3">Application Status</h3>
-                </center>
-                <br />
-                <br />
-                <div className="custcreditstatussect2formborder1">
-                    <div className="custcreditstatussect2formpt1">
-                        <table>
+              <br />
+              <center>
+                <h3 id="custcreditstatussect2h3">Application Status</h3>
+              </center>
+              <br />
+              <br />
+              <div className="custcreditstatussect2formborder1">
+                <div className="custcreditstatussect2formpt1">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th className="custcreditstatussect2formth">
+                          <label className="custcreditstatussect2datalabel">
+                            Name
+                          </label>
+                        </th>
+                        <th className="custcreditstatussect2formth">
+                          <label className="custcreditstatussect2datalabel">
+                            Contact
+                          </label>
+                        </th>
+                        <th className="custcreditstatussect2formth">
+                          <label className="custcreditstatussect2datalabel">
+                            Email
+                          </label>
+                        </th>
+                        <th className="custcreditstatussect2formth">
+                          <label className="custcreditstatussect2datalabel">
+                            Loan Type
+                          </label>
+                        </th>
+                        <th className="custcreditstatussect2formth">
+                          <label className="custcreditstatussect2datalabel">
+                            Amount Required
+                          </label>
+                        </th>
+                      </tr>
 
-                            <tbody>
-                                <tr>
-                                    <th className="custcreditstatussect2formth">
-                                        <label className="custcreditstatussect2datalabel">
-                                            Name
-                                        </label>
-                                    </th>
-                                    <th className="custcreditstatussect2formth">
-                                        <label className="custcreditstatussect2datalabel">
-                                            Contact
-                                        </label>
-                                    </th>
-                                    <th className="custcreditstatussect2formth">
-                                        <label className="custcreditstatussect2datalabel">
-                                            Email
-                                        </label>
-                                    </th>
-                                    <th className="custcreditstatussect2formth">
-                                        <label className="custcreditstatussect2datalabel">
-                                            Loan Type
-                                        </label>
-                                    </th>
-                                    <th className="custcreditstatussect2formth">
-                                        <label className="custcreditstatussect2datalabel">
-                                        Amount Required
-                                        </label>
-                                    </th>
-
-
-                                </tr>
-
-                                {user?.length > 0 ? (
-                                    user?.map((data, index) => {
-                                        return (
-                                            <tr key={index}>
-                                                <td className="custcreditstatussect2formtd">
-                                                    {data.userid.username}
-                                                </td>
-                                                <td className="custcreditstatussect2formtd">
-                                                    {data.userid.userContact}
-                                                </td>
-                                                <td className="custcreditstatussect2formtd">
-                                                    {data.userid.userMail}
-                                                </td>
-                                                <td className="custcreditstatussect2formtd">
-                                                    {data.loantype}
-                                                </td>
-                                                <td className="custcreditstatussect2formtd">
-                                                    {data.loanamount}
-                                                </td>
-                                                <td className="custcreditstatussect2formthonerow">
-
-                                                    <p className="CACC-p"><GoDotFill className="custcreditstatusradiobtn" />{data.loanapproval}</p>
-
-                                                </td>
-                                                <td className="custcreditstatussect2formthonerow">
-
-                                                    <p className="CACC-p-link" onClick={() => navigate(`/user/viewloandetails/${data._id}`)}>View More</p>
-
-                                                </td>
-                                            </tr>
-                                        )
-                                    })
-                                ) : (
-                                    <tr>
-                                        <td><p className=' text-center text-danger'>No Data Found</p></td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
+                      {user?.length > 0 ? (
+                        user?.map((data, index) => {
+                          return (
+                            <tr key={index}>
+                              <td className="custcreditstatussect2formtd">
+                                {data.userid.username}
+                              </td>
+                              <td className="custcreditstatussect2formtd">
+                                {data.userid.userContact}
+                              </td>
+                              <td className="custcreditstatussect2formtd">
+                                {data.userid.userMail}
+                              </td>
+                              <td className="custcreditstatussect2formtd">
+                                {data.loantype}
+                              </td>
+                              <td className="custcreditstatussect2formtd">
+                                {data.loanamount}
+                              </td>
+                              <td className="custcreditstatussect2formthonerow">
+                                <p className="CACC-p">
+                                  <GoDotFill className="custcreditstatusradiobtn" />
+                                  {data.loanapproval}
+                                </p>
+                              </td>
+                              <td className="custcreditstatussect2formthonerow">
+                                <p
+                                  className="CACC-p-link"
+                                  onClick={() =>
+                                    navigate(
+                                      `/user/viewloandetails/${data._id}`
+                                    )
+                                  }
+                                >
+                                  View More
+                                </p>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      ) : (
+                        <tr>
+                          <td>
+                            <p className=" text-center text-danger">
+                              No Data Found
+                            </p>
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
                 </div>
-                <br />
+              </div>
+              <br />
             </div>
             <br />
-        </div>
-    )}
-      {/* Section2 Start */}
-      <div className="custloanapplysection2">
+          </div>
+        )}
         <div ref={applayref} className="custloanapplysection2pt2">
           <br />
           <br />
@@ -255,7 +288,10 @@ function CustomerApplyLoan() {
               <Form onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-6">
-                    <Form.Group controlId="formBasicText" id="custloanapplytypebox">
+                    <Form.Group
+                      controlId="formBasicText"
+                      id="custloanapplytypebox"
+                    >
                       <Form.Label>Loan Type</Form.Label>
                       <Form.Select
                         name="loanType"
@@ -269,11 +305,16 @@ function CustomerApplyLoan() {
                         <option value="Home Loan">Home Loan</option>
                         <option value="Car Loan">Car Loan</option>
                       </Form.Select>
-                      {errors.loanType && <p className="text-danger">{errors.loanType}</p>}
+                      {errors.loanType && (
+                        <p className="text-danger">{errors.loanType}</p>
+                      )}
                     </Form.Group>
                   </div>
                   <div className="col-6">
-                    <Form.Group controlId="formBasicText" id="custloanapplyamtrequiredbox">
+                    <Form.Group
+                      controlId="formBasicText"
+                      id="custloanapplyamtrequiredbox"
+                    >
                       <Form.Label>Amount Required</Form.Label>
                       <Form.Control
                         type="number"
@@ -282,12 +323,17 @@ function CustomerApplyLoan() {
                         value={loanDetails.loanAmount}
                         onChange={handleChange}
                       />
-                      {errors.loanAmount && <p className="text-danger">{errors.loanAmount}</p>}
+                      {errors.loanAmount && (
+                        <p className="text-danger">{errors.loanAmount}</p>
+                      )}
                     </Form.Group>
                   </div>
                 </div>
                 <Row>
-                  <Form.Group controlId="formBasicText" id="custloanapplypurposeloanbox">
+                  <Form.Group
+                    controlId="formBasicText"
+                    id="custloanapplypurposeloanbox"
+                  >
                     <Form.Label>Purpose Of Loan</Form.Label>
                     <Form.Control
                       as="textarea"
@@ -296,7 +342,9 @@ function CustomerApplyLoan() {
                       value={loanDetails.loanPurpose}
                       onChange={handleChange}
                     />
-                    {errors.loanPurpose && <p className="text-danger">{errors.loanPurpose}</p>}
+                    {errors.loanPurpose && (
+                      <p className="text-danger">{errors.loanPurpose}</p>
+                    )}
                   </Form.Group>
                 </Row>
                 <br />

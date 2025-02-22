@@ -6,7 +6,7 @@ import axiosInstance from "../../apis/axiosinstance";
 import "../../Asserts/Styles/managerviewuserdetails.css";
 import transaction from "../../Asserts/images/transactionbutton.png";
 import AdminSidebar from "./AdminSidebar";
-
+import { FaArrowLeft } from "react-icons/fa6";
 function AdminviewUserDetails() {
   const [user, setUser] = useState({});
   const [creditcard, setCreditcard] = useState([]);
@@ -83,6 +83,7 @@ function AdminviewUserDetails() {
       <div className="col-9">
         <div>
           <h3 className="ms-4">
+          
             <span class="userdetailsview">VIEW</span>USER
           </h3>
           <div id="fullbody">

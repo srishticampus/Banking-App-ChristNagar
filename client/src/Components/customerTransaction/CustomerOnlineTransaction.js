@@ -3,8 +3,11 @@ import axiosInstance from "../../apis/axiosinstance";
 import "../../Asserts/Styles/CustomerTransaction.css";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
+import { Link, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerOnlineTransaction() {
+  const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
     payeename: "",
     payamount: "",
@@ -23,7 +26,14 @@ function CustomerOnlineTransaction() {
     });
     setErrors({ ...errors, [name]: "" }); // Clear the error for the current field
   };
-
+  const navigate=useNavigate()
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
   const validateForm = () => {
     const newErrors = {};
 
@@ -50,8 +60,7 @@ function CustomerOnlineTransaction() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
-
+    if (!validateForm() || !isChecked) return;
     const data = new FormData();
     data.append("payeename", formData.payeename);
     data.append("payamount", formData.payamount);
@@ -59,7 +68,7 @@ function CustomerOnlineTransaction() {
     data.append("accountnumber", formData.accountnumber);
     data.append("chequeimage", formData.chequeimage);
     data.append("userid", userid);
-
+    setIsChecked(false);
     try {
       const response = await axiosInstance.post("/onlinetransaction", data, {
         headers: {
@@ -86,6 +95,13 @@ function CustomerOnlineTransaction() {
       <UserNavbar />
       <div className="onlinetransaction">
         <div className="container">
+        <div className="d-flex justify-content-start"><button
+                  className="btn btn-light"
+                  type="button"
+                  onClick={UserbackButton}
+                >
+                  <FaArrowLeft />
+                </button></div>
           <div className="text-center">
             <h3 className="fw-bold mb-5 online-bill pt-5">
               Online Cheque Transaction
@@ -171,8 +187,22 @@ function CustomerOnlineTransaction() {
                 )}
               </div>
             </div>
+            <p>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              ></input>{" "}
+              &nbsp;I have read and agree to the Terms and Conditions of
+              Unicread, including the payment policies and dispute resolution
+              terms.
+              <Link to="/user/termsandcondition" target="_blank">
+                terms & conditions.
+              </Link>{" "}
+            </p>
             <div className="text-center pb-5">
               <button
+                disabled={!isChecked}
                 type="submit"
                 className="btn paynow-btn rounded-pill mt-4"
               >

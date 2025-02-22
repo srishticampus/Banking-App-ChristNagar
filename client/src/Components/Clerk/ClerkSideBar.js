@@ -20,6 +20,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Modal from "react-bootstrap/Modal";
 import { FaCamera } from "react-icons/fa";
 import watch from "../../Asserts/images/watch.png";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function ClerkSideBar() {
   const navigate = useNavigate();
@@ -70,6 +71,14 @@ function ClerkSideBar() {
       setProfilePreview(`${imgurl}/${data?.profile?.filename}`);
     } catch (error) {
       console.error("Error fetching clerk details", error);
+    }
+  };
+
+  const AdminbackButton = () => {
+    if (window.location.pathname === "/bank_app/clerk/homepage") {
+      navigate("/clerk/homepage");
+    } else {
+      navigate(-1);
     }
   };
 
@@ -166,7 +175,7 @@ function ClerkSideBar() {
 
   useEffect(() => {
     fetchclerkDetails();
-    
+
     if (localStorage.getItem("clerkid") == null) {
       navigate("/clerk/login");
     }
@@ -178,7 +187,7 @@ function ClerkSideBar() {
         <div className="side-nav">
           <div className="profile"></div>
           <Nav className="flex-column ">
-            <div className="col-2 d-flex align-items-center">
+            <div className="col-11 d-flex justify-content-end">
               <Link to="/clerk/homepage">
                 <img src={logo} alt="Logo" />
               </Link>
@@ -186,9 +195,24 @@ function ClerkSideBar() {
                 {" "}
                 <img src={profile} alt="Logo" />
               </div>
+              <div className="row">
+                <div className="col-6"></div>
+                <div className=" col-6 d-flex ">
+                  <button
+                    className="btn btn-dark"
+                    type="button"
+                    onClick={AdminbackButton}
+                  >
+                    <FaArrowLeft />
+                  </button>
+                </div>
+              </div>
             </div>
             <Nav.Item className="nav-link mt-3">
-              <Link to="/clerk/homepage" className="text-decoration-none text-light ms-3">
+              <Link
+                to="/clerk/homepage"
+                className="text-decoration-none text-light ms-3"
+              >
                 <img src={home}></img> Dashboard
               </Link>
             </Nav.Item>
@@ -225,7 +249,8 @@ function ClerkSideBar() {
               </Link>
             </Nav.Item>
             <Nav.Item className="nav-link">
-              <Link to="/clerk/clerkviewuserlist"
+              <Link
+                to="/clerk/clerkviewuserlist"
                 onClick={togglemangerbtn}
                 className="text-decoration-none text-light ms-3 "
               >

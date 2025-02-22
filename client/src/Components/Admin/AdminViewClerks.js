@@ -11,7 +11,7 @@ import imgurl from "../../apis/imgURL";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-
+import { FaArrowLeft } from "react-icons/fa6";
 function AdminViewClerks() {
   const [clerks, setClerks] = useState([]);
   const [filteredClerks, setFilteredClerks] = useState([]);
@@ -115,6 +115,7 @@ function AdminViewClerks() {
       {/* Main Content */}
       <div className="main-content col-lg-9 col-md-8 col-sm-12">
         <h3 className="mt-4">
+       
           <span id="view">VIEW</span> CLERKS
         </h3>
 

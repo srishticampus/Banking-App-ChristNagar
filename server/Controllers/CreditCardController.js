@@ -25,6 +25,8 @@ const logRequestMiddleware = (req, res, next) => {
 
 // for saving credit card application
 const CustomerPersonalDetails = async (req, res) => {
+    const userid=req.params.userid
+    const cardtype=req.body.cardtype
     try {
         const newCustomer = new CreditCardSchema({
             pancardnumber: req.body.pancardnumber,
@@ -37,6 +39,11 @@ const CustomerPersonalDetails = async (req, res) => {
             userid: req.params.userid,
             pancardnumber: req.params.data
         });
+        const existingApplication = await CreditCardSchema.findOne({ userid, cardtype });
+
+        if (existingApplication) {
+            return res.json({ status: 400, msg: "Already applied for this card type before" });
+        }
 
         const response = await newCustomer.save();
         console.log('response', response)
@@ -82,7 +89,9 @@ const ViewUserCreditCardApplication = (req, res) => {
 
 // for viewing one credit card application
 const ViewSingleCreditCardApplication = (req, res) => {
-    CreditCardSchema.find({ _id: req.params.id }).populate('userid')
+    console.log(req.params.data);
+    
+    CreditCardSchema.find({ _id: req.params.data}).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Data Found' });

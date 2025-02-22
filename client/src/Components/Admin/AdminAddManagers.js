@@ -5,7 +5,7 @@ import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import { useNavigate, Link } from "react-router-dom";
 import { FiEyeOff } from 'react-icons/fi';
 import { FaEye } from 'react-icons/fa6';
-
+import { FaArrowLeft } from "react-icons/fa6";
 function AdminAddManagers() {
   const navigate = useNavigate();
 
@@ -182,6 +182,7 @@ function AdminAddManagers() {
     }
 
   },[])
+ 
   
   return (
     <div>
@@ -191,6 +192,7 @@ function AdminAddManagers() {
         </div>
         <div className="col-9" id="common">
           <h3 className="mt-4 mb-4">
+
             <span className="dashboardheadcolor">Add </span> MANAGERS
           </h3>
           <form onSubmit={handleSubmit}>

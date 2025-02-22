@@ -7,6 +7,7 @@ import axiosInstance from "../../apis/axiosinstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerLoanpersonDetail() {
 
@@ -25,6 +26,13 @@ function CustomerLoanpersonDetail() {
     } catch (error) {
       console.error("Error fetching user data:", error);
     }}
+    const UserbackButton = () => {
+      if (window.location.pathname === "/bank_app/user/homepage") {
+        navigate("/user/homepage");
+      } else {
+        navigate(-1);
+      }
+    };
     
   useEffect(() => {
     console.log("Received Loan Details:", loanDetails)
@@ -41,8 +49,16 @@ return (
     <UserNavbar/>
       {/* Progress Bar */}
       <Container>
+      <button
+                  className="btn btn-light"
+                  type="button"
+                  onClick={UserbackButton}
+                >
+                  <FaArrowLeft />
+                </button>
         <Row className="justify-content-center">
           <Col md={6} className="text-center">
+          
             <div className="progress-bar-container">
               <div>
                 {" "}

@@ -45,8 +45,25 @@ function UserRegister() {
   };
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
+    const { name, value } = e.target;
+    let newErrors = { ...errors };
+
+    if (name === "userDate") {
+      const selectedDate = new Date(value);
+      const cutoffDate = new Date("2015-01-01");
+
+      if (selectedDate >= cutoffDate) {
+        newErrors.userDate =
+          "Invalid date of birth. Select a date before 2015.";
+      } else {
+        delete newErrors.userDate;
+      }
+    } else {
+      delete newErrors[name];
+    }
+
+    setErrors(newErrors);
+    setForm({ ...form, [name]: value });
   };
 
   const [showCPassword, setShowCPassword] = useState(false);
@@ -58,6 +75,7 @@ function UserRegister() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   const validateForm = () => {
     let formValid = true;
     let newErrors = {};
@@ -106,7 +124,17 @@ function UserRegister() {
     if (!form.userDate.trim()) {
       formValid = false;
       newErrors.userDate = "Date of Birth is required";
+    } else {
+      const selectedDate = new Date(form.userDate);
+      const cutoffDate = new Date("2015-01-01");
+
+      if (selectedDate >= cutoffDate) {
+        formValid = false;
+        newErrors.userDate =
+          "Invalid date of birth. Select a date before 2015.";
+      }
     }
+
     if (!form.userNumber.trim()) {
       formValid = false;
       newErrors.userNumber = "Account Number is required";
@@ -214,6 +242,7 @@ function UserRegister() {
                       value={form.userCode}
                       onChange={handleChange}
                       className="form-control"
+                      disabled
                     />
                     {errors.userCode && (
                       <div className="error">{errors.userCode}</div>
@@ -258,7 +287,7 @@ function UserRegister() {
                       value={form.userDate}
                       onChange={handleChange}
                       className="form-control"
-                      max={new Date().toISOString().split("T")[0]}
+                      max="2014-12-31"
                     />
                     {errors.userDate && (
                       <div className="error">{errors.userDate}</div>

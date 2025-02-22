@@ -5,6 +5,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerLoanIdentity() {
   const [form, setForm] = useState({
@@ -21,6 +22,13 @@ function CustomerLoanIdentity() {
   const loanDetails = location.state?.loanDetails;
   const [errors, setErrors] = useState({});
 
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
   const store = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
@@ -101,6 +109,13 @@ function CustomerLoanIdentity() {
     <div className="CustLoanIdentity">
     <UserNavbar/>
       <Container>
+      <button
+                  className="btn btn-light"
+                  type="button"
+                  onClick={UserbackButton}
+                >
+                  <FaArrowLeft />
+                </button>
         <Row className="justify-content-center">
           <Col md={8} className="text-center">
             <div className="progress-bar-container">

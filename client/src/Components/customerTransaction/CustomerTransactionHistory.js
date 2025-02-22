@@ -9,6 +9,7 @@ import deactive from "../../Asserts/images/Choose Mode (1).png";
 import { Link, useNavigate } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerTransactionHistory() {
   const [users, setUsers] = useState([]);
@@ -44,6 +45,13 @@ function CustomerTransactionHistory() {
       console.error("Error fetching user data:", err);
     }
   };
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
 
   // Toggle user status between active and inactive
 
@@ -75,8 +83,8 @@ function CustomerTransactionHistory() {
 
   useEffect(() => {
     getAuserData()
-    if (localStorage.getItem("admin") == null) {
-      navigate("/adminlogin");
+    if (localStorage.getItem("userid") == null) {
+      navigate("/user/login");
     }
   }, []);
 
@@ -84,6 +92,13 @@ function CustomerTransactionHistory() {
     <div>
       <UserNavbar />
       <div className="container main-content col-lg-9 col-md-8 col-sm-12">
+      <div className="d-flex justify-content-start"><button
+                className="btn btn-light"
+                type="button"
+                onClick={UserbackButton}
+              >
+                <FaArrowLeft />
+              </button></div>
         <h3 className="my-4 text-center">
           <span id="view">Transaction History </span> 
         </h3>
@@ -128,7 +143,7 @@ function CustomerTransactionHistory() {
                   <td>{data?.accountnumber?data?.accountnumber :"------"}</td>
                   <td>{data?._id}</td>
                   <td>{data?.type}</td>
-                  <td>{data?.amount?data?.amount :data?.payamount}</td>                
+                  <td>{data?.amount?data?.amount :data?.payamount}/-</td>                
                 </tr>
               ))}
             </tbody>

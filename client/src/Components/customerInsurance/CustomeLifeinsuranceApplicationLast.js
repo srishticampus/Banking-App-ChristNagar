@@ -6,6 +6,7 @@ import axiosInstance from "../../apis/axiosinstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import LandingFooter from "../Main/LandingFooter";
 import UserNavbar from "../User/UserNavbar";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomeLifeinsuranceApplicationLast() {
   const [formApply, setFormApply] = useState({
@@ -16,6 +17,13 @@ function CustomeLifeinsuranceApplicationLast() {
     incomeproof: null,
     medicalreport: null,
   });
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
 
   const [isFormValid, setIsFormValid] = useState(false);
   const userid = localStorage.getItem("userid");
@@ -86,6 +94,13 @@ function CustomeLifeinsuranceApplicationLast() {
     <div className="CustLoanPersonalDetails">
       <UserNavbar />
       <Container>
+      <button
+          className="btn btn-light"
+          type="button"
+          onClick={UserbackButton}
+        >
+          <FaArrowLeft />
+        </button>
         <Row className="justify-content-center">
           <Col md={6} className="text-center">
             <div className="progress-bar-container">

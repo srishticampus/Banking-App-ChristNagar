@@ -4,6 +4,8 @@ import { IoIosArrowForward } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import axiosInstance from "../../apis/axiosinstance";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerMobileRecharge() {
   const [selectedOperator, setSelectedOperator] = useState("");
@@ -11,6 +13,7 @@ function CustomerMobileRecharge() {
   const [rechargePlans, setRechargePlans] = useState([]);
   const [operators, setOperators] = useState([]);
   const [numberdata, setNumberdata] = useState("");
+  const [isChecked,setIsChecked]=useState()
   const [error, setError] = useState("");
   const userid = localStorage.getItem("userid");
   const navigate = useNavigate();
@@ -22,7 +25,13 @@ function CustomerMobileRecharge() {
     }
     return "";
   };
-
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
   // Fetch recharge plans
   const fetchMobileRechargePlans = () => {
     axiosInstance
@@ -198,9 +207,23 @@ function CustomerMobileRecharge() {
               <div className="text-muted mt-2">
                 Amount Payable: ₹{selectedPlan.planamount}/-
               </div>
+              <p>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              ></input>{" "}
+              &nbsp;I have read and agree to the Terms and Conditions of
+              Unicread, including the payment policies and dispute resolution
+              terms.
+              <Link to="/user/termsandcondition" target="_blank">
+                terms & conditions.
+              </Link>{" "}
+            </p>
               <button
                 className="btn paynow-button mt-3 rounded-pill"
                 onClick={handlePayment}
+                disabled={!isChecked}
               >
                 Pay Now
               </button>

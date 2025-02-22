@@ -54,12 +54,12 @@ function UserSentForgotpswd() {
 
   const navigate=useNavigate()
   
-  useEffect(()=>{
-    if(localStorage.getItem("managerid")==null){
-      navigate("/manager/login")
-    }
+  // useEffect(()=>{
+  //   if(localStorage.getItem("managerid")==null){
+  //     navigate("/manager/login")
+  //   }
 
-  },[])
+  // },[])
 
   return (
     <div className="customerform">
