@@ -194,3 +194,7 @@ hr {
 #managerDashboardViewwallLink{
     color: rgba(191, 93, 255, 1);
 }
+.hover:hover{
+    border-color: rgba(191, 93, 255, 1);
+
+}

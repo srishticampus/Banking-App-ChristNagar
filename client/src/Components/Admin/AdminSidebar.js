@@ -35,80 +35,55 @@ function AdminSidebar() {
     }
   };
   return (
-    <div className="sidebardesign">
-      <div className="row">
-        <div className="col-6">
-          <Link to="/admin/dashboard">
-            <img src={logo}></img>
-          </Link>
-        </div>
-          <div className=" col-6 d-flex justify-content-end">
-            <button
-              className="btn btn-dark"
-              type="button"
-              onClick={AdminbackButton}
-            >
-              <FaArrowLeft />
-            </button>
-        </div>
-      </div>
-
-      <br></br>
-      <div className="row mt-5 hover ">
-        <div className="col-1"></div>
-        <div className="col-1">
-          <img src={home}></img>
-        </div>
-
-        <Link
-          to={"/admin/dashboard"}
-          className="col-3 text-decoration-none text-light"
-        >
-          Dashbaord
-        </Link>
-      </div>
-      <div className="row mt-3 hover">
-        <div className="col-1"></div>
-        <div className="col-1">
-          <img src={customer}></img>
-        </div>
-        <div className="col-9">
-          <Link
-            to="/admin/viewusers"
-            className="col-3 text-decoration-none text-light"
-          >
-            {" "}
-            Customer Management{" "}
-          </Link>
-        </div>
-      </div>
-
-      <Link
-        to="/admin/viewmanages"
-        className="text-decoration-none text-light"
-      ></Link>
-      <div className="row mt-3 hover">
-        <div className="col-1"></div>
-        <div className="col-1">
-          <img src={manage}></img>
-        </div>
-        <div className="col-9">
-          {" "}
-          <Link
-            to="/admin/viewclerks"
-            className="col-3 text-decoration-none text-light"
-          >
-            Clerk Management
-          </Link>
-        </div>
-        <div className="text-decoration-none text-light">
-          <div className="row mt-3 hover">
-            <div className="col-1"></div>
-            <div className="col-1">
-              <img src={manager}></img>
+    <div className="main-container">
+      <div className="side-nav">
+        <div className="profile"></div>
+        <Nav className="flex-column ">
+          <div className="col-11 d-flex justify-content-end">
+            <Link to="/admin/dashboard">
+              <img src={logo} alt="Logo" />
+            </Link>
+            <div className="row">
+              <div className="col-6"></div>
+              <div className=" col-6 d-flex ">
+                <button
+                  className="btn btn-dark"
+                  type="button"
+                  onClick={AdminbackButton}
+                >
+                  <FaArrowLeft />
+                </button>
+              </div>
             </div>
-            <div className="col-9">
-              {" "}
+          </div>
+          <Nav.Item className="nav-link">
+            <Link
+              to="/admin/dashboard"
+              className="text-decoration-none text-light ms-3"
+            >
+              <img src={home}></img> Dashboard
+            </Link>
+          </Nav.Item>
+          <Nav.Item className="nav-link">
+            <Link
+              to="/admin/viewusers"
+              onClick={togglemangerbtn}
+              className="text-decoration-none text-light ms-3 "
+            >
+              <img src={customer}></img> Customer management
+            </Link>
+          </Nav.Item>
+          <Nav.Item className="nav-link ">
+            <Link
+              to="/admin/viewclerks"
+              className="text-decoration-none text-light ms-3 "
+            >
+              <img src={credit}></img> Clerk Management
+            </Link>
+          </Nav.Item>
+          <Nav.Item className=" ms-3">
+            <Nav.Link>
+              <img src={manage}></img>{" "}
               <label onClick={togglemangerbtn}>Manager Management</label>
               {tooglebtn == true ? (
                 <div className="managermainbtn mt-1">
@@ -129,81 +104,122 @@ function AdminSidebar() {
               ) : (
                 ""
               )}
-            </div>
-            <div className="row mt-3 hover">
-              <div className="col-1"></div>
-              <div className="col-1">
-                <img src={loan}></img>
-              </div>
-              <div className="col-9">
-                <Link
-                  to="/admin/viewallapprovedloans"
-                  className="col-3 text-decoration-none text-light"
-                >
-                  {" "}
-                  Manage Loan{" "}
-                </Link>
-              </div>
-            </div>
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item className="nav-link ">
+            <Link
+              to="/admin/viewallapprovedloans"
+              className="text-decoration-none text-light ms-3"
+            >
+              <img src={loan}></img> Manage Loan
+            </Link>
+          </Nav.Item>
+          
+          <Nav.Item className="nav-link ">
+            <Link
+              to="/admin/viewallapprovedcreadits"
+              className="text-decoration-none text-light ms-3 "
+            >
+              <img src={credit}></img> Credit Card
+            </Link>
+          </Nav.Item>
+          
+          
+          
 
-            <div className="row mt-3 hover">
-              <div className="col-1"></div>
-              <div className="col-1">
-                <img src={credit}></img>
-              </div>
-              <div className="col-9">
-                <Link
-                  to="/admin/viewallapprovedcreadits"
-                  className="col-3 text-decoration-none text-light"
-                >
-                  {" "}
-                  Credit Card{" "}
-                </Link>
-              </div>
-            </div>
-
-            <div className="row mt-3 hover">
-              <div className="col-1"></div>
-              <div className="col-1">
-                <img src={transaction}></img>
-              </div>
-              <div className="col-9">
-                <Link
-                  to="/admin/viewtransactions"
-                  className="col-3 text-decoration-none text-light"
-                >
-                  {" "}
-                  Transaction
-                </Link>
-              </div>
-            </div>
-
-            <div className="row mt-3 hover">
-              <div className="col-1"></div>
-              <div className="col-1">
-                <img src={credit}></img>
-              </div>
-              <div className="col-9">
-                <Link
-                  to="/admin/Viewllifeinsurancepolicy"
-                  className="col-3 text-decoration-none text-light"
-                >
-                  {" "}
-                  Life Insurance
-                </Link>
-              </div>
-            </div>
-            <div className="row mt-3 hover" onClick={handleLogout}>
-              <div className="col-1"></div>
-              <div className="col-1">
-                <img src={logout}></img>
-              </div>
-              <div className="col-9">Logout</div>
-            </div>
-          </div>
-        </div>
+          <Nav.Item className="nav-link ">
+            <Link
+              to="/admin/Viewllifeinsurancepolicy"
+              className="text-decoration-none text-light ms-3"
+            >
+              <img src={manage}></img> Manage Insurance
+            </Link>
+          </Nav.Item>
+          <Nav.Item className="nav-link ">
+            <Link
+              to="/admin/viewtransactions"
+              className="text-decoration-none text-light ms-3 "
+            >
+              <img src={manager}></img> Transaction
+            </Link>
+          </Nav.Item>
+          <Nav.Item className=" ms-3">
+            <Nav.Link onClick={handleLogout}>
+              <img src={logout}></img> Logout
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
       </div>
     </div>
+
+    //   <div className="row mt-3 hover">
+    //     <div className="col-1"></div>
+    //     <div className="col-1">
+    //       <img src={customer}></img>
+    //     </div>
+    //     <div className="col-9">
+    //       <Link
+    //         to="/admin/viewusers"
+    //         className="col-3 text-decoration-none text-light"
+    //       >
+    //         {" "}
+    //         Customer Management{" "}
+    //       </Link>
+    //     </div>
+    //   </div>
+
+    //   <Link
+    //     to="/admin/viewmanages"
+    //     className="text-decoration-none text-light"
+    //   ></Link>
+    //   <div className="row mt-3 hover">
+    //     <div className="col-1"></div>
+    //     <div className="col-1">
+    //       <img src={manage}></img>
+    //     </div>
+    //
+    //     <div className="text-decoration-none text-light">
+    //       <div className="row mt-3 hover">
+    //         <div className="col-1"></div>
+    //         <div className="col-1">
+    //           <img src={manager}></img>
+    //         </div>
+    //         </div>
+    //         <div className="row mt-3 hover">
+    //           <div className="col-1"></div>
+    //           <div className="col-1">
+    //             <img src={transaction}></img>
+    //           </div>
+    //           <div className="col-9">
+    //             <Link
+    //               to="/admin/viewtransactions"
+    //               className="col-3 text-decoration-none text-light"
+    //             >
+    //               {" "}
+    //               Transaction
+    //             </Link>
+    //           </div>
+    //         </div>
+    //         <div className="row mt-3 hover" onClick={handleLogout}>
+    //           <div className="col-1"></div>
+    //           <div className="col-1">
+    //             <img src={logout}></img>
+    //           </div>
+    //           <div className="col-9">Logout</div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+   // <Nav.Item className="nav-link ">
+          //   <Link
+          //     to="/clerk/onlinetransaction"
+          //     className="text-decoration-none text-light ms-3 "
+          //   >
+          //     <img src={transaction}></img> Manage Cheque
+          //   </Link>
+          // </Nav.Item>
+          // 
   );
 }
 

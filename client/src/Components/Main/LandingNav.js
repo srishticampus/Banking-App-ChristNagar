@@ -18,21 +18,9 @@ function LandingNav() {
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               <a className="me-5 text-light text-decoration-none">Home</a>
-              <a className="me-5 text-light text-decoration-none">Contact Us</a>
-              <a className="me-5 text-light text-decoration-none">About Us</a>
+              <Link to="/about" className="me-5 text-light text-decoration-none">About Us</Link>
               <a className="text-light text-decoration-none"></a>
-              <Dropdown className="d-inline bg-dark me-5 btn-outline-dark">
-                <Dropdown.Toggle variant="outline-dark   text-light ">Customer Service</Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">FAQs</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
-                    Feedbacks
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
-                   Complaints
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              
              
               <Dropdown className="d-inline bg-dark me-5 btn-outline-dark">
                 <Dropdown.Toggle variant="bg-dark text-dark"> <a className="text-light text-decoration-none">
