@@ -25,6 +25,13 @@ function UserHomePage() {
     }
 
   },[])
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
   return (
     <div>
     <UserNavbar/>

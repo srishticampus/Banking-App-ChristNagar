@@ -53,10 +53,6 @@ function ClerkViewCardDetails() {
         GetUserData();
     }, []);
 
-    if (!user) {
-        return <div>Loading user details...</div>;
-    }
-
     return (
         <div className="CVCD-MainDiv">
             {console.log("user", user)}

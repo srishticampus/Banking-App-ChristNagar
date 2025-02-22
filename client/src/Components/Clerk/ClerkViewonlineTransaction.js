@@ -41,18 +41,23 @@ function ClerkViewonlineTransaction() {
     try {
       const response = await axiosInstance.post(`/toVerifyTransactions/${transactionId}`);
       alert(response.data.message);
-      ApplicationData();
-      VerifiedApplicationData();
+      window.location.reload()
+      // Ensure these functions complete before moving on
+      await ApplicationData(); 
+      await VerifiedApplicationData();
+      
     } catch (error) {
-      console.error("Verification failed:", error);
+      console.error("Verification failed:", error.response?.data || error.message);
       alert("Transaction verification failed.");
     }
   };
+  
 
   const ToReject = async (transactionId) => {
     try {
       const response = await axiosInstance.post(`/toRejectverificationTransactions/${transactionId}`);
       alert(response.data.message);
+      window.location.reload()
       ApplicationData();
       VerifiedApplicationData();
     } catch (error) {

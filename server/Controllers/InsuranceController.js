@@ -60,7 +60,7 @@ const adminAddInsurance = async (req, res) => {
     console.log("err", error);
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 const ViewInsuranceApplication = (req, res) => {
   Insurance.find( { approvalstatus: "Pending" })

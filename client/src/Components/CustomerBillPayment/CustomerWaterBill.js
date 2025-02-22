@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import axiosInstance from "../../apis/axiosinstance";
+import { Link, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerWaterBill() {
+  const[isChecked,setIsChecked]=useState(false)
   const [formData, setFormData] = useState({
     billNumber: "",
     accountNumber: "",
@@ -15,7 +18,14 @@ function CustomerWaterBill() {
     amount: "",
   });
   const today = new Date();
-
+  const navigate=useNavigate()
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
   let userid=localStorage.getItem("userid")
   const [loading, setLoading] = useState(false); // To show loading state
   const [successMessage, setSuccessMessage] = useState("");
@@ -28,8 +38,8 @@ function CustomerWaterBill() {
         error = "Bill Number must be exactly 8 characters.";
       }
     } else if (name === "accountNumber") {
-      if (!value || value.length !== 11) {
-        error = "Account Number must be exactly 11 digits.";
+      if (!value || value.length !== 15) {
+        error = "Account Number must be exactly 15 digits.";
       }
     } else if (name === "amount") {
       if (!value || value <= 0) {
@@ -157,13 +167,27 @@ function CustomerWaterBill() {
             <div className="invalid-feedback">{errors.amount}</div>
           )}
         </div>
+        <p className="mt-4">
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              ></input>{" "}
+              &nbsp;I have read and agree to the Terms and Conditions of
+              Unicread, including the payment policies and dispute resolution
+              terms.
+              <Link to="/user/termsandcondition" target="_blank">
+                terms & conditions.
+              </Link>{" "}
+            </p>
       </div>
 
       <div className="text-center">
         <button
           className="btn paynow-btn rounded-pill mt-4"
           onClick={handleSubmit}
-          disabled={loading}
+          disabled={!isChecked}
+          
         >
           {loading ? "Processing..." : "Pay Now"}
         </button>

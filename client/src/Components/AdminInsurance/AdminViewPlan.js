@@ -269,7 +269,7 @@ function AdminViewPlan() {
     ApplicationData();
     // handleEdit();
     if (!localStorage.getItem("admin")) {
-      navigate("/admin/login");
+      navigate("/adminlogin");
     }
   }, []);
 

@@ -5,6 +5,7 @@ import AdminSidebar from "./AdminSidebar";
 import profiletop from "../../Asserts/images/Rectangle 158.png";
 import "../../Asserts/Styles/admindashboard.css";
 import imgurl from "../../apis/imgURL";
+import { FaArrowLeft } from "react-icons/fa6";
 function AdminViewAManager() {
   const [manager, setManager] = useState({});
   const { managerid } = useParams();
@@ -35,6 +36,7 @@ function AdminViewAManager() {
         <AdminSidebar />
       </div>
       <div className="col-10">
+     
         <img src={profiletop} className="profiletop"></img>
         <div>
           {" "}

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../apis/axiosinstance";
 import imgurl from "../../apis/imgURL";
 import { FaCamera } from "react-icons/fa"; // Import a camera icon from react-icons
-
+import { FaArrowLeft } from "react-icons/fa6";
 function AdminEditAmanagerData() {
   const navigate = useNavigate();
   const { managerid } = useParams();
@@ -156,6 +156,7 @@ function AdminEditAmanagerData() {
         </div>
         <div className="col-9" id="common">
           <h3 className="mt-4 mb-4">
+          
             <span className="dashboardheadcolor">Edit </span> MANAGER
           </h3>
           <form onSubmit={handleSubmit}>

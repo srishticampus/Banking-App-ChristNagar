@@ -11,9 +11,16 @@ import "../../Asserts/Styles/creaditcardapply.css"
 import axiosInstance from "../../apis/axiosinstance";
 import { useNavigate } from "react-router-dom";
 import LandingFooter from "../Main/LandingFooter";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerApplyCreditCard() {
-
+    const UserbackButton = () => {
+        if (window.location.pathname === "/bank_app/user/homepage") {
+          navigate("/user/homepage");
+        } else {
+          navigate(-1);
+        }
+      };
     const applayref = useRef();
 
     const [user, setUser] = useState(null)
@@ -55,7 +62,15 @@ function CustomerApplyCreditCard() {
         <div className="CACC-MainDiv">
             <UserNavbar />
             <div className="custloanapplysection1">
+            
                 <div className="custloanapplysection1pt1">
+                <button
+            className="btn btn-light"
+            type="button"
+            onClick={UserbackButton}
+          >
+            <FaArrowLeft />
+          </button>
                     <div className="row">
                         <div className="col-4">
                             <div className="custloanapplysection1pt1col1">

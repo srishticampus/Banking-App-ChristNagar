@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import imgURL from "../../apis/imgURL";
 import { IoMdCheckmark } from "react-icons/io";
 import { FaXmark } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa6";
 function AdminviewManagers() {
   const [managers, setManagers] = useState([]);
 
@@ -52,14 +53,13 @@ function AdminviewManagers() {
         console.log("err", err);
       });
   };
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(localStorage.getItem("admin")==null){
-      navigate("/adminlogin")
+  useEffect(() => {
+    if (localStorage.getItem("admin") == null) {
+      navigate("/adminlogin");
     }
-
-  },[])
+  }, []);
   return (
     <div>
       <div className="row">
@@ -67,9 +67,11 @@ function AdminviewManagers() {
           <AdminSidebar />
         </div>
         <div className="col-9" id="common">
-          <h3 className="mt-4 mb-3">
-            <span className="dashboardheadcolor">VIEW</span> MANAGERS
-          </h3>
+          <h3 className="mt-4 mb-3"> 
+            <span className="dashboardheadcolor mt-5">VIEW</span> MANAGERS
+          </h3>{" "}
+         
+          <br />
           <div className="container">
             <div className="row">
               {managers.length > 0 ? (

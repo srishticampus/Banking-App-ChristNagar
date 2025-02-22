@@ -5,6 +5,7 @@ import { useNavigate, useParams,Link } from "react-router-dom";
 import "../../Asserts/Styles/CustomerViewLoanDetails.css";
 import LandingFooter from "../Main/LandingFooter";
 import UserNavbar from "../User/UserNavbar";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerViewLoanDetails() {
     const [user, setUser] = useState(null);
@@ -14,7 +15,13 @@ function CustomerViewLoanDetails() {
     const openFileInNewTab = (filePath) => {
         window.open(`${imgurl}/${filePath}`, "_blank");
     };
-
+    const UserbackButton = () => {
+        if (window.location.pathname === "/bank_app/user/homepage") {
+          navigate("/user/homepage");
+        } else {
+          navigate(-1);
+        }
+      };
     const GetUserData = async () => {
         try {
             const response = await axiosInstance.post(
@@ -41,7 +48,7 @@ function CustomerViewLoanDetails() {
         try {
             await axiosInstance.post(`/verifyloan/${user._id}`);
             alert("Loan Verified Successfully");
-            navigate("/clerk/manageloan");
+            // navigate("/clerk/manageloan");
         } catch (error) {
             console.error("Error verifying loan:", error);
         }
@@ -61,11 +68,21 @@ function CustomerViewLoanDetails() {
                 
 
                 <div className="CVLD-MainDiv-ContainDiv-ContentDiv">
+                <div className=" d-flex justify-content-start">
+                <button
+            className="btn btn-light"
+            type="button"
+            onClick={UserbackButton}
+          >
+            <FaArrowLeft />
+          </button></div>
                     <div className="CVLD-MainDiv-ContainDiv-HeaderDiv ">
+                    
                         <h1 className="CVLD-h1">Applicant Details</h1>
                     </div>
 
                     <div className="CVLD-MainDiv-ContainDiv-Content">
+                    
                         <div>
                             <img
                                 className="CVLD-profile-img"
@@ -367,7 +384,7 @@ function CustomerViewLoanDetails() {
                                                     Loan Type
                                                 </label>
                                                 <h1 name="loantype" className="CVLD-h4">
-                                                    {user.loantype}
+                                                    {user?.loantype}
                                                 </h1>
                                             </div>
 
@@ -376,7 +393,7 @@ function CustomerViewLoanDetails() {
                                                     Purpose Of Loan
                                                 </label>
                                                 <h1 name="loanpurpose" className="CVLD-h4">
-                                                    {user.loanpurpose}
+                                                    {user?.loanpurpose}
                                                 </h1>
                                             </div>
                                         </div>
@@ -388,7 +405,7 @@ function CustomerViewLoanDetails() {
                                                 Amount Required
                                             </label>
                                             <h1 name="loanamount" className="CVLD-h4">
-                                                ₹{user.loanamount}/-
+                                                ₹{user?.loanamount}/-
                                             </h1>
                                         </div>
                                     </div>

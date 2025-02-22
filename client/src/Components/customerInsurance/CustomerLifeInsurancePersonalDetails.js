@@ -7,14 +7,14 @@ import axiosInstance from "../../apis/axiosinstance";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerLifeInsurancePersonalDetails() {
-
   const [data, setData] = useState({});
   // const location = useLocation();
   // const loanDetails = location.state;
 
-  const {planid}=useParams()
+  const { planid } = useParams();
 
   const fetchUserData = async () => {
     try {
@@ -23,31 +23,43 @@ function CustomerLifeInsurancePersonalDetails() {
       const response = await axiosInstance.get(`/view_a_user/${userId}`);
       console.log("User Data:", response.data);
       setData(response.data.data);
-
     } catch (error) {
       console.error("Error fetching user data:", error);
-    }}
-    
-  useEffect(() => {
-    // console.log("Received Loan Details:", loanDetails)
-    fetchUserData()
-    },[])
-
-        const navigate = useNavigate();
-  const update = (userId) => {
-    // navigate("/user/applyllifeinsurancepolicy", { state: { loanDetails } });
-    console.log(userId,planid,"oo");
-
-      navigate("/user/applyllifeinsurancepolicy",  { state:{userId ,planid} });
-
-   
+    }
+  };
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
   };
 
-return (
+  useEffect(() => {
+    // console.log("Received Loan Details:", loanDetails)
+    fetchUserData();
+  }, [data]);
+
+  const navigate = useNavigate();
+  const update = (userId) => {
+    // navigate("/user/applyllifeinsurancepolicy", { state: { loanDetails } });
+    console.log(userId, planid, "oo");
+
+    navigate("/user/applyllifeinsurancepolicy", { state: { userId, planid } });
+  };
+
+  return (
     <div className="CustLoanPersonalDetails ">
-    <UserNavbar/>
+      <UserNavbar />
       {/* Progress Bar */}
-      <Container >
+      <Container>
+      <button
+          className="btn btn-light"
+          type="button"
+          onClick={UserbackButton}
+        >
+          <FaArrowLeft />
+        </button>
         <Row className="justify-content-center ">
           <Col md={6} className="text-center">
             <div className="progress-bar-container">
@@ -113,7 +125,7 @@ return (
                   />
                 </div>
               </Col>
-               <Col md={6}>
+              <Col md={6}>
                 <div className="mb-4">
                   <label>Contact Number</label>
                   <input
@@ -151,7 +163,7 @@ return (
               <Button
                 id="CustLoanPersonalDetailsButton"
                 className="d-inline-flex align-items-center"
-                onClick={()=>update(data?._id)}
+                onClick={() => update(data?._id)}
               >
                 Continue
                 <FaLongArrowAltRight className="ms-2" />
@@ -160,10 +172,10 @@ return (
           </Card.Body>
         </Card>
       </Container>
-      <LandingFooter/>
+      <LandingFooter />
     </div>
   );
-              }
+}
 
 export default CustomerLifeInsurancePersonalDetails;
 // <div className="mb-4">

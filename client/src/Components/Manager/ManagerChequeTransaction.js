@@ -41,25 +41,33 @@ function ManagerChequeTransaction() {
     try {
       const response = await axiosInstance.post(`/toApproveTransactions/${transactionId}`);
       alert(response.data.message);
-      ApplicationData();
-      VerifiedApplicationData();
+      
+      // Refresh data after approval
+      await ApplicationData();
+      await VerifiedApplicationData();
+      
+      setVerified(true); // Switch to verified applications
     } catch (error) {
       console.error("Verification failed:", error);
       alert("Transaction verification failed.");
     }
   };
-
+  
   const ToReject = async (transactionId) => {
     try {
       const response = await axiosInstance.post(`/toRejectTransactions/${transactionId}`);
       alert(response.data.message);
-      ApplicationData();
-      VerifiedApplicationData();
+      
+      // Refresh data after rejection
+      await ApplicationData();
+      await VerifiedApplicationData();
     } catch (error) {
       console.error("Rejection failed:", error);
       alert("Transaction rejection failed.");
     }
   };
+  
+  
 
   const openFileInNewTab = (filePath) => {
     window.open(`${imgurl}/${filePath}`, "_blank");

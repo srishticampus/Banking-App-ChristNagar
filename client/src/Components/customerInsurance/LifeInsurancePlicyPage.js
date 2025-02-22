@@ -6,6 +6,7 @@ import axiosInstance from "../../apis/axiosinstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function LifeInsurancePlicyPage() {
   const [plandata, setPlanData] = useState({});
@@ -36,7 +37,13 @@ function LifeInsurancePlicyPage() {
   };
 
   const navigate = useNavigate();
-
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
   useEffect(() => {
     const isValid =
       formState.nomineename.trim() !== "" &&
@@ -66,6 +73,13 @@ function LifeInsurancePlicyPage() {
     <div className="CustLoanPersonalDetails">
       <UserNavbar />
       <Container className="my-5">
+      <button
+          className="btn btn-light"
+          type="button"
+          onClick={UserbackButton}
+        >
+          <FaArrowLeft />
+        </button>
         <Card className="CustLoanPersonalDetailshorizontal-card mx-auto" style={{ maxWidth: "900px" }}>
           <Card.Body>
             <h5 className="text-center" style={{ color: "#9A00FF" }}>Policy Details</h5>

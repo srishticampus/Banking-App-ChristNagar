@@ -12,6 +12,7 @@ import logo from "../../Asserts/images/Logo.png";
 import Navbar from "react-bootstrap/Navbar";
 import profile from "../../Asserts/images/Customer Service.png";
 import insurance from "../../Asserts/images/streamline_insurance-hand.png";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function ManagerSidebar() {
   const navigate = useNavigate();
@@ -27,6 +28,13 @@ function ManagerSidebar() {
     navigate("/manager/login");
   };
 
+  const AdminbackButton = () => {
+    if (window.location.pathname === "/bank_app/manager/home") {
+      navigate("/manager/home");
+    } else {
+      navigate(-1);
+    }
+  };
   useEffect(() => {
     if (localStorage.getItem("managerid") == null) {
       navigate("/manager/login");
@@ -38,7 +46,7 @@ function ManagerSidebar() {
         <div className="side-nav">
           <div className="profile"></div>
           <Nav className="flex-column ">
-            <div className="col-2 d-flex align-items-center">
+          <div className="col-11 d-flex justify-content-end">
               <Link to="/manager/home">
                 <img src={logo} alt="Logo" />
               </Link>
@@ -46,7 +54,20 @@ function ManagerSidebar() {
                 {" "}
                 <img src={profile} alt="Logo" />
               </Link>
+              <div className="row">
+                <div className="col-6"></div>
+                <div className=" col-6 d-flex ">
+                  <button
+                    className="btn btn-dark"
+                    type="button"
+                    onClick={AdminbackButton}
+                  >
+                    <FaArrowLeft />
+                  </button>
+                </div>
+              </div>
             </div>
+           
             <Nav.Item className="nav-link mt-3">
               <Link
                 to="/manager/home"
@@ -111,7 +132,7 @@ function ManagerSidebar() {
                 <img src={user}></img> View Users
               </Link>
             </Nav.Item>
-            <Nav.Item className="mt-3 ms-3">
+            <Nav.Item className=" ms-3">
               <Nav.Link onClick={handleLogout}>
                 <img src={logout}></img> Logout
               </Nav.Link>

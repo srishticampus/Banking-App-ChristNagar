@@ -9,6 +9,7 @@ import loan from "../../Asserts/images/managerloan.png";
 import credit from "../../Asserts/images/managercredit.png";
 import Nav from "react-bootstrap/Nav";
 import transaction from "../../Asserts/images/managertransaction.png";
+import { FaArrowLeft } from "react-icons/fa6";
 
 import "../../Asserts/Styles/admindashboard.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,16 +27,39 @@ function AdminSidebar() {
     alert("Please Login Again");
     navigate("/adminlogin");
   };
+  const AdminbackButton = () => {
+    if (window.location.pathname === "/bank_app/admin/dashboard") {
+      navigate("/admin/dashboard");
+    } else {
+      navigate(-1);
+    }
+  };
   return (
     <div className="sidebardesign">
-      <Link to="/admin/dashboard">
-        <img src={logo}></img>
-      </Link>
+      <div className="row">
+        <div className="col-6">
+          <Link to="/admin/dashboard">
+            <img src={logo}></img>
+          </Link>
+        </div>
+          <div className=" col-6 d-flex justify-content-end">
+            <button
+              className="btn btn-dark"
+              type="button"
+              onClick={AdminbackButton}
+            >
+              <FaArrowLeft />
+            </button>
+        </div>
+      </div>
+
+      <br></br>
       <div className="row mt-5 hover ">
         <div className="col-1"></div>
         <div className="col-1">
           <img src={home}></img>
         </div>
+
         <Link
           to={"/admin/dashboard"}
           className="col-3 text-decoration-none text-light"

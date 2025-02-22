@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import UserNavbar from "../User/UserNavbar";
 import '../../Asserts/Styles/CustomerCreditApplyCardDetails.css';
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerCreditApplyCardDetails() {
     const location = useLocation();
@@ -26,9 +27,34 @@ function CustomerCreditApplyCardDetails() {
     const userid = localStorage.getItem("userid");
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm((prevForm) => ({ ...prevForm, [name]: value }));
+        const { name, type, value, files } = e.target;
+    
+        setForm((prevForm) => {
+            const updatedForm = {
+                ...prevForm,
+                [name]: type === "file" ? files[0] : value,
+            };
+    
+            // Automatically update credit card limit based on salary
+            if (name === "salary") {
+                const salaryValue = Number(value);
+                if (!isNaN(salaryValue) && salaryValue > 0) {
+                    updatedForm.creditcardlimit = (salaryValue * 3).toString();
+                } else {
+                    updatedForm.creditcardlimit = "";
+                }
+            }
+    
+            return updatedForm;
+        });
     };
+    const UserbackButton = () => {
+        if (window.location.pathname === "/bank_app/user/homepage") {
+          navigate("/user/homepage");
+        } else {
+          navigate(-1);
+        }
+      };
 
     const handleFileChange = (e) => {
         const { name } = e.target;
@@ -41,8 +67,8 @@ function CustomerCreditApplyCardDetails() {
         let newErrors = {};
         if (!form.cardtype.trim()) newErrors.cardtype = "Select the card type.";
         if (!form.employmentstatus.trim()) newErrors.employmentstatus = "Employment status is required.";
-        if (!form.salary || Number(form.salary) <= 1000) {
-            newErrors.salary = "Your salary must be greater than 1000.";
+        if (!form.salary || Number(form.salary) <= 10000) {
+            newErrors.salary = "Your salary must be greater than 10000.";
             isValid = false;
           }
                 if (!form.creditcardlimit.trim()) newErrors.creditcardlimit = "Enter your credit card limit.";
@@ -84,8 +110,14 @@ function CustomerCreditApplyCardDetails() {
                 },
             });
             console.log("Success:", response.data);
-            alert("Application submitted successfully.");
-            navigate('/user/applylcreaditcard');
+            if(response.data.status==400){
+                alert(response.data.msg)
+                navigate('/user/applylcreaditcard');
+            }else{
+                alert(response.data.msg)
+                navigate('/user/applylcreaditcard');
+            }
+            // alert("Application submitted successfully.");
         } catch (error) {
             console.error("Error:", error.response || error);
             alert("Failed to submit the application. Please try again.");
@@ -104,6 +136,13 @@ function CustomerCreditApplyCardDetails() {
             <div className="CustLoanEmplDetails">
                 {/* Progress Bar */}
                 <Container>
+                <button
+            className="btn btn-light"
+            type="button"
+            onClick={UserbackButton}
+          >
+            <FaArrowLeft />
+          </button>
                     <Row className="justify-content-center">
                         <Col md={8} className="text-center">
                             <div className="CCCAcirclecontainer">
@@ -168,7 +207,7 @@ function CustomerCreditApplyCardDetails() {
                                                                 className="CustLoanEmplDetailsformcontrol"
                                                             />
                                                             {errors.employmentstatus && <p style={{ color: "red" }}>{errors.employmentstatus}</p>}
-                                                            <label>Salary</label>
+                                                            <label>Salary(Monthly)</label>
                                                             <input
                                                               type="number"
                                                               name="salary"
@@ -194,6 +233,7 @@ function CustomerCreditApplyCardDetails() {
                                                                 value={form.creditcardlimit}
                                                                 onChange={handleChange}
                                                                 className="CustLoanEmplDetailsformcontrol"
+                                                                disabled
                                                             />
                                                             {errors.creditcardlimit && <p style={{ color: "red" }}>{errors.creditcardlimit}</p>}
                                                             <br />

@@ -6,6 +6,7 @@ import "../../Asserts/Styles/CustomerCreditCardApply.css";
 import axiosInstance from "../../apis/axiosinstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserNavbar from "../User/UserNavbar";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerCreditCardApply() {
 
@@ -45,7 +46,13 @@ function CustomerCreditCardApply() {
         }
         setErrors(newErrors);
     };
-
+    const UserbackButton = () => {
+        if (window.location.pathname === "/bank_app/user/homepage") {
+          navigate("/user/homepage");
+        } else {
+          navigate(-1);
+        }
+      };
     useEffect(() => {
         fetchUserData();
     }, [])
@@ -55,6 +62,13 @@ function CustomerCreditCardApply() {
             <UserNavbar />
             {/* Progress Bar */}
             <Container>
+            <button
+            className="btn btn-light"
+            type="button"
+            onClick={UserbackButton}
+          >
+            <FaArrowLeft />
+          </button>
                 <Row className="justify-content-center">
                     <Col md={8} className="text-center">
                         <div className="CCCAcirclecontainer">

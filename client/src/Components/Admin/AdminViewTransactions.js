@@ -44,7 +44,9 @@ function AdminViewTransactions() {
   // Handle Search
   const handleSearch = (e) => {
     const searchTerm = e.target.value.toLowerCase();
-    const transactions = showOnlineTransactions ? onlineTransactions : normalTransactions;
+    const transactions = showOnlineTransactions
+      ? onlineTransactions
+      : normalTransactions;
 
     if (!searchTerm) {
       setFilteredTransactions(transactions);
@@ -80,14 +82,17 @@ function AdminViewTransactions() {
     fetchNormalTransactions();
     fetchOnlineTransactions();
     if (!localStorage.getItem("admin")) {
-      navigate("/admin/login");
+      navigate("/adminlogin");
     }
   }, []);
 
   // Pagination Logic
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = filteredTransactions.slice(indexOfFirstRow, indexOfLastRow);
+  const currentRows = filteredTransactions.slice(
+    indexOfFirstRow,
+    indexOfLastRow
+  );
   const totalPages = Math.ceil(filteredTransactions.length / rowsPerPage);
 
   return (
@@ -96,7 +101,9 @@ function AdminViewTransactions() {
         <AdminSidebar />
       </div>
       <div className="main-content col-lg-9 col-md-8">
-        <h3 className="mt-4" id="view">View Transactions</h3>
+        <h3 className="mt-4" id="view">
+          View Transactions
+        </h3>
 
         {/* Buttons for switching between transaction types */}
         <div className="text-center my-5">
@@ -146,11 +153,20 @@ function AdminViewTransactions() {
                 currentRows.map((data, index) => (
                   <tr key={data?._id}>
                     <td>{indexOfFirstRow + index + 1}</td>
-                    <td>{data.userid?.username}
-                    <br/><small className="text-secondary">Acc No: {data.userid?.userNumber}</small></td>
-                    <td>{data?.date}</td>
+                    <td>
+                      {data.userid?.username}
+                      <br />
+                      <small className="text-secondary">
+                        Acc No: {data.userid?.userNumber}
+                      </small>
+                    </td>
+                    <td>{new Date(data?.date).toLocaleDateString("en-GB")}</td>
                     <td>{data?.payeename}</td>
-                    <td>{data?.transactiontype ? data?.transactiontype : "----------"}</td>
+                    <td>
+                      {data?.transactiontype
+                        ? data?.transactiontype
+                        : "----------"}
+                    </td>
                     <td>{data?.ifsccode}</td>
                     <td>{data?.accountnumber}</td>
                     <td>{data?.payamount}/-</td>
@@ -167,7 +183,10 @@ function AdminViewTransactions() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={showOnlineTransactions ? "9" : "8"} className="text-center">
+                  <td
+                    colSpan={showOnlineTransactions ? "9" : "8"}
+                    className="text-center"
+                  >
                     No Transactions Available
                   </td>
                 </tr>
@@ -180,20 +199,40 @@ function AdminViewTransactions() {
         {totalPages > 1 && (
           <nav className="mt-3">
             <ul className="pagination justify-content-center">
-              <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
+              <li
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                >
                   &laquo;
                 </button>
               </li>
               {Array.from({ length: totalPages }, (_, i) => (
-                <li key={i} className={`page-item ${currentPage === i + 1 ? "active" : ""}`}>
-                  <button className="page-link" onClick={() => handlePageChange(i + 1)}>
+                <li
+                  key={i}
+                  className={`page-item ${
+                    currentPage === i + 1 ? "active" : ""
+                  }`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => handlePageChange(i + 1)}
+                  >
                     {i + 1}
                   </button>
                 </li>
               ))}
-              <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
-                <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
+              <li
+                className={`page-item ${
+                  currentPage === totalPages ? "disabled" : ""
+                }`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                >
                   &raquo;
                 </button>
               </li>

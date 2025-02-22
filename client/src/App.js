@@ -80,6 +80,7 @@ import AdminViewAllApprovedCreadit from "./Components/Admin/AdminViewAllApproved
 import AdminViewAcreadit from "./Components/Admin/AdminViewAcreadit";
 import AdminViewAllApprovedLoan from "./Components/Admin/AdminViewAllApprovedLoan";
 import AdminViewALoanDetails from "./Components/Admin/AdminViewALoanDetails";
+import UserTermsAndCondition from "./UserTermsAndCondition";
 
 function App() {
   return (
@@ -138,7 +139,7 @@ function App() {
         <Route path="/user/viewloandetails/:data" element={<CustomerViewLoanDetails/>} />
 
         <Route path="/user/applylcreaditcard" element={<CustomerApplyCreaditCard />} />
-        <Route path="/user/creditcarddetails/:id" element={<UserCreditApplicationDetails />} />
+        <Route path="/user/creditcarddetails/:data" element={<UserCreditApplicationDetails />} />
         <Route path="/user/personaldetails" element={<CustomerCreditCardApply />} />
         <Route path="/user/carddetails/:data" element={<CustomerCreditApplyCardDetails />} />
 
@@ -183,7 +184,7 @@ function App() {
         <Route path="/admin/viewacreaditcard/:data" element={<AdminViewAcreadit/>} />
         <Route path="/admin/viewallapprovedloans" element={<AdminViewAllApprovedLoan/>} />
         <Route path="/admin/viewaloandetails/:data" element={<AdminViewALoanDetails/>} />
-
+        <Route path="/user/termsandcondition" element={<UserTermsAndCondition/>} />
 
         </Routes>
     </BrowserRouter>

@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerLoanEmployeDetails() {
   const location = useLocation();
@@ -26,6 +27,13 @@ function CustomerLoanEmployeDetails() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
+  };
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
   };
 
   const handleFileChange = (e) => {
@@ -90,13 +98,17 @@ function CustomerLoanEmployeDetails() {
         },
       });
       console.log("Success:", response.data);
-      alert("Application submitted successfully.");
+      if(response.data.status==400){
+        alert(response.data.msg)
+      }else{
+        alert(response.data.msg)
+      }
+      
     } catch (error) {
       console.error("Error:", error.response || error);
       alert("Failed to submit the application. Please try again.");
     }
 
-    navigate('/user/applyloan')
 
   };
 
@@ -109,6 +121,13 @@ function CustomerLoanEmployeDetails() {
     <UserNavbar/>
       <div className="CustLoanEmplDetails" style={{minHeight:"100vh"}}>
         <Container>
+        <button
+                    className="btn btn-light"
+                    type="button"
+                    onClick={UserbackButton}
+                  >
+                    <FaArrowLeft />
+                  </button>
           <Row className="justify-content-center">
             <Col md={8} className="text-center">
               <div className="progress-bar-container">

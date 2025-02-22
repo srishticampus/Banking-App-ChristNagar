@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 // import cust from '../Assert/profile.png';
 import '../../Asserts/Styles/Loan.css';
 import LandingFooter from '../Main/LandingFooter';
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CustomerApplicationStatus() {
   return (

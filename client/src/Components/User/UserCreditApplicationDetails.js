@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import imgurl from '../../apis/imgURL';
 import axiosInstance from '../../apis/axiosinstance';
 import '../../Asserts/Styles/UserCreditApplicationDetails.css'
@@ -8,6 +8,7 @@ import LandingFooter from '../Main/LandingFooter';
 import checkmark from '../../Asserts/images/Vector.png';
 import UserNavbar from './UserNavbar';
 import { Col, Container, Row } from 'react-bootstrap';
+import { FaArrowLeft } from "react-icons/fa6";
 
 function UserCreditApplicationDetails() {
   const [user, setUser] = useState({});
@@ -34,7 +35,14 @@ function UserCreditApplicationDetails() {
       console.error("Error fetching user data:", error);
     }
   };
-
+  const navigate=useNavigate()
+  const UserbackButton = () => {
+    if (window.location.pathname === "/bank_app/user/homepage") {
+      navigate("/user/homepage");
+    } else {
+      navigate(-1);
+    }
+  };
   useEffect(() => {
     GetUserData();
   }, []);
@@ -49,8 +57,16 @@ function UserCreditApplicationDetails() {
       
     
           <div className="UCAD-MainDiv-ContainDiv-Content-Card-Right">
-    
+          <div className='d-flex justify-content-start'><button
+          className="btn btn-light"
+          type="button"
+          onClick={UserbackButton}
+        >
+          <FaArrowLeft />
+        </button></div>
+          
             <div className="UCAD-MainDiv-ContainDiv-Content">
+            
               <div>
                 <img
                   className="UCAD-profile-img"

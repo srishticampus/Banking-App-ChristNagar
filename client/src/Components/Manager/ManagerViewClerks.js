@@ -163,7 +163,7 @@ function ManagerViewClerks() {
                     <td>{data.qualification}</td>
                     <td>{new Date(data.dob).toLocaleDateString("en-GB")}</td>
                     <td>
-                      <div onClick={handleShow}>
+                      <div className="text-decoration-underline" onClick={handleShow}>
                         View file
                       </div>
                     </td>

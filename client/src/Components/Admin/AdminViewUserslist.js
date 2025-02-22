@@ -8,7 +8,7 @@ import active from "../../Asserts/images/Choose Mode.png";
 import deactive from "../../Asserts/images/Choose Mode (1).png";
 import { Link,useNavigate } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
-
+import { FaArrowLeft } from "react-icons/fa6";
 function AdminViewUserslist() {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -75,6 +75,7 @@ function AdminViewUserslist() {
       {/* Main Content */}
       <div className="main-content col-lg-9 col-md-8 col-sm-12">
         <h3 className="mt-4">
+        
           <span id="view">VIEW </span> USERS
         </h3>
 
