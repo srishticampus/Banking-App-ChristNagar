@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import logo from "../../Asserts/images/Adminprofile.png";
 import loginbtn from "../../Asserts/images/login.png";
 import "../../Asserts/Styles/AdminLogn.css";
@@ -73,7 +73,17 @@ function AdminLogin() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const navigate=useNavigate()
 
+  useEffect(()=>{
+      if(localStorage.getItem("admin")!==null){
+        navigate("/admin/dashboard")
+      }else{
+        navigate("/adminlogin")
+  
+      }
+  
+    },[])
   return (
     <div className="loginbackground">
       <div className="container">

@@ -23,8 +23,8 @@ function AdminSidebar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("adminid");
-    alert("Please Login Again");
+    localStorage.removeItem("admin");
+    alert("Do You Want To Logout");
     navigate("/adminlogin");
   };
   const AdminbackButton = () => {

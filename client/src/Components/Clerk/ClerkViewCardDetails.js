@@ -237,7 +237,7 @@ function ClerkViewCardDetails() {
 
                         </div>
 
-                        {!user.verificationstatus && (
+                        {!user?.verificationstatus && (
                             <div className="CVD-MainDiv-ContainDiv-Content-Card-Button">
                                 <button className="CVD-button1" onClick={CancelbuttonOnClick}>
                                     Cancel

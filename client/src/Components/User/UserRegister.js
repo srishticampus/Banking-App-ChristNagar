@@ -17,7 +17,7 @@ function UserRegister() {
     username: "",
     userContact: "",
     userAddress: "",
-    userCode: "UNICREDIT001",
+    userCode: "UNICREDIT01",
     userPassword: "",
     userMail: "",
     userDate: "",
@@ -117,9 +117,9 @@ function UserRegister() {
     if (!form.userCode.trim()) {
       formValid = false;
       newErrors.userCode = "IFSC Code is required";
-    } else if (form.userCode.trim().length !== 12) {
+    } else if (form.userCode.trim().length !== 11) {
       formValid = false;
-      newErrors.userCode = "IFSC Code must be exactly 12 characters";
+      newErrors.userCode = "IFSC Code must be exactly 11 characters";
     }
     if (!form.userDate.trim()) {
       formValid = false;

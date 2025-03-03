@@ -146,7 +146,7 @@ function CustomerElectricityBill() {
             className={`form-control ${
               errors.accountNumber ? "is-invalid" : ""
             }`}
-            placeholder="Enter Account number (11 digits)"
+            placeholder="Enter Account number (15 digits)"
             name="accountNumber"
             value={formData.accountNumber}
             onChange={handleChange}

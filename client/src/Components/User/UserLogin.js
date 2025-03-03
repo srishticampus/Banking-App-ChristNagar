@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../../Asserts/Styles/manager.css";
 import fmang from "../../Asserts/images/userlogin.png";
 import { FiEyeOff } from "react-icons/fi";
@@ -86,7 +86,15 @@ function UserLogin() {
   // const toggleConfirmPasswordVisibility = () => {
   //   setshowConfirmPassword(!showConfirmPassword);
   // };
+useEffect(()=>{
+    if(localStorage.getItem("userid")!==null){
+      navigate("/user/homepage")
+    }else{
+      navigate("/user/login")
 
+    }
+
+  },[])
   return (
     <div>
       <LandingNav />

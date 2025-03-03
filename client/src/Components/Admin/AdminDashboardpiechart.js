@@ -32,9 +32,9 @@ const DashboardCharts = () => {
  
 
   useEffect(() => {
-    if (!localStorage.getItem("admin")) {
-      navigate("/adminlogin");
-    }
+    // if (!localStorage.getItem("admin")) {
+    //   navigate("/adminlogin");
+    // }
 
     const fetchData = async () => {
       try {

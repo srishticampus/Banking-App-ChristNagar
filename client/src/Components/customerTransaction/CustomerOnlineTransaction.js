@@ -43,11 +43,11 @@ function CustomerOnlineTransaction() {
     if (!formData.payamount || formData.payamount <= 0) {
       newErrors.payamount = "Amount must be greater than 0.";
     }
-    if (!formData.accountnumber || formData.accountnumber.length !== 11) {
-      newErrors.accountnumber = "Account number must be 11 characters long.";
+    if (!formData.accountnumber || formData.accountnumber.length !== 15) {
+      newErrors.accountnumber = "Account number must be 15 characters long.";
     }
-    if (!formData.ifsccode || formData.ifsccode.length !== 12) {
-      newErrors.ifsccode = "IFSC code must be 12 characters long.";
+    if (!formData.ifsccode || formData.ifsccode.length !== 11) {
+      newErrors.ifsccode = "IFSC code must be 11 characters long.";
     }
     if (!formData.chequeimage) {
       newErrors.chequeimage = "Cheque image is required.";

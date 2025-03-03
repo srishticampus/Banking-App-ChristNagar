@@ -153,7 +153,7 @@ function UserNavbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("userid");
-    alert("Logged out successfully");
+    alert("Do You Want To Logout");
     navigate("/user/login");
   };
 
