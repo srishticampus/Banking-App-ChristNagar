@@ -73,7 +73,7 @@ const ViewCreditCardApplication = (req, res) => {
 // for viewing user credit card applications
 const ViewUserCreditCardApplication = (req, res) => {
 
-    CreditCardSchema.find({ userid: req.params.id }).populate('userid')
+    CreditCardSchema.find({ userid: req.params.id ,approvalstatus:'Approved' , verificationstatus:true}).populate('userid')
         .then((response) => {
             if (response == "") {
                 res.json({ status: 200, msg: 'No Data Found', data: response });

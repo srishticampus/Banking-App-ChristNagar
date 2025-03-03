@@ -160,7 +160,7 @@ function AdminviewUserDetails() {
                           </label>
                         </Card.Text>
                       </div>
-                      {creditcard?.map((data) => (
+                      { creditcard?.map((data) => (
                         <div className="row">
                           <Card.Text className="col">
                             <p className="carddetails">{data?.cardtype}</p>

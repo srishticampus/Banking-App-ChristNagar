@@ -79,14 +79,14 @@ function CustomerApplyLoan() {
       newErrors.loanType = "Please select a loan type.";
       valid = false;
     }
-    if (
-      !loanDetails.loanAmount ||
-      isNaN(loanDetails.loanAmount) ||
-      loanDetails.loanAmount <= 0
-    ) {
-      newErrors.loanAmount = "Please enter a valid loan amount.";
-      valid = false;
-    }
+    if (!loanDetails.loanAmount || isNaN(loanDetails.loanAmount)) {
+  newErrors.loanAmount = "Please enter a valid loan amount.";
+  valid = false;
+} else if (loanDetails.loanAmount <= 10000) {
+  newErrors.loanAmount = "Please enter a loan amount greater than 10,000.";
+  valid = false;
+}
+
     if (!loanDetails.loanPurpose || loanDetails.loanPurpose.length < 10) {
       newErrors.loanPurpose =
         "Loan purpose must be at least 10 characters long.";

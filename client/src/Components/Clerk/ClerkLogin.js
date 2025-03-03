@@ -79,7 +79,15 @@ function ClerkLogin() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+ useEffect(()=>{
+    if(localStorage.getItem("clerkid")!==null){
+      navigate("/clerk/homepage")
+    }else{
+      navigate("/clerk/login")
 
+    }
+
+  },[])
   return (
     <div>
       <LandingNav />

@@ -198,15 +198,20 @@ function CustomerCreditApplyCardDetails() {
                                                             </div>
                                                             {errors.cardtype && <p style={{ color: "red" }}>{errors.cardtype}</p>}
                                                             <br />
-                                                            <label>Employement Status</label>
-                                                            <input
-                                                                type="text"
+                                                            <label>Employment Status</label>
+                                                            <select
                                                                 name="employmentstatus"
                                                                 value={form.employmentstatus}
                                                                 onChange={handleChange}
                                                                 className="CustLoanEmplDetailsformcontrol"
-                                                            />
+                                                            >
+                                                                <option value="">Select Employment Status</option>
+                                                                <option value="Salaried">Salaried</option>
+                                                                <option value="Self-Employed">Self-Employed</option>
+                                                                <option value="Retired">Retired</option>
+                                                            </select>
                                                             {errors.employmentstatus && <p style={{ color: "red" }}>{errors.employmentstatus}</p>}
+                                                            
                                                             <label>Salary(Monthly)</label>
                                                             <input
                                                               type="number"

@@ -21,16 +21,16 @@ function NormalTransaction() {
 
   // List of 10 predefined IFSC codes for external transactions
   const externalIfscCodes = [
-    "HDFC00012345",
-    "ICIC00056785",
-    "SBIN00098765",
-    "AXIS00043216",
-    "PUNB00011118",
-    "IDFC00022228",
-    "KOTK00033339",
-    "YESB00044442",
-    "BDBL00055554",
-    "CITI00066666",
+    "HDFC0001234",
+    "ICIC0005678",
+    "SBIN0009876",
+    "AXIS0004321",
+    "PUNB0001111",
+    "IDFC0002222",
+    "KOTK0003333",
+    "YESB0004444",
+    "BDBL0005555",
+    "CITI0006666",
   ];
 
   const handleChange = (e) => {
@@ -40,7 +40,7 @@ function NormalTransaction() {
     // Set IFSC Code for internal transactions
     if (name === "transactiontype") {
       if (value === "internal") {
-        updatedFormData.ifsccode = "UNICREDIT001";
+        updatedFormData.ifsccode = "UNICREDIT01";
       } else {
         updatedFormData.ifsccode = ""; // Reset IFSC code for external transactions
       }
@@ -79,9 +79,9 @@ function NormalTransaction() {
     }
     if (!formData.ifsccode) { 
       newErrors.ifsccode = "IFSC code is required.";
-  } else if (formData.ifsccode.length !== 12) {
-      newErrors.ifsccode = "IFSC code must be exactly 12 characters long.";
-  } else if (formData.transactiontype === "internal" && formData.ifsccode !== "UNICREDIT001") {
+  } else if (formData.ifsccode.length !== 11) {
+      newErrors.ifsccode = "IFSC code must be exactly 11 characters long.";
+  } else if (formData.transactiontype === "internal" && formData.ifsccode !== "UNICREDIT01") {
       newErrors.ifsccode = "Invalid IFSC Code for internal transactions.";
   }
   

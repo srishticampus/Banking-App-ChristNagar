@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import "../../Asserts/Styles/manager.css";
 import fmang from "../../Asserts/images/managerlogin.png";
 import { FiEyeOff } from "react-icons/fi";
@@ -61,11 +61,8 @@ function ManagerLogin() {
             if (!ActiveStatus) {
               alert("Your account has been deactivated. Please contact the admin.");
             } else {
-              localStorage.setItem("managerid", data._id);
-              setTimeout(()=>{
+              localStorage.setItem("managerid", data._id);           
                 navigate("/manager/home");
-              },1000)
-             
             }
           } else {
             alert("Login failed. Please check your credentials.");
@@ -85,7 +82,15 @@ function ManagerLogin() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+useEffect(()=>{
+    if(localStorage.getItem("managerid")!==null){
+      navigate("/manager/home")
+    }else{
+      navigate("/manager/login")
 
+    }
+
+  },[])
   return (
     <div>
       <LandingNav />
@@ -137,7 +142,7 @@ function ManagerLogin() {
                   <br />
                   <br />
                   <div className="text-center">
-                    <button name="submit" id="submit" onClick={onclk}>
+                    <button name="submit" id="submit" type="button" onClick={onclk}>
                       Sign In
                     </button>
                   </div>

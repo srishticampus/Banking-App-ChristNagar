@@ -169,7 +169,7 @@ function ClerkSideBar() {
   };
   const handleLogout = () => {
     localStorage.removeItem("clerkid");
-    alert("Please Login Again");
+    alert("Do You Want To Logout");
     navigate("/clerk/login");
   };
 

@@ -11,13 +11,14 @@ function LandingNav() {
     <div>
       <Navbar className="bg-dark">
         <Container>
-          <Navbar.Brand href="#home">
-            <img src={logo}></img>
+          <Navbar.Brand>
+          <Link to="/">
+            <img src={logo}></img></Link>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              <a className="me-5 text-light text-decoration-none">Home</a>
+              <Link to="/" className="me-5 text-light text-decoration-none">Home</Link>
               <Link to="/about" className="me-5 text-light text-decoration-none">About Us</Link>
               <a className="text-light text-decoration-none"></a>
               

@@ -24,7 +24,7 @@ function ManagerSidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("managerid");
-    alert("Please Login Again");
+    alert("Do You Want To Logout");
     navigate("/manager/login");
   };
 

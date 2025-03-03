@@ -38,7 +38,7 @@ const createTransaction = async (req, res) => {
     }
 
     // Deduct amount from user balance
-    user.userBalance -= payamount;
+    // user.userBalance -= payamount;
     await user.save(); // Save updated balance
 
     // Create transaction
@@ -148,19 +148,38 @@ const viewVerifiedTransactions = async (req, res) => {
 // Approve a transaction
 const toApproveTransactions = async (req, res) => {
   try {
-    const transaction = await OnlineTransaction.findByIdAndUpdate(
-      req.params.transactionid,
-      { transactionapproval: "Approved" },
-      { new: true }
-    );
+    // Find the transaction
+    const transaction = await OnlineTransaction.findById(req.params.transactionid);
     if (!transaction) {
       return res.status(404).json({ message: "Transaction not found." });
     }
-    res.status(200).json({ message: "Transaction Approved", data: transaction });
+
+    // Find the user associated with the transaction
+    const user = await User.findById(transaction.userid);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if user has enough balance before approving
+    if (user.userBalance < transaction.payamount) {
+      return res.status(400).json({ message: "Insufficient balance for approval." });
+    }
+
+    // Deduct the amount from the user's balance
+    user.userBalance -= transaction.payamount;
+    await user.save(); // Save updated balance
+
+    // Update the transaction status to approved
+    transaction.transactionapproval = "Approved";
+    await transaction.save(); // Save updated transaction status
+
+    res.status(200).json({ message: "Transaction Approved and amount deducted.", data: transaction });
   } catch (error) {
+    console.error("Error approving transaction:", error);
     res.status(500).json({ message: "Transaction approval failed", error });
   }
 };
+
 
 // Reject a transaction
 const toRejectTransactions = async (req, res) => {
