@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { MdOutlineFileUpload } from "react-icons/md";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams ,Link} from "react-router-dom";
 import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import UserNavbar from "../User/UserNavbar";
 import '../../Asserts/Styles/CustomerCreditApplyCardDetails.css';
@@ -13,6 +13,8 @@ function CustomerCreditApplyCardDetails() {
     const navigate = useNavigate()
     const { data } = useParams();
     console.log("pan-pan", data);
+    const [isChecked, setIsChecked] = useState(false);
+
 
     const [form, setForm] = useState({
         cardtype: "",
@@ -266,7 +268,21 @@ function CustomerCreditApplyCardDetails() {
                                                             </div>
                                                         </Col>
                                                         <center>
-                                                            <button id="Employ" onClick={handleSubmit}>
+                                                        <p>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              ></input>{" "}
+              &nbsp;I have read and agree to the Terms and Conditions of
+              Unicread, including the payment policies and dispute resolution
+              terms.
+              <Link to="/user/termsandcondition" target="_blank">
+                terms & conditions.
+              </Link>{" "}
+            </p>
+                                                            <button   disabled={!isChecked}
+                                                            type="submit" id="Employ" onClick={handleSubmit}>
                                                                 Confirm
                                                             </button>
                                                         </center>
@@ -278,7 +294,21 @@ function CustomerCreditApplyCardDetails() {
                                 </Container>
                             </div>
                         </Card.Body>
+                        
                     </Card>
+                    <p>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              ></input>{" "}
+              &nbsp;I have read and agree to the Terms and Conditions of
+              Unicread, including the payment policies and dispute resolution
+              terms.
+              <Link to="/user/termsandcondition" target="_blank">
+                terms & conditions.
+              </Link>{" "}
+            </p>
                 </center>
             </div>
         </div>

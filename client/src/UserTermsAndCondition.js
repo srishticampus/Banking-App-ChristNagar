@@ -5,7 +5,7 @@ import LandingFooter from './Components/Main/LandingFooter'
 function UserTermsAndCondition() {
   return (
     <div>
-<div className='container mt-5'><h2>Payment Terms and Conditions (Unicreadit)
+<div className='container mt-5'><h2>Payment Terms and Conditions (Unicredit)
 </h2>
 <p className='my-5'>
 1. Authorization & Consent: <br/>

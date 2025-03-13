@@ -15,16 +15,16 @@ const getUserTransactions = async (req, res) => {
         const onlineTransactions = await OnlineTransaction.find({ userid }).lean();
 
         let allTransactions = [
-            ...waterBills.map(bill => ({ ...bill, type: 'WaterBill' })),
-            ...electricBills.map(bill => ({ ...bill, type: 'ElectricBill' })),
+            ...waterBills.map(bill => ({ ...bill, type: 'Water Bill' })),
+            ...electricBills.map(bill => ({ ...bill, type: 'Electric Bill' })),
             ...payments.map(payment => ({ ...payment, type: 'Mobile recharge' })),
-            ...normalTransactions.map(transaction => ({ ...transaction, type: 'NormalTransaction' })),
-            ...onlineTransactions.map(transaction => ({ ...transaction, type: 'OnlineTransaction' })),
+            ...normalTransactions.map(transaction => ({ ...transaction, type: 'Normal Transaction' })),
+            ...onlineTransactions.map(transaction => ({ ...transaction, type: 'Online Transaction' })),
         ];
 
     console.log(allTransactions,"");
-    
-        allTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+    allTransactions.sort((a, b) => a.time-b.time)
+    allTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         res.status(200).json({ success: true, data: allTransactions });
     } catch (error) {
@@ -43,10 +43,10 @@ const getAllTransactions = async (req, res) => {
         const onlineTransactions = await OnlineTransaction.find().populate('userid').lean();
 
         let allTransactions = [
-            ...waterBills.map(bill => ({ ...bill, type: 'WaterBill' })),
-            ...electricBills.map(bill => ({ ...bill, type: 'ElectricBill' })),
+            ...waterBills.map(bill => ({ ...bill, type: 'Water Bill' })),
+            ...electricBills.map(bill => ({ ...bill, type: 'Electric Bill' })),
             ...payments.map(payment => ({ ...payment, type: 'Mobile recharge' })),
-            ...normalTransactions.map(transaction => ({ ...transaction, type: 'NormalTransaction' })),
+            ...normalTransactions.map(transaction => ({ ...transaction, type: 'Normal Transaction' })),
             ...onlineTransactions.map(transaction => ({ ...transaction, type: 'Online Cheque Transaction' })),
         ];
 

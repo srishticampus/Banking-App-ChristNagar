@@ -60,6 +60,14 @@ const payElectricBill = async (req, res) => {
     user.userBalance -= amount;
     await user.save();
 
+    // Get current date and time (formatted as HH:mm)
+    const now = new Date();
+    const formattedTime = now.toLocaleTimeString("en-US", {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    }); // Example: "14:30"
+
     // Create and save new electric bill record
     const newBill = new Electricbill({
       userid,
@@ -68,7 +76,8 @@ const payElectricBill = async (req, res) => {
       amount,
       month,
       year,
-      date: new Date(), // Save the current date
+      date: now, // Save current date
+      time: formattedTime, // Save time in HH:mm format
     });
 
     const savedBill = await newBill.save();
@@ -85,6 +94,8 @@ const payElectricBill = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
+
 
 const payWaterBill = async (req, res) => {
   console.log(req.body, "p");
@@ -119,6 +130,14 @@ const payWaterBill = async (req, res) => {
     user.userBalance -= amount;
     await user.save();
 
+    // Get current date and time (formatted as HH:mm)
+    const now = new Date();
+    const formattedTime = now.toLocaleTimeString("en-US", {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    }); // Example: "14:30"
+
     // Create new water bill record
     const newBill = new waterbillschema({
       userid,
@@ -127,7 +146,8 @@ const payWaterBill = async (req, res) => {
       amount,
       month,
       year,
-      date: new Date(),
+      date: now, // Save current date
+      time: formattedTime, // Save time in HH:mm format
     });
 
     const savedBill = await newBill.save();
@@ -145,5 +165,42 @@ const payWaterBill = async (req, res) => {
   }
 };
 
+const viewElectricBill = async (req, res) => {
+  try {
+    const { billId } = req.params;
 
-module.exports = { payElectricBill, payWaterBill };
+    // Find the electric bill by ID
+    const bill = await Electricbill.findById(billId).populate("userid")
+
+    if (!bill) {
+      return res.status(404).json({ msg: "Electric bill not found." });
+    }
+
+    res.status(200).json({ msg: "Electric bill retrieved successfully.", data: bill });
+  } catch (error) {
+    console.error("Error fetching electric bill:", error);
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+const viewWaterBill = async (req, res) => {
+  try {
+    const { billId } = req.params;
+
+    // Find the water bill by ID
+    const bill = await waterbillschema.findById(billId).populate("userid")
+
+    if (!bill) {
+      return res.status(404).json({ msg: "Water bill not found." });
+    }
+
+    res.status(200).json({ msg: "Water bill retrieved successfully.", data: bill });
+  } catch (error) {
+    console.error("Error fetching water bill:", error);
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+
+
+module.exports = { payElectricBill, payWaterBill,viewElectricBill,viewWaterBill };

@@ -39,6 +39,10 @@ transactionverification: {
     enum: ['Pending', 'Approved', 'Rejected'],
     default: 'Pending'
 },
+time:{
+  type:String,
+  required: true
+}
 });
 
 module.exports = mongoose.model("onlinechequetransaction", OnlineTransaction);

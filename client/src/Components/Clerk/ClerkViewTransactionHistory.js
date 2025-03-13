@@ -126,6 +126,7 @@ function ClerkViewTransactionHistory() {
                   <th id="th">Beneficiary Acc No</th>
                   <th id="th">Transaction ID</th>
                   <th id="th">Transaction Status</th>
+                  <th id="th">Date & Time</th>
                   <th id="th">Amount</th>
                 </tr>
               </thead>
@@ -139,6 +140,7 @@ function ClerkViewTransactionHistory() {
                     </td>
                     <td>{data?._id}</td>
                     <td>{data?.type}</td>
+                    <td> {new Date(data?.date).getDate()}/{new Date(data?.date).getMonth() + 1}/{new Date(data?.date).getFullYear()} {data?.time}</td>
                     <td>{data?.amount ? data?.amount : data?.payamount}</td>
                   </tr>
                 ))}

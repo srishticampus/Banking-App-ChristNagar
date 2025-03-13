@@ -30,6 +30,10 @@ const WaterbillSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,  
   },
+  time: { 
+        type: String, 
+        required: true 
+    } 
 });
 
 const waterbill = mongoose.model("waterbill", WaterbillSchema);

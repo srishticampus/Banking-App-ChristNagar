@@ -144,6 +144,7 @@ function AdminViewTransactions() {
                 <th>Transaction Type</th>
                 <th>IFSC Code</th>
                 <th>Account Number</th>
+                <th>Time</th>
                 <th>Amount</th>
                 {showOnlineTransactions && <th>Cheque Image</th>}
               </tr>
@@ -169,6 +170,7 @@ function AdminViewTransactions() {
                     </td>
                     <td>{data?.ifsccode}</td>
                     <td>{data?.accountnumber}</td>
+                    <td>{data?.time}</td>
                     <td>{data?.payamount}/-</td>
                     {showOnlineTransactions && (
                       <td>
