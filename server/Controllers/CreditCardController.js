@@ -87,6 +87,22 @@ const ViewUserCreditCardApplication = (req, res) => {
         });
 };
 
+const ViewAUserCreditCardApplication = (req, res) => {
+
+    CreditCardSchema.find({ userid: req.params.id}).populate('userid')
+        .then((response) => {
+            if (response == "") {
+                res.json({ status: 200, msg: 'No Data Found', data: response });
+            }
+            else {
+                res.json({ status: 200, msg: 'Data fetch Successful', data: response });
+            }
+        })
+        .catch((error) => {
+            res.json({ status: 500, msg: 'Data fetch failed', data: error });
+        });
+};
+
 // for viewing one credit card application
 const ViewSingleCreditCardApplication = (req, res) => {
     console.log(req.params.data);
@@ -235,4 +251,4 @@ const ApprovedCreditCardApplication = (req, res) => {
         })
 }
 
-module.exports = { CustomerPersonalDetails, upload, NonApprovedCreditCardApplication, ApproveCreditCardApplication, ApprovedCreditCardApplication,ViewUserCreditCardApplication, VerifiedCreditCardApplication, VerifyCreditCardApplication, NonVerifiedCreditCardApplication, ViewSingleCreditCardApplication, ViewCreditCardApplication, logRequestMiddleware ,RejectCreditCardApplication};
+module.exports = { CustomerPersonalDetails,ViewAUserCreditCardApplication, upload, NonApprovedCreditCardApplication, ApproveCreditCardApplication, ApprovedCreditCardApplication,ViewUserCreditCardApplication, VerifiedCreditCardApplication, VerifyCreditCardApplication, NonVerifiedCreditCardApplication, ViewSingleCreditCardApplication, ViewCreditCardApplication, logRequestMiddleware ,RejectCreditCardApplication};
