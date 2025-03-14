@@ -6,11 +6,13 @@ import axiosMultipartInstance from "../../apis/axiosMultipartInstance";
 import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
 import { FaArrowLeft } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 function CustomerLoanEmployeDetails() {
+  const [isChecked, setIsChecked] = useState(false);
   const location = useLocation();
   const combinedData = location.state?.combinedData;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     nameofemployer: "",
@@ -43,9 +45,9 @@ function CustomerLoanEmployeDetails() {
   };
 
   const validate = () => {
-
     let newErrors = {};
-    if (!form.nameofemployer.trim()) newErrors.nameofemployer = "Employer name is required.";
+    if (!form.nameofemployer.trim())
+      newErrors.nameofemployer = "Employer name is required.";
     if (!form.employercontact.trim()) {
       newErrors.employercontact = "Employer contact is required.";
     } else if (!/^\d{10}$/.test(form.employercontact)) {
@@ -59,7 +61,7 @@ function CustomerLoanEmployeDetails() {
     if (!form.salary || Number(form.salary) <= 10000) {
       newErrors.salary = "Your salary must be greater than 10000.";
     }
-  
+
     if (!form.position.trim()) newErrors.position = "Position is required.";
     if (!form.salaryslip) newErrors.salaryslip = "Salary slip is required.";
 
@@ -92,25 +94,26 @@ function CustomerLoanEmployeDetails() {
     }
 
     try {
-      const response = await axiosMultipartInstance.post(`/saveloandata/${userid}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axiosMultipartInstance.post(
+        `/saveloandata/${userid}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log("Success:", response.data);
-      if(response.data.status==400){
-        alert(response.data.msg)
-      }else{
-        alert(response.data.msg)
-        navigate("/user/applyloan")
+      if (response.data.status == 400) {
+        alert(response.data.msg);
+      } else {
+        alert(response.data.msg);
+        navigate("/user/applyloan");
       }
-      
     } catch (error) {
       console.error("Error:", error.response || error);
       alert("Failed to submit the application. Please try again.");
     }
-
-
   };
 
   useEffect(() => {
@@ -119,16 +122,16 @@ function CustomerLoanEmployeDetails() {
 
   return (
     <div>
-    <UserNavbar/>
-      <div className="CustLoanEmplDetails" style={{minHeight:"100vh"}}>
+      <UserNavbar />
+      <div className="CustLoanEmplDetails" style={{ minHeight: "150vh" }}>
         <Container>
-        <button
-                    className="btn btn-light"
-                    type="button"
-                    onClick={UserbackButton}
-                  >
-                    <FaArrowLeft />
-                  </button>
+          <button
+            className="btn btn-light"
+            type="button"
+            onClick={UserbackButton}
+          >
+            <FaArrowLeft />
+          </button>
           <Row className="justify-content-center">
             <Col md={8} className="text-center">
               <div className="progress-bar-container">
@@ -151,7 +154,10 @@ function CustomerLoanEmployeDetails() {
           </Row>
         </Container>
         <center>
-          <Card className="CustLoanEmplDetailshorizontalcard" style={{ width: "900px", height: "400px" }}>
+          <Card
+            className="CustLoanEmplDetailshorizontalcard"
+            style={{ width: "900px", height: "500px" }}
+          >
             <Card.Body>
               <div className="CustLoanEmplDetailscustomerform">
                 <Container className="CustLoanEmplDetailsCustcontainer1">
@@ -170,7 +176,11 @@ function CustomerLoanEmployeDetails() {
                                 value={form.nameofemployer}
                                 onChange={handleChange}
                               />
-                              {errors.nameofemployer && <div style={{ color: "red" }}>{errors.nameofemployer}</div>}
+                              {errors.nameofemployer && (
+                                <div style={{ color: "red" }}>
+                                  {errors.nameofemployer}
+                                </div>
+                              )}
                               <label>Work Experience</label>
                               <input
                                 type="number"
@@ -179,7 +189,11 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.workexp && <div style={{ color: "red" }}>{errors.workexp}</div>}
+                              {errors.workexp && (
+                                <div style={{ color: "red" }}>
+                                  {errors.workexp}
+                                </div>
+                              )}
                               <label>Position</label>
                               <input
                                 type="text"
@@ -188,7 +202,11 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.position && <div style={{ color: "red" }}>{errors.position}</div>}
+                              {errors.position && (
+                                <div style={{ color: "red" }}>
+                                  {errors.position}
+                                </div>
+                              )}
                             </Col>
                           </Row>
                         </Container>
@@ -207,7 +225,11 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.employercontact && <div style={{ color: "red" }}>{errors.employercontact}</div>}
+                              {errors.employercontact && (
+                                <div style={{ color: "red" }}>
+                                  {errors.employercontact}
+                                </div>
+                              )}
                               <label>Salary</label>
                               <input
                                 type="number"
@@ -216,7 +238,11 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.salary && <div style={{ color: "red" }}>{errors.salary}</div>}
+                              {errors.salary && (
+                                <div style={{ color: "red" }}>
+                                  {errors.salary}
+                                </div>
+                              )}
                               <label>Salary Slip</label>
                               <input
                                 type="file"
@@ -224,13 +250,34 @@ function CustomerLoanEmployeDetails() {
                                 onChange={handleFileChange}
                                 className="CustLoanEmplDetailsformcontrol"
                               />
-                              {errors.salaryslip && <div style={{ color: "red" }}>{errors.salaryslip}</div>}
+                              {errors.salaryslip && (
+                                <div style={{ color: "red" }}>
+                                  {errors.salaryslip}
+                                </div>
+                              )}
                               <div className="CustLoanEmplDetailsCustIcon">
                                 <MdOutlineFileUpload />
                               </div>
                             </Col>
+                            <div >
+                            <p>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              ></input>{" "}
+              &nbsp;I have read and agree to the Terms and Conditions of
+              Unicread, including the payment policies and dispute resolution
+              terms.
+              <Link to="/user/termsandcondition" target="_blank">
+                terms & conditions.
+              </Link>{" "}
+            </p>
+                            </div>
+
                             <center>
-                              <button id="Employ" onClick={handleSubmit}>
+                              <button id="Employ"  disabled={!isChecked}
+                              type="submit"  onClick={handleSubmit}>
                                 Confirm
                               </button>
                             </center>
@@ -245,7 +292,7 @@ function CustomerLoanEmployeDetails() {
           </Card>
         </center>
       </div>
-      <LandingFooter/>
+      <LandingFooter />
     </div>
   );
 }

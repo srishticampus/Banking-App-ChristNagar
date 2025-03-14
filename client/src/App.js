@@ -139,7 +139,7 @@ function App() {
         <Route path="/user/applayloanpersonaldetails" element={<CustomerLoanPersonalDetails />} />
         <Route path="/user/viewloandetails/:data" element={<CustomerViewLoanDetails/>} />
 
-        <Route path="/user/applylcreaditcard" element={<CustomerApplyCreaditCard />} />
+        <Route path="/user/applylcreaditcard" element={<CustomerApplyCreaditCard />} /> 
         <Route path="/user/creditcarddetails/:data" element={<UserCreditApplicationDetails />} />
         <Route path="/user/personaldetails" element={<CustomerCreditCardApply />} />
         <Route path="/user/carddetails/:data" element={<CustomerCreditApplyCardDetails />} />

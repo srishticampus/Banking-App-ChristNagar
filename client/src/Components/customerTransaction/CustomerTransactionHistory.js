@@ -131,7 +131,8 @@ function CustomerTransactionHistory() {
                 <th id="th">Beneficiary Name</th>
                 <th id="th">Beneficiary Acc No</th>
                 <th id="th">Transaction ID</th>
-                <th id="th">Transaction Status</th>
+                <th id="th">Transaction Type</th>
+                <th id="th">Date & Time</th>
                 <th id="th">Amount</th>
               </tr>
             </thead>
@@ -139,10 +140,11 @@ function CustomerTransactionHistory() {
               {currentRows.map((data, index) => (
                 <tr key={data?._id}>
                   <td>{indexOfFirstRow + index + 1}</td>
-                  <td>{data?.Payeename?data?.Payeename :"------"}</td>
+                  <td>{data?.payeename?data?.payeename :"------"}</td>
                   <td>{data?.accountnumber?data?.accountnumber :"------"}</td>
                   <td>{data?._id}</td>
                   <td>{data?.type}</td>
+                  <td> {new Date(data?.date).getDate()}/{new Date(data?.date).getMonth() + 1}/{new Date(data?.date).getFullYear()} {data?.time}</td>
                   <td>{data?.amount?data?.amount :data?.payamount}/-</td>                
                 </tr>
               ))}

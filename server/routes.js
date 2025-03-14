@@ -97,11 +97,15 @@ router.post('/mobilerechargeplan', mobileplans.saverechargePlan)
 router.post('/mobilerechargeplanview', mobileplans.findmobileplans)
 router.post('/payElectricBill', paybill.payElectricBill)
 router.post('/payWaterBill', paybill.payWaterBill)
+router.get("/electric-bill/:billId", paybill.viewElectricBill);
+router.get("/water-bill/:billId", paybill.viewWaterBill);
 router.post("/mobileRechargePayment", mobilerecharge.mobilepayment);
 
 
 router.post('/onlinetransaction', transaction.upload,transaction.createTransaction)
+router.post('/getTransactionById/:transactionid',transaction.getTransactionById)
 router.post('/normaltransaction',normaltransaction.createNormalTransaction)
+router.post('/getTransactionById/:transactionid',normaltransaction.getTransactionById)
 router.post('/findbillbyuserid/:userid',bills.getUserTransactions)
 router.post('/findallbill',bills.getAllTransactions)
 

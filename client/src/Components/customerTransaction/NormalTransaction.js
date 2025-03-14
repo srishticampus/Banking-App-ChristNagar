@@ -5,9 +5,13 @@ import UserNavbar from "../User/UserNavbar";
 import LandingFooter from "../Main/LandingFooter";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Table from "react-bootstrap/Table";
 
 function NormalTransaction() {
   const [isChecked, setIsChecked] = useState(false);
+    const [payslip, setPayslip] = useState({});
   const [formData, setFormData] = useState({
     payeename: "",
     payamount: "",
@@ -18,6 +22,11 @@ function NormalTransaction() {
   const [errors, setErrors] = useState({});
   const [dailyTotal, setDailyTotal] = useState(0);
   const userid = localStorage.getItem("userid");
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
 
   // List of 10 predefined IFSC codes for external transactions
   const externalIfscCodes = [
@@ -57,7 +66,99 @@ function NormalTransaction() {
       navigate(-1);
     }
   };
+  const handleDownload = () => {
+    const modalContent = `
+    <html>
+    <head>
+      <title>Normal Transaction</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+          padding: 0;
+          background-color: #f8f9fa;
+        }
+        .container {
+          width: 80%;
+          margin: auto;
+          padding: 20px;
+          background-color: white;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          border-radius: 10px;
+        }
+        h2, h4 {
+          text-align: center;
+        }
+        .details {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+        }
+        th, td {
+          padding: 10px;
+          text-align: center;
+          border: 1px solid #ddd;
+        }
+        .footer {
+          text-align: center;
+          margin-top: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h2>Normal Transaction</h2>
+        <div class="details">
+          <div>
+            <p><b>Payee Name:</b> ${payslip?.payeename || "N/A"}</p>
+            <p><b>Transaction ID:</b> ${payslip?._id || "N/A"}</p>
+          </div>
+          <div>
+            <p><b>Date:</b> ${new Date(payslip?.date).getDate()}/${
+      new Date(payslip?.date).getMonth() + 1
+    }/${new Date(payslip?.date).getFullYear()}</p>
+            <p><b>Time:</b> ${payslip?.time || "N/A"}</p>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>S No</th>
+              <th>Description</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Normal Transaction</td>
+              <td>₹${payslip?.payamount || 0}/-</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="footer">
+          <p>Thank you for your payment!</p>
+        </div>
+      </div>
+    </body>
+    </html>
+    `;
 
+    const blob = new Blob([modalContent], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "transactionslip.html";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
   const validateForm = () => {
     const newErrors = {};
 
@@ -101,6 +202,14 @@ function NormalTransaction() {
     try {
       const response = await axiosInstance.post("/normaltransaction", data);
       alert(response.data.message);
+      axiosInstance
+        .post(`/getTransactionById/${response.data.data._id}`)
+        .then((result) => {
+          console.log(result);
+        });
+
+      setPayslip(response.data.data);
+      setShow(true)
       setDailyTotal((prevTotal) => prevTotal + Number(formData.payamount));
       setFormData({
         payeename: "",
@@ -239,6 +348,63 @@ function NormalTransaction() {
             </div>
           </form>
         </div>
+        <Modal size="lg" show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>View Payment Slip</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="text-center">
+                <h4>Normal Transaction</h4>
+              </div>
+              <div className="container m-5">
+                <div className="row">
+                  <div className="col-7">
+                    <b>Transaction ID : </b> {payslip?._id}
+                    <br />
+                                        <b>Account Number : </b> {payslip?.accountnumber}
+                                        <br/>
+
+                    <b>IFSC Code : </b> {payslip?.ifsccode}
+                   
+                    <br />
+                  </div>
+                  <div className="col-4">
+                    <b>Date : </b>{" "}
+                    {new Date(payslip?.date).toLocaleDateString("en-GB")}
+                    <br/>
+                    <b>Time : </b> {payslip?.time}
+                  </div>
+                </div>
+                <Table bordered className="w-75  mt-5">
+                  <thead>
+                    <tr>
+                      <th>S No</th>
+                      <th>Payee Name </th>
+                      <th>Description</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>{payslip?.payeename}</td>
+                      <td>Normal Transaction</td>
+                      <td>₹{payslip?.payamount}/-</td>
+                    </tr>
+                  </tbody>
+                </Table>
+                <b>Amount Paid : ₹{payslip?.payamount}/-</b>{" "}
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+                         <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={handleDownload}>
+              Download
+            </Button>
+            </Modal.Footer>
+          </Modal>
       </div>
       <LandingFooter />
     </div>

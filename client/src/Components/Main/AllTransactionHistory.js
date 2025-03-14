@@ -98,6 +98,7 @@ function AllTransactionHistory() {
                   <th id="th">Payee</th>
                   <th id="th">Payee Acc No</th>
                   <th id="th">IFSC</th>
+                  <th id="th">Time</th>
                   <th id="th">Amount</th>
                 </tr>
               </thead>
@@ -115,6 +116,7 @@ function AllTransactionHistory() {
                     <td><p>{data?.payeename ? data?.payeename : "------"}</p></td>
                     <td><p>{data?.accountnumber ? data?.accountnumber : "------"}</p></td>
                     <td><p>{data?.ifsccode ? data?.ifsccode : "------"}</p></td>
+                    <td><p>{data?.time}</p></td>
                     <td>{data?.amount ? data?.amount : data?.payamount}</td>
                   </tr>
                 ))}

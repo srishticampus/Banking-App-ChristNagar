@@ -42,11 +42,13 @@ const createNormalTransaction = async (req, res) => {
       accountnumber,
       transactiontype,
       userid,
+      time: new Date().toLocaleTimeString()
+
     });
 
     await transaction.save();
 
-    res.status(201).json({ message: "Transaction done successfully." });
+    res.status(201).json({ message: "Transaction done successfully.",data:transaction });
   } catch (error) {
     console.error("Error creating transaction:", error);
     res.status(500).json({ message: "Internal server error." });
@@ -154,4 +156,15 @@ const viewAlllNormaTransactions = async (req, res) => {
   }
 };
 
-module.exports = { createNormalTransaction,viewAlllNormaTransactions };
+const getTransactionById = async (req, res) => {
+  try {
+    const transaction = await NormalTransactionSchema.findById(req.params.transactionid);
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found." });
+    }
+    res.status(200).json({ message: "Transaction found", data: transaction });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch transaction", error });
+  }
+};
+module.exports = { createNormalTransaction,viewAlllNormaTransactions ,getTransactionById};

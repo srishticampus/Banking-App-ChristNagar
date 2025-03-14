@@ -3,9 +3,14 @@ import axios from "axios";
 import axiosInstance from "../../apis/axiosinstance";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Table from 'react-bootstrap/Table';
 
 function CustomerWaterBill() {
   const[isChecked,setIsChecked]=useState(false)
+    const[payslip,setPayslip]=useState({})
+  
   const [formData, setFormData] = useState({
     billNumber: "",
     accountNumber: "",
@@ -26,10 +31,107 @@ function CustomerWaterBill() {
       navigate(-1);
     }
   };
+   const [show, setShow] = useState(false);
+  
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
   let userid=localStorage.getItem("userid")
   const [loading, setLoading] = useState(false); // To show loading state
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handleDownload = () => {
+    const modalContent = `
+    <html>
+    <head>
+      <title>Water Bill</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+          padding: 0;
+          background-color: #f8f9fa;
+        }
+        .container {
+          width: 80%;
+          margin: auto;
+          padding: 20px;
+          background-color: white;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          border-radius: 10px;
+        }
+        h2, h4 {
+          text-align: center;
+        }
+        .details {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+        }
+        th, td {
+          padding: 10px;
+          text-align: center;
+          border: 1px solid #ddd;
+        }
+        .footer {
+          text-align: center;
+          margin-top: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h2>Water Authority</h2>
+        <h4>Online Water Bill</h4>
+        <div class="details">
+          <div>
+            <p><b>Customer Name:</b> ${payslip?.userid?.username || 'N/A'}</p>
+            <p><b>Bill ID:</b> ${payslip?.billnumber || 'N/A'}</p>
+          </div>
+          <div>
+            <p><b>Date:</b> ${new Date(payslip?.date).getDate()}/${new Date(payslip?.date).getMonth() + 1}/${new Date(payslip?.date).getFullYear()}</p>
+            <p><b>Time:</b> ${payslip?.time || 'N/A'}</p>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>S No</th>
+              <th>Description</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Water Bill</td>
+              <td>₹${payslip?.amount || 0}/-</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="footer">
+          <p>Thank you for your payment!</p>
+        </div>
+      </div>
+    </body>
+    </html>
+    `;
+    
+    const blob = new Blob([modalContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'waterbill.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   const validateField = (name, value) => {
     let error = "";
@@ -95,11 +197,22 @@ function CustomerWaterBill() {
         });
 
         setSuccessMessage(response.data.msg);
+              const billid=response.data.data.bill._id
+
         setFormData({
           billNumber: "",
           accountNumber: "",
           amount: "",
         });
+        axiosInstance.get("/water-bill/"+billid).then((result)=>{
+                  setPayslip(result.data.data);
+                  
+                })
+                console.log(payslip,"m");
+                
+                setTimeout(() => {
+                  handleShow();
+                }, 3000);
       } catch (error) {
         console.error("Error submitting the form:", error);
         setErrorMessage(
@@ -198,6 +311,54 @@ function CustomerWaterBill() {
           <div className="alert alert-danger text-center">{errorMessage}</div>
         )}
       </div>
+      <>
+        <Modal size="lg" show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>View Details</Modal.Title>
+          </Modal.Header>
+          <div className="text-center mt-4">
+            {" "}
+            <h4>Water Authority</h4>
+            <h5>ONLINE BILL</h5>
+          </div>
+
+          <Modal.Body>
+            <div className="container m-5">
+              {" "}
+              <div className="row">
+                <div className="col"><b>Customer Name :</b> <label>{ payslip?.userid?.username}</label><br/><b>Bill ID :</b><label>{payslip.billnumber}</label></div>
+                <div className="col"><b>Receipt Date : </b><label>{new Date(payslip.date).getDate()}/{new Date(payslip.date).getMonth() + 1}/{new Date(payslip.date).getFullYear()}</label>
+<br/> <b>Time : </b> {payslip.time} </div>
+              </div>
+              <div><Table  bordered  className="w-75  mt-4">
+              <thead>
+                <tr>
+                  <th>S No</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Water Bill</td>
+                  <td>{payslip.amount}/-</td>
+                </tr>
+              </tbody>
+            </Table></div>
+           <b>Amount Paid : ₹{payslip.amount}/-</b> </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={handleDownload}>
+            Download
+          </Button>
+          
+          </Modal.Footer>
+        </Modal>
+      </>
     </div>
   );
 }

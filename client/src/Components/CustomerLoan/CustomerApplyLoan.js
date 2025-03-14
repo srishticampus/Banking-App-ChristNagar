@@ -349,7 +349,7 @@ function CustomerApplyLoan() {
                 </Row>
                 <br />
                 <br />
-                <center>
+                <center className="mt-4">
                   <Button type="submit" id="custloanapplysubmitbtn">
                     Next &nbsp;
                     <FaArrowRightLong />

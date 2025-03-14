@@ -29,6 +29,10 @@ const ElectricbillSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,  
       },
+      time: { 
+        type: String, 
+        required: true 
+    } 
 })
 
 const Electricbill = mongoose.model("electricbill",ElectricbillSchema)
