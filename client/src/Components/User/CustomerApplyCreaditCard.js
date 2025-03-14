@@ -31,7 +31,7 @@ function CustomerApplyCreditCard() {
         const data = localStorage.getItem("userid");
 
         try {
-            const response = await axiosInstance.post(`/viewusercreditapplication/${data}`);
+            const response = await axiosInstance.post(`/viewausercreditapplication/${data}`);
             console.log('resp-resp', response);
             if (Array.isArray(response.data.data) && response.data.data.length > 0) {
                 setUser(response.data.data);

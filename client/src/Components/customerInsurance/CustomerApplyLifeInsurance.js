@@ -305,7 +305,7 @@ function CustomerApplyLifeInsurance() {
         <br />
         <div className="container">
           <div className="row">
-            {insurance.map((data, index) => (
+            {insurance.length>0 ? insurance.map((data, index) => (
               <div className="col-md-4 mb-5" key={index}>
                 <div className="lifeinsuarancecard">
                   <div className="details">
@@ -353,7 +353,7 @@ function CustomerApplyLifeInsurance() {
                 </div>
                 <div></div>
               </div>
-            ))}
+            )):<h6 classname="text-center"> Currently No Insurance Available</h6>}
           </div>
         </div>
       </div>

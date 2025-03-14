@@ -288,7 +288,7 @@ function CustomerElectricityBill() {
           checked={isChecked}
           onChange={(e) => setIsChecked(e.target.checked)}
         ></input>{" "}
-        &nbsp;I have read and agree to the Terms and Conditions of Unicread,
+        &nbsp;I have read and agree to the Terms and Conditions of Unicredit,
         including the payment policies and dispute resolution terms.
         <Link to="/user/termsandcondition" target="_blank">
           terms & conditions.
