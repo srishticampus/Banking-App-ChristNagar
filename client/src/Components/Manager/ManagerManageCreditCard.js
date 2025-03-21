@@ -12,34 +12,42 @@ function ManagerManageCreditCard() {
     const [verified, setverified] = useState(false)
     const [buttonState, setButtonState] = useState(false)
     const [vDbData, setVDbData] = useState([])
+    const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
     const ApplicationData = async () => {
-
         try {
-            const response = await axiosInstance.post('/nonapprovedcreditapplication')
-            console.log("user list", response.data)
-            // if(response.data.data.approvalstatus=="Pending")
-            setDbData(response.data.data)
+            const response = await axiosInstance.post('/nonapprovedcreditapplication');
+            setDbData(response?.data?.data || []);  // Fallback to empty array
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            setDbData([]);  // Prevents undefined state
         }
-        catch (error) {
-            console.error('error fetching user data?:', error)
-        }
+    };
+    
 
-    }
+    // const VerifiedApplicationData = async () => {
+
+    //     try {
+    //         const response = await axiosInstance.post('/approvedcreditapplication')
+    //         console.log('userlist', `response.data`)
+    //         setVDbData(response.data.data)
+    //     }
+    //     catch (error) {
+    //         console.error('error fetching user data?:', error)
+    //     }
+
+    // }
 
     const VerifiedApplicationData = async () => {
-
         try {
-            const response = await axiosInstance.post('/approvedcreditapplication')
-            console.log('userlist', `response.data`)
-            setVDbData(response.data.data)
+            const response = await axiosInstance.post('/approvedcreditapplication');
+            setVDbData(response?.data?.data || []); // Fallback to empty array
+        } catch (error) {
+            console.error('Error fetching verified user data:', error);
+            setVDbData([]);  // Prevents undefined state
         }
-        catch (error) {
-            console.error('error fetching user data?:', error)
-        }
-
-    }
+    };
 
     // for button css and switching the table
     const ApplicationState = () => {
@@ -63,7 +71,9 @@ function ManagerManageCreditCard() {
     useEffect(() => {
         VerifiedApplicationData();
     }, [])
-
+    const filteredData = (verified ? vDbData : DbData).filter(data =>
+        data?.userid?.username?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return (
 
         <div className='MML-MainDiv'>
@@ -80,7 +90,7 @@ function ManagerManageCreditCard() {
                         <h1 className='MML-h1'>MANAGE </h1>
                         <h1 className='MML-h2'>CREDIT CARD</h1>
                     </div>
-
+                    
                     <div className='MML-MainDiv-ContainDiv-ButtonDiv'>
 
                         <button className={buttonState == false ? 'MML-Button1' : 'MML-Button2'} id='appbutton' onClick={ApplicationState}>Application</button>
@@ -90,8 +100,17 @@ function ManagerManageCreditCard() {
 
                     <div className='MML-MainDiv-ContainDiv-Content'>
 
-                        <div>
-                            <h3 className='MML-h3'>View Request</h3>
+                        <div className='row'>
+                        <div className='col-8'><h3 className='MML-h3'>View Request</h3></div>
+                            <div className='col-3'> <div className='MML-SearchDiv'>
+                            <input 
+                                type='text' 
+                                placeholder='Search by name...' 
+                                className='form-control MML-SearchInput' 
+                                value={searchQuery} 
+                                onChange={(e) => setSearchQuery(e.target.value)} 
+                            />
+                        </div></div>
                         </div>
                         <div className='MML-Table-Contain-Shadow'>
                             <table className='MML-Table'>
@@ -117,9 +136,9 @@ function ManagerManageCreditCard() {
                                 <tbody className='MML-Table-tbody'>
 
                                     {verified == false ? (
-                                        DbData?.length > 0 ? (
+                                        filteredData?.length > 0 ? (
 
-                                            DbData?.map((data, index) => {
+                                            filteredData?.map((data, index) => {
 
                                                 return (
 
@@ -158,9 +177,9 @@ function ManagerManageCreditCard() {
 
                                         //if the Approved status is true
 
-                                        vDbData?.length > 0 ? (
+                                        filteredData?.length > 0 ? (
 
-                                            vDbData.map((data, index) => {
+                                            filteredData.map((data, index) => {
 
                                                 return (
 
