@@ -178,7 +178,10 @@ function CustomerOnlineTransaction() {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert(response.data.message);
+            alert("Transaction request sended to bank")
+
+      // alert(response.data.message);
+
       console.log(response.data, "o");
       axiosInstance
         .post(`/getTransactionById/${response.data.data._id}`)
@@ -187,7 +190,6 @@ function CustomerOnlineTransaction() {
         });
 
       setPayslip(response.data.data);
-      setShow(true); // Show modal after fetching data
     } catch (error) {
       console.error("Error fetching transaction:", error);
       alert("Failed to fetch transaction details.");
@@ -323,7 +325,7 @@ function CustomerOnlineTransaction() {
               </button>
             </div>
           </form>
-          <Modal size="lg" show={show} onHide={handleClose}>
+          {/*<Modal size="lg" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>View Payment Slip</Modal.Title>
             </Modal.Header>
@@ -379,7 +381,7 @@ function CustomerOnlineTransaction() {
               Download
             </Button>
             </Modal.Footer>
-          </Modal>
+          </Modal>*/}
         </div>
       </div>
       <LandingFooter />
